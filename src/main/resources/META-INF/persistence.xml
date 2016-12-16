@@ -1,0 +1,28 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+    <persistence-unit name="persistence-unit">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>lemming.api.lemma.Lemma</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="${db.driver}"/>
+            <property name="hibernate.connection.url" value="${db.url}"/>
+            <property name="hibernate.connection.username" value="${db.username}"/>
+            <property name="hibernate.connection.password" value="${db.password}"/>
+            <property name="hibernate.current_session_context_class" value="thread"/>
+            <property name="hibernate.c3p0.idleTestPeriod" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.timeout" value="5000"/>
+            <property name="hibernate.dialect" value="${db.dialect}"/>
+            <property name="hibernate.hbm2ddl.auto" value="${db.hbm2ddl.auto}"/>
+            <property name="hibernate.jdbc.batch_size" value="50"/>
+            <property name="hibernate.order_inserts" value="true"/>
+            <property name="hibernate.order_updates" value="true"/>
+            <property name="show_sql" value="false"/>
+            <property name="format_sql" value="false"/>
+        </properties>
+    </persistence-unit>
+</persistence>
