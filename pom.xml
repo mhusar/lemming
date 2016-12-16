@@ -1,11 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <name>API</name>
-  <groupId>lemming</groupId>
-  <artifactId>api</artifactId>
-  <version>1-SNAPSHOT</version>
-  <packaging>war</packaging>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>Lemming API</name>
+    <groupId>lemming</groupId>
+    <artifactId>lemming-api</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
   <properties>
     <maven.plugins.version>3.6.0</maven.plugins.version>
@@ -34,65 +34,17 @@
     </repository>
   </repositories>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty.version}</version>
-        <configuration>
-          <scanIntervalSeconds>10</scanIntervalSeconds>
-          <connectors>
-            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-              <port>8080</port>
-            </connector>
-          </connectors>
-          <webAppConfig
-            implementation="org.eclipse.jetty.maven.plugin.JettyWebAppContext">
-            <contextPath>${jetty.contextRoot}</contextPath>
-            <sessionHandler
-              implementation="org.eclipse.jetty.server.session.SessionHandler">
-              <sessionManager
-                implementation="org.eclipse.jetty.server.session.HashSessionManager">
-                <storeDirectory>${project.basedir}/target/jetty-sessions
-                </storeDirectory>
-                <idleSavePeriod>0</idleSavePeriod>
-                <savePeriod>5</savePeriod>
-              </sessionManager>
-            </sessionHandler>
-          </webAppConfig>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.plugins.version}</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-        <inherited>true</inherited>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>${maven.war.plugin.version}</version>
-      </plugin>
-    </plugins>
-  </build>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
   <dependencies>
 
