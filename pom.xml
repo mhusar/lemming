@@ -7,32 +7,18 @@
     <version>1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-  <properties>
-    <maven.plugins.version>3.6.0</maven.plugins.version>
-    <maven.war.plugin.version>3.0.0.</maven.war.plugin.version>
-    <java.version>1.8</java.version>
-    <cxf.version>3.1.8</cxf.version>
-    <hibernate.version>5.2.5.Final</hibernate.version>
-    <hibernate.validator.version>5.3.3.Final
-    </hibernate.validator.version>
-    <mysql.version>6.0.5</mysql.version>
-    <hsqldb.version>2.3.4</hsqldb.version>
-    <slf4j.version>1.7.21</slf4j.version>
-    <log4j.version>1.2.17</log4j.version>
-    <junit.version>4.12</junit.version>
-    <jetty.version>9.3.14.v20161028</jetty.version>
-  </properties>
-  <repositories>
-    <repository>
-      <id>central</id>
-      <name>Central Repository</name>
-      <url>http://repo.maven.apache.org/maven2</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+    <properties>
+        <maven.plugins.version>3.6.0</maven.plugins.version>
+        <maven.war.plugin.version>3.0.0</maven.war.plugin.version>
+        <java.version>1.8</java.version>
+        <javaee.version>7.0</javaee.version>
+        <jersey.version>2.25</jersey.version>
+        <hibernate.version>5.2.5.Final</hibernate.version>
+        <hibernate.validator.version>5.3.3.Final
+        </hibernate.validator.version>
+        <mysql.version>6.0.5</mysql.version>
+        <junit.version>4.12</junit.version>
+    </properties>
 
     <repositories>
         <repository>
