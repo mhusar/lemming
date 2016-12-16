@@ -33,14 +33,14 @@ public class Lemma implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * ID associated with a fiche.
+     * ID associated with a lemma.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
-     * A UUID used to distinguish fiches.
+     * A UUID used to distinguish lemmata.
      */
     @Column(name = "uuid")
     private String uuid;
@@ -155,7 +155,7 @@ public class Lemma implements Serializable {
     }
 
     /**
-     * Returns the part-of-speech of a lemma.
+     * Returns the part of speech of a lemma.
      *
      * @return Part-of-speech of a lemma.
      */
@@ -165,10 +165,10 @@ public class Lemma implements Serializable {
     }
 
     /**
-     * Sets the part-of-speech of a lemma.
+     * Sets the part of speech of a lemma.
      *
-     * @param part-of-speech
-     *            the part-of-speech of a lemma
+     * @param pos
+     *            the part of speech of a lemma
      */
     public void setPos(String pos) {
         this.pos = pos;
