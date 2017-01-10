@@ -1,18 +1,18 @@
 package lemming.api.lemma;
 
-import java.io.Serializable;
-import java.util.UUID;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.UUID;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.OptimisticLockType;
-import org.hibernate.annotations.OptimisticLocking;
-import org.hibernate.annotations.SelectBeforeUpdate;
+import lemming.api.data.Source;
 
 /**
  * Class representing a lemma.
@@ -24,7 +24,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
         @Index(columnList = "uuid, name", unique = true),
-        @Index(columnList = "origin")})
+        @Index(columnList = "source")})
 @XmlRootElement
 public class Lemma implements Serializable {
     /**
@@ -65,11 +65,11 @@ public class Lemma implements Serializable {
     private String pos;
 
     /**
-     * Origin of a lemma.
+     * Source of a lemma.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "origin", nullable = false)
-    private Origin.Type origin;
+    @Column(name = "source", nullable = false)
+    private Source.LemmaType source;
 
     /**
      * Creates an instance of a lemma.
@@ -175,22 +175,22 @@ public class Lemma implements Serializable {
     }
 
     /**
-     * Returns the origin of a lemma.
+     * Returns the source of a lemma.
      *
-     * @return Origin of a lemma.
+     * @return Source of a lemma.
      */
-    @XmlElement(name="origin")
-    public Origin.Type getOrigin() {
-        return origin;
+    @XmlElement(name="source")
+    public Source.LemmaType getSource() {
+        return source;
     }
 
     /**
-     * Sets the origin of a lemma.
+     * Sets the source of a lemma.
      *
-     * @param origin origin of a lemma
+     * @param source source of a lemma
      */
-    public void setOrigin(Origin.Type origin) {
-        this.origin = origin;
+    public void setSource(Source.LemmaType source) {
+        this.source = source;
     }
 
     /**

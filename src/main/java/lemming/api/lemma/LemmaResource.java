@@ -1,5 +1,7 @@
 package lemming.api.lemma;
 
+import lemming.api.data.Source;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,7 +44,7 @@ public class LemmaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response post(Lemma lemma) {
         if (lemma != null) {
-            lemma.setOrigin(Origin.Type.USER);
+            lemma.setSource(Source.LemmaType.USER);
             lemma.setUuid(UUID.randomUUID().toString());
             new LemmaDao().persist(lemma);
             return Response.ok(lemma).build();
@@ -66,7 +68,7 @@ public class LemmaResource {
 
             if (persistentLemma != null) {
                 if (wasCreatedByUsers(persistentLemma)) {
-                    lemma.setOrigin(Origin.Type.USER);
+                    lemma.setSource(Source.LemmaType.USER);
                     lemma.setUuid(persistentLemma.getUuid());
                     Lemma mergedLemma = lemmaDao.merge(lemma);
                     return Response.ok(mergedLemma).type(MediaType.APPLICATION_JSON).build();
@@ -101,13 +103,13 @@ public class LemmaResource {
      * Checks if a lemma was created by users.
      *
      * @param lemma lemma to check
-     * @return True, if a lemma’s origin is correct, false otherwise.
+     * @return True, if a lemma’s source is correct, false otherwise.
      */
     private Boolean wasCreatedByUsers(Lemma lemma) {
-        Origin.Type origin = lemma.getOrigin();
+        Source.LemmaType source = lemma.getSource();
 
-        if (origin != null) {
-            if (origin.equals(Origin.Type.USER)) {
+        if (source != null) {
+            if (source.equals(Source.LemmaType.USER)) {
                 return true;
             }
         }

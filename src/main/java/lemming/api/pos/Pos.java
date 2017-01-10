@@ -1,5 +1,6 @@
 package lemming.api.pos;
 
+import lemming.api.data.Source;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "pos", indexes = {
         @Index(columnList = "uuid, name", unique = true),
-        @Index(columnList = "origin")})
+        @Index(columnList = "source")})
 @XmlRootElement
 public class Pos implements Serializable {
     /**
@@ -57,11 +58,11 @@ public class Pos implements Serializable {
     private String name;
 
     /**
-     * Origin of a part of speech.
+     * Source of a part of speech.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "origin", nullable = false)
-    private Origin.Type origin;
+    @Column(name = "source", nullable = false)
+    private Source.PosType source;
 
     /**
      * Creates an instance of a part of speech.
@@ -147,22 +148,22 @@ public class Pos implements Serializable {
     }
 
     /**
-     * Returns the origin of a part of speech.
+     * Returns the source of a part of speech.
      *
-     * @return Origin of a part of speech.
+     * @return Source of a part of speech.
      */
-    @XmlElement(name="origin")
-    public Origin.Type getOrigin() {
-        return origin;
+    @XmlElement(name="source")
+    public Source.PosType getSource() {
+        return source;
     }
 
     /**
-     * Sets the origin of a part of speech.
+     * Sets the source of a part of speech.
      *
-     * @param origin origin of a part of speech
+     * @param source source of a part of speech
      */
-    public void setOrigin(Origin.Type origin) {
-        this.origin = origin;
+    public void setSource(Source.PosType source) {
+        this.source = source;
     }
 
     /**

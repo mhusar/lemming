@@ -1,5 +1,7 @@
 package lemming.api.pos;
 
+import lemming.api.data.Source;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -42,7 +44,7 @@ public class PosResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response post(Pos pos) {
         if (pos != null) {
-            pos.setOrigin(Origin.Type.USER);
+            pos.setSource(Source.PosType.USER);
             pos.setUuid(UUID.randomUUID().toString());
             new PosDao().persist(pos);
             return Response.ok(pos).build();
@@ -66,7 +68,7 @@ public class PosResource {
 
             if (persistentPos != null) {
                 if (wasCreatedByUsers(persistentPos)) {
-                    pos.setOrigin(Origin.Type.USER);
+                    pos.setSource(Source.PosType.USER);
                     pos.setUuid(persistentPos.getUuid());
                     Pos mergedPos = posDao.merge(pos);
                     return Response.ok(mergedPos).type(MediaType.APPLICATION_JSON).build();
@@ -101,13 +103,13 @@ public class PosResource {
      * Checks if a part of speech was created by users.
      *
      * @param pos part of speech to check
-     * @return True, if a part of speech’s origin is correct, false otherwise.
+     * @return True, if a part of speech’s source is correct, false otherwise.
      */
     private Boolean wasCreatedByUsers(Pos pos) {
-        Origin.Type origin = pos.getOrigin();
+        Source.PosType source = pos.getSource();
 
-        if (origin != null) {
-            if (origin.equals(Origin.Type.USER)) {
+        if (source != null) {
+            if (source.equals(Source.PosType.USER)) {
                 return true;
             }
         }
