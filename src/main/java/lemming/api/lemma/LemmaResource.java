@@ -35,7 +35,7 @@ public class LemmaResource {
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByName(@PathParam("name") String name) {
-        List<Lemma> list = new LemmaDao().findByName(name);
+        List<Lemma> list = new LemmaDao().findByNameStart(name);
         return Response.ok(list).build();
     }
 

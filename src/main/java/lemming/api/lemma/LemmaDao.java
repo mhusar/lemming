@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for lemmata.
@@ -98,7 +99,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
-    public List<Lemma> findByName(String substring) throws RuntimeException {
+    public List<Lemma> findByNameStart(String substring) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 

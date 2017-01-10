@@ -35,7 +35,7 @@ public class PosResource {
     @Path("/name/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByName(@PathParam("name") String name) {
-        List<Pos> list = new PosDao().findByName(name);
+        List<Pos> list = new PosDao().findByNameStart(name);
         return Response.ok(list).build();
     }
 
