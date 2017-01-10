@@ -9,6 +9,15 @@ import java.util.List;
  */
 public interface IDao<E> {
     /**
+     * Checks if an object is transient.
+     *
+     * @param element
+     *            element to check
+     * @return True if element is transient; false otherwise.
+     */
+    Boolean isTransient(E element);
+
+    /**
      * Makes an instance managed and persistent.
      *
      * @param entity entity instance

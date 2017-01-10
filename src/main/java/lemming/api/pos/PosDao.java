@@ -21,6 +21,43 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
 
     /**
      * {@inheritDoc}
+     */
+    @Override
+    public Boolean isTransient(Pos pos) {
+        return !(pos.getId() instanceof Integer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public void persist(Pos pos) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        if (!(pos.getUuid() instanceof String)) {
+            pos.setUuid(UUID.randomUUID().toString());
+        }
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(pos);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+                throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
      *
      * @throws RuntimeException
      */

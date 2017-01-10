@@ -21,6 +21,80 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
 
     /**
      * {@inheritDoc}
+     */
+    @Override
+    public Boolean isTransient(Lemma lemma) {
+        return !(lemma.getId() instanceof Integer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public void persist(Lemma lemma) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        if (!(lemma.getUuid() instanceof String)) {
+            lemma.setUuid(UUID.randomUUID().toString());
+        }
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(lemma);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+                throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Lemma findByName(String name) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Lemma> query = entityManager
+                    .createQuery("FROM Lemma WHERE name = :name", Lemma.class);
+            List<Lemma> lemmaList = query.setParameter("name", name).getResultList();
+            transaction.commit();
+
+            if (lemmaList.isEmpty()) {
+                return null;
+            } else {
+                return lemmaList.get(0);
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @throws RuntimeException
      */

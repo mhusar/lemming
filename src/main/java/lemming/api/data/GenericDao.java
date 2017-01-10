@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implements methods from interface IDao.
@@ -34,33 +38,6 @@ public abstract class GenericDao<E> implements IDao<E> {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
                 .getGenericSuperclass();
         entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws RuntimeException
-     */
-    public void persist(E entity) throws RuntimeException {
-        EntityManager entityManager = EntityManagerListener.createEntityManager();
-        EntityTransaction transaction = null;
-
-        try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-            entityManager.persist(entity);
-            transaction.commit();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-
-            throw e;
-        } finally {
-            entityManager.close();
-        }
     }
 
     /**
@@ -103,7 +80,7 @@ public abstract class GenericDao<E> implements IDao<E> {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.remove(entity);
+            entityManager.remove(entityManager.merge(entity));
             transaction.commit();
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -158,7 +135,7 @@ public abstract class GenericDao<E> implements IDao<E> {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.refresh(entity);
+            entityManager.refresh(entityManager.merge(entity));
             transaction.commit();
         } catch (RuntimeException e) {
             e.printStackTrace();
