@@ -8,6 +8,7 @@
         <class>lemming.api.character.Character</class>
         <class>lemming.api.lemma.Lemma</class>
         <class>lemming.api.pos.Pos</class>
+        <class>lemming.api.user.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.connection.driver_class" value="${db.driver}"/>
