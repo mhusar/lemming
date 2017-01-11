@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>
+                        <wicket:message key="HomePage.overview"></wicket:message>
+                    </h1>
+                </div>
+                <h2>
+                    <wicket:message key="HomePage.dataMaintenance"></wicket:message>
+                </h2>
+                <p>
+                    <a wicket:id="lemmaIndexLink">
+                        <wicket:message key="HomePage.lemmas"></wicket:message>
+                    </a>
+                </p>
+                <h2>
+                    <wicket:message key="HomePage.administration"></wicket:message>
+                </h2>
+                <p>
+                    <a wicket:id="userEditLink">
+                        <wicket:message key="HomePage.users"></wicket:message>
+                    </a>
+                </p>
+                <p wicket:enclosure="characterEditPageLink">
+                    <a wicket:id="characterEditPageLink">
+                        <wicket:message key="HomePage.characters"></wicket:message>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>
