@@ -2,6 +2,8 @@ package lemming.api.pos;
 
 import lemming.api.data.EntityManagerListener;
 import lemming.api.data.GenericDao;
+import org.hibernate.StaleObjectStateException;
+import org.hibernate.UnresolvableObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

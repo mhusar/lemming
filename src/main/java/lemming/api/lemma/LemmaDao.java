@@ -2,6 +2,8 @@ package lemming.api.lemma;
 
 import lemming.api.data.EntityManagerListener;
 import lemming.api.data.GenericDao;
+import org.hibernate.StaleObjectStateException;
+import org.hibernate.UnresolvableObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -53,7 +55,13 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
                 transaction.rollback();
             }
 
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(lemma, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(lemma, e);
+            } else {
                 throw e;
+            }
         } finally {
             entityManager.close();
         }

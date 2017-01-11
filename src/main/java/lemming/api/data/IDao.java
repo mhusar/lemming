@@ -68,4 +68,45 @@ public interface IDao<E> {
      * @return A list of entity instances.
      */
     List<E> getAll();
+
+    /**
+     * Sends the user to an error page if saving of data failed due to locking.
+     *
+     * @param element
+     *            the element that was not saved
+     * @param exception
+     *            the raised exception
+     */
+    void panicOnSaveLockingError(Object element, RuntimeException exception);
+
+    /**
+     * Sends the user to an error page if removing of data failed due to
+     * locking.
+     *
+     * @element the element that was not removed
+     * @param exception
+     *            the raised exception
+     */
+    void panicOnRemoveLockingError(Object element, RuntimeException exception);
+
+    /**
+     * Sends the user to an error page if saving of data failed due to an
+     * unresolvable object.
+     *
+     * @param element
+     *            the element that was not saved
+     * @param exception
+     *            the raised exception
+     */
+    void panicOnSaveUnresolvableObjectError(Object element, RuntimeException exception);
+
+    /**
+     * Sends the user to an error page if removing of data failed due to an
+     * unresolvable object.
+     *
+     * @element the element that was not removed
+     * @param exception
+     *            the raised exception
+     */
+    void panicOnRemoveUnresolvableObjectError(Object element, RuntimeException exception);
 }
