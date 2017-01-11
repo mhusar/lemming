@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <entry key="AccessDeniedPage.header">Zugriff verweigert</entry>
+  <entry key="AccessDeniedPage.message">Der Zugriff auf die angeforderte Seite wurde
+    verweigert.</entry>
+  <entry key="AccessDeniedPage.redirection">Übersicht</entry>
+  <entry key="Action.batchProcessing">Stapelverarbeitung</entry>
+  <entry key="Action.cancel">Abbrechen</entry>
+  <entry key="Action.continue">Weiter</entry>
+  <entry key="Action.correct">Korrigieren</entry>
+  <entry key="Action.correction">Korrektur</entry>
+  <entry key="Action.delete">Löschen</entry>
+  <entry key="Action.done">Fertig</entry>
+  <entry key="Action.edit">Bearbeiten</entry>
+  <entry key="Action.filter">Filtern</entry>
+  <entry key="Action.toIndex">Zum Index</entry>
+  <entry key="Action.intermediateStorage">Zwischenspeichern</entry>
+  <entry key="Action.open">Öffnen</entry>
+  <entry key="Action.save">Speichern</entry>
+  <entry key="Action.view">Ansehen</entry>
+  <entry key="Character.character">Sonderzeichen</entry>
+  <entry key="Character.position">Position</entry>
+  <entry key="CharacterEditPage.addCharacter">Sonderzeichen hinzufügen</entry>
+  <entry key="CharacterEditPage.character-is-non-unique">Dieses Sonderzeichen gibt es bereits.</entry>
+  <entry key="CharacterEditPage.header">Sonderzeichen bearbeiten</entry>
+  <entry key="CharacterViewPanel.dummyItemText">Kein Eintrag vorhanden</entry>
+  <entry key="FilterPanelColumn.clear">Aufheben</entry>
+  <entry key="FilterPanelColumn.go">Filtern</entry>
+  <entry key="HeaderPanel.lemmas">Lemmata</entry>
+  <entry key="HeaderPanel.logout">Abmelden</entry>
+  <entry key="HeaderPanel.overview">Übersicht</entry>
+  <entry key="HeaderPanel.toggleNavigation">Navigation umschalten</entry>
+  <entry key="HeaderPanel.users">Benutzerverwaltung</entry>
+  <entry key="HomePage.administration">Verwaltung</entry>
+  <entry key="HomePage.characters">Sonderzeichen</entry>
+  <entry key="HomePage.dataMaintenance">Datenpflege</entry>
+  <entry key="HomePage.lemmas">Lemmata</entry>
+  <entry key="HomePage.overview">Übersicht</entry>
+  <entry key="HomePage.users">Benutzer</entry>
+  <entry key="InputPanel.insertTag">Tag einfügen</entry>
+  <entry key="InputPanel.tabDialogTitleStart">Attribute für Tag </entry>
+  <entry key="InputPanel.tabDialogTitleEnd"></entry>
+  <entry key="Lemma.name">Name</entry>
+  <entry key="Lemma.pos">Wortart</entry>
+  <entry key="Lemma.source">Quelle</entry>
+  <entry key="LemmaDeleteConfirmPanel.confirm">Lemma löschen</entry>
+  <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>
+  <entry key="LemmaDeleteConfirmPanel.title">Lemma löschen</entry>
+  <entry key="LemmaDeleteDeniedPanel.confirm">Schließen</entry>
+  <entry key="LemmaDeleteDeniedPanel.message">Mindestens ein Zettel hat das Lemma {0}.</entry>
+  <entry key="LemmaDeleteDeniedPanel.title">Löschen nicht möglich</entry>
+  <entry key="LemmaEditForm.lemma-is-non-unique">Eine Lemma mit diesem Namen gibt es bereits.</entry>
+  <entry key="LemmaEditPage.editHeader">Lemma bearbeiten</entry>
+  <entry key="LemmaEditPage.newHeader">Lemma erstellen</entry>
+  <entry key="LemmaIndexPage.header">Lemmata</entry>
+  <entry key="LemmaIndexPage.new">Lemma erstellen</entry>
+  <entry key="LemmaType.TL">Tobler-Lommatzsch</entry>
+  <entry key="LemmaType.USER">Benutzer</entry>
+  <entry key="LockingErrorPage.details">Details</entry>
+  <entry key="LockingErrorPage.entityName">Objekttyp</entry>
+  <entry key="LockingErrorPage.identifier">Bezeichner</entry>
+  <entry key="LockingErrorPage.exceptionMessage">Fehlermeldung</entry>
+  <entry key="LockingErrorPage.redirection">Übersicht</entry>
+  <entry key="LockingErrorPage.removeMessage">Der zu löschende Datensatz wurde in der Zwischenzeit
+    bearbeitet oder gelöscht. Um Konflikte zu vermeiden, wird das Löschen
+    verweigert.</entry>
+  <entry key="LockingErrorPage.saveMessage">Der bearbeitete Datensatz wurde in der Zwischenzeit
+    bereits bearbeitet. Um Konflikte zu vermeiden, wird das Speichern
+    verweigert.</entry>
+  <entry key="LockingErrorPage.removeHeader">Löschen verweigert</entry>
+  <entry key="LockingErrorPage.saveHeader">Speichern verweigert</entry>
+  <entry key="PageExpiredPage.header">Seite abgelaufen</entry>
+  <entry key="PageExpiredPage.message">Leider ist die von Ihnen angeforderte Seite
+    abgelaufen.</entry>
+  <entry key="PageExpiredPage.redirection">Übersicht</entry>
+  <entry key="PagingNavigator.firstItem">Anfang</entry>
+  <entry key="PagingNavigator.prevItem">Zurück</entry>
+  <entry key="PagingNavigator.nextItem">Weiter</entry>
+  <entry key="PagingNavigator.lastItem">Ende</entry>
+  <entry key="PosType.DEAF">Dictionnaire Étymologique de l'Ancien Français</entry>
+  <entry key="PosType.USER">Benutzer</entry>
+  <entry key="Role.STUDENT">Hiwi</entry>
+  <entry key="Role.USER">Redaktor</entry>
+  <entry key="Role.ADMIN">Administrator</entry>
+  <entry key="SignInPage.header">Bitte anmelden</entry>
+  <entry key="SignInPage.passwordWrongMessage">Das genannte Passwort ist falsch.</entry>
+  <entry key="SignInPage.password">Passwort</entry>
+  <entry key="SignInPage.signIn">Anmelden</entry>
+  <entry key="SignInPage.userNotEnabledMessage">Dieser Benutzer ist nicht aktiviert.</entry>
+  <entry key="SignInPage.username">Benutzername</entry>
+  <entry key="SignInPage.userUnknownMessage">Dieser Benutzer ist nicht bekannt.</entry>
+  <entry key="UnresolvableObjectErrorPage.details">Details</entry>
+  <entry key="UnresolvableObjectErrorPage.entityName">Objekttyp</entry>
+  <entry key="UnresolvableObjectErrorPage.identifier">Bezeichner</entry>
+  <entry key="UnresolvableObjectErrorPage.exceptionMessage">Fehlermeldung</entry>
+  <entry key="UnresolvableObjectErrorPage.redirection">Übersicht</entry>
+  <entry key="UnresolvableObjectErrorPage.removeMessage">Der zu löschende Datensatz ist nicht auffindbar. Das
+    Löschen ist nicht möglich.</entry>
+  <entry key="UnresolvableObjectErrorPage.saveMessage">Der bearbeitete Datensatz ist nicht auffindbar. Das
+    Speichern ist nicht möglich.</entry>
+  <entry key="UnresolvableObjectErrorPage.removeHeader">Löschen nicht möglich</entry>
+  <entry key="UnresolvableObjectErrorPage.saveHeader">Speichern nicht möglich</entry>
+  <entry key="User.enabled">Aktiviert</entry>
+  <entry key="User.password">Kennwort</entry>
+  <entry key="User.realName">Klarname</entry>
+  <entry key="User.role">Rolle</entry>
+  <entry key="User.username">Benutzername</entry>
+  <entry key="UserDeleteDeniedPanel.confirm">Schließen</entry>
+  <entry key="UserDeleteDeniedPanel.message">Der Benutzer {0} hat mindestens einen Zettelkasten.</entry>
+  <entry key="UserDeleteDeniedPanel.title">Löschen nicht möglich</entry>
+  <entry key="UserEditForm.realName-is-non-unique">Ein Benutzer mit diesem Namen existiert
+    bereits.</entry>
+  <entry key="UserEditForm.role-is-required">Bitte wählen Sie eine Rolle für den Benutzer aus.</entry>
+  <entry key="UserEditForm.username-is-non-unique">Ein Benutzer mit diesem Benutzernamen existiert
+    bereits.</entry>
+  <entry key="UserEditPage.addUser">Benutzer hinzufügen</entry>
+  <entry key="UserEditPage.header">Benutzerverwaltung</entry>
+</properties>
