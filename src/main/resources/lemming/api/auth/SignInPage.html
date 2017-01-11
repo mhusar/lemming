@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body class="signInPage bg-info">
+<div class="feedbackPanelContainer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div wicket:id="feedbackPanel"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">
+                        <wicket:message key="SignInPage.header"></wicket:message>
+                    </h1>
+                </div>
+                <div class="panel-body">
+                    <form wicket:id="signInForm" role="form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> <input
+                                    wicket:id="username" type="text"
+                                    class="form-control"
+                                    wicket:message="placeholder:SignInPage.username"
+                                    required="required" autofocus="autofocus">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span> <input
+                                    wicket:id="password" type="password"
+                                    class="form-control"
+                                    wicket:message="placeholder:SignInPage.password"
+                                    required="required">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <wicket:message key="SignInPage.signIn"></wicket:message>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

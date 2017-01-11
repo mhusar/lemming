@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:panel>
+    <form wicket:id="userEditForm" class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="realName" class="col-sm-2 control-label">
+                        <wicket:message key="User.realName"></wicket:message>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" wicket:id="realName" id="realName"
+                               class="form-control" required="required" maxlength="100"
+                               autofocus="autofocus"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label">
+                        <wicket:message key="User.username"></wicket:message>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" wicket:id="username" id="username"
+                               class="form-control" required="required" maxlength="100"
+                               autofocus="autofocus"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">
+                        <wicket:message key="User.password"></wicket:message>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="password" wicket:id="password" id="password"
+                               class="form-control" required="required" maxlength="100"
+                               autofocus="autofocus"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="role" class="col-sm-2 control-label">
+                        <wicket:message key="User.role"></wicket:message>
+                    </label>
+                    <div class="col-sm-10">
+                        <select wicket:id="role" id="role" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label> <input type="checkbox" wicket:id="enabled"/>
+                                <wicket:message key="User.enabled"></wicket:message>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" wicket:id="cancelButton" class="btn btn-default">
+                            <wicket:message key="Action.cancel"></wicket:message>
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <wicket:message key="Action.save"></wicket:message>
+                        </button>
+                        <button type="button" wicket:id="deleteButton" class="btn btn-danger pull-right">
+                            <wicket:message key="Action.delete"></wicket:message>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

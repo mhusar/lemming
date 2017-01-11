@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div wicket:id="userDeleteDeniedPanel"></div>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <wicket:message key="UserEditPage.header"></wicket:message>
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div wicket:id="userViewPanel"></div>
+                <button wicket:id="addUserButton" class="btn btn-default">
+                    <wicket:message key="UserEditPage.addUser"></wicket:message>
+                </button>
+            </div>
+            <div class="col-md-9">
+                <div wicket:id="feedbackPanel"></div>
+                <div wicket:id="userEditPanel"></div>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>
