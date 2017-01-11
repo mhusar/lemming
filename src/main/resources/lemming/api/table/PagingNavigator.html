@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:panel>
+    <ul class="pagination">
+        <li wicket:id="firstItem" class="disabled">
+            <a wicket:id="first" href="#">
+                <wicket:message key="PagingNavigator.firstItem"></wicket:message>
+            </a>
+        </li>
+        <li wicket:id="prevItem" class="disabled">
+            <a wicket:id="prev" href="#">
+                <wicket:message key="PagingNavigator.prevItem"></wicket:message>
+            </a>
+        </li>
+        <li wicket:id="navigation">
+            <a wicket:id="pageLink" href="#">
+                <span wicket:id="pageNumber">1</span>
+            </a>
+        </li>
+        <li wicket:id="nextItem" class="disabled">
+            <a wicket:id="next" href="#">
+                <wicket:message key="PagingNavigator.nextItem"></wicket:message>
+            </a>
+        </li>
+        <li wicket:id="lastItem" class="disabled">
+            <a wicket:id="last" href="#">
+                <wicket:message key="PagingNavigator.lastItem"></wicket:message>
+            </a>
+        </li>
+    </ul>
+</wicket:panel>
+</body>
+</html>
