@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+<meta charset="utf-8" />
+</head>
+<body class="errorPage">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <h1>
+            <wicket:label wicket:id="lockingErrorHeader"></wicket:label>
+          </h1>
+        </div>
+        <p class="text-warning lead">
+          <wicket:label wicket:id="lockingErrorMessage"></wicket:label>
+        </p>
+        <p>
+          <a wicket:id="lockingErrorRedirectionLink"><wicket:message
+              nesting key="LockingErrorPage.redirection"></wicket:message></a>
+        </p>
+        <h2>
+          <wicket:message key="LockingErrorPage.details"></wicket:message>
+        </h2>
+        <dl class="dl-horizontal">
+          <wicket:enclosure child="identifier">
+            <dt>
+              <wicket:message key="LockingErrorPage.identifier"></wicket:message>
+            </dt>
+            <dd>
+              <wicket:label wicket:id="identifier"></wicket:label>
+            </dd>
+          </wicket:enclosure>
+          <wicket:enclosure child="entityName">
+            <dt>
+              <wicket:message key="LockingErrorPage.entityName"></wicket:message>
+            </dt>
+            <dd>
+              <wicket:label wicket:id="entityName"></wicket:label>
+            </dd>
+          </wicket:enclosure>
+          <dt>
+            <wicket:message key="LockingErrorPage.exceptionMessage"></wicket:message>
+          </dt>
+          <dd>
+            <wicket:label wicket:id="exceptionMessage"></wicket:label>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

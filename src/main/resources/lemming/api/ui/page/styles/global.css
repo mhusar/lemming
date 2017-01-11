@@ -1,0 +1,434 @@
+@CHARSET "UTF-8";
+
+@font-face{
+  font-family: "Fira Mono";
+  src: url("../fonts/FiraMono-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: "Fira Sans";
+  src: url("../fonts/FiraSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "monospace";
+  src: url("../fonts/FiraMono-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../fonts/FiraSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  text-rendering: optimizelegibility;
+}
+
+.basePage {
+  padding-top: 51px;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.basePage .overlay {
+  cursor: pointer;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.basePage .form-control:required:invalid {
+  background-color: #FCF8E3;
+}
+
+.errorPage {
+  padding-top: 50px;
+}
+
+.signInPage .feedbackPanelContainer {
+  box-sizing: content-box;
+  height: 100px;
+  padding-top: 150px;
+}
+
+.page-header {
+  margin: 30px 0px 15px;
+}
+
+.page-header h1 {
+  margin-bottom: 5px;
+}
+
+.feedbackPanel {
+  list-style-type: none;
+  padding: 0;
+}
+
+.help-block {
+  margin-bottom: 0;
+}
+
+.well-sm.scroll {
+  height: 450px;
+  overflow-y: auto;
+  padding-bottom: 0;
+  overflow-y: auto;
+}
+
+.well-sm.scroll .list-group {
+  margin-bottom: 9px;
+}
+
+.list-group a {
+  outline: 0;
+}
+
+.scroll .list-group-item {
+  cursor: pointer;
+}
+
+.scroll .dummy {
+  cursor: default;
+}
+
+.list-group-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal-dialog {
+  hyphens: none;
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  transform: translate(-50%, -50%) !important;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  -webkit-hyphens: none;
+}
+
+.navbar-left {
+  margin-left: -15px;
+}
+
+.navigation td {
+  padding: 0 !important;
+}
+
+.navigatorLabel {
+  float: left;
+  margin-top: 13px;
+}
+
+.navigator {
+  float: right;
+  margin-top: 5px;
+}
+
+.no-padding-top {
+  padding-top: 0 !important;
+}
+
+.pagination {
+  margin: 0 !important;
+}
+
+.pager a, .pagination a {
+  outline: 0;
+}
+
+.filers-tr td, .headers th {
+  border-top: 0 !important;
+}
+
+.pagerAfterHeader {
+  margin-top: -20px;
+}
+
+input[type="number"] {
+  padding-right: 4px;
+}
+
+table {
+  margin-top: 10px;
+}
+
+table .actionColumn {
+  white-space: nowrap;
+  width: 275px;
+}
+
+table .iconColumn {
+  width: 45px;
+}
+
+tbody .actionColumn a {
+  padding: 8px;
+}
+
+.checkboxColumn label {
+  margin-bottom: 0;
+}
+
+.checkboxColumn input {
+  margin-top: 0;
+}
+
+th.checkboxColumn {
+  height: 75px;
+}
+
+th.checkboxColumn > span {
+  color: #777;
+  display: inline-block;
+  font-size: 13px;
+  line-height: 1.2;
+  transform: translate(5px, -2px) rotate(315deg);
+  width: 20px;
+  /* hacks for better readability */
+  -webkit-backface-visibility: hidden;
+  filter: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><filter id="gaussian_blur"><feGaussianBlur in="SourceGraphic" stdDeviation="0" /></filter></defs></svg>#gaussian_blur');
+}
+
+.checkboxColumn + :not(.checkboxColumn) {
+  padding-left: 38px;
+}
+
+tbody .iconColumn a {
+  padding: 8px 12px;
+}
+
+table th a {
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+table th.wicket_orderDown a {
+  background-image: url(../images/arrow_down.svg);
+}
+
+table th.wicket_orderUp a {
+  background-image: url(../images/arrow_up.svg);
+}
+
+table th.wicket_orderNone a {
+  background-image: url(../images/arrow_off.svg);
+}
+
+table th a span {
+  margin-right: 15px;
+}
+
+.xmlEditor:focus {
+  outline: 0;
+}
+
+.xmlEditor > textarea {
+  display: none;
+}
+
+.xmlEditor .form-control.focus {
+  border-color: #66AFE9;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px
+  rgba(102, 175, 233, 0.6);
+}
+
+.xmlEditor.expanded {
+  left: 0;
+  position: fixed;
+  top: 60px;
+  z-index: 1000;
+}
+
+.xmlEditor .expandButton {
+  cursor: pointer;
+  height: 38px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 56px;
+  z-index: 100;
+}
+
+.xmlEditor .expandButton .inner {
+  background-color: #fff;
+  border: 1px solid #888;
+  border-radius: 2px;
+  height: 13px;
+  opacity: 0.7;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  width: 21px;
+}
+
+.xmlEditor .expandButton:hover .inner {
+  -moz-box-shadow: 0px 0px 5px #0099ff;
+  -webkit-box-shadow: 0px 0px 5px #0099ff;
+  box-shadow: 0px 0px 5px #0099ff;
+}
+
+.xmlEditor .expandButton .inner div {
+  position: absolute;
+  background-color: #0099ff;
+  border: 1px solid #0099ff;
+  border-radius: 1px;
+}
+
+.xmlEditor .expandButton.off .inner div {
+  top: 3px;
+  left: 5px;
+  height: 5px;
+  width: 9px;
+}
+
+.xmlEditor .expandButton.on .inner div {
+  top: 1px;
+  left: 1px;
+  height: 9px;
+  width: 17px;
+}
+
+.inputPanel {
+  bottom: 0;
+  color: #37474F;
+  font-family: "Fira Sans";
+  font-size: 120%;
+  font-weight: 400;
+  left: 0;
+  position: fixed;
+  right: 0;
+  width: 100%;
+  z-index: 100;
+  visibility: hidden;
+}
+
+.inputPanel.disabled {
+  color: #737E83;
+}
+
+.inputPanel * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.inputPanel .characters {
+  background-color: #ECEFF1;
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px 10px 5px 60px;
+  position: relative;
+}
+
+.inputPanel .characters li {
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  margin: 5px 10px;
+  width: 30px;
+}
+
+.inputPanel.disabled .characters li {
+  cursor: default;
+}
+
+.inputPanel .characters .character {
+  line-height: 40px;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.inputPanel:not(.disabled) .characters .character:active,
+.inputPanel:not(.disabled) .characters .character:hover {
+  background-color: #D1D6D9;
+}
+
+.inputPanel .characters .shift {
+  left: 10px;
+  position: absolute;
+  top: 5px;
+  vertical-align: middle;
+}
+
+.inputPanel .characters .shift.off {
+  background: url(../images/shift_off.svg) no-repeat center center;
+}
+
+.inputPanel .characters .shift.on {
+  background: url(../images/shift_on.svg) no-repeat center center;
+}
+
+.inputPanel.disabled .characters .shift {
+  background: url(../images/shift_disabled.svg) no-repeat center center;
+}
+
+.inputPanel .tags {
+  background-color: #E4E7E9;
+  border-top: 1px solid #EFF1F2;
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px 15px;
+}
+
+.inputPanel .tags:empty {
+  border-top: 1px solid #E4E7E9;
+  padding: 0;
+}
+
+.inputPanel .tags:not(:empty) {
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.inputPanel .tags li {
+  background-color: #D1D6D9;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  margin: 5px;
+  padding: 0 10px;
+  position: relative;
+  text-align: center;
+  vertical-align: baseline;
+}
+
+.inputPanel.disabled .tags li {
+  cursor: default;
+}
+
+.inputPanel:not(.disabled) .tags li:active,
+.inputPanel:not(.disabled) .tags li:hover {
+  background-color: #66AFE9;
+}
+
+a.disabled,
+a.disabled:hover,
+a.disabled:link,
+a.disabled:visited {
+  color: #777;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+tr.disabled div {
+  color: #777;
+}

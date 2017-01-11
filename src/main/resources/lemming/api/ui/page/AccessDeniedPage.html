@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+<meta charset="utf-8" />
+</head>
+<body class="errorPage">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-header">
+          <h1>
+            <wicket:label wicket:id="accessDeniedHeader"></wicket:label>
+          </h1>
+        </div>
+        <p class="text-warning lead">
+          <wicket:label wicket:id="accessDeniedMessage"></wicket:label>
+        </p>
+        <p>
+          <a wicket:id="accessDeniedRedirectionLink"><wicket:message
+              key="AccessDeniedPage.redirection"></wicket:message></a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
