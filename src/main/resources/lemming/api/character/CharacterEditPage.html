@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <wicket:message key="CharacterEditPage.header"></wicket:message>
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div wicket:id="characterViewPanel"></div>
+                <button wicket:id="addCharacterButton" class="btn btn-default">
+                    <wicket:message key="CharacterEditPage.addCharacter"></wicket:message>
+                </button>
+            </div>
+            <div class="col-md-9">
+                <div wicket:id="feedbackPanel"></div>
+                <form wicket:id="characterEditForm" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="character" class="col-sm-2 control-label">
+                                    <wicket:message key="Character.character"></wicket:message>
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="text" wicket:id="character" id="character" class="form-control"
+                                           required="required" maxlength="10" autofocus="autofocus"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="position" class="col-sm-2 control-label">
+                                    <wicket:message
+                                            key="Character.position"></wicket:message>
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="number" wicket:id="position" id="position" class="form-control"
+                                           required="required"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" wicket:id="cancelButton" class="btn btn-default">
+                                        <wicket:message key="Action.cancel"></wicket:message>
+                                    </button>
+                                    <button type="submit" wicket:id="saveButton" class="btn btn-primary">
+                                        <wicket:message key="Action.save"></wicket:message>
+                                    </button>
+                                    <button type="button" wicket:id="deleteButton" class="btn btn-danger pull-right">
+                                        <wicket:message key="Action.delete"></wicket:message>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

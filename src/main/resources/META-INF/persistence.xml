@@ -5,6 +5,7 @@
              version="2.1">
     <persistence-unit name="persistence-unit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>lemming.api.character.Character</class>
         <class>lemming.api.lemma.Lemma</class>
         <class>lemming.api.pos.Pos</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
