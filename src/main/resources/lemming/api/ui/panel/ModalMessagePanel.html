@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:panel>
+    <div class="modal fade" wicket:id="modalWindow" id="modalWindow" tabindex="-1" role="dialog"
+         aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="modalTitle">
+                        <span wicket:id="modalTitle"></span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span wicket:id="modalMessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <div wicket:id="fragment"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</wicket:panel>
+<wicket:fragment wicket:id="yesNoDialog">
+    <button type="button" wicket:id="cancelButton" class="btn btn-default">
+        <wicket:message key="Action.cancel"></wicket:message>
+    </button>
+    <button type="button" wicket:id="confirmButton" class="btn btn-danger">
+        <span wicket:id="modalConfirm"></span>
+    </button>
+</wicket:fragment>
+<wicket:fragment wicket:id="okayDialog">
+    <button type="button" wicket:id="confirmButton" class="btn btn-primary">
+        <span wicket:id="modalConfirm"></span>
+    </button>
+</wicket:fragment>
+</body>
+</html>
