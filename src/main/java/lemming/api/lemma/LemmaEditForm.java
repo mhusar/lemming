@@ -60,7 +60,7 @@ public class LemmaEditForm extends Form<Lemma> {
         add(new CancelButton("cancelButton"));
         add(new DeleteButton("deleteButton", model).setVisible(!(isLemmaTransient(model))));
 
-        nameTextField.add(new UniqueLemmaIdentifierValidator(model));
+        nameTextField.add(new UniqueLemmaNameValidator(model));
     }
 
     /**
@@ -172,10 +172,9 @@ public class LemmaEditForm extends Form<Lemma> {
     }
 
     /**
-     * Validates a lemma’s identifier against other existent lemmata.
+     * Validates a lemma’s name against other existent lemmata.
      */
-    private class UniqueLemmaIdentifierValidator implements
-            IValidator<String> {
+    private class UniqueLemmaNameValidator implements IValidator<String> {
         /**
          * Determines if a deserialized file is compatible with this class.
          */
@@ -187,12 +186,12 @@ public class LemmaEditForm extends Form<Lemma> {
         private IModel<Lemma> lemmaModel;
 
         /**
-         * Creates a new lemma identifier validator.
+         * Creates a new lemma name validator.
          * 
          * @param model
          *            lemma model that is edited
          */
-        public UniqueLemmaIdentifierValidator(IModel<Lemma> model) {
+        public UniqueLemmaNameValidator(IModel<Lemma> model) {
             lemmaModel = model;
         }
 
