@@ -270,7 +270,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Character> query = entityManager
-                    .createQuery("FROM User WHERE character = :character", Character.class);
+                    .createQuery("FROM Character WHERE character = :character", Character.class);
             List<Character> characterList = query.setParameter("character", characterString).getResultList();
             transaction.commit();
 
