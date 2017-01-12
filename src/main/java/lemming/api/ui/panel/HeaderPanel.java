@@ -1,6 +1,7 @@
 package lemming.api.ui.panel;
 
 import lemming.api.lemma.LemmaIndexPage;
+import lemming.api.pos.PosIndexPage;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -34,10 +35,12 @@ public class HeaderPanel extends Panel {
 
         WebMarkupContainer homePageItem = new WebMarkupContainer("homePageItem");
         WebMarkupContainer lemmaIndexItem = new WebMarkupContainer("lemmaIndexItem");
+        WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
         BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
                 LemmaIndexPage.class);
+        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
         Link<Void> logoutLink = new Link<Void>("logoutLink") {
             private static final long serialVersionUID = 1L;
@@ -49,10 +52,12 @@ public class HeaderPanel extends Panel {
 
         homePageItem.add(homePageLink);
         lemmaIndexItem.add(lemmaIndexLink);
+        posIndexItem.add(posIndexLink);
         userEditItem.add(userEditLink);
 
         add(homePageItem);
         add(lemmaIndexItem);
+        add(posIndexItem);
         add(userEditItem);
         add(logoutLink);
 
@@ -60,6 +65,8 @@ public class HeaderPanel extends Panel {
             homePageItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(LemmaIndexPage.class)) {
             lemmaIndexItem.add(AttributeModifier.append("class", "active"));
+        } else if (activePageClass.equals(PosIndexPage.class)) {
+            posIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(UserEditPage.class)) {
             userEditItem.add(AttributeModifier.append("class", "active"));
         }

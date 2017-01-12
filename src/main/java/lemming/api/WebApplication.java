@@ -4,6 +4,8 @@ import lemming.api.auth.SignInPage;
 import lemming.api.auth.WebSession;
 import lemming.api.lemma.LemmaEditPage;
 import lemming.api.lemma.LemmaIndexPage;
+import lemming.api.pos.PosEditPage;
+import lemming.api.pos.PosIndexPage;
 import lemming.api.ui.page.AccessDeniedPage;
 import lemming.api.ui.page.PageExpiredPage;
 import lemming.api.user.User;
@@ -94,6 +96,8 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/SignInPage", SignInPage.class);
         mountPage("/lemma/LemmaIndexPage", LemmaIndexPage.class);
         mountPage("/lemma/LemmaEditPage", LemmaEditPage.class);
+        mountPage("/pos/PosIndexPage", PosIndexPage.class);
+        mountPage("/pos/PosEditPage", PosEditPage.class);
         mountPage("/user/UserEditPage", UserEditPage.class);
     }
 
