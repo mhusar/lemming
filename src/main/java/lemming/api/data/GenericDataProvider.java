@@ -1,7 +1,5 @@
 package lemming.api.data;
 
-import lemming.api.lemma.Lemma;
-import lemming.api.pos.Pos;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
@@ -274,16 +272,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     protected Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
         if (filter instanceof String) {
-            if (typeClass.equals(Lemma.class)) {
-                return criteriaBuilder.or(
-                        criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
-                        criteriaBuilder.like(criteriaBuilder.upper(root.get("pos")), filter + "%".toUpperCase()),
-                        criteriaBuilder.like(criteriaBuilder.upper(root.get("source")), filter + "%".toUpperCase()));
-            } else if (typeClass.equals(Pos.class)) {
-                return criteriaBuilder.or(
-                        criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
-                        criteriaBuilder.like(criteriaBuilder.upper(root.get("source")), filter + "%".toUpperCase()));
-            }
+            return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, filter, typeClass);
         }
 
         return null;
