@@ -2,6 +2,7 @@ package lemming.api.pos;
 
 import lemming.api.data.EntityManagerListener;
 import lemming.api.data.GenericDao;
+import lemming.api.data.Source;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -117,6 +118,36 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             TypedQuery<Pos> query = entityManager
                     .createQuery("FROM Pos WHERE name LIKE :substring", Pos.class);
             List<Pos> posList = query.setParameter("substring", substring + "%").getResultList();
+            transaction.commit();
+            return posList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public List<Pos> findBySource(Source.PosType source) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Pos> query = entityManager
+                    .createQuery("FROM Pos WHERE source = :source", Pos.class);
+            List<Pos> posList = query.setParameter("source", source).getResultList();
             transaction.commit();
             return posList;
         } catch (RuntimeException e) {

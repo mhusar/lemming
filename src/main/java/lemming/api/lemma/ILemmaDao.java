@@ -1,6 +1,7 @@
 package lemming.api.lemma;
 
 import lemming.api.data.IDao;
+import lemming.api.data.Source;
 
 import java.util.List;
 
@@ -23,4 +24,12 @@ public interface ILemmaDao extends IDao<Lemma> {
      * @return A list of matching lemmata.
      */
     List<Lemma> findByNameStart(String substring);
+
+    /**
+     * Returns a list of matching lemmata for a given source.
+     *
+     * @param source source of data
+     * @return A list of matching lemmata.
+     */
+    List<Lemma> findBySource(Source.LemmaType source);
 }

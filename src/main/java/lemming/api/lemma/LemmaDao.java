@@ -2,6 +2,7 @@ package lemming.api.lemma;
 
 import lemming.api.data.EntityManagerListener;
 import lemming.api.data.GenericDao;
+import lemming.api.data.Source;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -117,6 +118,36 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             TypedQuery<Lemma> query = entityManager
                     .createQuery("FROM Lemma WHERE name LIKE :substring", Lemma.class);
             List<Lemma> lemmaList = query.setParameter("substring", substring + "%").getResultList();
+            transaction.commit();
+            return lemmaList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public List<Lemma> findBySource(Source.LemmaType source) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Lemma> query = entityManager
+                    .createQuery("FROM Lemma WHERE source = :source", Lemma.class);
+            List<Lemma> lemmaList = query.setParameter("source", source).getResultList();
             transaction.commit();
             return lemmaList;
         } catch (RuntimeException e) {
