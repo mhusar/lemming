@@ -10,7 +10,7 @@ import javax.ws.rs.ApplicationPath;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ApplicationPath("/")
+@ApplicationPath("/api")
 public class Application extends ResourceConfig {
 
     public Application() {
