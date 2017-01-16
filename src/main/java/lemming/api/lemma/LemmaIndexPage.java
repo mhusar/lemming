@@ -88,10 +88,14 @@ public class LemmaIndexPage extends BasePage {
 
         columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.name")),
                 "name", "name"));
+        columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.replacement")),
+                "replacementString", "replacementString"));
         columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.pos")),
-                "pos", "pos"));
+                "posString", "posString"));
         columns.add(new SourceTextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.source")),
                 "source", "source"));
+        columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.reference")),
+                "reference", "reference"));
         columns.add(new LemmaActionPanelColumn(Model.of("")));
 
         return columns;

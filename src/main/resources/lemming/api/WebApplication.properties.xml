@@ -43,9 +43,11 @@
   <entry key="InputPanel.insertTag">Tag einfügen</entry>
   <entry key="InputPanel.tabDialogTitleStart">Attribute für Tag </entry>
   <entry key="InputPanel.tabDialogTitleEnd"></entry>
-  <entry key="Lemma.name">Name</entry>
+  <entry key="Lemma.name">Lemma</entry>
   <entry key="Lemma.pos">Wortart</entry>
-  <entry key="Lemma.source">Quelle</entry>
+  <entry key="Lemma.reference">Stelle</entry>
+  <entry key="Lemma.replacement">Ersatzlemma</entry>
+  <entry key="Lemma.source">Herkunft</entry>
   <entry key="LemmaDeleteConfirmPanel.confirm">Lemma löschen</entry>
   <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>
   <entry key="LemmaDeleteConfirmPanel.title">Lemma löschen</entry>

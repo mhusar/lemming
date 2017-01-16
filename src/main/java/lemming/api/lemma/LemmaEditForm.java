@@ -1,6 +1,8 @@
 package lemming.api.lemma;
 
 import lemming.api.data.Source;
+import lemming.api.pos.PosAutoCompleteTextField;
+import lemming.api.pos.PosTextField;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -48,7 +50,7 @@ public class LemmaEditForm extends Form<Lemma> {
 
         this.nextPageClass = nextPageClass;
         RequiredTextField<String> nameTextField = new RequiredTextField<String>("name");
-        RequiredTextField<String> posTextField = new RequiredTextField<String>("pos");
+        PosTextField posTextField = new PosAutoCompleteTextField("pos");
         ListChoice<Source.LemmaType> sourceListChoice = new ListChoice<Source.LemmaType>("source",
                 new PropertyModel<Source.LemmaType>(getModelObject(), "source"),
                 new ArrayList<Source.LemmaType>(Arrays.asList(Source.LemmaType.values())),
