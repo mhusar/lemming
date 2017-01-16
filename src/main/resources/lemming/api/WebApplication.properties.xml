@@ -82,8 +82,8 @@
   <entry key="PagingNavigator.prevItem">Zurück</entry>
   <entry key="PagingNavigator.nextItem">Weiter</entry>
   <entry key="PagingNavigator.lastItem">Ende</entry>
-  <entry key="Pos.name">Name</entry>
-  <entry key="Pos.source">Quelle</entry>
+  <entry key="Pos.name">Wortart</entry>
+  <entry key="Pos.source">Herkunft</entry>
   <entry key="PosDeleteConfirmPanel.confirm">Wortart löschen</entry>
   <entry key="PosDeleteConfirmPanel.message">Möchten Sie die Wortart {0} wirklich löschen ?</entry>
   <entry key="PosDeleteConfirmPanel.title">Wortart löschen</entry>
