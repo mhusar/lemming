@@ -1,5 +1,6 @@
 package lemming.api.lemma;
 
+import lemming.api.pos.Pos;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ import lemming.api.data.Source;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
         @Index(columnList = "uuid, name", unique = true),
-        @Index(columnList = "source")})
+        @Index(columnList = "replacement_string, pos_string, source, reference")})
 @XmlRootElement
 public class Lemma implements Serializable {
     /**
@@ -59,10 +60,30 @@ public class Lemma implements Serializable {
     private String name;
 
     /**
-     * Part-of-speech of a lemma.
+     * Replacement of a lemma.
      */
-    @Column(name = "pos")
-    private String pos;
+    @ManyToOne
+    @JoinColumn(name = "replacement_id")
+    private Lemma replacement;
+
+    /**
+     * Replacement of a lemma as string.
+     */
+    @Column(name = "replacement_string")
+    private String replacementString;
+
+    /**
+     * Part of speech of a lemma.
+     */
+    @ManyToOne
+    @JoinColumn(name = "pos_id")
+    private Pos pos;
+
+    /**
+     * Part of speech of a lemma as string.
+     */
+    @Column(name = "pos_string")
+    private String posString;
 
     /**
      * Source of a lemma.
@@ -70,6 +91,12 @@ public class Lemma implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "source", nullable = false)
     private Source.LemmaType source;
+
+    /**
+     * Reference of a lemma.
+     */
+    @Column(name = "reference")
+    private String reference;
 
     /**
      * Creates an instance of a lemma.
@@ -145,7 +172,7 @@ public class Lemma implements Serializable {
     }
 
     /**
-     * Sets the name of a lemma.
+     * Sets the lemma of a lemma.
      *
      * @param name
      *            the name of a lemma
@@ -155,12 +182,53 @@ public class Lemma implements Serializable {
     }
 
     /**
+     * Returns the replacement of a lemma.
+     *
+     * @return A lemma, or null.
+     */
+    @XmlElement(name="replacement")
+    public Lemma getReplacement() {
+        return replacement;
+    }
+
+    /**
+     * Sets the replacement of a lemma.
+     *
+     * @param replacement a replacement lemma
+     */
+    public void setReplacement(Lemma replacement) {
+        this.replacement = replacement;
+
+        if (replacement instanceof Lemma) {
+            replacementString = replacement.getName();
+        } else {
+            replacementString = null;
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    @XmlElement(name="replacementString")
+    public String getReplacementString() {
+        return replacementString;
+    }
+
+    /**
+     *
+     * @param replacementString
+     */
+    public void setReplacementString(String replacementString) {
+        this.replacementString = replacementString;
+    }
+
+    /**
      * Returns the part of speech of a lemma.
      *
-     * @return Part-of-speech of a lemma.
+     * @return Part of speech of a lemma.
      */
-    @XmlElement(name="pos")
-    public String getPos() {
+    public Pos getPos() {
         return pos;
     }
 
@@ -170,8 +238,34 @@ public class Lemma implements Serializable {
      * @param pos
      *            the part of speech of a lemma
      */
-    public void setPos(String pos) {
+    public void setPos(Pos pos) {
         this.pos = pos;
+
+        if (pos instanceof Pos) {
+            posString = pos.getName();
+        } else {
+            posString = null;
+        }
+    }
+
+    /**
+     * Returns the part of speech of a lemma as string.
+     *
+     * @return Part of speech of a lemma.
+     */
+    @XmlElement(name="posString")
+    public String getPosString() {
+        return posString;
+    }
+
+    /**
+     * Sets the part of speech of a lemma as string.
+     *
+     * @param posString
+     *            the part of speech of a lemma
+     */
+    public void setPosString(String posString) {
+        this.posString = posString;
     }
 
     /**
@@ -191,6 +285,25 @@ public class Lemma implements Serializable {
      */
     public void setSource(Source.LemmaType source) {
         this.source = source;
+    }
+
+    /**
+     * Returns the text reference of a lemma;
+     *
+     * @return A reference, or null.
+     */
+    @XmlElement(name="reference")
+    public String getReference() {
+        return reference;
+    }
+
+    /**
+     * Sets the text reference of a lemma.
+     *
+     * @param reference reference of a lemma
+     */
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     /**
