@@ -32,4 +32,12 @@ public interface ILemmaDao extends IDao<Lemma> {
      * @return A list of matching lemmata.
      */
     List<Lemma> findBySource(Source.LemmaType source);
+
+    /**
+     * Resolves a replacement lemma with a replacement string,
+     *
+     * @param lemma processed lemma
+     * @return True on success; false otherwise.
+     */
+    Boolean resolveReplacement(Lemma lemma);
 }

@@ -162,4 +162,47 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             entityManager.close();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Boolean resolveReplacement(Lemma lemma) {
+        if (lemma.getReplacementString() instanceof String) {
+            EntityManager entityManager = EntityManagerListener.createEntityManager();
+            EntityTransaction transaction = null;
+
+            try {
+                transaction = entityManager.getTransaction();
+                transaction.begin();
+                TypedQuery<Lemma> query = entityManager
+                        .createQuery("FROM Lemma WHERE name = :name", Lemma.class);
+                List<Lemma> lemmaList = query.setParameter("name", lemma.getReplacementString()).getResultList();
+
+                if (lemmaList.isEmpty()) {
+                    transaction.commit();
+                    return false;
+                } else {
+                    Lemma replacement = lemmaList.get(0);
+                    lemma.setReplacement(replacement);
+                    entityManager.merge(lemma);
+                    transaction.commit();
+                    return true;
+                }
+            } catch (RuntimeException e) {
+                e.printStackTrace();
+
+                if (transaction != null && transaction.isActive()) {
+                    transaction.rollback();
+                }
+
+                throw e;
+            } finally {
+                entityManager.close();
+            }
+        } else {
+            return false;
+        }
+    }
 }
