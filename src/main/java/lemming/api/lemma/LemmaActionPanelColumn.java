@@ -1,5 +1,6 @@
 package lemming.api.lemma;
 
+import lemming.api.data.Source;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -78,7 +79,7 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
             User sessionUser = WebSession.get().getUser();
 
             if (sessionUser instanceof User) {
-                add(new AjaxLink<Void>("editLink") {
+                AjaxLink<Void> editLink = new AjaxLink<Void>("editLink") {
                     /**
                      * Determines if a deserialized file is compatible with
                      * this class.
@@ -89,8 +90,8 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
                     public void onClick(AjaxRequestTarget target) {
                         setResponsePage(new LemmaEditPage(model, getPage().getPageClass()));
                     }
-                });
-                add(new AjaxLink<Void>("deleteLink") {
+                };
+                AjaxLink<Void> deleteLink = new AjaxLink<Void>("deleteLink") {
                     /**
                      * Determines if a deserialized file is compatible with
                      * this class.
@@ -108,7 +109,30 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
                         //lemmaDeleteDeniedPanel.show(target, model);
                         lemmaDeleteConfirmPanel.show(target, model);
                     }
-                });
+                };
+                AjaxLink<Void> viewLink = new AjaxLink<Void>("viewLink") {
+                    /**
+                     * Determines if a deserialized file is compatible with
+                     * this class.
+                     */
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        setResponsePage(new LemmaViewPage(model));
+                    }
+                };
+
+                add(editLink);
+                add(deleteLink);
+                add(viewLink);
+
+                if (model.getObject().getSource().equals(Source.LemmaType.TL)) {
+                    editLink.setVisible(false);
+                    deleteLink.setVisible(false);
+                } else {
+                    viewLink.setVisible(false);
+                }
             }
         }
     }
