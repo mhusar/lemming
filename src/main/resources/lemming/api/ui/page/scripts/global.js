@@ -10,9 +10,8 @@ jQuery(document).ready(function() {
     setupApostropheKey();
     changeFormTabOrder();
 
-    enableCategoryAutoComplete();
-    enableSiglumAutoComplete();
-    enableSiglumCheck();
+    enableLemmaAutoComplete();
+    enablePosAutoComplete();
 });
 
 jQuery(document).ajaxComplete(function() {
@@ -132,88 +131,22 @@ function changeFormTabOrder() {
             });
 }
 
-function enableCategoryAutoComplete() {
-    if (typeof categorySelector !== "undefined") {
-        jQuery(categorySelector).autocomplete({
+function enableLemmaAutoComplete() {
+    if (typeof lemmaSelector !== "undefined") {
+        jQuery(lemmaSelector).autocomplete({
             autoFocus : true,
             delay : 0,
-            source : categoryCallbackUrl
+            source : lemmaCallbackUrl
         });
     }
 }
 
-function enableSiglumAutoComplete() {
-    if (typeof siglumSelector !== "undefined") {
-        jQuery(siglumSelector).autocomplete({
+function enablePosAutoComplete() {
+    if (typeof posSelector !== "undefined") {
+        jQuery(posSelector).autocomplete({
             autoFocus : true,
             delay : 0,
-            source : siglumCallbackUrl
+            source : posCallbackUrl
         });
-    }
-}
-
-function enableSiglumCheck() {
-    if (typeof siglumCheckSelector !== "undefined") {
-        checkSiglum();
-        jQuery(siglumCheckSelector).blur(checkSiglum);
-        jQuery(siglumCheckSelector).change(checkSiglumEmpty);
-        jQuery(siglumCheckSelector).on("autocompleteclose", checkSiglum);
-        jQuery(siglumCheckSelector).on("autocompletefocus", checkFocusedSiglum);
-        jQuery(siglumCheckSelector).on("autocompleteresponse",
-                checkFocusedSiglum);
-    }
-}
-
-function checkSiglum() {
-    jQuery.ajax({
-        url : siglumCheckCallbackUrl,
-        dataType : "text",
-        data : {
-            "siglum" : jQuery(siglumCheckSelector).val()
-        }
-    }).done(function(data) {
-        if (data === "true") {
-            jQuery("body").removeClass("bg-danger");
-        } else if (data === "false") {
-            jQuery("body").addClass("bg-danger");
-        }
-    });
-}
-
-function checkSiglumEmpty() {
-    if (jQuery("body").hasClass("bg-danger")) {
-        if (jQuery(this).val().length === 0) {
-            jQuery("body").removeClass("bg-danger");
-        }
-    }
-}
-
-function checkFocusedSiglum(event, ui) {
-    var value = "";
-
-    if (ui.hasOwnProperty("item")) {
-        value = ui.item.value;
-    } else if (ui.hasOwnProperty("content")) {
-        if (ui.content.length) {
-            value = ui.content[0].value;
-        }
-    }
-
-    if (value.length) {
-        jQuery.ajax({
-            url : siglumCheckCallbackUrl,
-            dataType : "text",
-            data : {
-                "siglum" : value
-            }
-        }).done(function(data) {
-            if (data === "true") {
-                jQuery("body").removeClass("bg-danger");
-            } else if (data === "false") {
-                jQuery("body").addClass("bg-danger");
-            }
-        });
-    } else {
-        jQuery("body").removeClass("bg-danger");
     }
 }
