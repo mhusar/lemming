@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
     setupFeedbackPanel();
     restrictTableColumnText();
 
-    setupApostropheKey();
+    //setupApostropheKey();
     changeFormTabOrder();
 
     enableLemmaAutoComplete();
