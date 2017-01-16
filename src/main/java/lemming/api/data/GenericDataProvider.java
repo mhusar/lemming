@@ -1,5 +1,6 @@
 package lemming.api.data;
 
+import com.mysql.cj.mysqlx.protobuf.MysqlxExpr;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
@@ -159,7 +160,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     public long size() {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(typeClass);
+        CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
         Root<T> root = criteriaQuery.from(typeClass);
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -167,21 +168,21 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
             setSort(defaultSortParam);
         }
 
-        Selection<T> selection = getSelection(root);
         Expression<Boolean> restriction = getRestriction(criteriaBuilder, root);
-        TypedQuery<T> typedQuery = null;
+        TypedQuery<Long> typedQuery = null;
 
         if (restriction == null) {
-            typedQuery = entityManager.createQuery(criteriaQuery.select(selection));
+            typedQuery = entityManager.createQuery(criteriaQuery.select(criteriaBuilder.count(root)));
         } else {
-            typedQuery = entityManager.createQuery(criteriaQuery.select(selection).where(restriction));
+            typedQuery = entityManager.createQuery(criteriaQuery.select(criteriaBuilder.count(root))
+                    .where(restriction));
         }
 
         try {
             transaction.begin();
-            Integer size = typedQuery.getResultList().size();
+            Long size = typedQuery.getSingleResult();
             transaction.commit();
-            return size.longValue();
+            return size;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -295,7 +296,6 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @return A selection.
      */
     protected Selection<T> getSelection(Root<T> root) {
-        //TODO: Add joins.
         return root;
     }
 
@@ -327,7 +327,6 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @return An Order object.
      */
     protected Order getOrder(CriteriaBuilder criteriaBuilder, Root<T> root) {
-        //TODO: Add joins.
         String property = getSort().getProperty();
         String propertyName = property;
 

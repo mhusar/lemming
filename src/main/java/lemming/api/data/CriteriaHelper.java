@@ -4,9 +4,7 @@ import lemming.api.lemma.Lemma;
 import lemming.api.pos.Pos;
 import org.apache.wicket.model.ResourceModel;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 
 /**
  * A helper class for criteria restrictions.
@@ -68,12 +66,18 @@ public final class CriteriaHelper {
         if (source != null) {
             return criteriaBuilder.or(
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("pos")), filter + "%".toUpperCase()),
-                    criteriaBuilder.equal(root.get("source"), source));
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("replacementString")),
+                            filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase()),
+                    criteriaBuilder.equal(root.get("source"), source),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("reference")), filter + "%".toUpperCase()));
         } else {
             return criteriaBuilder.or(
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("pos")), filter + "%".toUpperCase()));
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("replacementString")),
+                            filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("reference")), filter + "%".toUpperCase()));
         }
     }
 
