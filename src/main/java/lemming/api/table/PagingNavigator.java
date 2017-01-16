@@ -26,6 +26,11 @@ class PagingNavigator extends AjaxPagingNavigator {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Fixed view size.
+     */
+    private static final int VIEW_SIZE = 5;
+
+    /**
      * Creates a new paging navigator.
      * 
      * @param id
@@ -38,8 +43,8 @@ class PagingNavigator extends AjaxPagingNavigator {
     }
 
     /**
-     * Creates a new paging navigation.
-     * 
+     * Creates a new paging navigation with numbered page links.
+     *
      * @param id
      *            ID of this navigator
      * @param pageable
@@ -50,7 +55,7 @@ class PagingNavigator extends AjaxPagingNavigator {
      */
     @Override
     protected PagingNavigation newNavigation(String id, IPageable pageable, IPagingLabelProvider labelProvider) {
-        return new AjaxPagingNavigation(id, pageable, labelProvider) {
+        PagingNavigation navigation = new AjaxPagingNavigation(id, pageable, labelProvider) {
             /**
              * Determines if a deserialized file is compatible with this class.
              */
@@ -58,7 +63,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
             /**
              * @param iteration
-             * @return
+             * @return A loop item.
              */
             @Override
             protected LoopItem newItem(int iteration) {
@@ -69,18 +74,21 @@ class PagingNavigator extends AjaxPagingNavigator {
                 return item;
             }
         };
+
+        navigation.setViewSize(VIEW_SIZE);
+        return navigation;
     }
 
     /**
-     * Creates a new increment link.
-     * 
+     * Creates a new page link for decrement/increment items.
+     *
      * @param id
      *            ID of the link
      * @param pageable
      *            data table or data view that is paged
      * @param increment
      *            the amount of incrementation
-     * @return The increment link.
+     * @return A page link.
      */
     @Override
     protected AbstractLink newPagingNavigationIncrementLink(String id, IPageable pageable, int increment) {
@@ -96,7 +104,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
             /**
              * Always generate a href attribute.
-             * 
+             *
              * @param tag
              *            The component tag.
              */
@@ -110,18 +118,18 @@ class PagingNavigator extends AjaxPagingNavigator {
     }
 
     /**
-     * Creates a new page number link.
-     * 
+     * Creates a new page link for first/last page items.
+     *
      * @param id
      *            ID of the link
      * @param pageable
      *            data table or data view that is paged
      * @param pageNumber
      *            page to jump to
-     * @return The page number link.
+     * @return A page link.
      */
     protected AbstractLink newPagingNavigationLink(String id, IPageable pageable, int pageNumber) {
-        ExternalLink container = new ExternalLink(id + "Item", "");
+        ExternalLink container = new ExternalLink(id + "Item", (String) null);
 
         container.add(new AttributeModifier("class",
                 new PagingLinkModel(pageable, pageable.getCurrentPage() + pageNumber, "disabled")));
@@ -133,7 +141,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
             /**
              * Always generate a href attribute.
-             * 
+             *
              * @param tag
              *            The component tag.
              */
@@ -172,7 +180,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Creates a new link model.
-         * 
+         *
          * @param pageable
          *            data table or data view that is paged
          * @param pageNumber
@@ -188,7 +196,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Returns the CSS value.
-         * 
+         *
          * @return A string representing the CSS value.
          */
         @Override
@@ -198,7 +206,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Does nothing.
-         * 
+         *
          * @param object
          *            Some object.
          */
@@ -216,7 +224,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Determines if the linked page is selected.
-         * 
+         *
          * @return True if the linked page is selected; false otherwise.
          */
         public boolean isSelected() {
@@ -225,7 +233,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Returns the page number of the linked page.
-         * 
+         *
          * @return The number of the linked page.
          */
         private long getPageNumber() {
@@ -268,7 +276,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Creates a new link model.
-         * 
+         *
          * @param pageable
          *            data table or data view that is paged
          * @param pageNumber
@@ -281,7 +289,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Returns the CSS value.
-         * 
+         *
          * @return A string representing the CSS value.
          */
         @Override
@@ -291,7 +299,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Does nothing.
-         * 
+         *
          * @param object
          *            Some object.
          */
@@ -310,7 +318,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Determines if the linked page is enabled.
-         * 
+         *
          * @return True if the linked page is enabled; false otherwise.
          */
         public boolean isEnabled() {
@@ -323,7 +331,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Determines if the linked page is the first page.
-         * 
+         *
          * @return True if the linked page if the first page; false otherwise.
          */
         public boolean isFirstPage() {
@@ -332,7 +340,7 @@ class PagingNavigator extends AjaxPagingNavigator {
 
         /**
          * Determines if the linked page is the last page.
-         * 
+         *
          * @return True if the linked page if the last page; false otherwise.
          */
         public boolean isLastPage() {
