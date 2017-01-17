@@ -1,5 +1,6 @@
 package lemming.api.ui.panel;
 
+import lemming.api.context.ContextIndexPage;
 import lemming.api.lemma.LemmaIndexPage;
 import lemming.api.pos.PosIndexPage;
 import org.apache.wicket.AttributeModifier;
@@ -34,10 +35,13 @@ public class HeaderPanel extends Panel {
         super(id);
 
         WebMarkupContainer homePageItem = new WebMarkupContainer("homePageItem");
+        WebMarkupContainer contextIndexItem = new WebMarkupContainer("contextIndexItem");
         WebMarkupContainer lemmaIndexItem = new WebMarkupContainer("lemmaIndexItem");
         WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
         BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
+        BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<Void>("contextIndexLink",
+                ContextIndexPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
                 LemmaIndexPage.class);
         BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
@@ -51,11 +55,13 @@ public class HeaderPanel extends Panel {
         };
 
         homePageItem.add(homePageLink);
+        contextIndexItem.add(contextIndexLink);
         lemmaIndexItem.add(lemmaIndexLink);
         posIndexItem.add(posIndexLink);
         userEditItem.add(userEditLink);
 
         add(homePageItem);
+        add(contextIndexItem);
         add(lemmaIndexItem);
         add(posIndexItem);
         add(userEditItem);
@@ -63,6 +69,8 @@ public class HeaderPanel extends Panel {
 
         if (activePageClass.equals(HomePage.class)) {
             homePageItem.add(AttributeModifier.append("class", "active"));
+        } else if (activePageClass.equals(ContextIndexPage.class)) {
+            contextIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(LemmaIndexPage.class)) {
             lemmaIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(PosIndexPage.class)) {
