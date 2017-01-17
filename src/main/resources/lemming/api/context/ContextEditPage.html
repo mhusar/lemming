@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div wicket:id="contextDeleteConfirmPanel"></div>
+    <div wicket:id="contextDeleteDeniedPanel"></div>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <wicket:label wicket:id="header"></wicket:label>
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+        <div wicket:id="feedbackPanel"></div>
+    </div>
+    <div class="container">
+        <form wicket:id="contextEditForm" class="form-horizontal" role="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="lemma" class="col-sm-4 control-label">
+                            <wicket:message key="Context.lemma"></wicket:message>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" wicket:id="lemma" id="lemma" class="form-control"
+                                   maxlength="100" autofocus="autofocus"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pos" class="col-sm-4 control-label">
+                            <wicket:message key="Context.pos"></wicket:message>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" wicket:id="pos" id="pos" class="form-control"
+                                   rmaxlength="100"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="type" class="col-sm-4 control-label">
+                            <wicket:message key="Context.type"></wicket:message>
+                        </label>
+                        <div class="col-sm-8">
+                            <select wicket:id="type" id="type" class="form-control" required="required"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location" class="col-sm-4 control-label">
+                            <wicket:message key="Context.location"></wicket:message>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" wicket:id="location" id="location" class="form-control"
+                                   required="required" maxlength="100"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="preceding" class="col-sm-2 control-label">
+                            <wicket:message key="Context.preceding"></wicket:message>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" wicket:id="preceding" id="preceding" class="form-control"
+                                   required="required" maxlength="200"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="keyword" class="col-sm-2 control-label">
+                            <wicket:message key="Context.keyword"></wicket:message>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" wicket:id="keyword" id="keyword" class="form-control"
+                                   required="required" maxlength="100"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="following" class="col-sm-2 control-label">
+                            <wicket:message key="Context.following"></wicket:message>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" wicket:id="following" id="following" class="form-control"
+                                   required="required" maxlength="200"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" wicket:id="cancelButton" class="btn btn-default">
+                                <wicket:message key="Action.cancel"></wicket:message>
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <wicket:message key="Action.save"></wicket:message>
+                            </button>
+                            <button type="button" wicket:id="deleteButton" class="btn btn-danger pull-right">
+                                <wicket:message key="Action.delete"></wicket:message>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</wicket:extend>
+</body>
+</html>

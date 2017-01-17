@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div wicket:id="contextDeleteConfirmPanel"></div>
+    <div wicket:id="contextDeleteDeniedPanel"></div>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <wicket:message key="ContextIndexPage.header"></wicket:message>
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+        <div wicket:id="feedbackPanel"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <input wicket:id="filterTextField" class="form-control" autofocus="autofocus"
+                       wicket:message="placeholder:Action.filter"/>
+            </div>
+            <div class="col-md-9">
+                <div class="btn-group">
+                    <button wicket:id="new" class="btn btn-default">
+                        <wicket:message key="ContextIndexPage.new"></wicket:message>
+                    </button>
+                    <button wicket:id="batchProcessing" class="btn btn-default">
+                        <wicket:message key="Action.batchProcessing"></wicket:message>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wicket:id="container" class="container">
+        <div wicket:id="fragment"></div>
+    </div>
+    <wicket:fragment wicket:id="withoutFilterForm">
+        <table wicket:id="contextDataTable"></table>
+    </wicket:fragment>
+    <wicket:fragment wicket:id="withFilterForm">
+        <form wicket:id="filterForm" role="form">
+            <table wicket:id="contextDataTable"></table>
+        </form>
+    </wicket:fragment>
+</wicket:extend>
+</body>
+</html>
