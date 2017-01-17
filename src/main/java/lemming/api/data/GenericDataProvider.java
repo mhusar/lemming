@@ -1,6 +1,5 @@
 package lemming.api.data;
 
-import com.mysql.cj.mysqlx.protobuf.MysqlxExpr;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
@@ -19,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides data for data table views.
@@ -96,8 +96,9 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         }
 
         Selection<T> selection = getSelection(root);
-        Expression<Boolean> restriction = getRestriction(criteriaBuilder, root);
-        Order order = getOrder(criteriaBuilder, root);
+        Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
+        Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
+        Order order = getOrder(criteriaBuilder, root, joins);
         TypedQuery<T> typedQuery = null;
 
         if (restriction == null) {
@@ -168,7 +169,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
             setSort(defaultSortParam);
         }
 
-        Expression<Boolean> restriction = getRestriction(criteriaBuilder, root);
+        Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
+        Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
         TypedQuery<Long> typedQuery = null;
 
         if (restriction == null) {
@@ -271,9 +273,10 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
-    protected Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
+    protected Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
+                                                             Map<String,Join<?,?>> joins) {
         if (filter instanceof String) {
-            return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, filter, typeClass);
+            return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, typeClass);
         }
 
         return null;
@@ -306,9 +309,10 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
-    protected Expression<Boolean> getRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
+    protected Expression<Boolean> getRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
+                                                 Map<String,Join<?,?>> joins) {
         Expression<Boolean> filterStateRestriction = getFilterStateRestriction(criteriaBuilder, root);
-        Expression<Boolean> filterStringRestriction = getFilterStringRestriction(criteriaBuilder, root);
+        Expression<Boolean> filterStringRestriction = getFilterStringRestriction(criteriaBuilder, root, joins);
 
         if (filterStateRestriction instanceof Expression) {
             return filterStateRestriction;
@@ -324,16 +328,13 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      *
      * @param criteriaBuilder contructor for criteria queries
      * @param root query root referencing entities
-     * @return An Order object.
+     * @param joins map of joins
+     * @return An order object.
      */
-    protected Order getOrder(CriteriaBuilder criteriaBuilder, Root<T> root) {
+    protected Order getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String,Join<?,?>> joins) {
         String property = getSort().getProperty();
-        String propertyName = property;
+        Order order = CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending());
 
-        if (getSort().isAscending()) {
-            return criteriaBuilder.asc(criteriaBuilder.upper(root.get(propertyName)));
-        } else {
-            return criteriaBuilder.desc(criteriaBuilder.upper(root.get(propertyName)));
-        }
+        return order;
     }
 }
