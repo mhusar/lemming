@@ -45,6 +45,7 @@
   <entry key="ContextIndexPage.new">Kontext erstellen</entry>
   <entry key="FilterPanelColumn.clear">Aufheben</entry>
   <entry key="FilterPanelColumn.go">Filtern</entry>
+  <entry key="HeaderPanel.contexts">Kontexte</entry>
   <entry key="HeaderPanel.lemmas">Lemmata</entry>
   <entry key="HeaderPanel.logout">Abmelden</entry>
   <entry key="HeaderPanel.overview">Übersicht</entry>
@@ -53,6 +54,7 @@
   <entry key="HeaderPanel.users">Benutzerverwaltung</entry>
   <entry key="HomePage.administration">Verwaltung</entry>
   <entry key="HomePage.characters">Sonderzeichen</entry>
+  <entry key="HomePage.contexts">Kontexte</entry>
   <entry key="HomePage.dataMaintenance">Datenpflege</entry>
   <entry key="HomePage.lemmas">Lemmata</entry>
   <entry key="HomePage.overview">Übersicht</entry>
