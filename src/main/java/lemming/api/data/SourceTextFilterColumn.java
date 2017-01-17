@@ -73,7 +73,7 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     }
 
     /**
-     * A panel used for displaying text for source enumns.
+     * A panel used for displaying text for source enums.
      */
     private class SourcePanel extends Panel {
         /**
