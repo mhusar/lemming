@@ -432,3 +432,16 @@ a.disabled:visited {
 tr.disabled div {
   color: #777;
 }
+
+.table > tbody > tr > .preceding {
+  padding: 8px 0px 8px 8px;
+}
+
+.table > tbody > tr > .keyword {
+  font-style: italic;
+  padding: 8px 0;
+}
+
+.table > tbody > tr > .following {
+  padding: 8px 8px 8px 0px;
+}
