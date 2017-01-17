@@ -5,7 +5,6 @@ jQuery.ajaxSetup({
 jQuery(document).ready(function() {
     fixRequiredAttributeForSafari();
     setupFeedbackPanel();
-    restrictTableColumnText();
 
     //setupApostropheKey();
     changeFormTabOrder();
@@ -55,21 +54,6 @@ function setupFeedbackPanel(id) {
         jQuery(this).removeClass(listElementClass).addClass(
                 "alert alert-" + listElementClass);
     });
-}
-
-function restrictTableColumnText() {
-    jQuery("table td div").each(
-            function(index) {
-                if (jQuery(this).children().length === 0) {
-                    if (jQuery(this).text().length > 40) {
-                        jQuery(this).attr("title", jQuery(this).text());
-                        jQuery(this).text(
-                                jQuery.trim(jQuery(this).text()
-                                        .substring(0, 39)));
-                        jQuery(this).append("…");
-                    }
-                }
-            });
 }
 
 function setupApostropheKey() {
