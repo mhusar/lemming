@@ -26,6 +26,7 @@ public class Application extends ResourceConfig {
         posResourceConfig.register(new LoggingFeature(logger, Level.ALL, LoggingFeature.Verbosity.PAYLOAD_ANY,
                 LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));
 
+        packages("lemming.api.context");
         packages("lemming.api.lemma");
         packages("lemming.api.pos");
         register(JacksonFeature.class);
