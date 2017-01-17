@@ -2,6 +2,8 @@ package lemming.api;
 
 import lemming.api.auth.SignInPage;
 import lemming.api.auth.WebSession;
+import lemming.api.context.ContextEditPage;
+import lemming.api.context.ContextIndexPage;
 import lemming.api.lemma.LemmaEditPage;
 import lemming.api.lemma.LemmaIndexPage;
 import lemming.api.lemma.LemmaViewPage;
@@ -95,6 +97,8 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/AccessDeniedPage", AccessDeniedPage.class);
         mountPage("/PageExpiredPage", PageExpiredPage.class);
         mountPage("/SignInPage", SignInPage.class);
+        mountPage("/context/ContextIndexPage", ContextIndexPage.class);
+        mountPage("/context/ContextEditPage", ContextEditPage.class);
         mountPage("/lemma/LemmaIndexPage", LemmaIndexPage.class);
         mountPage("/lemma/LemmaEditPage", LemmaEditPage.class);
         mountPage("/lemma/LemmaViewPage", LemmaViewPage.class);
