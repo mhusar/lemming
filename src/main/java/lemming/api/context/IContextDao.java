@@ -9,6 +9,13 @@ import java.util.List;
  */
 public interface IContextDao extends IDao<Context> {
     /**
+     * Makes multiple context instances managed and persistent.
+     *
+     * @param contexts context instances
+     */
+    void batchPersist(List<Context> contexts);
+
+    /**
      * Returns a matching context for a given keyword.
      *
      * @param keyword keyword of a context
