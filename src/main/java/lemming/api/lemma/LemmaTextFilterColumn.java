@@ -62,8 +62,14 @@ public class LemmaTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         Object object = rowModel.getObject();
 
         if (object instanceof Context) {
-            String name = ((Context) object).getLemma().getName();
-            item.add(new LemmaPanel(componentId, name));
+            Lemma lemma = ((Context) object).getLemma();
+
+            if (lemma instanceof Lemma) {
+                String name = lemma.getName();
+                item.add(new LemmaPanel(componentId, name));
+            } else {
+                item.add(new LemmaPanel(componentId, ""));
+            }
         } else if (object instanceof Lemma) {
             String name = ((Lemma) object).getName();
             item.add(new LemmaPanel(componentId, name));
