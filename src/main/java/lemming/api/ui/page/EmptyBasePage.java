@@ -5,6 +5,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.http.WebResponse;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
@@ -33,6 +34,16 @@ public class EmptyBasePage extends WebPage {
      */
     public EmptyBasePage(IModel<?> model) {
         super(model);
+    }
+
+    /**
+     * Configures the response of a page.
+     *
+     * @param response response object
+     */
+    @Override
+    protected void configureResponse(WebResponse response) {
+        response.setContentType("application/xhtml+xml");
     }
 
     /**
