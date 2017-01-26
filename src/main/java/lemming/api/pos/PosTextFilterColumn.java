@@ -62,8 +62,14 @@ public class PosTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         Object object = rowModel.getObject();
 
         if (object instanceof Context) {
-            String name = ((Context) object).getPos().getName();
-            item.add(new PosPanel(componentId, name));
+            Pos pos = ((Context) object).getPos();
+
+            if (pos instanceof  Pos) {
+                String name = pos.getName();
+                item.add(new PosPanel(componentId, name));
+            } else {
+                item.add(new PosPanel(componentId, ""));
+            }
         } else if (object instanceof Pos) {
             String name = ((Pos) object).getName();
             item.add(new PosPanel(componentId, name));
