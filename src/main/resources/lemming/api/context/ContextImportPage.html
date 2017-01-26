@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <wicket:label wicket:id="header"></wicket:label>
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <form wicket:id="contextImportForm" class="form-horizontal" role="form">
+                    <div wicket:id="dropzone" id="dropzone" class="dropzone"></div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="button" wicket:id="toHomePageButton" class="btn btn-default">
+                    <wicket:message key="Action.toHomePage"></wicket:message>
+                </button>
+                <button type="button" wicket:id="submitButton" class="btn btn-primary">
+                    <wicket:message key="Action.submit"></wicket:message>
+                </button>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

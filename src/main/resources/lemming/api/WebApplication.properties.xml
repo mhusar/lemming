@@ -14,10 +14,12 @@
   <entry key="Action.done">Fertig</entry>
   <entry key="Action.edit">Bearbeiten</entry>
   <entry key="Action.filter">Filtern</entry>
+  <entry key="Action.toHomePage">Zur Übersicht</entry>
   <entry key="Action.toIndex">Zum Index</entry>
   <entry key="Action.intermediateStorage">Zwischenspeichern</entry>
   <entry key="Action.open">Öffnen</entry>
   <entry key="Action.save">Speichern</entry>
+  <entry key="Action.submit">Absenden</entry>
   <entry key="Action.view">Ansehen</entry>
   <entry key="Character.character">Sonderzeichen</entry>
   <entry key="Character.position">Position</entry>
@@ -41,6 +43,7 @@
   <entry key="ContextEditForm.lemma-is-non-unique">Ein Kontext mit diesem Namen gibt es bereits.</entry>
   <entry key="ContextEditPage.editHeader">Kontext bearbeiten</entry>
   <entry key="ContextEditPage.newHeader">Kontext erstellen</entry>
+  <entry key="ContextImportPage.header">Kontext-Import</entry>
   <entry key="ContextIndexPage.header">Kontexte</entry>
   <entry key="ContextIndexPage.new">Kontext erstellen</entry>
   <entry key="dropzone.message">Drop files here or click to upload</entry>
@@ -56,6 +59,7 @@
   <entry key="HomePage.administration">Verwaltung</entry>
   <entry key="HomePage.characters">Sonderzeichen</entry>
   <entry key="HomePage.contexts">Kontexte</entry>
+  <entry key="HomePage.contextImport">Import von Kontexten</entry>
   <entry key="HomePage.dataMaintenance">Datenpflege</entry>
   <entry key="HomePage.lemmas">Lemmata</entry>
   <entry key="HomePage.overview">Übersicht</entry>
