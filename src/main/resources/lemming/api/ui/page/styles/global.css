@@ -457,7 +457,7 @@ ul.homePage li:last-child {
 }
 
 .table > tbody > tr > .preceding {
-  padding: 8px 0px 8px 8px;
+  padding: 8px 4px 8px 8px;
 }
 
 .table > tbody > tr > .keyword {
