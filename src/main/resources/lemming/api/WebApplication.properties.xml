@@ -43,6 +43,7 @@
   <entry key="ContextEditPage.newHeader">Kontext erstellen</entry>
   <entry key="ContextIndexPage.header">Kontexte</entry>
   <entry key="ContextIndexPage.new">Kontext erstellen</entry>
+  <entry key="dropzone.message">Drop files here or click to upload</entry>
   <entry key="FilterPanelColumn.clear">Aufheben</entry>
   <entry key="FilterPanelColumn.go">Filtern</entry>
   <entry key="HeaderPanel.contexts">Kontexte</entry>

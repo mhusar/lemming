@@ -1,0 +1,57 @@
+@keyframes dragenter {
+    from { background-color: #fff; border-color: #ddd; }
+    to { background-color: #f9f9f9; border-color: #848484; }
+}
+
+@keyframes dragleave {
+    from { background-color: #f9f9f9; border-color: #848484; }
+    to { background-color: #fff; border-color: #ddd; }
+}
+
+.dropzone {
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    color: #777;
+    cursor: pointer;
+    font-size: 1.5em;
+    height: 300px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.dropzone * {
+    pointer-events: none;
+}
+
+.dropzone.dragenter {
+    animation-name: dragenter;
+    animation-duration: 1s;
+    background-color: #f9f9f9;
+    border-color: #848484;
+}
+
+.dropzone.dragleave {
+    animation-name: dragleave;
+    animation-duration: 1s;
+}
+
+.dropzone input[type=file] {
+    display: none;
+}
+
+.dropzone .filename,
+.dropzone .message {
+    height: 100%;
+    line-height: 300px;
+    text-align: center;
+    width: 100%;
+}
+
+.dropzone .filename {
+    display: none;
+    z-index: 1;
+}
+
+.dropzone .message {
+    z-index: 2;
+}
