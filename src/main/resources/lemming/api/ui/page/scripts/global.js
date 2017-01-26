@@ -13,10 +13,6 @@ jQuery(document).ready(function() {
     enablePosAutoComplete();
 });
 
-jQuery(document).ajaxComplete(function() {
-    restrictTableColumnText();
-});
-
 // see http://caniuse.com/#feat=form-validation
 function fixRequiredAttributeForSafari() {
     if (navigator.userAgent.indexOf("Safari") != -1
