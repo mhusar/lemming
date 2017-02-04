@@ -6,6 +6,7 @@ import lemming.api.context.ContextIndexPage;
 import lemming.api.context.ContextImportPage;
 import lemming.api.lemma.LemmaIndexPage;
 import lemming.api.pos.PosIndexPage;
+import lemming.api.sense.SenseIndexPage;
 import lemming.api.ui.UserBookmarkablePageLink;
 import lemming.api.ui.page.BasePage;
 import lemming.api.user.UserEditPage;
@@ -39,6 +40,8 @@ public class HomePage extends BasePage {
                 ContextImportPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
                 LemmaIndexPage.class);
+        BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<Void>("senseIndexLink",
+                SenseIndexPage.class);
         BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
         UserBookmarkablePageLink characterEditPageLink = new UserBookmarkablePageLink("characterEditPageLink",
@@ -50,6 +53,7 @@ public class HomePage extends BasePage {
         add(contextIndexLink);
         add(contextImportLink);
         add(lemmaIndexLink);
+        add(senseIndexLink);
         add(posIndexLink);
         add(userEditLink);
         add(characterEditPageLink);
