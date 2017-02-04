@@ -1,0 +1,88 @@
+.tree-subtree {
+	margin: 0 0 0 18px;
+	padding: 0;
+}
+
+.tree-branch {
+	margin: 0;
+	padding: 0;
+}
+
+.tree-branch-mid {
+	background-image: url(tree.gif);
+	background-position: -54px center;
+	background-repeat: repeat-y;
+}
+
+.tree-junction {
+	display: block;
+	float: left;
+	width: 18px;
+	background-image: url(tree.gif);
+	background-position: -36px center;
+	background-repeat: no-repeat;
+}
+
+.tree-junction:hover {
+    text-decoration: none;
+}
+
+.tree-junction-expanded {
+	display: block;
+	float: left;
+	width: 18px;
+	background-image: url(tree.gif);
+	background-position: -18px center;
+	background-repeat: no-repeat;
+	text-decoration: none;
+}
+
+.tree-junction-collapsed {
+	display: block;
+	float: left;
+	width: 18px;
+	background-image: url(images/tree.gif);
+	background-position: 0 center;
+	background-repeat: no-repeat;
+	text-decoration: none;
+}
+
+.closed {
+	padding-left: 18px;
+	background-image: url(images/folder_closed.gif);
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+}
+
+.open {
+	padding-left: 18px;
+	background-image: url(images/folder_open.gif);
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+}
+
+.other {
+	padding-left: 18px;
+	background-image: url(images/folder_other.gif);
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+}
+
+.tree-content {
+	display: block;
+	margin-left: 18px;
+}
+
+.tree-content a {
+	color: #666;
+	text-decoration: none;
+}
+
+.tree-content a:hover {
+	text-decoration: underline;
+}
+
+.tree-content a.selected {
+    background-color: #eee;
+    color: black;
+}
