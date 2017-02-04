@@ -36,6 +36,38 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
+    public Lemma refresh(Lemma lemma) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            lemma = entityManager.merge(lemma);
+            entityManager.refresh(lemma);
+            lemma.getSenses().size();
+
+            transaction.commit();
+            return lemma;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public void persist(Lemma lemma) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;

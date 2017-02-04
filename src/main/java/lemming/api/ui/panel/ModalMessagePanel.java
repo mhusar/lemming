@@ -1,9 +1,11 @@
 package lemming.api.ui.panel;
 
+import lemming.api.sense.SenseDataTable;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
@@ -53,7 +55,7 @@ public abstract class ModalMessagePanel extends Panel {
     /**
      * Data table that is refreshed.
      */
-    private GenericDataTable<?> dataTable;
+    private DataTable<?, String> dataTable;
 
     /**
      * ID of the modal window.
@@ -118,7 +120,7 @@ public abstract class ModalMessagePanel extends Panel {
      * @param dataTable
      *            data table that is refreshed
      */
-    public ModalMessagePanel(String id, DialogType dialogType, GenericDataTable<?> dataTable) {
+    public ModalMessagePanel(String id, DialogType dialogType, DataTable<?, String> dataTable) {
         super(id);
 
         modalWindowId = id + "-window";
@@ -188,10 +190,8 @@ public abstract class ModalMessagePanel extends Panel {
      *            custom message model which overrides the model from method
      *            getMessageModel()
      */
-    public void show(AjaxRequestTarget target, IModel<?> model,
-            StringResourceModel messageModel) {
+    public void show(AjaxRequestTarget target, IModel<?> model, StringResourceModel messageModel) {
         setDefaultModel(model);
-
         Label label = new Label("modalMessage", messageModel);
 
         label.setOutputMarkupId(true);
@@ -297,7 +297,7 @@ public abstract class ModalMessagePanel extends Panel {
                 setResponsePage(responsePage);
             } else if (responsePageClass instanceof Class) {
                 setResponsePage(responsePageClass);
-            } else if (dataTable instanceof GenericDataTable<?>) {
+            } else if (dataTable instanceof GenericDataTable<?> || dataTable instanceof SenseDataTable) {
                 target.add(dataTable);
                 target.appendJavaScript("jQuery(\"#" + modalWindowId + "\").modal(\"hide\")");
             } else {

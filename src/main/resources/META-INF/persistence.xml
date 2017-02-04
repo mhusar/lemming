@@ -9,6 +9,7 @@
         <class>lemming.api.context.Context</class>
         <class>lemming.api.lemma.Lemma</class>
         <class>lemming.api.pos.Pos</class>
+        <class>lemming.api.sense.Sense</class>
         <class>lemming.api.user.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>

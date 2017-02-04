@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+<wicket:extend>
+    <div wicket:id="senseDeleteConfirmPanel"></div>
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <wicket:label wicket:id="header"></wicket:label>
+            </h1>
+        </div>
+    </div>
+    <div class="container">
+        <div wicket:id="feedbackPanel"></div>
+    </div>
+    <div class="container">
+        <form wicket:id="senseEditForm" class="form-horizontal" role="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div wicket:id="senses" id="senses" class="tree"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</wicket:extend>
+</body>
+</html>

@@ -139,15 +139,17 @@ public abstract class GenericDao<E> implements IDao<E> {
      *
      * @throws RuntimeException
      */
-    public void refresh(E entity) throws RuntimeException {
+    public E refresh(E entity) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.refresh(entityManager.merge(entity));
+            E mergedEntity = entityManager.merge(entity);
+            entityManager.refresh(mergedEntity);
             transaction.commit();
+            return mergedEntity;
         } catch (RuntimeException e) {
             e.printStackTrace();
 

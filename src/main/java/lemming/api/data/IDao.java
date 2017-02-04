@@ -50,8 +50,9 @@ public interface IDao<E> {
      * Refresh the state of the instance from the database, overwriting changes made to the entity, if any.
      *
      * @param entity entity instance
+     * @return The managed instance that was refreshed.
      */
-    void refresh(E entity);
+    E refresh(E entity);
 
     /**
      * Find by primary key. Search for an entity of the specified class and primary key. If the entity instance is
