@@ -37,7 +37,7 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
      */
     public SenseDataTable(String id, List<IColumn<SenseWrapper, String>> columns, SenseDataProvider dataProvider) {
         super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
-        createTable(id, columns, dataProvider, null);
+        createTable(dataProvider, null);
     }
 
     /**
@@ -55,23 +55,18 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
     public SenseDataTable(String id, List<IColumn<SenseWrapper, String>> columns, SenseDataProvider dataProvider,
                           FilterForm<SenseWrapper> filterForm) {
         super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
-        createTable(id, columns, dataProvider, filterForm);
+        createTable(dataProvider, filterForm);
     }
 
     /**
      * Builds a new data table with toolbars.
-     * 
-     * @param id
-     *            ID of a data table
-     * @param columns
-     *            list of columns
+     *
      * @param dataProvider
      *            provides data for a table
      * @param filterForm
      *            form that filters data of a table
      */
-    private void createTable(String id, List<IColumn<SenseWrapper, String>> columns, SenseDataProvider dataProvider,
-                             FilterForm<SenseWrapper> filterForm) {
+    private void createTable(SenseDataProvider dataProvider, FilterForm<SenseWrapper> filterForm) {
         setOutputMarkupId(true);
         add(AttributeModifier.append("class", "table table-hover table-striped"));
         addTopToolbar(new NavigationToolbar<SenseWrapper>(this));
