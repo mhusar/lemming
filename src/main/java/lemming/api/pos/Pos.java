@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * Class representing a part of speech.
  */
-@BatchSize(size = 20)
+@BatchSize(size = 30)
 @DynamicUpdate
 @Entity
 @SelectBeforeUpdate

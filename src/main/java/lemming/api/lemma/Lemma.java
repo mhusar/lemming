@@ -22,7 +22,7 @@ import org.hibernate.annotations.*;
 /**
  * Class representing a lemma.
  */
-@BatchSize(size = 20)
+@BatchSize(size = 30)
 @DynamicUpdate
 @Entity
 @SelectBeforeUpdate

@@ -21,7 +21,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 /**
  * Represents a special character.
  */
-@BatchSize(size = 20)
+@BatchSize(size = 30)
 @DynamicUpdate
 @Entity
 @OptimisticLocking(type = OptimisticLockType.VERSION)

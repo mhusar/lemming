@@ -26,7 +26,7 @@ import lemming.api.auth.UserRoles;
 /**
  * Represents a user with one role.
  */
-@BatchSize(size = 20)
+@BatchSize(size = 30)
 @DynamicUpdate
 @Entity
 @OptimisticLocking(type = OptimisticLockType.VERSION)

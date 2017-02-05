@@ -14,7 +14,7 @@ import java.util.UUID;
 /**
  * Class representing a context.
  */
-@BatchSize(size = 20)
+@BatchSize(size = 30)
 @DynamicUpdate
 @Entity
 @SelectBeforeUpdate
