@@ -11,8 +11,10 @@ import org.apache.wicket.model.IModel;
 
 /**
  * A TextFilteredColumn adding to display preceding contexts properly.
+ *
+ * @param <T> data type that is provided
  */
-public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,Context,String> {
+public class PrecedingContextTextFilterColumn<T> extends TextFilterColumn<T,T,String> {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -95,10 +97,16 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
      * @param rowModel model of the row item being rendered
      */
     @Override
-    public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
-        Context context = rowModel.getObject();
-        item.add(new ContextPanel(componentId, context.getPreceding()))
-                .add(AttributeModifier.append("class", "preceding"));
+    public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> rowModel) {
+        if (rowModel.getObject() instanceof Context) {
+            Context context = (Context) rowModel.getObject();
+            item.add(new ContextPanel(componentId, context.getPreceding()))
+                    .add(AttributeModifier.append("class", "preceding"));
+        } else if (rowModel.getObject() instanceof SelectableContextWrapper) {
+            SelectableContextWrapper contextWrapper = (SelectableContextWrapper) rowModel.getObject();
+            item.add(new ContextPanel(componentId, contextWrapper.getContext().getPreceding()))
+                    .add(AttributeModifier.append("class", "preceding"));
+        }
     }
 
     /**

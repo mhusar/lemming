@@ -1,6 +1,7 @@
 package lemming.api.pos;
 
 import lemming.api.context.Context;
+import lemming.api.context.SelectableContextWrapper;
 import lemming.api.table.TextFilterColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.markup.html.basic.Label;
@@ -67,6 +68,14 @@ public class PosTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
             if (pos instanceof  Pos) {
                 String name = pos.getName();
                 item.add(new PosPanel(componentId, name));
+            } else {
+                item.add(new PosPanel(componentId, ""));
+            }
+        } else if (object instanceof SelectableContextWrapper) {
+            Context context = ((SelectableContextWrapper) object).getContext();
+
+            if (context.getPos() instanceof Pos) {
+                item.add(new PosPanel(componentId, context.getPos().getName()));
             } else {
                 item.add(new PosPanel(componentId, ""));
             }

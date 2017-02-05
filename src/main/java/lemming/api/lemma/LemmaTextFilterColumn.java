@@ -1,6 +1,7 @@
 package lemming.api.lemma;
 
 import lemming.api.context.Context;
+import lemming.api.context.SelectableContextWrapper;
 import lemming.api.sense.SenseWrapper;
 import lemming.api.table.TextFilterColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -68,6 +69,14 @@ public class LemmaTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
             if (lemma instanceof Lemma) {
                 String name = lemma.getName();
                 item.add(new LemmaPanel(componentId, name));
+            } else {
+                item.add(new LemmaPanel(componentId, ""));
+            }
+        } else if (object instanceof SelectableContextWrapper) {
+            Context context = ((SelectableContextWrapper) object).getContext();
+
+            if (context.getLemma() instanceof Lemma) {
+                item.add(new LemmaPanel(componentId, context.getLemma().getName()));
             } else {
                 item.add(new LemmaPanel(componentId, ""));
             }

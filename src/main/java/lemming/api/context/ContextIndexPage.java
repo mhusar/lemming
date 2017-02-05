@@ -94,11 +94,11 @@ public class ContextIndexPage extends BasePage {
                 "type", "type"));
         columns.add(new TextFilterColumn<Context, Context, String>(Model.of(getString("Context.location")),
                 "location", "location"));
-        columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")),
+        columns.add(new PrecedingContextTextFilterColumn<Context>(Model.of(getString("Context.preceding")),
                 "preceding", "preceding"));
-        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")),
+        columns.add(new KeywordTextFilterColumn<Context>(Model.of(getString("Context.keyword")),
                 "keyword", "keyword"));
-        columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")),
+        columns.add(new FollowingContextTextFilterColumn<Context>(Model.of(getString("Context.following")),
                 "following", "following"));
         columns.add(new ContextActionPanelColumn(Model.of("")));
 
