@@ -21,9 +21,9 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Fixed rows per page.
+     * Default rows per page.
      */
-    private static final long ROWS_PER_PAGE = 12;
+    private static final long DEFAULT_ROWS_PER_PAGE = 12;
 
     /**
      * Creates a new data table with toolbars.
@@ -36,7 +36,7 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
      *            provides data for a table
      */
     public SenseDataTable(String id, List<IColumn<SenseWrapper, String>> columns, SenseDataProvider dataProvider) {
-        super(id, columns, dataProvider, ROWS_PER_PAGE);
+        super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(id, columns, dataProvider, null);
     }
 
@@ -54,7 +54,7 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
      */
     public SenseDataTable(String id, List<IColumn<SenseWrapper, String>> columns, SenseDataProvider dataProvider,
                           FilterForm<SenseWrapper> filterForm) {
-        super(id, columns, dataProvider, ROWS_PER_PAGE);
+        super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(id, columns, dataProvider, filterForm);
     }
 

@@ -25,9 +25,9 @@ public class GenericDataTable<T> extends DataTable<T, String> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Fixed rows per page.
+     * Default rows per page.
      */
-    private static final long ROWS_PER_PAGE = 12;
+    private static final long DEFAULT_ROWS_PER_PAGE = 12;
 
     /**
      * Creates a new data table with toolbars.
@@ -40,7 +40,25 @@ public class GenericDataTable<T> extends DataTable<T, String> {
      *            provides data for a table
      */
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider) {
-        super(id, columns, dataProvider, ROWS_PER_PAGE);
+        super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
+        createTable(id, columns, dataProvider, null);
+    }
+
+    /**
+     * Creates a new data table with toolbars.
+     *
+     * @param id
+     *            ID of a data table
+     * @param columns
+     *            list of columns
+     * @param dataProvider
+     *            provides data for a table
+     * @param rowsPerPage
+     *            rows per page
+     */
+    public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
+                            Long rowsPerPage) {
+        super(id, columns, dataProvider, rowsPerPage);
         createTable(id, columns, dataProvider, null);
     }
 
@@ -58,7 +76,27 @@ public class GenericDataTable<T> extends DataTable<T, String> {
      */
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
                             FilterForm<T> filterForm) {
-        super(id, columns, dataProvider, ROWS_PER_PAGE);
+        super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
+        createTable(id, columns, dataProvider, filterForm);
+    }
+
+    /**
+     * Creates a new data table with toolbars.
+     *
+     * @param id
+     *            ID of a data table
+     * @param columns
+     *            list of columns
+     * @param dataProvider
+     *            provides data for a table
+     * @param filterForm
+     *            form that filters data of a table
+     * @param rowsPerPage
+     *            rows per page
+     */
+    public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
+                            FilterForm<T> filterForm, Long rowsPerPage) {
+        super(id, columns, dataProvider, rowsPerPage);
         createTable(id, columns, dataProvider, filterForm);
     }
 
