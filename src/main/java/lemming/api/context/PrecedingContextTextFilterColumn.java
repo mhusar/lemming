@@ -19,9 +19,14 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     private static final long serialVersionUID = 1L;
 
     /**
-     * Maximum length of a preceding context.
+     * Default maximum length of a following context.
      */
-    private static final Integer MAX_LENGTH = 30;
+    private static final Integer DEFAULT_MAX_LENGTH = 25;
+
+    /**
+     * Maximum length of a following context.
+     */
+    private Integer maxLength = DEFAULT_MAX_LENGTH;
 
     /**
      * Creates a new TextFilterColumn for preceding contexts.
@@ -40,6 +45,21 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
      *
      * @param displayModel
      *            title of a column
+     * @param propertyExpression
+     *            property expression of a column
+     * @param maxLength
+     *            maximum length
+     */
+    public PrecedingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression, Integer maxLength) {
+        super(displayModel, propertyExpression);
+        this.maxLength = maxLength;
+    }
+
+    /**
+     * Creates a new TextFilterColumn for preceding contexts.
+     *
+     * @param displayModel
+     *            title of a column
      * @param sortProperty
      *            sort property of a column
      * @param propertyExpression
@@ -47,6 +67,24 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
      */
     public PrecedingContextTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
+    }
+
+    /**
+     * Creates a new TextFilterColumn for preceding contexts.
+     *
+     * @param displayModel
+     *            title of a column
+     * @param sortProperty
+     *            sort property of a column
+     * @param propertyExpression
+     *            property expression of a column
+     * @param maxLength
+     *            maximum length
+     */
+    public PrecedingContextTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression,
+                                            Integer maxLength) {
+        super(displayModel, sortProperty, propertyExpression);
+        this.maxLength = maxLength;
     }
 
     /**
@@ -93,8 +131,8 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
          */
         public ContextPanel(String id, String label) {
             super(id);
-            Integer beginIndex = label.length() > MAX_LENGTH ? label.length() - MAX_LENGTH : 0;
-            String trimmedLabel = label.length() > MAX_LENGTH ? "…" + label.substring(beginIndex).trim() : label.trim();
+            Integer beginIndex = label.length() > maxLength ? label.length() - maxLength : 0;
+            String trimmedLabel = label.length() > maxLength ? "…" + label.substring(beginIndex).trim() : label.trim();
             add(new Label("contextText", trimmedLabel).add(AttributeModifier.append("title",
                     label.trim())));
         }
