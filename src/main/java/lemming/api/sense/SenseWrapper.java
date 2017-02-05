@@ -19,6 +19,16 @@ public class SenseWrapper implements Serializable {
     private Sense sense;
 
     /**
+     * Lemma name as string.
+     */
+    private String lemmaString;
+
+    /**
+     * Sense meaning as string.
+     */
+    private String senseString;
+
+    /**
      * Creates a sense wrapper.
      */
     public SenseWrapper() {
@@ -38,7 +48,7 @@ public class SenseWrapper implements Serializable {
     /**
      * Returns the lemma of a sense wrapper.
      *
-     * @return A lemma.
+     * @return A lemma, or null.
      */
     public Lemma getLemma() {
         return lemma;
@@ -56,7 +66,7 @@ public class SenseWrapper implements Serializable {
     /**
      * Returns the sense of a sense wrapper.
      *
-     * @return A sense.
+     * @return A sense, or null.
      */
     public Sense getSense() {
         return sense;
@@ -72,27 +82,37 @@ public class SenseWrapper implements Serializable {
     }
 
     /**
-     * Returns the name of a sense wrapper’s lemma.
-     * @return A string or null.
+     * Returns the lemma name of a sense wrapper’s lemma.
+     * @return A string, or null.
      */
-    public String getName() {
-        if (lemma instanceof Lemma) {
-            return lemma.getName();
-        }
-
-        return null;
+    public String getLemmaString() {
+        return lemmaString;
     }
 
     /**
-     * Returns the meaning of a sense wrapper’s sense.
+     * Sets a lemma name as string.
      *
-     * @return A string or null.
+     * @param lemmaString lemma name as string
      */
-    public String getMeaning() {
-        if (sense instanceof Sense) {
-            return sense.getMeaning();
-        }
+    public void setLemmaString(String lemmaString) {
+        this.lemmaString = lemmaString;
+    }
 
-        return null;
+    /**
+     * Returns the sense meaning of a sense wrapper’s sense.
+     *
+     * @return A lemma string, or null.
+     */
+    public String getSenseString() {
+        return senseString;
+    }
+
+    /**
+     * Sets a sense senseString as string.
+     *
+     * @param senseString sense meaning as string
+     */
+    public void setSenseString(String senseString) {
+        this.senseString = senseString;
     }
 }

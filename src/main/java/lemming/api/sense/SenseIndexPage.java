@@ -80,9 +80,9 @@ public class SenseIndexPage extends BasePage {
         List<IColumn<SenseWrapper, String>> columns = new ArrayList<IColumn<SenseWrapper, String>>();
 
         columns.add(new LemmaTextFilterColumn<SenseWrapper, SenseWrapper, String>(Model.of(getString("Sense.lemma")),
-                "name", "name"));
+                "lemma", "lemma"));
         columns.add(new TextFilterColumn<SenseWrapper, SenseWrapper, String>(Model.of(getString("Sense.meaning")),
-                "meaning", "meaning"));
+                "sense", "sense.meaning"));
         columns.add(new SenseActionPanelColumn(Model.of("")));
 
         return columns;

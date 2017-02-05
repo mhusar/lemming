@@ -219,18 +219,18 @@ public final class SenseDataProvider extends SortableDataProvider<SenseWrapper, 
             List<Predicate> predicateList = new ArrayList<Predicate>();
 
             if (state != null) {
-                String name = state.getName();
-                String meaning = state.getMeaning();
+                String lemmaString = state.getLemmaString();
+                String senseString = state.getSenseString();
 
-                if (name instanceof String) {
+                if (lemmaString instanceof String) {
                     Expression<String> expression = criteriaBuilder.upper(lemma.get("name"));
-                    String filter = name + "%".toUpperCase();
+                    String filter = lemmaString + "%".toUpperCase();
                     predicateList.add(criteriaBuilder.like(expression, filter));
                 }
 
-                if (meaning instanceof String) {
+                if (senseString instanceof String) {
                     Expression<String> expression = criteriaBuilder.upper(senses.get("meaning"));
-                    String filter = meaning + "%".toUpperCase();
+                    String filter = senseString + "%".toUpperCase();
                     predicateList.add(criteriaBuilder.like(expression, filter));
                 }
             }
@@ -312,20 +312,20 @@ public final class SenseDataProvider extends SortableDataProvider<SenseWrapper, 
         List<Order> orderList = new ArrayList<Order>();
 
         if (isAscending) {
-            if (property.equals("name")) {
+            if (property.equals("lemma")) {
                 orderList.add(criteriaBuilder.asc(lemma.get("name")));
                 orderList.add(criteriaBuilder.asc(senses.get("parentPosition")));
                 orderList.add(criteriaBuilder.asc(senses.get("childPosition")));
-            } else if (property.equals("meaning")) {
+            } else if (property.equals("sense")) {
                 orderList.add(criteriaBuilder.asc(senses.get("meaning")));
                 orderList.add(criteriaBuilder.asc(lemma.get("name")));
             }
         } else {
-            if (property.equals("name")) {
+            if (property.equals("lemma")) {
                 orderList.add(criteriaBuilder.desc(lemma.get("name")));
                 orderList.add(criteriaBuilder.asc(senses.get("parentPosition")));
                 orderList.add(criteriaBuilder.asc(senses.get("childPosition")));
-            } else if (property.equals("meaning")) {
+            } else if (property.equals("sense")) {
                 orderList.add(criteriaBuilder.desc(senses.get("meaning")));
                 orderList.add(criteriaBuilder.asc(lemma.get("name")));
             }
