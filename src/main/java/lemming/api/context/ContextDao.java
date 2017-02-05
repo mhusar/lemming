@@ -76,7 +76,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
         Context currentContext = null;
-        Integer batchSize = 30;
+        Integer batchSize = 50;
         Integer counter = 0;
 
         try {

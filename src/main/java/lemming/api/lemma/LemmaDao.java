@@ -105,6 +105,58 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
+    public void batchPersist(List<Lemma> lemmas) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+        Lemma currentLemma = null;
+        Integer batchSize = 50;
+        Integer counter = 0;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            for (Lemma lemma : lemmas) {
+                currentLemma = lemma;
+
+                if (!(lemma.getUuid() instanceof String)) {
+                    lemma.setUuid(UUID.randomUUID().toString());
+                }
+
+                entityManager.persist(lemma);
+                counter++;
+
+                if (counter % batchSize == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+            }
+
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(currentLemma, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(currentLemma, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Lemma findByName(String name) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -200,41 +252,80 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
-    public Boolean resolveReplacement(Lemma lemma) {
-        if (lemma.getReplacementString() instanceof String) {
-            EntityManager entityManager = EntityManagerListener.createEntityManager();
-            EntityTransaction transaction = null;
+    public List<Lemma> findResolvableLemmata() {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
 
-            try {
-                transaction = entityManager.getTransaction();
-                transaction.begin();
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Lemma> query = entityManager
+                    .createQuery("FROM Lemma WHERE source = :source AND replacement_string IS NOT NULL",
+                            Lemma.class);
+            List<Lemma> lemmaList = query.setParameter("source", Source.LemmaType.TL).getResultList();
+            transaction.commit();
+            return lemmaList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Boolean batchResolve(List<Lemma> lemmas) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+        Boolean returnValue = true;
+        Integer batchSize = 50;
+        Integer counter = 0;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            for (Lemma lemma : lemmas) {
                 TypedQuery<Lemma> query = entityManager
                         .createQuery("FROM Lemma WHERE name = :name", Lemma.class);
                 List<Lemma> lemmaList = query.setParameter("name", lemma.getReplacementString()).getResultList();
 
                 if (lemmaList.isEmpty()) {
-                    transaction.commit();
-                    return false;
+                    returnValue = false;
                 } else {
                     Lemma replacement = lemmaList.get(0);
                     lemma.setReplacement(replacement);
                     entityManager.merge(lemma);
-                    transaction.commit();
-                    return true;
-                }
-            } catch (RuntimeException e) {
-                e.printStackTrace();
+                    counter++;
 
-                if (transaction != null && transaction.isActive()) {
-                    transaction.rollback();
+                    if (counter % batchSize == 0) {
+                        entityManager.flush();
+                        entityManager.clear();
+                    }
                 }
-
-                throw e;
-            } finally {
-                entityManager.close();
             }
-        } else {
-            return false;
+
+            transaction.commit();
+            return returnValue;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
         }
     }
 }

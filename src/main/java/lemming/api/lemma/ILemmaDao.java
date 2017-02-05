@@ -10,6 +10,13 @@ import java.util.List;
  */
 public interface ILemmaDao extends IDao<Lemma> {
     /**
+     * Makes multiple lemma instances managed and persistent.
+     *
+     * @param lemmas lemma instances
+     */
+    void batchPersist(List<Lemma> lemmas);
+
+    /**
      * Returns matching lemma for a given name.
      *
      * @param name name of a lemma
@@ -34,10 +41,17 @@ public interface ILemmaDao extends IDao<Lemma> {
     List<Lemma> findBySource(Source.LemmaType source);
 
     /**
-     * Resolves a replacement lemma with a replacement string,
+     * Returns a list of lemmata with resolvable replacement string.
      *
-     * @param lemma processed lemma
-     * @return True on success; false otherwise.
+     * @return A list of matching lemmata.
      */
-    Boolean resolveReplacement(Lemma lemma);
+    List<Lemma> findResolvableLemmata();
+
+    /**
+     * Resolves a replacement lemma with a replacement string.
+     *
+     * @param lemmas processed lemma list
+     * @return True if all lemmata had a replacement.
+     */
+    Boolean batchResolve(List<Lemma> lemmas);
 }
