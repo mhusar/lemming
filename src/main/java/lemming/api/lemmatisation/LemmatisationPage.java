@@ -5,7 +5,6 @@ import lemming.api.context.*;
 import lemming.api.data.GenericDataProvider;
 import lemming.api.lemma.LemmaTextFilterColumn;
 import lemming.api.pos.PosTextFilterColumn;
-import lemming.api.table.GenericDataTable;
 import lemming.api.table.TextFilterColumn;
 import lemming.api.ui.page.BasePage;
 import lemming.api.ui.panel.FeedbackPanel;
@@ -42,28 +41,28 @@ public class LemmatisationPage extends BasePage {
      * Creates a lemmatisation page.
      */
     public LemmatisationPage() {
-        GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
+        SelectableContextDataProvider dataProvider = new SelectableContextDataProvider(SelectableContextWrapper.class,
                 new SortParam<String>("lemma.name", true));
-        FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
+        FilterForm<SelectableContextWrapper> filterForm = new FilterForm<SelectableContextWrapper>("filterForm",
+                dataProvider);
         TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
-        GenericDataTable<Context> dataTable;
+        LemmatisationDataTable dataTable;
 
         // check if the session is expired
         WebSession.get().checkSessionExpired(getPageClass());
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new GenericDataTable<Context>("lemmatisationDataTable", getColumns(), dataProvider,
-                    filterForm, 100L);
+            dataTable = new LemmatisationDataTable("lemmatisationDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new GenericDataTable<Context>("lemmatisationDataTable", getColumns(), dataProvider, 100L);
+            dataTable = new LemmatisationDataTable("lemmatisationDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             fragment.add(dataTable);
@@ -80,21 +79,21 @@ public class LemmatisationPage extends BasePage {
      *
      * @return A list of columns.
      */
-    private List<IColumn<Context, String>> getColumns() {
-        List<IColumn<Context, String>> columns = new ArrayList<IColumn<Context, String>>();
+    private List<IColumn<SelectableContextWrapper, String>> getColumns() {
+        List<IColumn<SelectableContextWrapper, String>> columns = new ArrayList<>();
 
-        columns.add(new LemmaTextFilterColumn<Context, Context, String>(Model.of(getString("Context.lemma")),
-                "lemma.name", "lemma"));
-        columns.add(new PosTextFilterColumn<Context, Context, String>(Model.of(getString("Context.pos")),
-                "pos.name", "pos"));
-        columns.add(new TextFilterColumn<Context, Context, String>(Model.of(getString("Context.location")),
-                "location", "location"));
-        columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")),
-                "preceding", "preceding", 35));
-        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")),
-                "keyword", "keyword"));
-        columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")),
-                "following", "following", 35));
+        columns.add(new LemmaTextFilterColumn<>(Model.of(getString("Context.lemma")),
+                "lemma", "context.lemma"));
+        columns.add(new PosTextFilterColumn<>(Model.of(getString("Context.pos")),
+                "pos", "context.pos"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")),
+                "location", "context.location"));
+        columns.add(new PrecedingContextTextFilterColumn<SelectableContextWrapper>(
+                Model.of(getString("Context.preceding")), "preceding", "precedingString", 35));
+        columns.add(new KeywordTextFilterColumn<SelectableContextWrapper>(Model.of(
+                getString("Context.keyword")), "keyword", "keywordString"));
+        columns.add(new FollowingContextTextFilterColumn<SelectableContextWrapper>(
+                Model.of(getString("Context.following")), "following", "followingString", 35));
 
         return columns;
     }
@@ -116,12 +115,12 @@ public class LemmatisationPage extends BasePage {
         /**
          * Data table displaying filtered data.
          */
-        GenericDataTable<Context> dataTable;
+        LemmatisationDataTable dataTable;
 
         /**
          * Data provider which delivers data for the table.
          */
-        GenericDataProvider<Context> dataProvider;
+        SelectableContextDataProvider dataProvider;
 
         /**
          * Creates a new behavior.
@@ -133,8 +132,8 @@ public class LemmatisationPage extends BasePage {
          * @param dataProvider
          *            data provider which delivers data for the table.
          */
-        public FilterUpdatingBehavior(TextField<String> textField, GenericDataTable<Context> dataTable,
-                                      GenericDataProvider<Context> dataProvider) {
+        public FilterUpdatingBehavior(TextField<String> textField, LemmatisationDataTable dataTable,
+                                      SelectableContextDataProvider dataProvider) {
             super("input");
             this.textField = textField;
             this.dataTable = dataTable;
