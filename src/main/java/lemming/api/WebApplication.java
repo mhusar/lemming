@@ -8,6 +8,7 @@ import lemming.api.context.ContextImportPage;
 import lemming.api.lemma.LemmaEditPage;
 import lemming.api.lemma.LemmaIndexPage;
 import lemming.api.lemma.LemmaViewPage;
+import lemming.api.lemmatisation.LemmatisationPage;
 import lemming.api.pos.PosEditPage;
 import lemming.api.pos.PosIndexPage;
 import lemming.api.sense.SenseEditPage;
@@ -106,6 +107,7 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/lemma/LemmaIndexPage", LemmaIndexPage.class);
         mountPage("/lemma/LemmaEditPage", LemmaEditPage.class);
         mountPage("/lemma/LemmaViewPage", LemmaViewPage.class);
+        mountPage("/lemmatisation/LemmatisationPage", LemmatisationPage.class);
         mountPage("/pos/PosIndexPage", PosIndexPage.class);
         mountPage("/pos/PosEditPage", PosEditPage.class);
         mountPage("/sense/SenseIndexPage", SenseIndexPage.class);

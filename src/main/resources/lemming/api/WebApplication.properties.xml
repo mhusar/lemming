@@ -51,6 +51,7 @@
   <entry key="FilterPanelColumn.go">Filtern</entry>
   <entry key="HeaderPanel.contexts">Kontexte</entry>
   <entry key="HeaderPanel.lemmas">Lemmata</entry>
+  <entry key="HeaderPanel.lemmatisation">Lemmatisierung</entry>
   <entry key="HeaderPanel.logout">Abmelden</entry>
   <entry key="HeaderPanel.overview">Übersicht</entry>
   <entry key="HeaderPanel.pos">Wortarten</entry>
@@ -63,6 +64,7 @@
   <entry key="HomePage.contextImport">Import von Kontexten</entry>
   <entry key="HomePage.dataMaintenance">Datenpflege</entry>
   <entry key="HomePage.lemmas">Lemmata</entry>
+  <entry key="HomePage.lemmatisation">Lemmatisierung</entry>
   <entry key="HomePage.overview">Übersicht</entry>
   <entry key="HomePage.pos">Wortarten</entry>
   <entry key="HomePage.senses">Bedeutungen</entry>
@@ -75,6 +77,7 @@
   <entry key="Lemma.reference">Stelle</entry>
   <entry key="Lemma.replacement">Ersatzlemma</entry>
   <entry key="Lemma.source">Herkunft</entry>
+  <entry key="LemmatisationPage.header">Lemmatisierung</entry>
   <entry key="LemmaDeleteConfirmPanel.confirm">Lemma löschen</entry>
   <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>
   <entry key="LemmaDeleteConfirmPanel.title">Lemma löschen</entry>

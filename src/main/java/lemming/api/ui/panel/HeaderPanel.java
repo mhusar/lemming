@@ -2,6 +2,7 @@ package lemming.api.ui.panel;
 
 import lemming.api.context.ContextIndexPage;
 import lemming.api.lemma.LemmaIndexPage;
+import lemming.api.lemmatisation.LemmatisationPage;
 import lemming.api.pos.PosIndexPage;
 import lemming.api.sense.SenseIndexPage;
 import org.apache.wicket.AttributeModifier;
@@ -36,12 +37,15 @@ public class HeaderPanel extends Panel {
         super(id);
 
         WebMarkupContainer homePageItem = new WebMarkupContainer("homePageItem");
+        WebMarkupContainer lemmatisationItem = new WebMarkupContainer("lemmatisationItem");
         WebMarkupContainer contextIndexItem = new WebMarkupContainer("contextIndexItem");
         WebMarkupContainer lemmaIndexItem = new WebMarkupContainer("lemmaIndexItem");
         WebMarkupContainer senseIndexItem = new WebMarkupContainer("senseIndexItem");
         WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
         BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
+        BookmarkablePageLink<Void> lemmatisationLink = new BookmarkablePageLink<Void>("lemmatisationLink",
+                LemmatisationPage.class);
         BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<Void>("contextIndexLink",
                 ContextIndexPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
@@ -59,6 +63,7 @@ public class HeaderPanel extends Panel {
         };
 
         homePageItem.add(homePageLink);
+        lemmatisationItem.add(lemmatisationLink);
         contextIndexItem.add(contextIndexLink);
         lemmaIndexItem.add(lemmaIndexLink);
         senseIndexItem.add(senseIndexLink);
@@ -66,6 +71,7 @@ public class HeaderPanel extends Panel {
         userEditItem.add(userEditLink);
 
         add(homePageItem);
+        add(lemmatisationItem);
         add(contextIndexItem);
         add(lemmaIndexItem);
         add(senseIndexItem);

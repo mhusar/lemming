@@ -5,6 +5,7 @@ import lemming.api.character.CharacterEditPage;
 import lemming.api.context.ContextIndexPage;
 import lemming.api.context.ContextImportPage;
 import lemming.api.lemma.LemmaIndexPage;
+import lemming.api.lemmatisation.LemmatisationPage;
 import lemming.api.pos.PosIndexPage;
 import lemming.api.sense.SenseIndexPage;
 import lemming.api.ui.UserBookmarkablePageLink;
@@ -34,6 +35,8 @@ public class HomePage extends BasePage {
      * Initializes a home page.
      */
     public HomePage() {
+        BookmarkablePageLink<Void> lemmatisationLink = new BookmarkablePageLink<Void>("lemmatisationLink",
+                LemmatisationPage.class);
         BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<Void>("contextIndexLink",
                 ContextIndexPage.class);
         UserBookmarkablePageLink contextImportLink = new UserBookmarkablePageLink("contextImportLink",
@@ -50,6 +53,7 @@ public class HomePage extends BasePage {
         // check if the session is expired
         WebSession.get().checkSessionExpired(getPageClass());
 
+        add(lemmatisationLink);
         add(contextIndexLink);
         add(contextImportLink);
         add(lemmaIndexLink);
