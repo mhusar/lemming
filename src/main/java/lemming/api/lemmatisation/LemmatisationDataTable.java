@@ -5,14 +5,19 @@ import lemming.api.data.GenericDataProvider;
 import lemming.api.table.NavigationToolbar;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.HeadersToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.NoRecordsToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterToolbar;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 import java.util.List;
 
@@ -93,9 +98,28 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
      * @return A row item.
      */
     @Override
-    protected Item<SelectableContextWrapper> newRowItem(String id, int index, IModel<SelectableContextWrapper> model) {
-        Item<SelectableContextWrapper> rowItem = super.newRowItem(id, index, model);
+    protected Item<Context> newRowItem(String id, int index, IModel<Context> model) {
+        Item<Context> rowItem = super.newRowItem(id, index, model);
+        rowItem.add(new RowSelectBehavior());
         rowItem.setOutputMarkupId(true);
         return rowItem;
+    }
+
+    /**
+     * A behavior enabling ctrl/shift row selection.
+     */
+    private class RowSelectBehavior extends Behavior {
+        /**
+         * Renders to the web response what the component wants to contribute.
+         *
+         * @param component component object
+         * @param response response object
+         */
+        @Override
+        public void renderHead(Component component, IHeaderResponse response) {
+            PackageResourceReference javaScriptReference = new JavaScriptResourceReference(LemmatisationDataTable.class,
+                    "scripts/row-select.js");
+            response.render(JavaScriptHeaderItem.forReference(javaScriptReference));
+        }
     }
 }

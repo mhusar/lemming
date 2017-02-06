@@ -166,6 +166,17 @@ table {
   margin-top: 10px;
 }
 
+.selectable tr {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-striped > tbody > tr.selected > td {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #428bca;
+}
+
 table .actionColumn {
   white-space: nowrap;
   width: 275px;
