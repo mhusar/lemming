@@ -11,10 +11,8 @@ import org.apache.wicket.model.IModel;
 
 /**
  * A TextFilteredColumn adding to display preceding contexts properly.
- *
- * @param <T> data type that is provided
  */
-public class PrecedingContextTextFilterColumn<T> extends TextFilterColumn<T,T,String> {
+public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -52,7 +50,8 @@ public class PrecedingContextTextFilterColumn<T> extends TextFilterColumn<T,T,St
      * @param maxLength
      *            maximum length
      */
-    public PrecedingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression, Integer maxLength) {
+    public PrecedingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression,
+                                            Integer maxLength) {
         super(displayModel, propertyExpression);
         this.maxLength = maxLength;
     }
@@ -67,7 +66,8 @@ public class PrecedingContextTextFilterColumn<T> extends TextFilterColumn<T,T,St
      * @param propertyExpression
      *            property expression of a column
      */
-    public PrecedingContextTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
+    public PrecedingContextTextFilterColumn(IModel<String> displayModel, String sortProperty,
+                                            String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
     }
 
@@ -97,16 +97,10 @@ public class PrecedingContextTextFilterColumn<T> extends TextFilterColumn<T,T,St
      * @param rowModel model of the row item being rendered
      */
     @Override
-    public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> rowModel) {
-        if (rowModel.getObject() instanceof Context) {
-            Context context = (Context) rowModel.getObject();
-            item.add(new ContextPanel(componentId, context.getPreceding()))
-                    .add(AttributeModifier.append("class", "preceding"));
-        } else if (rowModel.getObject() instanceof SelectableContextWrapper) {
-            SelectableContextWrapper contextWrapper = (SelectableContextWrapper) rowModel.getObject();
-            item.add(new ContextPanel(componentId, contextWrapper.getContext().getPreceding()))
-                    .add(AttributeModifier.append("class", "preceding"));
-        }
+    public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
+        Context context = rowModel.getObject();
+        item.add(new ContextPanel(componentId, context.getPreceding()))
+                .add(AttributeModifier.append("class", "preceding"));
     }
 
     /**

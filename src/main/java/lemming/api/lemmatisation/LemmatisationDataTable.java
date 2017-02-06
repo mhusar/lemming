@@ -1,9 +1,10 @@
 package lemming.api.lemmatisation;
 
-import lemming.api.context.SelectableContextDataProvider;
-import lemming.api.context.SelectableContextWrapper;
+import lemming.api.context.Context;
+import lemming.api.data.GenericDataProvider;
 import lemming.api.table.NavigationToolbar;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.HeadersToolbar;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * A custom data table with toolbars and data provider for context lemmatisation.
  */
-public class LemmatisationDataTable extends DataTable<SelectableContextWrapper, String> {
+public class LemmatisationDataTable extends DataTable<Context, String> {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -39,8 +40,8 @@ public class LemmatisationDataTable extends DataTable<SelectableContextWrapper, 
      * @param dataProvider
      *            provides data for a table
      */
-    public LemmatisationDataTable(String id, List<IColumn<SelectableContextWrapper, String>> columns,
-                                  SelectableContextDataProvider dataProvider) {
+    public LemmatisationDataTable(String id, List<IColumn<Context, String>> columns,
+                                  GenericDataProvider<Context> dataProvider) {
         super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(dataProvider, null);
     }
@@ -57,9 +58,8 @@ public class LemmatisationDataTable extends DataTable<SelectableContextWrapper, 
      * @param filterForm
      *            form that filters data of a table
      */
-    public LemmatisationDataTable(String id, List<IColumn<SelectableContextWrapper, String>> columns,
-                                  SelectableContextDataProvider dataProvider,
-                                  FilterForm<SelectableContextWrapper> filterForm) {
+    public LemmatisationDataTable(String id, List<IColumn<Context, String>> columns,
+                                  GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {
         super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(dataProvider, filterForm);
     }
@@ -72,11 +72,10 @@ public class LemmatisationDataTable extends DataTable<SelectableContextWrapper, 
      * @param filterForm
      *            form that filters data of a table
      */
-    private void createTable(SelectableContextDataProvider dataProvider,
-                             FilterForm<SelectableContextWrapper> filterForm) {
+    private void createTable(GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {
         setOutputMarkupId(true);
-        add(AttributeModifier.append("class", "table table-hover table-striped"));
-        addTopToolbar(new NavigationToolbar<SelectableContextWrapper>(this));
+        add(AttributeModifier.append("class", "table table-hover table-striped selectable"));
+        addTopToolbar(new NavigationToolbar<Context>(this));
         addTopToolbar(new HeadersToolbar<String>(this, dataProvider));
         addBottomToolbar(new NoRecordsToolbar(this));
 
@@ -85,6 +84,14 @@ public class LemmatisationDataTable extends DataTable<SelectableContextWrapper, 
         }
     }
 
+    /**
+     * Creates a new row item.
+     *
+     * @param id ID of a row item
+     * @param index index of a row item
+     * @param model model of a row item
+     * @return A row item.
+     */
     @Override
     protected Item<SelectableContextWrapper> newRowItem(String id, int index, IModel<SelectableContextWrapper> model) {
         Item<SelectableContextWrapper> rowItem = super.newRowItem(id, index, model);

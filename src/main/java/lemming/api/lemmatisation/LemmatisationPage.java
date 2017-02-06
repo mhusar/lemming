@@ -41,10 +41,9 @@ public class LemmatisationPage extends BasePage {
      * Creates a lemmatisation page.
      */
     public LemmatisationPage() {
-        SelectableContextDataProvider dataProvider = new SelectableContextDataProvider(SelectableContextWrapper.class,
+        GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
                 new SortParam<String>("lemma.name", true));
-        FilterForm<SelectableContextWrapper> filterForm = new FilterForm<SelectableContextWrapper>("filterForm",
-                dataProvider);
+        FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
         TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
@@ -79,21 +78,21 @@ public class LemmatisationPage extends BasePage {
      *
      * @return A list of columns.
      */
-    private List<IColumn<SelectableContextWrapper, String>> getColumns() {
-        List<IColumn<SelectableContextWrapper, String>> columns = new ArrayList<>();
+    private List<IColumn<Context, String>> getColumns() {
+        List<IColumn<Context, String>> columns = new ArrayList<>();
 
         columns.add(new LemmaTextFilterColumn<>(Model.of(getString("Context.lemma")),
-                "lemma", "context.lemma"));
+                "lemma.name", "lemma"));
         columns.add(new PosTextFilterColumn<>(Model.of(getString("Context.pos")),
-                "pos", "context.pos"));
+                "pos.name", "pos"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")),
-                "location", "context.location"));
-        columns.add(new PrecedingContextTextFilterColumn<SelectableContextWrapper>(
-                Model.of(getString("Context.preceding")), "preceding", "precedingString", 35));
-        columns.add(new KeywordTextFilterColumn<SelectableContextWrapper>(Model.of(
-                getString("Context.keyword")), "keyword", "keywordString"));
-        columns.add(new FollowingContextTextFilterColumn<SelectableContextWrapper>(
-                Model.of(getString("Context.following")), "following", "followingString", 35));
+                "location", "location"));
+        columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")), "preceding",
+                "preceding", 35));
+        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")), "keyword",
+                "keyword"));
+        columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")), "following",
+                "following", 35));
 
         return columns;
     }
@@ -120,7 +119,7 @@ public class LemmatisationPage extends BasePage {
         /**
          * Data provider which delivers data for the table.
          */
-        SelectableContextDataProvider dataProvider;
+        GenericDataProvider<Context> dataProvider;
 
         /**
          * Creates a new behavior.
@@ -133,7 +132,7 @@ public class LemmatisationPage extends BasePage {
          *            data provider which delivers data for the table.
          */
         public FilterUpdatingBehavior(TextField<String> textField, LemmatisationDataTable dataTable,
-                                      SelectableContextDataProvider dataProvider) {
+                                      GenericDataProvider<Context> dataProvider) {
             super("input");
             this.textField = textField;
             this.dataTable = dataTable;
