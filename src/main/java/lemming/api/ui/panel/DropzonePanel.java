@@ -94,8 +94,8 @@ public class DropzonePanel extends Panel {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             PackageResourceReference cssReference = new CssResourceReference(DropzonePanel.class, "styles/dropzone.css");
-            PackageTextTemplate javascriptTemplate = new PackageTextTemplate(DropzonePanel.class, "scripts" +
-                    "/dropzone-formdata.js");
+            PackageTextTemplate javascriptTemplate = new PackageTextTemplate(DropzonePanel.class,
+                    "scripts/dropzone-formdata.js");
             Map<String, Object> map = new HashMap<>();
 
             map.put("dropzoneId", component.getMarkupId());
