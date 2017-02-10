@@ -143,7 +143,7 @@
   <entry key="SetLemmaPanel.setLemma">Set lemma</entry>
   <entry key="SetPosPanel.pos">Part of speech</entry>
   <entry key="SetPosPanel.setPos">Set part of speech</entry>
-  <entry key="SignInPage.header">Please login</entry>
+  <entry key="SignInPage.header">Please sign in</entry>
   <entry key="SignInPage.passwordWrongMessage">The transmitted password is wrong.</entry>
   <entry key="SignInPage.password">Password</entry>
   <entry key="SignInPage.signIn">Sign in</entry>
