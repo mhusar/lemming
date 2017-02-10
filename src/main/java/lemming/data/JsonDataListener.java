@@ -63,9 +63,6 @@ public class JsonDataListener implements ServletContextListener {
                 if (result == false) {
                     logger.log(Level.SEVERE, "At least one replacement lemma doesn’t exist!");
                 }
-
-                logger.info("from: " + String.valueOf(from));
-                logger.info("to: " + String.valueOf(to));
             }
         }
 
