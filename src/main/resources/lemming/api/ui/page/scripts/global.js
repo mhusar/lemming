@@ -13,6 +13,28 @@ jQuery(document).ready(function() {
     enablePosAutoComplete();
 });
 
+jQuery.fn.isInViewport = function (offset) {
+    var elementTop, elementBottom, viewportTop, viewportBottom;
+
+    if (typeof offset === "undefined") {
+        offset = 0;
+    }
+
+    elementTop = jQuery(this).offset().top;
+    elementBottom = elementTop + jQuery(this).outerHeight();
+    viewportTop = jQuery(window).scrollTop();
+    viewportBottom = viewportTop + jQuery(window).height();
+
+    return elementBottom - offset > viewportTop && elementTop + offset < viewportBottom;
+};
+
+// focus autofocus inputs when they become visible
+jQuery(window).on("resize scroll", function () {
+    if (jQuery("input[autofocus]").first().isInViewport()) {
+        jQuery("input[autofocus]").first().focus();
+    }
+});
+
 // see http://caniuse.com/#feat=form-validation
 function fixRequiredAttributeForSafari() {
     if (navigator.userAgent.indexOf("Safari") != -1
