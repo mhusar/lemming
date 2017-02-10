@@ -1,32 +1,52 @@
 package lemming.api.lemmatisation;
 
 import lemming.api.auth.WebSession;
+import lemming.api.character.CharacterHelper;
 import lemming.api.context.*;
 import lemming.api.data.GenericDataProvider;
+import lemming.api.lemma.Lemma;
+import lemming.api.lemma.LemmaAutoCompleteTextField;
+import lemming.api.lemma.LemmaDao;
 import lemming.api.lemma.LemmaTextFilterColumn;
+import lemming.api.pos.Pos;
+import lemming.api.pos.PosAutoCompleteTextField;
+import lemming.api.pos.PosDao;
 import lemming.api.pos.PosTextFilterColumn;
+import lemming.api.table.GenericRowSelectColumn;
 import lemming.api.table.TextFilterColumn;
-import lemming.api.ui.page.BasePage;
+import lemming.api.ui.input.InputPanel;
+import lemming.api.ui.page.EmptyBasePage;
 import lemming.api.ui.panel.FeedbackPanel;
+import lemming.api.ui.panel.HeaderPanel;
+import lemming.api.ui.panel.ModalFormPanel;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
+import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.util.CollectionModel;
 
+import javax.json.JsonArray;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * An index page that lists all available contexts in a data table for lemmatization.
  */
 @AuthorizeInstantiation({ "SIGNED_IN" })
-public class LemmatisationPage extends BasePage {
+public class LemmatisationPage extends EmptyBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -38,39 +58,78 @@ public class LemmatisationPage extends BasePage {
     private static final Boolean FILTER_FORM_ENABLED = false;
 
     /**
+     * A form for contexts of a data table.
+     */
+    private Form<Context> contextForm;
+
+    /**
+     * A data table for contexts.
+     */
+    private LemmatisationDataTable dataTable;
+
+    /**
      * Creates a lemmatisation page.
      */
     public LemmatisationPage() {
         GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
-                new SortParam<String>("lemma.name", true));
+                new SortParam<String>("keyword", true));
         FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
+        contextForm = new Form<Context>("contextForm");
         TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        WebMarkupContainer bodyContainer = new TransparentWebMarkupContainer("body");
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
-        LemmatisationDataTable dataTable;
 
         // check if the session is expired
         WebSession.get().checkSessionExpired(getPageClass());
 
         if (FILTER_FORM_ENABLED) {
-            fragment = new Fragment("fragment", "withFilterForm", this);
+            fragment = new Fragment("fragment", "withFilterForm", bodyContainer);
             dataTable = new LemmatisationDataTable("lemmatisationDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
-            filterForm.add(dataTable);
+            contextForm.add(dataTable);
+            filterForm.add(contextForm);
             fragment.add(filterForm);
         } else {
-            fragment = new Fragment("fragment", "withoutFilterForm", this);
+            fragment = new Fragment("fragment", "withoutFilterForm", bodyContainer);
             dataTable = new LemmatisationDataTable("lemmatisationDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
-            fragment.add(dataTable);
+            contextForm.add(dataTable);
+            fragment.add(contextForm);
+
+            JsonArray characterData = CharacterHelper.getCharacterData();
+            String characterDataString = characterData.toString();
+            bodyContainer.add(AttributeModifier.append("data-characters", characterDataString));
         }
 
+        add(bodyContainer);
         add(new FeedbackPanel("feedbackPanel"));
         add(filterTextField);
         add(container);
         container.add(fragment);
+    }
+
+    /**
+     * Called when a base page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        InputPanel inputPanel = new InputPanel("inputPanel");
+        Panel lemmatisationPanel = new LemmatisationPanel("lemmatisationPanel");
+        ModalFormPanel setLemmaPanel = new SetLemmaPanel("setLemmaPanel", contextForm, dataTable);
+        ModalFormPanel setPosPanel = new SetPosPanel("setPosPanel", contextForm, dataTable);
+
+        contextForm.add(setLemmaPanel);
+        contextForm.add(setPosPanel);
+        inputPanel.add(AttributeModifier.append("class", "aboveFooterPanel"));
+        lemmatisationPanel.add(new SetLemmaLink("setLemmaLink", setLemmaPanel));
+        lemmatisationPanel.add(new SetPosLink("setPosLink", setPosPanel));
+        add(new HeaderPanel("headerPanel", LemmatisationPage.class));
+        add(inputPanel);
+        add(lemmatisationPanel);
     }
 
     /**
@@ -81,9 +140,10 @@ public class LemmatisationPage extends BasePage {
     private List<IColumn<Context, String>> getColumns() {
         List<IColumn<Context, String>> columns = new ArrayList<>();
 
-        columns.add(new LemmaTextFilterColumn<>(Model.of(getString("Context.lemma")),
+        columns.add(new ContextRowSelectColumn(Model.of(""), "selected"));
+        columns.add(new LemmaTextFilterColumn<Context,Context, String>(Model.of(getString("Context.lemma")),
                 "lemma.name", "lemma"));
-        columns.add(new PosTextFilterColumn<>(Model.of(getString("Context.pos")),
+        columns.add(new PosTextFilterColumn<Context,Context,String>(Model.of(getString("Context.pos")),
                 "pos.name", "pos"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")),
                 "location", "location"));
@@ -95,6 +155,31 @@ public class LemmatisationPage extends BasePage {
                 "following", 35));
 
         return columns;
+    }
+
+    /**
+     * A row selection column for contexts.
+     */
+    private class ContextRowSelectColumn extends GenericRowSelectColumn<Context, Context, String> {
+        /**
+         * Creates a new row selection column.
+         *
+         * @param displayModel title of a column
+         * @param propertyExpression property expression of a column
+         */
+        public ContextRowSelectColumn(IModel<String> displayModel, String propertyExpression) {
+            super(displayModel, propertyExpression);
+        }
+
+        /**
+         * Returns the CSS class of a column.
+         *
+         * @return A CSS class.
+         */
+        @Override
+        public String getCssClass() {
+            return "hidden";
+        }
     }
 
     /**
@@ -151,5 +236,210 @@ public class LemmatisationPage extends BasePage {
             target.add(dataTable);
         }
     }
-}
 
+    /**
+     * A link which opens a set lemma dialog.
+     */
+    private final class SetLemmaLink extends AjaxLink<Context> {
+        /**
+         * Determines if a deserialized file is compatible with this class.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Modal form panel which is shown on click.
+         */
+        private ModalFormPanel setLemmaPanel;
+
+        /**
+         * Creates a set lemma link.
+         *
+         * @param id ID of the link
+         */
+        public SetLemmaLink(String id, ModalFormPanel setLemmaPanel) {
+            super(id);
+            this.setLemmaPanel = setLemmaPanel;
+        }
+
+        /**
+         * Called on click.
+         *
+         * @param  target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            setLemmaPanel.show(target);
+        }
+    }
+
+    /**
+     * A modal dialog to set a lemma for row models of a data table.
+     */
+    private class SetLemmaPanel extends ModalFormPanel {
+        /**
+         * A data table.
+         */
+        private LemmatisationDataTable dataTable;
+
+        /**
+         * A auto-complete textfield for lemmata.
+         */
+        private LemmaAutoCompleteTextField lemmaTextField;
+
+        /**
+         * Creates a set lemma panel.
+         *
+         * @param id ID of the panel
+         * @param parentForm a parent form
+         * @param dataTable a data table which delivers row models
+         */
+        public SetLemmaPanel(String id, Form<Context> parentForm, LemmatisationDataTable dataTable) {
+            super(id, parentForm);
+            this.dataTable = dataTable;
+            lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<Lemma>());
+            addFormComponent(lemmaTextField);
+        }
+
+        /**
+         * Returns the title string.
+         *
+         * @return A localized string.
+         */
+        @Override
+        public String getTitleString() {
+            return getString("SetLemmaPanel.setLemma");
+        }
+
+        /**
+         * Confirms the dialog when clicked.
+         *
+         * @param target target that produces an Ajax response
+         * @param form form that is submitted
+         */
+        @Override
+        public void onConfirm(AjaxRequestTarget target, Form<?> form) {
+            String lemmaName = lemmaTextField.getInput();
+            Lemma lemma = new LemmaDao().findByName(lemmaName);
+            Collection<IModel<Context>> rowModels = dataTable.getRowModels();
+            CollectionModel<Integer> selectedRowObjectIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+            ContextDao contextDao = new ContextDao();
+
+            if (lemma instanceof Lemma) {
+                for (IModel<Context> rowModel : rowModels) {
+                    if (rowModel.getObject().getSelected()) {
+                        Context context = rowModel.getObject();
+                        context.setLemma(lemma);
+                        contextDao.merge(context);
+                        selectedRowObjectIds.getObject().add(context.getId());
+                    }
+                }
+
+                dataTable.setSelectedRowObjectIds(selectedRowObjectIds);
+                target.add(dataTable);
+            }
+        }
+    }
+
+    /**
+     * A link which opens a set part of speech dialog.
+     */
+    private final class SetPosLink extends AjaxLink<Context> {
+        /**
+         * Determines if a deserialized file is compatible with this class.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Modal form panel which is shown on click.
+         */
+        private ModalFormPanel setPosPanel;
+
+        /**
+         * Creates a set part of speech link.
+         *
+         * @param id ID of the link
+         */
+        public SetPosLink(String id, ModalFormPanel setPosPanel) {
+            super(id);
+            this.setPosPanel = setPosPanel;
+        }
+
+        /**
+         * Called on click.
+         *
+         * @param  target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            setPosPanel.show(target);
+        }
+    }
+
+    /**
+     * A modal dialog to set a part of speech for row models of a data table.
+     */
+    private class SetPosPanel extends ModalFormPanel {
+        /**
+         * A data table.
+         */
+        private LemmatisationDataTable dataTable;
+
+        /**
+         * A auto-complete textfield for parts of speech.
+         */
+        private PosAutoCompleteTextField posTextField;
+
+        /**
+         * Creates a set part of speech panel.
+         *
+         * @param id ID of the panel
+         * @param parentForm a parent form
+         * @param dataTable a data table which delivers row models
+         */
+        public SetPosPanel(String id, Form<Context> parentForm, LemmatisationDataTable dataTable) {
+            super(id, parentForm);
+            this.dataTable = dataTable;
+            posTextField = new PosAutoCompleteTextField("pos", new Model<Pos>());
+            addFormComponent(posTextField);
+        }
+
+        /**
+         * Returns the title string.
+         *
+         * @return A localized string.
+         */
+        @Override
+        public String getTitleString() {
+            return getString("SetPosPanel.setPos");
+        }
+
+        /**
+         * Confirms the dialog when clicked.
+         *
+         * @param target target that produces an Ajax response
+         * @param form form that is submitted
+         */
+        @Override
+        public void onConfirm(AjaxRequestTarget target, Form<?> form) {
+            String posName = posTextField.getInput();
+            Pos pos = new PosDao().findByName(posName);
+            Collection<IModel<Context>> rowModels = dataTable.getRowModels();
+            CollectionModel<Integer> selectedRowObjectIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+            ContextDao contextDao = new ContextDao();
+
+            if (pos instanceof Pos) {
+                for (IModel<Context> rowModel : rowModels) {
+                    if (rowModel.getObject().getSelected()) {
+                        Context context = rowModel.getObject();
+                        context.setPos(pos);
+                        contextDao.merge(context);
+                        selectedRowObjectIds.getObject().add(context.getId());
+                    }
+                }
+
+                dataTable.setSelectedRowObjectIds(selectedRowObjectIds);
+                target.add(dataTable);
+            }
+        }
+    }
+}

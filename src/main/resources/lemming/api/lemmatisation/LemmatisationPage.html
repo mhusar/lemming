@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
 </head>
-<body>
-<wicket:extend>
+<body wicket:id="body" class="basePage lemmatisationPage">
+<header wicket:id="headerPanel"></header>
+<main>
     <div class="container">
         <div class="page-header">
             <h1>
@@ -29,14 +30,24 @@
     <div wicket:id="container" class="container">
         <div wicket:id="fragment"></div>
     </div>
-    <wicket:fragment wicket:id="withoutFilterForm">
+</main>
+<footer wicket:id="inputPanel" class="inputPanel"></footer>
+<footer wicket:id="lemmatisationPanel" class="lemmatisationPanel"></footer>
+<wicket:fragment wicket:id="withoutFilterForm">
+    <form wicket:id="contextForm" class="form-horizontal" role="form">
         <table wicket:id="lemmatisationDataTable"></table>
-    </wicket:fragment>
-    <wicket:fragment wicket:id="withFilterForm">
-        <form wicket:id="filterForm" role="form">
+        <div wicket:id="setLemmaPanel"></div>
+        <div wicket:id="setPosPanel"></div>
+    </form>
+</wicket:fragment>
+<wicket:fragment wicket:id="withFilterForm">
+    <form wicket:id="filterForm" role="form">
+        <form wicket:id="contextForm" class="form-horizontal" role="form">
             <table wicket:id="lemmatisationDataTable"></table>
+            <div wicket:id="setLemmaPanel"></div>
+            <div wicket:id="setPosPanel"></div>
         </form>
-    </wicket:fragment>
-</wicket:extend>
+    </form>
+</wicket:fragment>
 </body>
 </html>

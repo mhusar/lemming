@@ -90,6 +90,10 @@ html {
   margin-bottom: 9px;
 }
 
+.form-group.last {
+    margin-bottom: 0;
+}
+
 .list-group a {
   outline: 0;
 }
@@ -106,6 +110,10 @@ html {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.modal-open {
+  overflow-y: scroll;
 }
 
 .modal-dialog {
@@ -174,7 +182,23 @@ table {
 .table-striped > tbody > tr.selected > td {
   color: #fff;
   background-color: #428bca;
-  border-color: #428bca;
+}
+
+.table-striped > tbody > tr.focused {
+  outline: 1px dotted #666;
+  outline-offset: -2px;
+}
+
+.table-striped > tbody > tr.selected.focused {
+  outline: 1px dotted white;
+}
+
+.table-striped > tbody > tr.selected + tr td {
+  border-top: 1px solid #428bca;
+}
+
+.table-striped > tbody > tr.focused + tr td {
+  border-top: inherit;
 }
 
 table .actionColumn {
@@ -328,14 +352,15 @@ table th a span {
   visibility: hidden;
 }
 
+.inputPanel.aboveFooterPanel {
+    bottom: 51px;
+}
+
 .inputPanel.disabled {
   color: #737E83;
 }
 
 .inputPanel * {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 

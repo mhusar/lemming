@@ -142,6 +142,10 @@
   <entry key="SenseEditPage.editHeader">Bedeutungen bearbeiten</entry>
   <entry key="SenseIndexPage.header">Bedeutungen</entry>
   <entry key="SenseIndexPage.new">Bedeutung erstellen</entry>
+  <entry key="SetLemmaPanel.lemma">Lemma</entry>
+  <entry key="SetLemmaPanel.setLemma">Lemma festlegen</entry>
+  <entry key="SetPosPanel.pos">Wortart</entry>
+  <entry key="SetPosPanel.setPos">Wortart festlegen</entry>
   <entry key="SignInPage.header">Bitte anmelden</entry>
   <entry key="SignInPage.passwordWrongMessage">Das genannte Passwort ist falsch.</entry>
   <entry key="SignInPage.password">Passwort</entry>
