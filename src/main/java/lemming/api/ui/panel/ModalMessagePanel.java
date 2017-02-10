@@ -139,11 +139,11 @@ public abstract class ModalMessagePanel extends Panel {
         messageLabel = new Label("modalMessage", "modalMessage");
         Fragment fragment = null;
 
-        add(container);
         messageLabel.setOutputMarkupId(true);
+        container.setMarkupId(modalWindowId);
         container.add(new Label("modalTitle", getTitleString()));
         container.add(messageLabel);
-        container.add(AttributeModifier.replace("id", modalWindowId));
+        add(container);
 
         if (dialogType == DialogType.YES_NO) {
             fragment = new Fragment("fragment", "yesNoDialog", this);
@@ -176,7 +176,7 @@ public abstract class ModalMessagePanel extends Panel {
         label.setEscapeModelStrings(false);
         messageLabel = (Label) messageLabel.replaceWith(label);
         target.add(label);
-        target.appendJavaScript("jQuery(\"#" + modalWindowId + "\").modal(\"show\")");
+        target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('show');");
     }
 
     /**
@@ -198,7 +198,7 @@ public abstract class ModalMessagePanel extends Panel {
         label.setEscapeModelStrings(false);
         messageLabel = (Label) messageLabel.replaceWith(label);
         target.add(label);
-        target.appendJavaScript("jQuery(\"#" + modalWindowId + "\").modal(\"show\")");
+        target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('show');");
     }
 
     /**
@@ -260,7 +260,7 @@ public abstract class ModalMessagePanel extends Panel {
         @Override
         public void onClick(AjaxRequestTarget target) {
             onCancel();
-            target.appendJavaScript("jQuery(\"#" + modalWindowId + "\").modal(\"hide\")");
+            target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
         }
     }
 
@@ -299,9 +299,9 @@ public abstract class ModalMessagePanel extends Panel {
                 setResponsePage(responsePageClass);
             } else if (dataTable instanceof GenericDataTable<?> || dataTable instanceof SenseDataTable) {
                 target.add(dataTable);
-                target.appendJavaScript("jQuery(\"#" + modalWindowId + "\").modal(\"hide\")");
+                target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
             } else {
-                target.appendJavaScript("jQuery(\"#" + modalWindowId + "\").modal(\"hide\")");
+                target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
             }
         }
     }
