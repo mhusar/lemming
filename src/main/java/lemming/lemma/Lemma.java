@@ -1,9 +1,14 @@
 package lemming.lemma;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lemming.data.Source;
 import lemming.pos.Pos;
+import lemming.sense.Sense;
+import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.OrderBy;
@@ -14,10 +19,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
-
-import lemming.data.Source;
-import lemming.sense.Sense;
-import org.hibernate.annotations.*;
 
 /**
  * Class representing a lemma.
@@ -68,6 +69,7 @@ public class Lemma implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "replacement_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Lemma replacement;
 
     /**
@@ -221,7 +223,7 @@ public class Lemma implements Serializable {
      *
      * @return
      */
-    @XmlElement(name="replacementString")
+    @XmlTransient
     public String getReplacementString() {
         return replacementString;
     }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -128,6 +129,7 @@ public class Context implements Serializable {
      *
      * @return UUID of a context.
      */
+    @XmlTransient
     public String getUuid() {
         return uuid;
     }
