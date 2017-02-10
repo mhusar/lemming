@@ -1,1 +1,1 @@
-# lemming-api
+# Lemming
