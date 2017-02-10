@@ -165,7 +165,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Lemma> query = entityManager
-                    .createQuery("FROM Lemma WHERE name = :name", Lemma.class);
+                    .createQuery("FROM Lemma WHERE name = :name ORDER BY name", Lemma.class);
             List<Lemma> lemmaList = query.setParameter("name", name).getResultList();
             transaction.commit();
 
@@ -193,14 +193,30 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      * @throws RuntimeException
      */
     public List<Lemma> findByNameStart(String substring) throws RuntimeException {
+        return findByNameStart(substring, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Lemma> findByNameStart(String substring, Boolean excludeReplacements) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
+        String queryString;
+
+        if (excludeReplacements) {
+            queryString = "FROM Lemma WHERE name LIKE :substring AND replacement_id IS NULL ORDER BY name";
+        } else {
+            queryString = "FROM Lemma WHERE name LIKE :substring ORDER BY name";
+        }
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<Lemma> query = entityManager
-                    .createQuery("FROM Lemma WHERE name LIKE :substring", Lemma.class);
+            TypedQuery<Lemma> query = entityManager.createQuery(queryString, Lemma.class);
             List<Lemma> lemmaList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return lemmaList;
@@ -230,7 +246,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Lemma> query = entityManager
-                    .createQuery("FROM Lemma WHERE source = :source", Lemma.class);
+                    .createQuery("FROM Lemma WHERE source = :source ORDER BY name", Lemma.class);
             List<Lemma> lemmaList = query.setParameter("source", source).getResultList();
             transaction.commit();
             return lemmaList;

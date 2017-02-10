@@ -87,7 +87,7 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
             String lemmaName = requestParameters.getParameterValue("term").toString();
 
             JsonArrayBuilder builder = Json.createArrayBuilder();
-            List<Lemma> lemmaList = new LemmaDao().findByNameStart(lemmaName);
+            List<Lemma> lemmaList = new LemmaDao().findByNameStart(lemmaName, true);
 
             for (int i = 0; i < Math.min(lemmaList.size(), MAXIMUM_RESULTS); i++) {
                 builder.add(lemmaList.get(i).getName());

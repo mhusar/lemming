@@ -33,6 +33,15 @@ public interface ILemmaDao extends IDao<Lemma> {
     List<Lemma> findByNameStart(String substring);
 
     /**
+     * Returns a list of matching lemmata for a given substring.
+     *
+     * @param substring substring of a lemma name
+     * @param excludeReplacements exclude replacement lemmata
+     * @return A list of matching lemmata.
+     */
+    List<Lemma> findByNameStart(String substring, Boolean excludeReplacements);
+
+    /**
      * Returns a list of matching lemmata for a given source.
      *
      * @param source source of data
