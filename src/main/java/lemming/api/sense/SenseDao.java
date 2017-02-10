@@ -116,7 +116,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Sense> query = entityManager
-                    .createQuery("FROM Sense WHERE meaning = :meaning", Sense.class);
+                    .createQuery("FROM Sense WHERE meaning = :meaning ORDER BY meaning", Sense.class);
             List<Sense> senseList = query.setParameter("meaning", meaning).getResultList();
             transaction.commit();
 

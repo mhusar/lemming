@@ -81,7 +81,7 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Pos> query = entityManager
-                    .createQuery("FROM Pos WHERE name = :name", Pos.class);
+                    .createQuery("FROM Pos WHERE name = :name ORDER BY name", Pos.class);
             List<Pos> posList = query.setParameter("name", name).getResultList();
             transaction.commit();
 
@@ -116,7 +116,7 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Pos> query = entityManager
-                    .createQuery("FROM Pos WHERE name LIKE :substring", Pos.class);
+                    .createQuery("FROM Pos WHERE name LIKE :substring ORDER BY name", Pos.class);
             List<Pos> posList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return posList;
@@ -146,7 +146,7 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Pos> query = entityManager
-                    .createQuery("FROM Pos WHERE source = :source", Pos.class);
+                    .createQuery("FROM Pos WHERE source = :source ORDER BY name", Pos.class);
             List<Pos> posList = query.setParameter("source", source).getResultList();
             transaction.commit();
             return posList;

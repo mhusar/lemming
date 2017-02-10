@@ -124,7 +124,8 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<User> query = entityManager.createQuery("FROM User WHERE username = :username", User.class);
+            TypedQuery<User> query = entityManager.createQuery("FROM User WHERE username = :username ORDER BY realName",
+                    User.class);
             List<User> userList = query.setParameter("username", username).getResultList();
             transaction.commit();
 
@@ -159,7 +160,8 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<User> query = entityManager.createQuery("FROM User WHERE realName = :realName", User.class);
+            TypedQuery<User> query = entityManager.createQuery("FROM User WHERE realName = :realName ORDER BY realName",
+                    User.class);
             List<User> userList = query.setParameter("realName", realName).getResultList();
             transaction.commit();
 
@@ -194,7 +196,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<User> query = entityManager.createQuery("FROM User ORDER BY realName ASC", User.class);
+            TypedQuery<User> query = entityManager.createQuery("FROM User ORDER BY realName", User.class);
             List<User> userList = query.getResultList();
             transaction.commit();
             return userList;
