@@ -16,10 +16,12 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.util.CollectionModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
 
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.*;
 
 /**
  * A custom data table with toolbars and data provider for context lemmatisation.
@@ -34,6 +36,16 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
      * Default rows per page.
      */
     private static final long DEFAULT_ROWS_PER_PAGE = 100;
+
+    /**
+     * A map of row indexes and row models.
+     */
+    private Map<Integer, IModel<Context>> rowModels;
+
+    /**
+     * A collection of selected row object IDs.
+     */
+    private CollectionModel<Integer> selectedRowObjectIds;
 
     /**
      * Creates a new data table with toolbars.
@@ -87,6 +99,9 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
         if (filterForm instanceof FilterForm) {
             addTopToolbar(new FilterToolbar(this, filterForm));
         }
+
+        rowModels = new HashMap<Integer, IModel<Context>>(new Long(DEFAULT_ROWS_PER_PAGE).intValue());
+        selectedRowObjectIds = new CollectionModel<Integer>(new ArrayList<Integer>());
     }
 
     /**
@@ -101,8 +116,32 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
     protected Item<Context> newRowItem(String id, int index, IModel<Context> model) {
         Item<Context> rowItem = super.newRowItem(id, index, model);
         rowItem.add(new RowSelectBehavior());
-        rowItem.setOutputMarkupId(true);
+
+        if (selectedRowObjectIds.getObject().contains(model.getObject().getId())) {
+            model.getObject().setSelected(true);
+            rowItem.add(AttributeModifier.append("class", "selected"));
+        }
+
+        rowModels.put(index, model);
         return rowItem;
+    }
+
+    /**
+     * Returns the row models of the table.
+     *
+     * @return A collection of context models.
+     */
+    public Collection<IModel<Context>> getRowModels() {
+        return rowModels.values();
+    }
+
+    /**
+     * Sets the selected row object IDs.
+     *
+     * @param selectedRowObjectIds a collection of selected row object IDs
+     */
+    public void setSelectedRowObjectIds(CollectionModel<Integer> selectedRowObjectIds) {
+        this.selectedRowObjectIds = selectedRowObjectIds;
     }
 
     /**
