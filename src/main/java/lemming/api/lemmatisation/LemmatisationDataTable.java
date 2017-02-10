@@ -20,7 +20,6 @@ import org.apache.wicket.model.util.CollectionModel;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 /**
@@ -43,9 +42,9 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
     private Map<Integer, IModel<Context>> rowModels;
 
     /**
-     * A collection of selected row object IDs.
+     * IDs of selected contexts.
      */
-    private CollectionModel<Integer> selectedRowObjectIds;
+    private CollectionModel<Integer> selectedContextIds;
 
     /**
      * Creates a new data table with toolbars.
@@ -101,7 +100,7 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
         }
 
         rowModels = new HashMap<Integer, IModel<Context>>(new Long(DEFAULT_ROWS_PER_PAGE).intValue());
-        selectedRowObjectIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+        selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
     }
 
     /**
@@ -117,7 +116,7 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
         Item<Context> rowItem = super.newRowItem(id, index, model);
         rowItem.add(new RowSelectBehavior());
 
-        if (selectedRowObjectIds.getObject().contains(model.getObject().getId())) {
+        if (selectedContextIds.getObject().contains(model.getObject().getId())) {
             model.getObject().setSelected(true);
             rowItem.add(AttributeModifier.append("class", "selected"));
         }
@@ -136,12 +135,12 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
     }
 
     /**
-     * Sets the selected row object IDs.
+     * Updates the IDs of selected contexts.
      *
-     * @param selectedRowObjectIds a collection of selected row object IDs
+     * @param selectedContextIds a collection of context IDs
      */
-    public void setSelectedRowObjectIds(CollectionModel<Integer> selectedRowObjectIds) {
-        this.selectedRowObjectIds = selectedRowObjectIds;
+    public void updateSelectedContexts(CollectionModel<Integer> selectedContextIds) {
+        this.selectedContextIds = selectedContextIds;
     }
 
     /**

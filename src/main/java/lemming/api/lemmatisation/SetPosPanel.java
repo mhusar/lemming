@@ -64,7 +64,7 @@ class SetPosPanel extends ModalFormPanel {
         String posName = posTextField.getInput();
         Pos pos = new PosDao().findByName(posName);
         Collection<IModel<Context>> rowModels = dataTable.getRowModels();
-        CollectionModel<Integer> selectedRowObjectIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+        CollectionModel<Integer> selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
         ContextDao contextDao = new ContextDao();
 
         if (pos instanceof Pos) {
@@ -73,11 +73,11 @@ class SetPosPanel extends ModalFormPanel {
                     Context context = rowModel.getObject();
                     context.setPos(pos);
                     contextDao.merge(context);
-                    selectedRowObjectIds.getObject().add(context.getId());
+                    selectedContextIds.getObject().add(context.getId());
                 }
             }
 
-            dataTable.setSelectedRowObjectIds(selectedRowObjectIds);
+            dataTable.updateSelectedContexts(selectedContextIds);
             target.add(dataTable);
         }
     }

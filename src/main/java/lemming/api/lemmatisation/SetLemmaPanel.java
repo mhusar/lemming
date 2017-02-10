@@ -64,7 +64,7 @@ class SetLemmaPanel extends ModalFormPanel {
         String lemmaName = lemmaTextField.getInput();
         Lemma lemma = new LemmaDao().findByName(lemmaName);
         Collection<IModel<Context>> rowModels = dataTable.getRowModels();
-        CollectionModel<Integer> selectedRowObjectIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+        CollectionModel<Integer> selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
         ContextDao contextDao = new ContextDao();
 
         if (lemma instanceof Lemma) {
@@ -73,11 +73,11 @@ class SetLemmaPanel extends ModalFormPanel {
                     Context context = rowModel.getObject();
                     context.setLemma(lemma);
                     contextDao.merge(context);
-                    selectedRowObjectIds.getObject().add(context.getId());
+                    selectedContextIds.getObject().add(context.getId());
                 }
             }
 
-            dataTable.setSelectedRowObjectIds(selectedRowObjectIds);
+            dataTable.updateSelectedContexts(selectedContextIds);
             target.add(dataTable);
         }
     }
