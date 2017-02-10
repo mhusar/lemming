@@ -78,6 +78,9 @@
   <entry key="Lemma.replacement">Ersatzlemma</entry>
   <entry key="Lemma.source">Herkunft</entry>
   <entry key="LemmatisationPage.header">Lemmatisierung</entry>
+  <entry key="LemmatisationPanel.setLemma">Lemma festlegen</entry>
+  <entry key="LemmatisationPanel.setPos">Wortart festlegen</entry>
+  <entry key="LemmatisationPanel.toggleNavigation">Navigation umschalten</entry>
   <entry key="LemmaDeleteConfirmPanel.confirm">Lemma löschen</entry>
   <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>
   <entry key="LemmaDeleteConfirmPanel.title">Lemma löschen</entry>
