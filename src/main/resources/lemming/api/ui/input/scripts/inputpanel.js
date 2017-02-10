@@ -1,8 +1,4 @@
-/*global ace,jQuery,XmlEditor*/
-/*jslint browser: true, devel: true*/
-
-var InputPanel,
-    TagDialog;
+var InputPanel, TagDialog;
 
 jQuery.noConflict();
 
@@ -51,19 +47,34 @@ InputPanel = (function () {
         },
         adjust = function () {
             var body = jQuery("body"),
-                inputPanel = jQuery(".inputPanel");
+                inputPanel = jQuery(".inputPanel"),
+                lemmatisationPanel = jQuery(".lemmatisationPanel");
 
-            if (inputPanel.height() > getPixelsAsNumber(body.css("padding-bottom"))) {
-                body.animate({
-                    "padding-bottom" : inputPanel.height() + "px"
-                }, duration);
+            if (inputPanel.outerHeight() > getPixelsAsNumber(body.css("padding-bottom"))) {
+                if (lemmatisationPanel.length) {
+                    body.animate({
+                        "padding-bottom" : 51 + inputPanel.outerHeight() + "px"
+                    }, duration);
+                } else {
+                    body.animate({
+                        "padding-bottom" : inputPanel.outerHeight() + "px"
+                    }, duration);
+                }
             }
 
-            inputPanel.animate({
-                "bottom" : "0"
-            }, duration, function () {
-                scrollIntoPosition();
-            });
+            if (lemmatisationPanel.length) {
+                inputPanel.animate({
+                     "bottom" : 51 + "px"
+                }, duration, function () {
+                      scrollIntoPosition();
+                });
+            } else {
+                inputPanel.animate({
+                    "bottom" : "0px"
+                }, duration, function () {
+                    scrollIntoPosition();
+                });
+            }
         },
         focus = function () {
             var focusedElement = jQuery(":focus");
@@ -97,16 +108,22 @@ InputPanel = (function () {
         },
         prepare = function () {
             var body = jQuery("body"),
-                inputPanel = jQuery(".inputPanel");
+                inputPanel = jQuery(".inputPanel"),
+                lemmatisationPanel = jQuery(".lemmatisationPanel");
 
             body.stop(true, true);
             inputPanel.stop(true, true);
 
             if (inputPanel.css("visibility") === "hidden") {
-                body.css("padding-bottom", "0");
+                if (lemmatisationPanel.length) {
+                    body.css("padding-bottom", 51 + "px");
+                } else {
+                    body.css("padding-bottom", "0px");
+                }
+
                 inputPanel
                     .css({
-                        "bottom" : (-1 * inputPanel.height()) + "px",
+                        "bottom" : (-1 * inputPanel.outerHeight()) + "px",
                         "visibility" : "visible"
                     });
             }

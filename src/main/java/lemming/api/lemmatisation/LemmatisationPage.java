@@ -119,7 +119,6 @@ public class LemmatisationPage extends EmptyBasePage {
 
         contextForm.add(setLemmaPanel);
         contextForm.add(setPosPanel);
-        inputPanel.add(AttributeModifier.append("class", "aboveFooterPanel"));
         lemmatisationPanel.add(new SetLemmaLink("setLemmaLink", setLemmaPanel));
         lemmatisationPanel.add(new SetPosLink("setPosLink", setPosPanel));
         add(new HeaderPanel("headerPanel", LemmatisationPage.class));

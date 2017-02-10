@@ -352,10 +352,6 @@ table th a span {
   visibility: hidden;
 }
 
-.inputPanel.aboveFooterPanel {
-    bottom: 51px;
-}
-
 .inputPanel.disabled {
   color: #737E83;
 }
