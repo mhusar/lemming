@@ -43,14 +43,11 @@ public class BasePage extends EmptyBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
         JsonArray characterData = CharacterHelper.getCharacterData();
         String characterDataString = characterData.toString();
-        WebMarkupContainer bodyContainer = new TransparentWebMarkupContainer(
-                "body");
+        WebMarkupContainer bodyContainer = new TransparentWebMarkupContainer("body");
 
-        bodyContainer.add(AttributeModifier.append("data-characters",
-                characterDataString));
+        bodyContainer.add(AttributeModifier.append("data-characters", characterDataString));
         add(bodyContainer);
         add(new HeaderPanel("headerPanel", getPage().getClass()));
         add(new InputPanel("inputPanel"));
