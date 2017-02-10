@@ -61,14 +61,20 @@ public class LemmaTextField extends TextField<Lemma> {
              *            name that is converted
              * @param locale
              *            locale used to convert the name
-             * @return The converted object.
+             * @return The converted object, or null.
              * @throws ConversionException
              */
             @Override
             @SuppressWarnings("unchecked")
             public C convertToObject(String name, Locale locale) throws ConversionException {
                 LemmaDao lemmaDao = new LemmaDao();
-                return (C) lemmaDao.findByName(name);
+                Lemma lemma = lemmaDao.findByName(name);
+
+                if (lemma instanceof Lemma) {
+                    return (C) lemma;
+                } else {
+                    return null;
+                }
             }
 
             /**
@@ -78,18 +84,22 @@ public class LemmaTextField extends TextField<Lemma> {
              *            lemma that is converted
              * @param locale
              *            locale used to convert the lemma
-             * @return The converted name.
+             * @return The converted name, or null.
              */
             @Override
             public String convertToString(C lemma, Locale locale) {
-                try {
-                    return ((Lemma) lemma).getName();
-                } catch (LazyInitializationException e) {
-                    Lemma castedLemma = (Lemma) lemma;
+                if (lemma instanceof Lemma) {
+                    try {
+                        return ((Lemma) lemma).getName();
+                    } catch (LazyInitializationException e) {
+                        Lemma castedLemma = (Lemma) lemma;
 
-                    new LemmaDao().refresh(castedLemma);
-                    return castedLemma.getName();
+                        new LemmaDao().refresh(castedLemma);
+                        return castedLemma.getName();
+                    }
                 }
+
+                return null;
             }
         };
     }

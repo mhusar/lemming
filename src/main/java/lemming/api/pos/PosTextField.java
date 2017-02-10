@@ -61,14 +61,20 @@ public class PosTextField extends TextField<Pos> {
              *            name that is converted
              * @param locale
              *            locale used to convert the name
-             * @return The converted object.
+             * @return The converted object, or null.
              * @throws ConversionException
              */
             @Override
             @SuppressWarnings("unchecked")
             public C convertToObject(String name, Locale locale) throws ConversionException {
                 PosDao posDao = new PosDao();
-                return (C) posDao.findByName(name);
+                Pos pos = posDao.findByName(name);
+
+                if (pos instanceof Pos) {
+                    return (C) pos;
+                } else {
+                    return null;
+                }
             }
 
             /**
@@ -78,18 +84,22 @@ public class PosTextField extends TextField<Pos> {
              *            part of speech that is converted
              * @param locale
              *            locale used to convert the part of speech
-             * @return The converted name.
+             * @return The converted name, or null.
              */
             @Override
             public String convertToString(C pos, Locale locale) {
-                try {
-                    return ((Pos) pos).getName();
-                } catch (LazyInitializationException e) {
-                    Pos castedPos = (Pos) pos;
+                if (pos instanceof Pos) {
+                    try {
+                        return ((Pos) pos).getName();
+                    } catch (LazyInitializationException e) {
+                        Pos castedPos = (Pos) pos;
 
-                    new PosDao().refresh(castedPos);
-                    return castedPos.getName();
+                        new PosDao().refresh(castedPos);
+                        return castedPos.getName();
+                    }
                 }
+
+                return null;
             }
         };
     }
