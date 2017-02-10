@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="characterEditForm.character.Required">Bitte geben Sie ein Zeichen an.</entry>
+    <entry key="characterEditForm.position.Required">Bitte geben Sie eine Position an.</entry>
+</properties>
