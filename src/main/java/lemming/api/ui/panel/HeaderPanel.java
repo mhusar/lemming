@@ -81,10 +81,14 @@ public class HeaderPanel extends Panel {
 
         if (activePageClass.equals(HomePage.class)) {
             homePageItem.add(AttributeModifier.append("class", "active"));
+        } else if (activePageClass.equals(LemmatisationPage.class)) {
+            lemmatisationItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(ContextIndexPage.class)) {
             contextIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(LemmaIndexPage.class)) {
             lemmaIndexItem.add(AttributeModifier.append("class", "active"));
+        } else if (activePageClass.equals(SenseIndexPage.class)) {
+            senseIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(PosIndexPage.class)) {
             posIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(UserEditPage.class)) {
