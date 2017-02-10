@@ -24,8 +24,7 @@ public class InputPanel extends Panel {
     /**
      * Creates an input panel.
      * 
-     * @param id
-     *            ID of the input panel
+     * @param id ID of the input panel
      */
     public InputPanel(String id) {
         super(id);
@@ -34,14 +33,12 @@ public class InputPanel extends Panel {
     /**
      * Renders what the component wants to contribute to the head section.
      * 
-     * @param response
-     *            the response object
+     * @param response the response object
      */
     @Override
     public void renderHead(IHeaderResponse response) {
-        PackageResourceReference inputPanelScript = new JavaScriptResourceReference(
-                InputPanel.class, "scripts/inputpanel.js", getLocale(),
-                getStyle(), "") {
+        PackageResourceReference inputPanelScript = new JavaScriptResourceReference(InputPanel.class,
+                "scripts/inputpanel.js", getLocale(), getStyle(), "") {
             /**
              * Determines if a deserialized file is compatible with this class.
              */
@@ -56,16 +53,13 @@ public class InputPanel extends Panel {
             public List<HeaderItem> getDependencies() {
                 List<HeaderItem> dependencies = super.getDependencies();
                 org.apache.wicket.protocol.http.WebApplication application = WebApplication.get();
-                ResourceReference jqueryScript = application
-                        .getJavaScriptLibrarySettings().getJQueryReference();
+                ResourceReference jqueryScript = application.getJavaScriptLibrarySettings().getJQueryReference();
 
-                dependencies.add(JavaScriptHeaderItem
-                        .forReference(jqueryScript));
+                dependencies.add(JavaScriptHeaderItem.forReference(jqueryScript));
                 return dependencies;
             }
         };
-        JavaScriptHeaderItem inputPanelScriptItem = JavaScriptHeaderItem
-                .forReference(inputPanelScript);
+        JavaScriptHeaderItem inputPanelScriptItem = JavaScriptHeaderItem.forReference(inputPanelScript);
 
         response.render(inputPanelScriptItem);
     }
