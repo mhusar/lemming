@@ -93,6 +93,12 @@ public class Context implements Serializable {
     private Lemma lemma;
 
     /**
+     * Selected state of a context.
+     */
+    @Transient
+    private Boolean selected;
+
+    /**
      * Creates an instance of a context.
      */
     public Context() {
@@ -279,6 +285,28 @@ public class Context implements Serializable {
      */
     public void setLemma(Lemma lemma) {
         this.lemma = lemma;
+    }
+
+    /**
+     * Returns the selected state of a context.
+     *
+     * @return Selected state of a context.
+     */
+    public Boolean getSelected() {
+        if (selected instanceof Boolean) {
+            return selected;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sets the selected state of a context.
+     *
+     * @param selected selected state of a context
+     */
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
     }
 
     /**
