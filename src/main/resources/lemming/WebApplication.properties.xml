@@ -65,6 +65,7 @@
   <entry key="HomePage.lemmatisation">Lemmatisation</entry>
   <entry key="HomePage.overview">Dashboard</entry>
   <entry key="HomePage.pos">Parts of speech</entry>
+  <entry key="HomePage.resources">Data resources</entry>
   <entry key="HomePage.senses">Senses</entry>
   <entry key="HomePage.users">User management</entry>
   <entry key="InputPanel.insertTag">Insert tag</entry>
@@ -128,6 +129,13 @@
   <entry key="PosIndexPage.new">Create part of speech</entry>
   <entry key="PosType.DEAF">Dictionnaire Étymologique de l'Ancien Français</entry>
   <entry key="PosType.USER">User-generated</entry>
+  <entry key="ResourcePage.contexts">Contexts</entry>
+  <entry key="ResourcePage.downloadContexts">Download contexts</entry>
+  <entry key="ResourcePage.downloadLemmata">Download lemmata</entry>
+  <entry key="ResourcePage.downloadPos">Download parts of speech</entry>
+  <entry key="ResourcePage.header">Data resources</entry>
+  <entry key="ResourcePage.lemmata">Lemmata</entry>
+  <entry key="ResourcePage.pos">Parts of speech</entry>
   <entry key="Role.STUDENT">Student</entry>
   <entry key="Role.USER">User</entry>
   <entry key="Role.ADMIN">Administrator</entry>

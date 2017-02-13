@@ -7,6 +7,7 @@ import lemming.context.ContextImportPage;
 import lemming.lemma.LemmaIndexPage;
 import lemming.lemmatisation.LemmatisationPage;
 import lemming.pos.PosIndexPage;
+import lemming.resource.ResourcePage;
 import lemming.sense.SenseIndexPage;
 import lemming.ui.UserBookmarkablePageLink;
 import lemming.ui.page.BasePage;
@@ -46,6 +47,7 @@ public class HomePage extends BasePage {
         BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<Void>("senseIndexLink",
                 SenseIndexPage.class);
+        BookmarkablePageLink<Void> resourceLink = new BookmarkablePageLink<Void>("resourceLink", ResourcePage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
         UserBookmarkablePageLink characterEditPageLink = new UserBookmarkablePageLink("characterEditPageLink",
                 CharacterEditPage.class);
@@ -59,6 +61,7 @@ public class HomePage extends BasePage {
         add(lemmaIndexLink);
         add(posIndexLink);
         add(senseIndexLink);
+        add(resourceLink);
         add(userEditLink);
         add(characterEditPageLink);
     }

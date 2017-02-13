@@ -11,6 +11,7 @@ import lemming.lemma.LemmaViewPage;
 import lemming.lemmatisation.LemmatisationPage;
 import lemming.pos.PosEditPage;
 import lemming.pos.PosIndexPage;
+import lemming.resource.ResourcePage;
 import lemming.sense.SenseEditPage;
 import lemming.sense.SenseIndexPage;
 import lemming.ui.page.AccessDeniedPage;
@@ -110,6 +111,7 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/lemmatisation/LemmatisationPage", LemmatisationPage.class);
         mountPage("/pos/PosIndexPage", PosIndexPage.class);
         mountPage("/pos/PosEditPage", PosEditPage.class);
+        mountPage("/resource/ResourcePage", ResourcePage.class);
         mountPage("/sense/SenseIndexPage", SenseIndexPage.class);
         mountPage("/sense/SenseEditPage", SenseEditPage.class);
         mountPage("/user/UserEditPage", UserEditPage.class);

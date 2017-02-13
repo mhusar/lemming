@@ -67,6 +67,7 @@
   <entry key="HomePage.lemmatisation">Lemmatisierung</entry>
   <entry key="HomePage.overview">Übersicht</entry>
   <entry key="HomePage.pos">Wortarten</entry>
+  <entry key="HomePage.resources">Datenbestand</entry>
   <entry key="HomePage.senses">Bedeutungen</entry>
   <entry key="HomePage.users">Benutzer</entry>
   <entry key="InputPanel.insertTag">Tag einfügen</entry>
@@ -131,6 +132,13 @@
   <entry key="PosIndexPage.new">Wortart erstellen</entry>
   <entry key="PosType.DEAF">Dictionnaire Étymologique de l'Ancien Français</entry>
   <entry key="PosType.USER">Benutzer</entry>
+  <entry key="ResourcePage.contexts">Kontexte</entry>
+  <entry key="ResourcePage.downloadContexts">Kontexte herunterladen</entry>
+  <entry key="ResourcePage.downloadLemmata">Lemmata herunterladen</entry>
+  <entry key="ResourcePage.downloadPos">Wortarten herunterladen</entry>
+  <entry key="ResourcePage.header">Datenbestand</entry>
+  <entry key="ResourcePage.lemmata">Lemmata</entry>
+  <entry key="ResourcePage.pos">Wortarten</entry>
   <entry key="Role.STUDENT">Hiwi</entry>
   <entry key="Role.USER">Redaktor</entry>
   <entry key="Role.ADMIN">Administrator</entry>

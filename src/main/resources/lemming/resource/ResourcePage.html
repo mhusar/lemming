@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>
+                        <wicket:message key="ResourcePage.header"></wicket:message>
+                    </h1>
+                </div>
+                <h2>
+                    <wicket:message key="ResourcePage.contexts"></wicket:message>
+                </h2>
+                <a wicket:id="downloadContexts" href="/api/contexts" class="btn btn-default" role="button">
+                    <wicket:message key="ResourcePage.downloadContexts"></wicket:message>
+                </a>
+                <h2>
+                    <wicket:message key="ResourcePage.lemmata"></wicket:message>
+                </h2>
+                <a wicket:id="downloadLemmata" href="/api/lemmas" class="btn btn-default" role="button">
+                    <wicket:message key="ResourcePage.downloadLemmata"></wicket:message>
+                </a>
+                <h2>
+                    <wicket:message key="ResourcePage.pos"></wicket:message>
+                </h2>
+                <a wicket:id="downloadPos" href="/api/pos" class="btn btn-default" role="button">
+                    <wicket:message key="ResourcePage.downloadPos"></wicket:message>
+                </a>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>
