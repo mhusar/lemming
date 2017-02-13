@@ -130,6 +130,7 @@
   <entry key="PosType.DEAF">Dictionnaire Étymologique de l'Ancien Français</entry>
   <entry key="PosType.USER">User-generated</entry>
   <entry key="ResourcePage.contexts">Contexts</entry>
+  <entry key="ResourcePage.downloadContextKwicIndex">Download contexts as KWIC index</entry>
   <entry key="ResourcePage.downloadContexts">Download contexts</entry>
   <entry key="ResourcePage.downloadLemmata">Download lemmata</entry>
   <entry key="ResourcePage.downloadPos">Download parts of speech</entry>

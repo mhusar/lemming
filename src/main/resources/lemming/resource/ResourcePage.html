@@ -17,9 +17,14 @@
                 <h2>
                     <wicket:message key="ResourcePage.contexts"></wicket:message>
                 </h2>
-                <a wicket:id="downloadContexts" href="/api/contexts" class="btn btn-default" role="button">
-                    <wicket:message key="ResourcePage.downloadContexts"></wicket:message>
-                </a>
+                <div class="btn-group">
+                    <a wicket:id="downloadContexts" href="/api/contexts" class="btn btn-default" role="button">
+                        <wicket:message key="ResourcePage.downloadContexts"></wicket:message>
+                    </a>
+                    <a wicket:id="downloadContextKwicIndex" href="/api/contexts/xml" class="btn btn-default" role="button">
+                        <wicket:message key="ResourcePage.downloadContextKwicIndex"></wicket:message>
+                    </a>
+                </div>
                 <h2>
                     <wicket:message key="ResourcePage.lemmata"></wicket:message>
                 </h2>

@@ -12,6 +12,7 @@ public class ResourcePage extends BasePage {
      */
     public ResourcePage() {
         add(new Button("downloadContexts"));
+        add(new Button("downloadContextKwicIndex"));
         add(new Button("downloadLemmata"));
         add(new Button("downloadPos"));
     }
