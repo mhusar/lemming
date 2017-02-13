@@ -1,6 +1,7 @@
 package lemming.context;
 
 import lemming.data.IDao;
+import lemming.lemma.Lemma;
 
 import java.util.List;
 
@@ -24,10 +25,18 @@ public interface IContextDao extends IDao<Context> {
     Context findByKeyword(String keyword);
 
     /**
-     * Returns a list of matching contexts for a given substring.
+     * Returns a list of matching contexts for a given keyword substring.
      *
-     * @param substring substring of a context name
+     * @param substring substring of a context keyword
      * @return A list of matching contexts.
      */
     List<Context> findByKeywordStart(String substring);
+
+    /**
+     * Returns a list of matching contexts for a given lemma.
+     *
+     * @param lemma a lemma
+     * @return A list of matching contexts.
+     */
+    List<Context> findByLemma(Lemma lemma);
 }

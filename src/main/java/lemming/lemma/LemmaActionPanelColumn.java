@@ -1,5 +1,6 @@
 package lemming.lemma;
 
+import lemming.context.ContextDao;
 import lemming.data.Source;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -105,9 +106,11 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
                         ModalMessagePanel lemmaDeleteDeniedPanel = (ModalMessagePanel) getPage()
                                 .get("lemmaDeleteDeniedPanel");
 
-                        // TODO: When to show a lemma delete deny panel?
-                        //lemmaDeleteDeniedPanel.show(target, model);
-                        lemmaDeleteConfirmPanel.show(target, model);
+                        if (new ContextDao().findByLemma(model.getObject()).isEmpty()) {
+                            lemmaDeleteConfirmPanel.show(target, model);
+                        } else {
+                            lemmaDeleteDeniedPanel.show(target, model);
+                        }
                     }
                 };
                 AjaxLink<Void> viewLink = new AjaxLink<Void>("viewLink") {

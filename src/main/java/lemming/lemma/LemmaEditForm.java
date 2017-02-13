@@ -1,5 +1,6 @@
 package lemming.lemma;
 
+import lemming.context.ContextDao;
 import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosTextField;
@@ -164,12 +165,11 @@ public class LemmaEditForm extends Form<Lemma> {
             ModalMessagePanel lemmaDeleteConfirmPanel = (ModalMessagePanel) getPage().get("lemmaDeleteConfirmPanel");
             ModalMessagePanel lemmaDeleteDeniedPanel = (ModalMessagePanel) getPage().get("lemmaDeleteDeniedPanel");
 
-            // TODO:
-            //if (new LemmaDao().getFicheCount(getModelObject()) > 0) {
-            //    lemmaDeleteDeniedPanel.show(target, getModel());
-            //} else {
+            if (new ContextDao().findByLemma(getModelObject()).isEmpty()) {
                 lemmaDeleteConfirmPanel.show(target, getModel());
-            //}
+            } else {
+                lemmaDeleteDeniedPanel.show(target, getModel());
+            }
         }
     }
 

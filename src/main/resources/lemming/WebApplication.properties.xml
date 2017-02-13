@@ -81,7 +81,7 @@
   <entry key="LemmaDeleteConfirmPanel.message">Are you sure you want to delete the lemma {0} ?</entry>
   <entry key="LemmaDeleteConfirmPanel.title">Delete lemma</entry>
   <entry key="LemmaDeleteDeniedPanel.confirm">Close</entry>
-  <entry key="LemmaDeleteDeniedPanel.message">Mindestens ein Zettel hat das Lemma {0}.</entry>
+  <entry key="LemmaDeleteDeniedPanel.message">At least one context belongs to lemma {0}.</entry>
   <entry key="LemmaDeleteDeniedPanel.title">Deletion not possible</entry>
   <entry key="LemmaEditForm.lemma-is-non-unique">A lemma with this name already exists.</entry>
   <entry key="LemmaEditPage.editHeader">Edit lemma</entry>
