@@ -100,11 +100,7 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
                     public void onClick(AjaxRequestTarget target) {
                         ModalMessagePanel contextDeleteConfirmPanel = (ModalMessagePanel) getPage()
                                 .get("contextDeleteConfirmPanel");
-                        ModalMessagePanel contextDeleteDeniedPanel = (ModalMessagePanel) getPage()
-                                .get("contextDeleteDeniedPanel");
 
-                        // TODO: When to show a context delete deny panel?
-                        //contextDeleteDeniedPanel.show(target, model);
                         contextDeleteConfirmPanel.show(target, model);
                     }
                 });

@@ -35,11 +35,8 @@
   <entry key="Context.preceding">Vorausgehend</entry>
   <entry key="Context.type">Art</entry>
   <entry key="ContextDeleteConfirmPanel.confirm">Kontext löschen</entry>
-  <entry key="ContextDeleteConfirmPanel.message">Möchten Sie den Kontext {0} wirklich löschen ?</entry>
+  <entry key="ContextDeleteConfirmPanel.message">Möchten Sie den Kontext “{0}” wirklich löschen ?</entry>
   <entry key="ContextDeleteConfirmPanel.title">Kontext löschen</entry>
-  <entry key="ContextDeleteDeniedPanel.confirm">Schließen</entry>
-  <entry key="ContextDeleteDeniedPanel.message">Mindestens ein Zettel hat den Kontext {0}.</entry>
-  <entry key="ContextDeleteDeniedPanel.title">Löschen nicht möglich</entry>
   <entry key="ContextEditForm.lemma-is-non-unique">Ein Kontext mit diesem Namen gibt es bereits.</entry>
   <entry key="ContextEditPage.editHeader">Kontext bearbeiten</entry>
   <entry key="ContextEditPage.newHeader">Kontext erstellen</entry>

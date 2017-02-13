@@ -94,7 +94,6 @@ public class ContextEditPage extends BasePage {
             add(new Label("header", getString("ContextEditPage.editHeader")));
         }
 
-        add(new ContextDeleteDeniedPanel("contextDeleteDeniedPanel"));
         add(new FeedbackPanel("feedbackPanel"));
         add(new ContextEditForm("contextEditForm", contextModel, nextPageClass));
     }

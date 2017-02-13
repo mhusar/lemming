@@ -69,7 +69,6 @@ public class ContextIndexPage extends BasePage {
         }
 
         add(new ContextDeleteConfirmPanel("contextDeleteConfirmPanel", dataTable));
-        add(new ContextDeleteDeniedPanel("contextDeleteDeniedPanel", dataTable));
         add(new FeedbackPanel("feedbackPanel"));
         add(filterTextField);
         add(new NewButton("new"));

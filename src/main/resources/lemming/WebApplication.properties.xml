@@ -34,11 +34,8 @@
   <entry key="Context.preceding">Preceding</entry>
   <entry key="Context.type">Type</entry>
   <entry key="ContextDeleteConfirmPanel.confirm">Delete context</entry>
-  <entry key="ContextDeleteConfirmPanel.message">Are you sure you want to delete the context {0} ?</entry>
+  <entry key="ContextDeleteConfirmPanel.message">Are you sure you want to delete the context “{0}” ?</entry>
   <entry key="ContextDeleteConfirmPanel.title">Delete context</entry>
-  <entry key="ContextDeleteDeniedPanel.confirm">Close</entry>
-  <entry key="ContextDeleteDeniedPanel.message">Mindestens ein Zettel hat den Kontext {0}.</entry>
-  <entry key="ContextDeleteDeniedPanel.title">Deletion not possible</entry>
   <entry key="ContextEditPage.editHeader">Edit context</entry>
   <entry key="ContextEditPage.newHeader">Create context</entry>
   <entry key="ContextImportPage.header">Import of contexts</entry>
