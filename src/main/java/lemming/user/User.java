@@ -1,6 +1,7 @@
 package lemming.user;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ import lemming.auth.UserRoles;
 @Table(name = "user", indexes = { @Index(columnList = "uuid", unique = true),
         @Index(columnList = "username", unique = true),
         @Index(columnList = "real_name", unique = true) })
-public class User implements Serializable {
+public class User implements Principal, Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -320,5 +321,16 @@ public class User implements Serializable {
         }
 
         return uuid.hashCode();
+    }
+
+    /**
+     * Returns the username of the user.
+     *
+     * @return A string with the user’s username.
+     * @see java.security.Principal
+     */
+    @Override
+    public String getName() {
+        return getUsername();
     }
 }

@@ -1,5 +1,6 @@
 package lemming;
 
+import lemming.auth.AuthRequestFilter;
 import lemming.context.ContextResource;
 import lemming.lemma.LemmaResource;
 import lemming.pos.PosResource;
@@ -8,6 +9,7 @@ import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.EncodingFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.ws.rs.ApplicationPath;
 import java.util.logging.Level;
@@ -45,6 +47,9 @@ public class Application extends ResourceConfig {
         register(JacksonFeature.class);
         // enable logging
         register(LoggingFeature.class);
+        // enable user roles
+        register(AuthRequestFilter.class);
+        register(RolesAllowedDynamicFeature.class);
         // enable gzip encoding
         register(EncodingFilter.class);
         register(GZipEncoder.class);

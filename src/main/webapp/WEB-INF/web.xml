@@ -5,7 +5,7 @@
          version="3.0">
     <display-name>lemming</display-name>
     <filter>
-        <filter-name>WebApplication</filter-name>
+        <filter-name>WicketFilter</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
@@ -25,8 +25,20 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>WebApplication</filter-name>
+        <filter-name>WicketFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>WicketSessionFilter</filter-name>
+        <filter-class>org.apache.wicket.protocol.http.servlet.WicketSessionFilter</filter-class>
+        <init-param>
+            <param-name>filterName</param-name>
+            <param-value>WicketFilter</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>WicketSessionFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
     </filter-mapping>
     <listener>
         <listener-class>
