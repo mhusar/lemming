@@ -66,7 +66,7 @@
   <entry key="HomePage.senses">Senses</entry>
   <entry key="HomePage.users">User management</entry>
   <entry key="InputPanel.insertTag">Insert tag</entry>
-  <entry key="InputPanel.tabDialogTitleStart">Tag attributes</entry>
+  <entry key="InputPanel.tabDialogTitleStart">Attributes for tag </entry>
   <entry key="InputPanel.tabDialogTitleEnd"></entry>
   <entry key="Lemma.name">Lemma</entry>
   <entry key="Lemma.pos">Part of speech</entry>
