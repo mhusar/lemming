@@ -30,7 +30,9 @@ jQuery.fn.isInViewport = function (offset) {
 
 // focus autofocus inputs when they become visible
 jQuery(window).on("resize scroll", function () {
-    if (jQuery("input[autofocus]").first().isInViewport()) {
+    var autofocusInput = jQuery("input[autofocus]").first();
+
+    if (autofocusInput.length && autofocusInput.isInViewport()) {
         jQuery("input[autofocus]").first().focus();
     }
 });
