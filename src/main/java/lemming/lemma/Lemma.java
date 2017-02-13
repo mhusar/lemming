@@ -1,7 +1,6 @@
 package lemming.lemma;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.Source;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
@@ -13,9 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +27,6 @@ import java.util.UUID;
 @Table(name = "lemma", indexes = {
         @Index(columnList = "uuid, name", unique = true),
         @Index(columnList = "replacement_id, replacement_string, pos_string, source, reference")})
-@XmlRootElement
 public class Lemma implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -49,6 +44,7 @@ public class Lemma implements Serializable {
      * A UUID used to distinguish lemmata.
      */
     @Column(name = "uuid")
+    @JsonIgnore
     private String uuid;
 
     /**
@@ -69,13 +65,14 @@ public class Lemma implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "replacement_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIgnore
     private Lemma replacement;
 
     /**
      * Replacement of a lemma as string.
      */
     @Column(name = "replacement_string")
+    @JsonIgnore
     private String replacementString;
 
     /**
@@ -109,6 +106,7 @@ public class Lemma implements Serializable {
      */
     @OneToMany(mappedBy="lemma", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     @OrderBy("parent_position")
+    @JsonIgnore
     private List<Sense> senses;
 
     /**
@@ -141,7 +139,6 @@ public class Lemma implements Serializable {
      *
      * @return UUID of a lemma.
      */
-    @XmlTransient
     public String getUuid() {
         return uuid;
     }
@@ -179,7 +176,6 @@ public class Lemma implements Serializable {
      *
      * @return Name of a lemma.
      */
-    @XmlElement(name="name")
     public String getName() {
         return name;
     }
@@ -199,7 +195,6 @@ public class Lemma implements Serializable {
      *
      * @return A lemma, or null.
      */
-    @XmlElement(name="replacement")
     public Lemma getReplacement() {
         return replacement;
     }
@@ -223,7 +218,6 @@ public class Lemma implements Serializable {
      *
      * @return
      */
-    @XmlTransient
     public String getReplacementString() {
         return replacementString;
     }
@@ -266,7 +260,6 @@ public class Lemma implements Serializable {
      *
      * @return Part of speech of a lemma.
      */
-    @XmlElement(name="posString")
     public String getPosString() {
         return posString;
     }
@@ -286,7 +279,6 @@ public class Lemma implements Serializable {
      *
      * @return Source of a lemma.
      */
-    @XmlElement(name="source")
     public Source.LemmaType getSource() {
         return source;
     }
@@ -305,7 +297,6 @@ public class Lemma implements Serializable {
      *
      * @return A reference, or null.
      */
-    @XmlElement(name="reference")
     public String getReference() {
         return reference;
     }

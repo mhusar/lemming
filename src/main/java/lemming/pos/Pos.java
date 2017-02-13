@@ -1,5 +1,6 @@
 package lemming.pos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.Source;
 import org.hibernate.annotations.*;
 
@@ -7,9 +8,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -24,7 +22,6 @@ import java.util.UUID;
 @Table(name = "pos", indexes = {
         @Index(columnList = "uuid, name", unique = true),
         @Index(columnList = "source")})
-@XmlRootElement
 public class Pos implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -42,6 +39,7 @@ public class Pos implements Serializable {
      * A UUID used to distinguish parts of speech.
      */
     @Column(name = "uuid")
+    @JsonIgnore
     private String uuid;
 
     /**
@@ -94,7 +92,6 @@ public class Pos implements Serializable {
      *
      * @return UUID of a part of speech.
      */
-    @XmlTransient
     public String getUuid() {
         return uuid;
     }
@@ -132,7 +129,6 @@ public class Pos implements Serializable {
      *
      * @return Name of a part of speech.
      */
-    @XmlElement(name="name")
     public String getName() {
         return name;
     }
@@ -152,7 +148,6 @@ public class Pos implements Serializable {
      *
      * @return Source of a part of speech.
      */
-    @XmlElement(name="source")
     public Source.PosType getSource() {
         return source;
     }

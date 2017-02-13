@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +23,6 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "sense", indexes = {
         @Index(columnList = "uuid, meaning", unique = true)})
-@XmlRootElement
 public class Sense implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -116,7 +112,6 @@ public class Sense implements Serializable {
      *
      * @return UUID of a sense.
      */
-    @XmlTransient
     public String getUuid() {
         return uuid;
     }
@@ -172,7 +167,6 @@ public class Sense implements Serializable {
      *
      * @return Meaning of a sense.
      */
-    @XmlElement(name="meaning")
     public String getMeaning() {
         return meaning;
     }

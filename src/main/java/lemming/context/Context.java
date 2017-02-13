@@ -1,5 +1,6 @@
 package lemming.context;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
 import org.hibernate.annotations.*;
@@ -8,7 +9,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -40,6 +40,7 @@ public class Context implements Serializable {
      * A UUID used to distinguish contexts.
      */
     @Column(name = "uuid")
+    @JsonIgnore
     private String uuid;
 
     /**
@@ -97,6 +98,7 @@ public class Context implements Serializable {
      * Selected state of a context.
      */
     @Transient
+    @JsonIgnore
     private Boolean selected;
 
     /**
@@ -129,7 +131,6 @@ public class Context implements Serializable {
      *
      * @return UUID of a context.
      */
-    @XmlTransient
     public String getUuid() {
         return uuid;
     }
