@@ -1,89 +1,87 @@
 package lemming.context;
 
-import javax.ws.rs.*;
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lemming.data.EntityManagerListener;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
+import org.hibernate.Session;
+import org.hibernate.StatelessSession;
+import org.hibernate.query.Query;
+
+import javax.annotation.security.RolesAllowed;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
-import java.util.UUID;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.IOException;
+import java.io.OutputStream;
 
+/**
+ * A resource for context data.
+ */
 @Path("contexts")
+@RolesAllowed({"STUDENT","USER","ADMIN"})
 public class ContextResource {
-
+    /**
+     * Returns a chunked JSON response.
+     *
+     * @return A JSON response.
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response get() {
-        List<Context> list = new ContextDao().getAll();
-        return Response.ok(list).build();
-    }
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
 
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") String id) {
-        Context context = new ContextDao().find(Integer.valueOf(id));
+        try {
+            StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            final EntityTransaction finalTransaction = session.beginTransaction();
+            transaction = finalTransaction;
+            Query<Long> countQuery = session.createQuery("SELECT COUNT(*) FROM Context", Long.class);
+            Long count = countQuery.getSingleResult();
+            Query contextQuery = session.createQuery("FROM Context ORDER BY keyword, location");
+            contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
+            ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
+            StreamingOutput streamingOutput = new StreamingOutput() {
+                @Override
+                public void write(OutputStream outputStream) throws IOException, WebApplicationException {
+                    JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
+                            .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
+                    jsonGenerator.writeStartArray();
 
-        if (context != null) {
-            return Response.ok(context).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-    }
+                    while (results.next()) {
+                        Context context = (Context) results.get(0);
+                        jsonGenerator.writeObject(context);
+                    }
 
-    @GET
-    @Path("/keyword/{keyword}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getByKeyword(@PathParam("keyword") String keyword) {
-        List<Context> list = new ContextDao().findByKeywordStart(keyword);
-        return Response.ok(list).build();
-    }
+                    jsonGenerator.writeEndArray();
+                    jsonGenerator.flush();
+                    jsonGenerator.close();
+                    results.close();
+                    finalTransaction.commit();
+                }
+            };
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response post(Context context) {
-        if (context != null) {
-            context.setUuid(UUID.randomUUID().toString());
-            new ContextDao().persist(context);
-            return Response.ok(context).build();
-        } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-    }
+            return Response.ok(streamingOutput).type(MediaType.APPLICATION_JSON)
+                .header("Content-Disposition", "attachment; filename=\"contexts.json\"").build();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response put(Context context) {
-        if (context == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        ContextDao contextDao = new ContextDao();
-
-        if (context != null && context.getId() instanceof Integer) {
-            Context persistentContext = contextDao.find(context.getId());
-
-            if (persistentContext != null) {
-                context.setUuid(persistentContext.getUuid());
-                Context mergedContext = contextDao.merge(context);
-                return Response.ok(mergedContext).type(MediaType.APPLICATION_JSON).build();
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
             }
-        }
 
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
-    @DELETE
-    @Path("/{id}")
-    public Response delete(@PathParam("id") String id) {
-        ContextDao contextDao = new ContextDao();
-        Context context = contextDao.find(id);
-
-        if (context != null) {
-            contextDao.remove(context);
-            return Response.status(Response.Status.NO_CONTENT).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw e;
+        } finally {
+            entityManager.close();
         }
     }
 }
