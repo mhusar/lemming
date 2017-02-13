@@ -5,8 +5,7 @@ import lemming.ui.page.UnresolvableObjectErrorPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.hibernate.StaleObjectStateException;
-import org.hibernate.UnresolvableObjectException;
+import org.hibernate.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
