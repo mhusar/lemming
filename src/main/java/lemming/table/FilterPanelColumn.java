@@ -37,7 +37,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
     Class<T> typeClass;
 
     /**
-     * Creates a new filter panel column.
+     * Creates a filter panel column.
      * 
      * @param displayModel
      *            title of a column
@@ -101,7 +101,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new go and clear panel.
+         * Creates a go and clear panel.
          * 
          * @param id
          *            ID of the panel

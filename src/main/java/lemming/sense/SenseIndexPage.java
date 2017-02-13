@@ -35,7 +35,7 @@ public class SenseIndexPage extends BasePage {
     private static final Boolean FILTER_FORM_ENABLED = false;
 
     /**
-     * Creates a new sense index page.
+     * Creates a sense index page.
      */
     public SenseIndexPage() {
         SenseDataProvider dataProvider = new SenseDataProvider(SenseWrapper.class,
@@ -113,7 +113,7 @@ public class SenseIndexPage extends BasePage {
         SenseDataProvider dataProvider;
 
         /**
-         * Creates a new behavior.
+         * Creates a behavior.
          *
          * @param textField
          *            text field used a filter component

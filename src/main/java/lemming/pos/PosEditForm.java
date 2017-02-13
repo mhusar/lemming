@@ -33,7 +33,7 @@ public class PosEditForm extends Form<Pos> {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new part of speech edit form.
+     * Creates a part of speech edit form.
      * 
      * @param id
      *            ID of the edit form
@@ -102,7 +102,7 @@ public class PosEditForm extends Form<Pos> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new cancel button.
+         * Creates a cancel button.
          * 
          * @param id
          *            ID of the button
@@ -137,7 +137,7 @@ public class PosEditForm extends Form<Pos> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new delete button.
+         * Creates a delete button.
          * 
          * @param id
          *            ID of the button
@@ -183,7 +183,7 @@ public class PosEditForm extends Form<Pos> {
         private IModel<Pos> posModel;
 
         /**
-         * Creates a new part of speech name validator.
+         * Creates a part of speech name validator.
          * 
          * @param model
          *            part of speech model that is edited

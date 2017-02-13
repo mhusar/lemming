@@ -33,7 +33,7 @@ public class LemmaEditPage extends BasePage {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new lemma edit page.
+     * Creates a lemma edit page.
      */
     public LemmaEditPage() {
         lemmaModel = new CompoundPropertyModel<Lemma>(new Lemma());
@@ -43,7 +43,7 @@ public class LemmaEditPage extends BasePage {
     }
 
     /**
-     * Creates a new lemma edit page.
+     * Creates a lemma edit page.
      * 
      * @param nextPageClass
      *            class of the next page
@@ -56,7 +56,7 @@ public class LemmaEditPage extends BasePage {
     }
 
     /**
-     * Creates a new lemma edit page.
+     * Creates a lemma edit page.
      * 
      * @param lemmaModel
      *            model of the edited lemma object

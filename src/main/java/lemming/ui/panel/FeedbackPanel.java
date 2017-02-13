@@ -14,7 +14,7 @@ public class FeedbackPanel extends
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new feedback panel.
+     * Creates a feedback panel.
      * 
      * @param id
      *            ID of a feedback panel.
@@ -24,7 +24,7 @@ public class FeedbackPanel extends
     }
 
     /**
-     * Creates a new feedback panel.
+     * Creates a feedback panel.
      * 
      * @param id
      *            ID of a feedback panel.

@@ -39,7 +39,7 @@ public class LemmaIndexPage extends BasePage {
     private static final Boolean FILTER_FORM_ENABLED = false;
 
     /**
-     * Creates a new lemma index page.
+     * Creates a lemma index page.
      */
     public LemmaIndexPage() {
         GenericDataProvider<Lemma> dataProvider = new GenericDataProvider<Lemma>(Lemma.class,
@@ -126,7 +126,7 @@ public class LemmaIndexPage extends BasePage {
         GenericDataProvider<Lemma> dataProvider;
 
         /**
-         * Creates a new behavior.
+         * Creates a behavior.
          * 
          * @param textField
          *            text field used a filter component
@@ -166,7 +166,7 @@ public class LemmaIndexPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new button.
+         * Creates a button.
          * 
          * @param id
          *            ID of the button
@@ -194,7 +194,7 @@ public class LemmaIndexPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new batch processing button.
+         * Creates a batch processing button.
          * 
          * @param id
          *            ID of the button

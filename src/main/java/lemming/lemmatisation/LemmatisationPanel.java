@@ -12,7 +12,7 @@ public class LemmatisationPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new header panel.
+     * Creates a header panel.
      *
      * @param id ID of the panel
      */

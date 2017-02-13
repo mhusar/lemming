@@ -30,7 +30,7 @@ public class UserEditPage extends BasePage {
     private CompoundPropertyModel<User> userModel;
 
     /**
-     * Creates a new user edit page.
+     * Creates a user edit page.
      */
     public UserEditPage() {
         User sessionUser = WebSession.get().getUser();
@@ -87,7 +87,7 @@ public class UserEditPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new add user button.
+         * Creates a add user button.
          * 
          * @param id
          *            ID of a button

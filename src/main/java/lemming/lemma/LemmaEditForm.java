@@ -36,7 +36,7 @@ public class LemmaEditForm extends Form<Lemma> {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new lemma edit form.
+     * Creates a lemma edit form.
      * 
      * @param id
      *            ID of the edit form
@@ -107,7 +107,7 @@ public class LemmaEditForm extends Form<Lemma> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new cancel button.
+         * Creates a cancel button.
          * 
          * @param id
          *            ID of the button
@@ -142,7 +142,7 @@ public class LemmaEditForm extends Form<Lemma> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new delete button.
+         * Creates a delete button.
          * 
          * @param id
          *            ID of the button
@@ -188,7 +188,7 @@ public class LemmaEditForm extends Form<Lemma> {
         private IModel<Lemma> lemmaModel;
 
         /**
-         * Creates a new lemma name validator.
+         * Creates a lemma name validator.
          * 
          * @param model
          *            lemma model that is edited

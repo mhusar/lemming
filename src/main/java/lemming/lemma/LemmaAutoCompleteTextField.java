@@ -67,7 +67,7 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
         private final String textFieldId;
 
         /**
-         * Creates a new behavior.
+         * Creates a behavior.
          * 
          * @param id
          *            ID of the auto complete text field

@@ -29,7 +29,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     private Integer maxLength = DEFAULT_MAX_LENGTH;
 
     /**
-     * Creates a new TextFilterColumn for preceding contexts.
+     * Creates a TextFilterColumn for preceding contexts.
      *
      * @param displayModel
      *            title of a column
@@ -41,7 +41,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     }
 
     /**
-     * Creates a new TextFilterColumn for preceding contexts.
+     * Creates a TextFilterColumn for preceding contexts.
      *
      * @param displayModel
      *            title of a column
@@ -57,7 +57,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     }
 
     /**
-     * Creates a new TextFilterColumn for preceding contexts.
+     * Creates a TextFilterColumn for preceding contexts.
      *
      * @param displayModel
      *            title of a column
@@ -72,7 +72,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     }
 
     /**
-     * Creates a new TextFilterColumn for preceding contexts.
+     * Creates a TextFilterColumn for preceding contexts.
      *
      * @param displayModel
      *            title of a column
@@ -124,7 +124,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new panel.
+         * Creates a panel.
          *
          * @param id
          *            ID of the panel

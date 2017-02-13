@@ -23,7 +23,7 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new column.
+     * Creates a column.
      * 
      * @param displayModel
      *            title of the column
@@ -67,7 +67,7 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new action panel.
+         * Creates a action panel.
          * 
          * @param id
          *            ID of the panel

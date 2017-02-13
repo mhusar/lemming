@@ -22,7 +22,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new column.
+     * Creates a column.
      * 
      * @param displayModel
      *            title of the column
@@ -66,7 +66,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new action panel.
+         * Creates a action panel.
          * 
          * @param id
          *            ID of the panel

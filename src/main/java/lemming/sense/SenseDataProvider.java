@@ -46,7 +46,7 @@ public final class SenseDataProvider extends SortableDataProvider<SenseWrapper, 
     protected String filter;
 
     /**
-     * Creates a new data provider.
+     * Creates a data provider.
      *
      * @param defaultSortParam default sort param
      * @param typeClass data type that is provided

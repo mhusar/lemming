@@ -21,7 +21,7 @@ public class LemmaViewForm extends Form<Lemma> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new lemma edit form.
+     * Creates a lemma edit form.
      *
      * @param id
      *            ID of the edit form

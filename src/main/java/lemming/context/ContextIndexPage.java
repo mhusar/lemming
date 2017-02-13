@@ -39,7 +39,7 @@ public class ContextIndexPage extends BasePage {
     private static final Boolean FILTER_FORM_ENABLED = false;
 
     /**
-     * Creates a new context index page.
+     * Creates a context index page.
      */
     public ContextIndexPage() {
         GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
@@ -130,7 +130,7 @@ public class ContextIndexPage extends BasePage {
         GenericDataProvider<Context> dataProvider;
 
         /**
-         * Creates a new behavior.
+         * Creates a behavior.
          *
          * @param textField
          *            text field used a filter component
@@ -170,7 +170,7 @@ public class ContextIndexPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new button.
+         * Creates a button.
          *
          * @param id
          *            ID of the button
@@ -198,7 +198,7 @@ public class ContextIndexPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new batch processing button.
+         * Creates a batch processing button.
          * 
          * @param id
          *            ID of the button

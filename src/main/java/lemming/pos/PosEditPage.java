@@ -32,7 +32,7 @@ public class PosEditPage extends BasePage {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new pos edit page.
+     * Creates a pos edit page.
      */
     public PosEditPage() {
         posModel = new CompoundPropertyModel<Pos>(new Pos());
@@ -42,7 +42,7 @@ public class PosEditPage extends BasePage {
     }
 
     /**
-     * Creates a new pos edit page.
+     * Creates a pos edit page.
      * 
      * @param nextPageClass
      *            class of the next page
@@ -55,7 +55,7 @@ public class PosEditPage extends BasePage {
     }
 
     /**
-     * Creates a new pos edit page.
+     * Creates a pos edit page.
      * 
      * @param posModel
      *            model of the edited pos object

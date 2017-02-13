@@ -26,7 +26,7 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
     private static final long DEFAULT_ROWS_PER_PAGE = 12;
 
     /**
-     * Creates a new data table with toolbars.
+     * Creates a data table with toolbars.
      *
      * @param id
      *            ID of a data table
@@ -41,7 +41,7 @@ public class SenseDataTable extends DataTable<SenseWrapper, String> {
     }
 
     /**
-     * Creates a new data table with toolbars.
+     * Creates a data table with toolbars.
      *
      * @param id
      *            ID of a data table

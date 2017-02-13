@@ -22,7 +22,7 @@ public class LemmaViewPage extends BasePage {
     private CompoundPropertyModel<Lemma> lemmaModel;
 
     /**
-     * Creates a new lemma edit page.
+     * Creates a lemma edit page.
      *
      * @param lemmaModel
      *            model of the edited lemma object

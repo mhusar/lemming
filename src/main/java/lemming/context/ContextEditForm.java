@@ -31,7 +31,7 @@ public class ContextEditForm extends Form<Context> {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new context edit form.
+     * Creates a context edit form.
      *
      * @param id
      *            ID of the edit form
@@ -108,7 +108,7 @@ public class ContextEditForm extends Form<Context> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new cancel button.
+         * Creates a cancel button.
          *
          * @param id
          *            ID of the button
@@ -143,7 +143,7 @@ public class ContextEditForm extends Form<Context> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new delete button.
+         * Creates a delete button.
          *
          * @param id
          *            ID of the button

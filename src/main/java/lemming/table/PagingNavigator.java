@@ -31,7 +31,7 @@ class PagingNavigator extends AjaxPagingNavigator {
     private static final int VIEW_SIZE = 5;
 
     /**
-     * Creates a new paging navigator.
+     * Creates a paging navigator.
      * 
      * @param id
      *            ID of this navigator
@@ -43,7 +43,7 @@ class PagingNavigator extends AjaxPagingNavigator {
     }
 
     /**
-     * Creates a new paging navigation with numbered page links.
+     * Creates a paging navigation with numbered page links.
      *
      * @param id
      *            ID of this navigator
@@ -80,7 +80,7 @@ class PagingNavigator extends AjaxPagingNavigator {
     }
 
     /**
-     * Creates a new page link for decrement/increment items.
+     * Creates a page link for decrement/increment items.
      *
      * @param id
      *            ID of the link
@@ -118,7 +118,7 @@ class PagingNavigator extends AjaxPagingNavigator {
     }
 
     /**
-     * Creates a new page link for first/last page items.
+     * Creates a page link for first/last page items.
      *
      * @param id
      *            ID of the link
@@ -179,7 +179,7 @@ class PagingNavigator extends AjaxPagingNavigator {
         private final String cssValue;
 
         /**
-         * Creates a new link model.
+         * Creates a link model.
          *
          * @param pageable
          *            data table or data view that is paged
@@ -275,7 +275,7 @@ class PagingNavigator extends AjaxPagingNavigator {
         private final long pageNumber;
 
         /**
-         * Creates a new link model.
+         * Creates a link model.
          *
          * @param pageable
          *            data table or data view that is paged

@@ -156,7 +156,7 @@ public class LemmatisationPage extends EmptyBasePage {
      */
     private class ContextRowSelectColumn extends GenericRowSelectColumn<Context, Context, String> {
         /**
-         * Creates a new row selection column.
+         * Creates a row selection column.
          *
          * @param displayModel title of a column
          * @param propertyExpression property expression of a column
@@ -201,7 +201,7 @@ public class LemmatisationPage extends EmptyBasePage {
         GenericDataProvider<Context> dataProvider;
 
         /**
-         * Creates a new behavior.
+         * Creates a behavior.
          *
          * @param textField
          *            text field used a filter component

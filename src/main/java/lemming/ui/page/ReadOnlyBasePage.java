@@ -27,7 +27,7 @@ public class ReadOnlyBasePage extends EmptyBasePage {
     }
 
     /**
-     * Creates a new base page.
+     * Creates a base page.
      * 
      * @param model
      *            the web page’s model

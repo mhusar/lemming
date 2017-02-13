@@ -17,7 +17,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new navigation toolbar.
+     * Creates a navigation toolbar.
      * 
      * @param table
      *            table a toolbar is attached to
@@ -27,7 +27,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     }
 
     /**
-     * Creates a new paging navigator.
+     * Creates a paging navigator.
      * 
      * @param navigatorId
      * @param table

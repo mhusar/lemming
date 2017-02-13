@@ -92,7 +92,7 @@ public abstract class AjaxView<T> extends RepeatingView {
     protected abstract Iterator<IModel<T>> getItemModels();
 
     /**
-     * Creates a new item wrapping a data model.
+     * Creates a item wrapping a data model.
      * 
      * @param id
      *            ID of the item

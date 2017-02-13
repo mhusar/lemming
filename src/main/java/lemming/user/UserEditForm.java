@@ -38,7 +38,7 @@ public class UserEditForm extends Form<User> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new user edit form.
+     * Creates a user edit form.
      * 
      * @param id
      *            ID of a user edit form
@@ -149,7 +149,7 @@ public class UserEditForm extends Form<User> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new cancel button.
+         * Creates a cancel button.
          * 
          * @param id
          *            ID of the button
@@ -184,7 +184,7 @@ public class UserEditForm extends Form<User> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new delete button.
+         * Creates a delete button.
          * 
          * @param id
          *            ID of the button
@@ -261,7 +261,7 @@ public class UserEditForm extends Form<User> {
         private IModel<User> userModel;
 
         /**
-         * Creates a new realName validator.
+         * Creates a realName validator.
          * 
          * @param model
          *            user model that is edited
@@ -313,7 +313,7 @@ public class UserEditForm extends Form<User> {
         private IModel<User> userModel;
 
         /**
-         * Creates a new username validator.
+         * Creates a username validator.
          * 
          * @param model
          *            user model that is edited

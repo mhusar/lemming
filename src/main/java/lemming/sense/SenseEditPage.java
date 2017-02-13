@@ -31,7 +31,7 @@ public class SenseEditPage extends BasePage {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new sense edit page.
+     * Creates a sense edit page.
      * 
      * @param senseWrapperModel
      *            model of the edited sense wrapper object

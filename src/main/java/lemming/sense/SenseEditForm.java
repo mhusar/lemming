@@ -21,7 +21,7 @@ public class SenseEditForm extends Form<SenseWrapper> {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new sense edit form.
+     * Creates a sense edit form.
      * 
      * @param id
      *            ID of the edit form

@@ -47,7 +47,7 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
     private CollectionModel<Integer> selectedContextIds;
 
     /**
-     * Creates a new data table with toolbars.
+     * Creates a data table with toolbars.
      *
      * @param id
      *            ID of a data table
@@ -63,7 +63,7 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
     }
 
     /**
-     * Creates a new data table with toolbars.
+     * Creates a data table with toolbars.
      *
      * @param id
      *            ID of a data table
@@ -104,7 +104,7 @@ public class LemmatisationDataTable extends DataTable<Context, String> {
     }
 
     /**
-     * Creates a new row item.
+     * Creates a row item.
      *
      * @param id ID of a row item
      * @param index index of a row item

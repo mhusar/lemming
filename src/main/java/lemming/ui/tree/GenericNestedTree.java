@@ -52,7 +52,7 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     }
 
     /**
-     * Creates a new component for the content of a node.
+     * Creates a component for the content of a node.
      *
      * @param id ID of the component
      * @param model model containing the node data

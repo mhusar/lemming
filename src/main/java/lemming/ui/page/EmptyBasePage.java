@@ -20,14 +20,14 @@ public class EmptyBasePage extends WebPage {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new base page.
+     * Creates a base page.
      */
     public EmptyBasePage() {
         super();
     }
 
     /**
-     * Creates a new base page.
+     * Creates a base page.
      * 
      * @param model
      *            the web page’s model

@@ -38,7 +38,7 @@ public class PosIndexPage extends BasePage {
     private static final Boolean FILTER_FORM_ENABLED = false;
 
     /**
-     * Creates a new pos index page.
+     * Creates a pos index page.
      */
     public PosIndexPage() {
         GenericDataProvider<Pos> dataProvider = new GenericDataProvider<Pos>(Pos.class,
@@ -119,7 +119,7 @@ public class PosIndexPage extends BasePage {
         GenericDataProvider<Pos> dataProvider;
 
         /**
-         * Creates a new behavior.
+         * Creates a behavior.
          *
          * @param textField
          *            text field used a filter component
@@ -159,7 +159,7 @@ public class PosIndexPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new button.
+         * Creates a button.
          *
          * @param id
          *            ID of the button
@@ -187,7 +187,7 @@ public class PosIndexPage extends BasePage {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new batch processing button.
+         * Creates a batch processing button.
          * 
          * @param id
          *            ID of the button

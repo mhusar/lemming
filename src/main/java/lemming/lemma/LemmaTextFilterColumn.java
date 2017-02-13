@@ -26,7 +26,7 @@ public class LemmaTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new TextFilterColumn for lemmata.
+     * Creates a TextFilterColumn for lemmata.
      *
      * @param displayModel
      *            title of a column
@@ -38,7 +38,7 @@ public class LemmaTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     }
 
     /**
-     * Creates a new TextFilterColumn for lemmata.
+     * Creates a TextFilterColumn for lemmata.
      *
      * @param displayModel
      *            title of a column
@@ -90,7 +90,7 @@ public class LemmaTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new panel.
+         * Creates a panel.
          *
          * @param id
          *            ID of the panel

@@ -18,7 +18,7 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new TextFilterColumn for contexts.
+     * Creates a TextFilterColumn for contexts.
      *
      * @param displayModel
      *            title of a column
@@ -30,7 +30,7 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
     }
 
     /**
-     * Creates a new TextFilterColumn for contexts.
+     * Creates a TextFilterColumn for contexts.
      *
      * @param displayModel
      *            title of a column
@@ -67,7 +67,7 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new panel.
+         * Creates a panel.
          *
          * @param id
          *            ID of the panel

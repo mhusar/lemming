@@ -53,7 +53,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     protected String filter;
 
     /**
-     * Creates a new data provider.
+     * Creates a data provider.
      *
      * @param typeClass
      *            class type that is provided

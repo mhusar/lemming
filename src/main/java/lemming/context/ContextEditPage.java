@@ -31,7 +31,7 @@ public class ContextEditPage extends BasePage {
     private Class<? extends Page> nextPageClass;
 
     /**
-     * Creates a new context edit page.
+     * Creates a context edit page.
      */
     public ContextEditPage() {
         contextModel = new CompoundPropertyModel<Context>(new Context());
@@ -39,7 +39,7 @@ public class ContextEditPage extends BasePage {
     }
 
     /**
-     * Creates a new context edit page.
+     * Creates a context edit page.
      * 
      * @param nextPageClass
      *            class of the next page
@@ -50,7 +50,7 @@ public class ContextEditPage extends BasePage {
     }
 
     /**
-     * Creates a new context edit page.
+     * Creates a context edit page.
      * 
      * @param contextModel
      *            model of the edited context object

@@ -21,7 +21,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new row selection column.
+     * Creates a row selection column.
      *
      * @param displayModel title of a column
      * @param propertyExpression property expression of a column
@@ -31,7 +31,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     }
 
     /**
-     * Creates a new row selection column.
+     * Creates a row selection column.
      *
      * @param displayModel model of a column
      * @param sortProperty sort property of a column
@@ -63,7 +63,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new panel.
+         * Creates a panel.
          *
          * @param id ID of the panel
          * @param model row model

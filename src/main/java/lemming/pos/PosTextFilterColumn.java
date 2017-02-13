@@ -25,7 +25,7 @@ public class PosTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new TextFilterColumn for parts of speech.
+     * Creates a TextFilterColumn for parts of speech.
      *
      * @param displayModel
      *            title of a column
@@ -37,7 +37,7 @@ public class PosTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     }
 
     /**
-     * Creates a new TextFilterColumn for parts of speech.
+     * Creates a TextFilterColumn for parts of speech.
      *
      * @param displayModel
      *            title of a column
@@ -86,7 +86,7 @@ public class PosTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         private static final long serialVersionUID = 1L;
 
         /**
-         * Creates a new panel.
+         * Creates a panel.
          *
          * @param id
          *            ID of the panel

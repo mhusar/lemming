@@ -34,7 +34,7 @@ public class WebSession extends AuthenticatedWebSession {
     private User user;
 
     /**
-     * Creates a new WebSession.
+     * Creates a WebSession.
      * 
      * @param request
      *            the current request object

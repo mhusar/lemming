@@ -29,7 +29,7 @@ public class SignInPage extends EmptyBasePage {
     private static final Logger logger = Logger.getLogger(SignInPage.class.getName());
 
     /**
-     * Creates a new sign-in page.
+     * Creates a sign-in page.
      */
     public SignInPage() {
         add(new FeedbackPanel("feedbackPanel"));
@@ -61,7 +61,7 @@ public class SignInPage extends EmptyBasePage {
         private final ValueMap properties = new ValueMap();
 
         /**
-         * Creates a new sign-in form.
+         * Creates a sign-in form.
          * 
          * @param id
          *            ID of a sign-in form

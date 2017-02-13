@@ -26,7 +26,7 @@ public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Creates a new TextFilterColumn.
+     * Creates a TextFilterColumn.
      * 
      * @param displayModel
      *            title of a column
@@ -38,7 +38,7 @@ public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, 
     }
 
     /**
-     * Creates a new TextFilterColumn.
+     * Creates a TextFilterColumn.
      * 
      * @param displayModel
      *            title of a column
