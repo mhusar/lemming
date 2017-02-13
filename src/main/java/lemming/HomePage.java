@@ -39,7 +39,7 @@ public class HomePage extends BasePage {
                 LemmatisationPage.class);
         BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<Void>("contextIndexLink",
                 ContextIndexPage.class);
-        UserBookmarkablePageLink contextImportLink = new UserBookmarkablePageLink("contextImportLink",
+        BookmarkablePageLink contextImportLink = new BookmarkablePageLink("contextImportLink",
                 ContextImportPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
                 LemmaIndexPage.class);
