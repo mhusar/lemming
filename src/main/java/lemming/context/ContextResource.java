@@ -110,9 +110,10 @@ public class ContextResource {
             Query contextQuery = session.createQuery("FROM Context ORDER BY keyword, location");
             contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
+
             StreamingOutput streamingOutput = new StreamingOutput() {
                 @Override
-                public void write(OutputStream outputStream) throws IOException {
+                public void write(OutputStream outputStream) throws IOException, RuntimeException {
                     try {
                         Marshaller marshaller = JAXBContext.newInstance(KwicIndex.SubList.class).createMarshaller();
                         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -142,15 +143,20 @@ public class ContextResource {
                             }
                         }
 
-                        marshaller.marshal(subList, indentingStreamWriter);;
+                        if (subList instanceof KwicIndex.SubList) {
+                            marshaller.marshal(subList, indentingStreamWriter);
+                        }
+
                         indentingStreamWriter.writeEndDocument();
                         indentingStreamWriter.flush();
                         results.close();
                         finalTransaction.commit();
                     } catch (JAXBException e) {
                         e.printStackTrace();
+                        throw new RuntimeException(e);
                     } catch (XMLStreamException e) {
                         e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                 }
             };
