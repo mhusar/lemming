@@ -6,6 +6,10 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lemming.data.EntityManagerListener;
 import lemming.resource.KwicIndex;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.io.VelocityWriter;
 import org.glassfish.hk2.utilities.general.IndentingXMLStreamWriter;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
@@ -31,6 +35,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.Properties;
 
 /**
  * A resource for context data.
@@ -46,14 +52,15 @@ public class ContextResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response get() {
-        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityManager entityManager1 = EntityManagerListener.createEntityManager();
+        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
-            StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
             final EntityTransaction finalTransaction = session.beginTransaction();
             transaction = finalTransaction;
-            Query contextQuery = session.createQuery("FROM Context ORDER BY keyword, location");
+            Query contextQuery = session.createQuery("SELECT c.id FROM Context c ORDER BY c.keyword, c.location");
             contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = new StreamingOutput() {
@@ -64,13 +71,14 @@ public class ContextResource {
                     jsonGenerator.writeStartArray();
 
                     while (results.next()) {
-                        Context context = (Context) results.get(0);
+                        Context context = entityManager2.find(Context.class, results.get(0));
                         jsonGenerator.writeObject(context);
                     }
 
                     jsonGenerator.writeEndArray();
                     jsonGenerator.flush();
                     jsonGenerator.close();
+                    entityManager2.close();
                     results.close();
                     finalTransaction.commit();
                 }
@@ -87,7 +95,7 @@ public class ContextResource {
 
             throw e;
         } finally {
-            entityManager.close();
+            entityManager1.close();
         }
     }
 
@@ -100,14 +108,101 @@ public class ContextResource {
     @Path("xml")
     @Produces(MediaType.TEXT_XML)
     public Response getXml() {
-        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityManager entityManager1 = EntityManagerListener.createEntityManager();
+        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
-            StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
             final EntityTransaction finalTransaction = session.beginTransaction();
             transaction = finalTransaction;
-            Query contextQuery = session.createQuery("FROM Context ORDER BY keyword, location");
+            Query contextQuery = session.createQuery("SELECT c.id FROM Context c ORDER BY c.keyword, c.location");
+            contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
+            ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
+
+            StreamingOutput streamingOutput = new StreamingOutput() {
+                @Override
+                public void write(OutputStream outputStream) throws IOException {
+                    Properties properties = new Properties();
+                    properties.setProperty("resource.loader", "class");
+                    properties.setProperty("class.resource.loader.class",
+                            "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+                    VelocityEngine velocityEngine = new VelocityEngine(properties);
+                    VelocityContext velocityContext = new VelocityContext();
+                    VelocityWriter velocityWriter = new VelocityWriter(new OutputStreamWriter(outputStream));
+                    Template template = velocityEngine.getTemplate("templates/kwicindex.vm");
+                    velocityEngine.init();
+                    velocityWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+                    velocityWriter.write("<kwiclist>\n");
+
+                    KwicIndex.SubList subList = null;
+                    String lastKeyword = null;
+
+                    while (results.next()) {
+                        Context context = entityManager2.find(Context.class, results.get(0));
+                        String keyword = context.getKeyword();
+
+                        if (keyword.equals(lastKeyword)) {
+                            subList.addContext(context);
+                        } else {
+                            if (subList instanceof KwicIndex.SubList) {
+                                velocityContext.put("sublist", subList);
+                                template.merge(velocityContext, velocityWriter);
+                                velocityWriter.flush();
+                            }
+
+                            lastKeyword = keyword;
+                            subList = new KwicIndex.SubList(keyword);
+                            subList.addContext(context);
+                        }
+                    }
+
+                    if (subList instanceof KwicIndex.SubList) {
+                        velocityContext.put("sublist", subList);
+                        template.merge(velocityContext, velocityWriter);
+                    }
+
+                    velocityWriter.write("</kwiclist>\n");
+                    velocityWriter.flush();
+                    entityManager2.close();
+                    results.close();
+                    finalTransaction.commit();
+                }
+            };
+
+            return Response.ok(streamingOutput).type(MediaType.TEXT_XML)
+                    .header("Content-Disposition", "attachment; filename=\"contexts.xml\"").build();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager1.close();
+        }
+    }
+
+    /**
+     * Returns a chunked XML response as KWIC index.
+     *
+     * @return A XML response.
+     */
+    @GET
+    @Path("xml2")
+    @Produces(MediaType.TEXT_XML)
+    public Response getXml2() {
+        EntityManager entityManager1 = EntityManagerListener.createEntityManager();
+        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            final EntityTransaction finalTransaction = session.beginTransaction();
+            transaction = finalTransaction;
+            Query contextQuery = session.createQuery("SELECT c.id FROM Context c ORDER BY c.keyword, c.location");
             contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
 
@@ -124,9 +219,12 @@ public class ContextResource {
                         String lastKeyword = null;
 
                         streamWriter.writeStartDocument("UTF-8", "1.0");
+                        streamWriter.writeCharacters("\n");
                         streamWriter.writeStartElement("kwiclist");
+                        streamWriter.writeCharacters("\n");
+
                         while (results.next()) {
-                            Context context = (Context) results.get(0);
+                            Context context = entityManager2.find(Context.class, results.get(0));
                             String keyword = context.getKeyword();
 
                             if (keyword.equals(lastKeyword)) {
@@ -147,8 +245,11 @@ public class ContextResource {
                             marshaller.marshal(subList, indentingStreamWriter);
                         }
 
+                        streamWriter.writeCharacters("\n");
                         indentingStreamWriter.writeEndDocument();
+                        streamWriter.writeCharacters("\n");
                         indentingStreamWriter.flush();
+                        entityManager2.close();
                         results.close();
                         finalTransaction.commit();
                     } catch (JAXBException e) {
@@ -172,7 +273,7 @@ public class ContextResource {
 
             throw e;
         } finally {
-            entityManager.close();
+            entityManager1.close();
         }
     }
 }

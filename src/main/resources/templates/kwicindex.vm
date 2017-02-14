@@ -1,0 +1,15 @@
+#set($indent = "  ")
+${indent}<sublist key="$sublist.getKey()">
+#foreach ($item in $sublist.getItems())
+#set($following = $item.getFollowing())
+#set($keyword = $item.getKeyword())
+#set($lemma = $item.getLemma())
+#set($location = $item.getLocation())
+#set($pos = $item.getPos())
+#set($preceding = $item.getPreceding())
+#set($type = $item.getType())
+#set($indent = "    ")
+${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$!lemma" pos="$!pos">$keyword</item>
+#end
+#set($indent = "  ")
+${indent}</sublist>
