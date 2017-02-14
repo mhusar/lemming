@@ -9,7 +9,7 @@
   <entry key="Action.continue">Continue</entry>
   <entry key="Action.correct">Correct</entry>
   <entry key="Action.correction">Correction</entry>
-  <entry key="Action.delete">Löschen</entry>
+  <entry key="Action.delete">Delete</entry>
   <entry key="Action.done">Done</entry>
   <entry key="Action.edit">Edit</entry>
   <entry key="Action.filter">Filter</entry>
@@ -90,7 +90,6 @@
   <entry key="LemmaIndexPage.new">Create lemma</entry>
   <entry key="LemmaType.TL">Tobler-Lommatzsch</entry>
   <entry key="LemmaType.USER">User-generated</entry>
-  <entry key="LemmaViewPage.header">View lemma</entry>
   <entry key="LockingErrorPage.details">Details</entry>
   <entry key="LockingErrorPage.entityName">Type of object</entry>
   <entry key="LockingErrorPage.identifier">Identifier</entry>

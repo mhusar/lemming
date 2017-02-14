@@ -113,28 +113,12 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
                         }
                     }
                 };
-                AjaxLink<Void> viewLink = new AjaxLink<Void>("viewLink") {
-                    /**
-                     * Determines if a deserialized file is compatible with
-                     * this class.
-                     */
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        setResponsePage(new LemmaViewPage(model));
-                    }
-                };
 
                 add(editLink);
                 add(deleteLink);
-                add(viewLink);
 
                 if (model.getObject().getSource().equals(Source.LemmaType.TL)) {
-                    editLink.setVisible(false);
                     deleteLink.setVisible(false);
-                } else {
-                    viewLink.setVisible(false);
                 }
             }
         }

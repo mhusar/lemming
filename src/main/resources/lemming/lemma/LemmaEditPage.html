@@ -30,11 +30,20 @@
                         </div>
                     </div>
                 </div>
+                <div wicket:id="replacementContainer" class="col-md-12">
+                    <div class="form-group">
+                        <label for="replacement" class="col-sm-2 control-label"><wicket:message key="Lemma.replacement"></wicket:message></label>
+                        <div class="col-sm-10">
+                            <input type="text" wicket:id="replacement" id="replacement" class="form-control" maxlength="100" />
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="pos" class="col-sm-2 control-label"><wicket:message key="Lemma.pos"></wicket:message></label>
+                        <label wicket:id="posLabel" for="pos" class="col-sm-2 control-label"><wicket:message key="Lemma.pos"></wicket:message></label>
                         <div class="col-sm-10">
                             <input type="text" wicket:id="pos" id="pos" class="form-control" maxlength="100" />
+                            <input type="text" wicket:id="posString" class="form-control" maxlength="100" />
                         </div>
                     </div>
                 </div>
@@ -44,6 +53,14 @@
                         </label>
                         <div class="col-sm-10">
                             <select wicket:id="source" id="source" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div wicket:id="referenceContainer" class="col-md-12">
+                    <div class="form-group">
+                        <label for="reference" class="col-sm-2 control-label"><wicket:message key="Lemma.reference"></wicket:message></label>
+                        <div class="col-sm-10">
+                            <input type="text" wicket:id="reference" id="reference" class="form-control" required="required" maxlength="100" />
                         </div>
                     </div>
                 </div>

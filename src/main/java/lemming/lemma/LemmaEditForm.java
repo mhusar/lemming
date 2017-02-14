@@ -4,13 +4,13 @@ import lemming.context.ContextDao;
 import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosTextField;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.markup.html.form.EnumChoiceRenderer;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.ListChoice;
-import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.IValidatable;
@@ -51,17 +51,44 @@ public class LemmaEditForm extends Form<Lemma> {
 
         this.nextPageClass = nextPageClass;
         RequiredTextField<String> nameTextField = new RequiredTextField<String>("name");
+        MarkupContainer replacementContainer = new WebMarkupContainer("replacementContainer");
+        LemmaTextField replacementTextField = new LemmaAutoCompleteTextField("replacement");
+        MarkupContainer posLabel = new WebMarkupContainer("posLabel");
         PosTextField posTextField = new PosAutoCompleteTextField("pos");
+        TextField<String> posStringTextField = new TextField<String>("posString");
         ListChoice<Source.LemmaType> sourceListChoice = new ListChoice<Source.LemmaType>("source",
                 new PropertyModel<Source.LemmaType>(getModelObject(), "source"),
                 new ArrayList<Source.LemmaType>(Arrays.asList(Source.LemmaType.values())),
                 new EnumChoiceRenderer<Source.LemmaType>(), 1);
+        MarkupContainer referenceContainer = new WebMarkupContainer("referenceContainer");
+        TextField<String> referenceTextField = new TextField<String>("reference");
+        DeleteButton deleteButton = new DeleteButton("deleteButton", model);
 
         add(nameTextField);
+        add(replacementContainer);
+        replacementContainer.add(replacementTextField);
+        add(posLabel);
         add(posTextField);
+        add(posStringTextField);
         add(sourceListChoice.setEnabled(false));
+        add(referenceContainer);
+        referenceContainer.add(referenceTextField);
         add(new CancelButton("cancelButton"));
-        add(new DeleteButton("deleteButton", model).setVisible(!(isLemmaTransient(model))));
+        add(deleteButton);
+
+        if (isLemmaTransient(model)) {
+            deleteButton.setVisible(false);
+        }
+
+        if (model.getObject().getSource().equals(Source.LemmaType.TL)) {
+            posLabel.add(AttributeModifier.replace("for", "posString"));
+            posTextField.setVisible(false);
+            deleteButton.setVisible(false);
+        } else {
+            replacementContainer.setVisible(false);
+            posStringTextField.setVisible(false);
+            referenceContainer.setVisible(false);
+        }
 
         nameTextField.add(new UniqueLemmaNameValidator(model));
     }

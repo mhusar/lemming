@@ -1,5 +1,6 @@
 package lemming.lemma;
 
+import lemming.context.ContextDao;
 import lemming.data.Source;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -83,6 +84,7 @@ public class LemmaEditPage extends BasePage {
         // check if the session is expired
         WebSession.get().checkSessionExpired(getPageClass());
         ModalMessagePanel lemmaDeleteConfirmPanel;
+        ModalMessagePanel lemmaDeleteDeniedPanel = new LemmaDeleteDeniedPanel("lemmaDeleteDeniedPanel");
 
         if (nextPageClass instanceof Class) {
             lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel("lemmaDeleteConfirmPanel", nextPageClass);
@@ -91,15 +93,21 @@ public class LemmaEditPage extends BasePage {
         }
 
         add(lemmaDeleteConfirmPanel);
+        add(lemmaDeleteDeniedPanel);
 
         if (new LemmaDao().isTransient(lemmaModel.getObject())) {
             lemmaDeleteConfirmPanel.setVisible(false);
+            lemmaDeleteDeniedPanel.setVisible(false);
             add(new Label("header", getString("LemmaEditPage.newHeader")));
         } else {
             add(new Label("header", getString("LemmaEditPage.editHeader")));
+
+            if (lemmaModel.getObject().getSource().equals(Source.LemmaType.TL)) {
+                lemmaDeleteConfirmPanel.setVisible(false);
+                lemmaDeleteDeniedPanel.setVisible(false);
+            }
         }
 
-        add(new LemmaDeleteDeniedPanel("lemmaDeleteDeniedPanel"));
         add(new FeedbackPanel("feedbackPanel"));
         add(new LemmaEditForm("lemmaEditForm", lemmaModel, nextPageClass));
     }
