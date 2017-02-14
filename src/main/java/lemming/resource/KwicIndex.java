@@ -55,6 +55,15 @@ public abstract class KwicIndex {
         }
 
         /**
+         * Returns the key attribute of a sublist element.
+         *
+         * @return A key attribute as string.
+         */
+        public String getKey() {
+            return key;
+        }
+
+        /**
          * Returns items of a sublist.
          *
          * @return A list of items.
@@ -136,5 +145,68 @@ public abstract class KwicIndex {
          */
         @XmlAttribute(required = true)
         private String type;
+
+        /**
+         * Returns the following attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getFollowing() {
+            return following;
+        }
+
+        /**
+         * Returns the keyword attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getKeyword() {
+            return keyword;
+        }
+
+        /**
+         * Returns the lemma attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getLemma() {
+            return lemma;
+        }
+
+        /**
+         * Returns the location attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getLocation() {
+            return location;
+        }
+
+        /**
+         * Returns the pos attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getPos() {
+            return pos;
+        }
+
+        /**
+         * Returns the preceding attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getPreceding() {
+            return preceding;
+        }
+
+        /**
+         * Returns the type attribute of an index.
+         *
+         * @return An attribute as string.
+         */
+        public String getType() {
+            return type;
+        }
     }
 }
