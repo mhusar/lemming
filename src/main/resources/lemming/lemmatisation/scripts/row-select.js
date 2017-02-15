@@ -19,22 +19,33 @@ function onShiftSelect(row) {
     }
 }
 
+function scrollIntoViewport(table, scrollDown) {
+    var focusedRow = jQuery(table).find(".focused").first();
+    if (focusedRow.length) {
+        if (!focusedRow.isInViewport(150)) {
+            if (scrollDown) {
+                jQuery("html,body").animate({ scrollTop: "+=" + focusedRow.outerHeight() + "px" }, 150);
+            } else {
+                jQuery("html,body").animate({ scrollTop: "-=" + focusedRow.outerHeight() + "px" }, 150);
+            }
+        }
+    }
+}
+
 function onShiftDownSelect(table) {
     var focusedRow = jQuery(table).find(".focused").first(),
         lastSelectedRow = jQuery(table).find(".selected").last();
 
     if (focusedRow.length) {
-        if (focusedRow.is(lastSelectedRow)) {
-            var nextRow = jQuery(focusedRow).next();
+        var nextRow = jQuery(focusedRow).next();
 
+        if (focusedRow.is(lastSelectedRow)) {
             if (nextRow.length) {
                 focusedRow.removeClass("focused");
                 nextRow.find(":checkbox").first().prop("checked", true);
                 nextRow.addClass("selected focused");
             }
         } else {
-            var nextRow = jQuery(focusedRow).next();
-
             if (nextRow.length) {
                 focusedRow.removeClass("selected focused");
                 focusedRow.find(":checkbox").first().prop("checked", false);
@@ -42,16 +53,13 @@ function onShiftDownSelect(table) {
                 nextRow.addClass("selected focused");
             }
         }
-
-        focusedRow = jQuery(table).find(".focused").first();
-        if (focusedRow.length) {
-            if (!focusedRow.isInViewport(150)) {
-                jQuery("html,body").animate({ scrollTop: "+=" + focusedRow.outerHeight() + "px" }, 150);
-            }
-        }
-    } else {
-        onDownSelect(table);
+    } else if (lastSelectedRow.length) {
+        var nextRow = jQuery(lastSelectedRow).next();
+        nextRow.find(":checkbox").first().prop("checked", true);
+        nextRow.addClass("selected focused");
     }
+
+    scrollIntoViewport(table, true);
 }
 
 function onShiftUpSelect(table) {
@@ -59,17 +67,15 @@ function onShiftUpSelect(table) {
         firstSelectedRow = jQuery(table).find(".selected").first();
 
     if (focusedRow.length) {
-        if (focusedRow.is(firstSelectedRow)) {
-            var previousRow = jQuery(focusedRow).prev();
+        var previousRow = jQuery(focusedRow).prev();
 
+        if (focusedRow.is(firstSelectedRow)) {
             if (previousRow.length) {
                 focusedRow.removeClass("focused");
                 previousRow.find(":checkbox").first().prop("checked", true);
                 previousRow.addClass("selected focused");
             }
         } else {
-            var previousRow = jQuery(focusedRow).prev();
-
             if (previousRow.length) {
                 focusedRow.removeClass("selected focused");
                 focusedRow.find(":checkbox").first().prop("checked", false);
@@ -77,16 +83,13 @@ function onShiftUpSelect(table) {
                 previousRow.addClass("selected focused");
             }
         }
-
-        focusedRow = jQuery(table).find(".focused").first();
-        if (focusedRow.length) {
-            if (!focusedRow.isInViewport(150)) {
-                jQuery("html,body").animate({ scrollTop: "-=" + focusedRow.outerHeight() + "px" }, 150);
-            }
-        }
-    } else {
-        onDownSelect(table);
+    } else if (firstSelectedRow.length) {
+         var previousRow = jQuery(firstSelectedRow).prev();
+         previousRow.find(":checkbox").first().prop("checked", true);
+         previousRow.addClass("selected focused");
     }
+
+    scrollIntoViewport(table, false);
 }
 
 function onCtrlSelect(row) {
@@ -106,12 +109,7 @@ function onCtrlDownSelect(table) {
         jQuery(lastSelectedRow).next().addClass("focused");
     }
 
-    focusedRow = jQuery(table).find(".focused").first();
-    if (focusedRow.length) {
-        if (!focusedRow.isInViewport(150)) {
-            jQuery("html,body").animate({ scrollTop: "+=" + focusedRow.outerHeight() + "px" }, 150);
-        }
-    }
+    scrollIntoViewport(table, true);
 }
 
 function onCtrlUpSelect(table) {
@@ -125,12 +123,7 @@ function onCtrlUpSelect(table) {
         jQuery(firstSelectedRow).prev().addClass("focused");
     }
 
-    focusedRow = jQuery(table).find(".focused").first();
-    if (focusedRow.length) {
-        if (!focusedRow.isInViewport(150)) {
-            jQuery("html,body").animate({ scrollTop: "-=" + focusedRow.outerHeight() + "px" }, 150);
-        }
-    }
+    scrollIntoViewport(table, false);
 }
 
 function onCtrlSpaceSelect(table) {
