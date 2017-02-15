@@ -36,6 +36,7 @@ import javax.xml.stream.XMLStreamWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
 import java.util.Properties;
 
 /**
@@ -52,17 +53,15 @@ public class ContextResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response get() {
-        EntityManager entityManager1 = EntityManagerListener.createEntityManager();
-        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
-            StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
-            final EntityTransaction finalTransaction = session.beginTransaction();
-            transaction = finalTransaction;
-            Query contextQuery = session.createQuery("SELECT c.id FROM Context c ORDER BY c.keyword, c.location");
-            contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
-            ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
+            StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword");
+            query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
+            ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = new StreamingOutput() {
                 @Override
                 public void write(OutputStream outputStream) throws IOException, WebApplicationException {
@@ -71,20 +70,18 @@ public class ContextResource {
                     jsonGenerator.writeStartArray();
 
                     while (results.next()) {
-                        Context context = entityManager2.find(Context.class, results.get(0));
-                        jsonGenerator.writeObject(context);
+                        writeJsonResult(jsonGenerator, results.getString(0));
                     }
 
                     jsonGenerator.writeEndArray();
                     jsonGenerator.flush();
                     jsonGenerator.close();
-                    entityManager2.close();
                     results.close();
-                    finalTransaction.commit();
+                    session.getTransaction().commit();
                 }
             };
 
-            return Response.ok(streamingOutput).type(MediaType.APPLICATION_JSON)
+            return Response.ok(streamingOutput).type("text/json")
                 .header("Content-Disposition", "attachment; filename=\"contexts.json\"").build();
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -95,7 +92,46 @@ public class ContextResource {
 
             throw e;
         } finally {
-            entityManager1.close();
+            entityManager.close();
+        }
+    }
+
+    /**
+     * Writes context items per JSON generator.
+     *
+     * @param jsonGenerator a JSON generator
+     * @param keyword a context keyword
+     * @return A velocity context.
+     * @throws IOException
+     */
+    private void writeJsonResult(JsonGenerator jsonGenerator, String keyword) throws IOException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            Iterator<Context> iterator = entityManager
+                    .createQuery("SELECT c FROM Context c WHERE c.keyword = :keyword ORDER BY c.location",
+                            Context.class)
+                    .setParameter("keyword", keyword).getResultList().iterator();
+
+            while (iterator.hasNext()) {
+                jsonGenerator.writeObject(iterator.next());
+            }
+
+            jsonGenerator.flush();
+            transaction.commit();
+        } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
         }
     }
 
@@ -108,18 +144,16 @@ public class ContextResource {
     @Path("xml")
     @Produces(MediaType.TEXT_XML)
     public Response getXml() {
-        EntityManager entityManager1 = EntityManagerListener.createEntityManager();
-        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
-            StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
-            final EntityTransaction finalTransaction = session.beginTransaction();
-            transaction = finalTransaction;
-            Query contextQuery = session.createQuery("SELECT c.id FROM Context c ORDER BY c.keyword, c.location");
-            contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
-            ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
-
+            StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            transaction = session.beginTransaction();
+            ScrollableResults results = session
+                    .createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword")
+                    .setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE)
+                    .scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = new StreamingOutput() {
                 @Override
                 public void write(OutputStream outputStream) throws IOException {
@@ -128,45 +162,23 @@ public class ContextResource {
                     properties.setProperty("class.resource.loader.class",
                             "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
                     VelocityEngine velocityEngine = new VelocityEngine(properties);
-                    VelocityContext velocityContext = new VelocityContext();
                     VelocityWriter velocityWriter = new VelocityWriter(new OutputStreamWriter(outputStream));
                     Template template = velocityEngine.getTemplate("templates/kwicindex.vm");
+
                     velocityEngine.init();
                     velocityWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
                     velocityWriter.write("<kwiclist>\n");
 
-                    KwicIndex.SubList subList = null;
-                    String lastKeyword = null;
-
                     while (results.next()) {
-                        Context context = entityManager2.find(Context.class, results.get(0));
-                        String keyword = context.getKeyword();
-
-                        if (keyword.equals(lastKeyword)) {
-                            subList.addContext(context);
-                        } else {
-                            if (subList instanceof KwicIndex.SubList) {
-                                velocityContext.put("sublist", subList);
-                                template.merge(velocityContext, velocityWriter);
-                                velocityWriter.flush();
-                            }
-
-                            lastKeyword = keyword;
-                            subList = new KwicIndex.SubList(keyword);
-                            subList.addContext(context);
-                        }
-                    }
-
-                    if (subList instanceof KwicIndex.SubList) {
-                        velocityContext.put("sublist", subList);
+                        VelocityContext velocityContext = writeXmlResult(results.getString(0));
                         template.merge(velocityContext, velocityWriter);
+                        velocityWriter.flush();
                     }
 
                     velocityWriter.write("</kwiclist>\n");
                     velocityWriter.flush();
-                    entityManager2.close();
                     results.close();
-                    finalTransaction.commit();
+                    session.getTransaction().commit();
                 }
             };
 
@@ -181,8 +193,49 @@ public class ContextResource {
 
             throw e;
         } finally {
-            entityManager1.close();
+            entityManager.close();
         }
+    }
+
+    /**
+     * Writes context items to a velocity context as XML.
+     *
+     * @param keyword a context keyword
+     * @return A velocity context.
+     */
+    private VelocityContext writeXmlResult(String keyword) {
+        VelocityContext velocityContext = new VelocityContext();
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            Iterator<Context> iterator = entityManager
+                    .createQuery("SELECT c FROM Context c WHERE c.keyword = :keyword ORDER BY c.location",
+                            Context.class)
+                    .setParameter("keyword", keyword).getResultList().iterator();
+            KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
+
+            while (iterator.hasNext()) {
+                subList.addContext(iterator.next());
+            }
+
+            transaction.commit();
+            velocityContext.put("sublist", subList);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+
+        return velocityContext;
     }
 
     /**
@@ -194,18 +247,16 @@ public class ContextResource {
     @Path("xml2")
     @Produces(MediaType.TEXT_XML)
     public Response getXml2() {
-        EntityManager entityManager1 = EntityManagerListener.createEntityManager();
-        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
-            StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
-            final EntityTransaction finalTransaction = session.beginTransaction();
-            transaction = finalTransaction;
-            Query contextQuery = session.createQuery("SELECT c.id FROM Context c ORDER BY c.keyword, c.location");
-            contextQuery.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
-            ScrollableResults results = contextQuery.scroll(ScrollMode.FORWARD_ONLY);
-
+            StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
+            transaction = session.beginTransaction();
+            ScrollableResults results = session
+                    .createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword")
+                    .setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE)
+                    .scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = new StreamingOutput() {
                 @Override
                 public void write(OutputStream outputStream) throws IOException, RuntimeException {
@@ -215,8 +266,6 @@ public class ContextResource {
                         XMLStreamWriter streamWriter = XMLOutputFactory.newInstance()
                                 .createXMLStreamWriter(outputStream);
                         IndentingXMLStreamWriter indentingStreamWriter = new IndentingXMLStreamWriter(streamWriter);
-                        KwicIndex.SubList subList = null;
-                        String lastKeyword = null;
 
                         streamWriter.writeStartDocument("UTF-8", "1.0");
                         streamWriter.writeCharacters("\n");
@@ -224,34 +273,29 @@ public class ContextResource {
                         streamWriter.writeCharacters("\n");
 
                         while (results.next()) {
-                            Context context = entityManager2.find(Context.class, results.get(0));
-                            String keyword = context.getKeyword();
+                            String keyword = results.getString(0);
+                            EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+                            Iterator<Context> iterator = entityManager2
+                                    .createQuery("SELECT c FROM Context c WHERE c.keyword = :keyword ORDER BY c.location",
+                                            Context.class)
+                                    .setParameter("keyword", keyword).getResultList().iterator();
+                            KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 
-                            if (keyword.equals(lastKeyword)) {
-                                subList.addContext(context);
-                            } else {
-                                if (subList instanceof KwicIndex.SubList) {
-                                    marshaller.marshal(subList, indentingStreamWriter);
-                                    indentingStreamWriter.flush();
-                                }
-
-                                lastKeyword = keyword;
-                                subList = new KwicIndex.SubList(keyword);
-                                subList.addContext(context);
+                            while (iterator.hasNext()) {
+                                subList.addContext(iterator.next());
                             }
-                        }
 
-                        if (subList instanceof KwicIndex.SubList) {
                             marshaller.marshal(subList, indentingStreamWriter);
+                            indentingStreamWriter.flush();
+                            entityManager2.close();
                         }
 
                         streamWriter.writeCharacters("\n");
                         indentingStreamWriter.writeEndDocument();
                         streamWriter.writeCharacters("\n");
                         indentingStreamWriter.flush();
-                        entityManager2.close();
                         results.close();
-                        finalTransaction.commit();
+                        session.getTransaction().commit();
                     } catch (JAXBException e) {
                         e.printStackTrace();
                         throw new RuntimeException(e);
@@ -273,7 +317,7 @@ public class ContextResource {
 
             throw e;
         } finally {
-            entityManager1.close();
+            entityManager.close();
         }
     }
 }
