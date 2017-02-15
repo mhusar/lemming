@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
  * A resource for lemma data.
@@ -39,14 +40,12 @@ public class LemmaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get() {
         EntityManager entityManager1 = EntityManagerListener.createEntityManager();
-        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
-            final EntityTransaction finalTransaction = session.beginTransaction();
-            transaction = finalTransaction;
-            Query query = session.createQuery("SELECT l.id FROM Lemma l WHERE l.replacement IS NULL ORDER BY l.name");
+            transaction = session.beginTransaction();
+            Query query = session.createQuery("SELECT l.id FROM Lemma l ORDER BY l.name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = new StreamingOutput() {
@@ -55,15 +54,18 @@ public class LemmaResource {
                     JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
                             .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
                     jsonGenerator.writeStartArray();
+                    EntityManager entityManager2 = EntityManagerListener.createEntityManager();
 
                     while (results.next()) {
-                        Lemma lemma = entityManager2.find(Lemma.class, results.get(0));
+                        List<Lemma> lemmaList = entityManager2
+                                .createQuery("SELECT l FROM Lemma l WHERE l.replacement IS NULL AND id = :id",
+                                        Lemma.class)
+                                .setParameter("id", results.getInteger(0)).getResultList();
 
-                        if (lemma instanceof Lemma) {
-                            jsonGenerator.writeObject(lemma);
+                        if (!lemmaList.isEmpty()) {
+                            jsonGenerator.writeObject(lemmaList.get(0));
+                            jsonGenerator.flush();
                         }
-
-                        entityManager2.clear();
                     }
 
                     jsonGenerator.writeEndArray();
@@ -71,7 +73,7 @@ public class LemmaResource {
                     jsonGenerator.close();
                     entityManager2.close();
                     results.close();
-                    finalTransaction.commit();
+                    session.getTransaction().commit();
                 }
             };
 
