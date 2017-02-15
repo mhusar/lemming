@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,15 +56,35 @@ public class LemmaResource {
                             .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
                     jsonGenerator.writeStartArray();
                     EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+                    List<Integer> idList = new ArrayList<Integer>(1000);
 
                     while (results.next()) {
-                        List<Lemma> lemmaList = entityManager2
-                                .createQuery("SELECT l FROM Lemma l WHERE l.replacement IS NULL AND id = :id",
-                                        Lemma.class)
-                                .setParameter("id", results.getInteger(0)).getResultList();
+                        idList.add(results.getInteger(0));
 
-                        if (!lemmaList.isEmpty()) {
-                            jsonGenerator.writeObject(lemmaList.get(0));
+                        if (idList.size() == 1000) {
+                            List<Lemma> lemmaList = entityManager2
+                                    .createQuery("SELECT l FROM Lemma l WHERE l.replacement IS NULL AND " +
+                                            "id IN (:ids) ORDER BY l.name", Lemma.class)
+                                    .setParameter("ids", idList).getResultList();
+
+                            for (Lemma lemma : lemmaList) {
+                                jsonGenerator.writeObject(lemma);
+                                jsonGenerator.flush();
+                            }
+
+                            idList.clear();
+                            entityManager2.clear();
+                        }
+                    }
+
+                    if (!idList.isEmpty()) {
+                        List<Lemma> lemmaList = entityManager2
+                                .createQuery("SELECT l FROM Lemma l WHERE l.replacement IS NULL AND " +
+                                        "id IN (:ids) ORDER BY l.name", Lemma.class)
+                                .setParameter("ids", idList).getResultList();
+
+                        for (Lemma lemma : lemmaList) {
+                            jsonGenerator.writeObject(lemma);
                             jsonGenerator.flush();
                         }
                     }
