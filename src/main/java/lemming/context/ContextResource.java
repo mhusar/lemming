@@ -20,6 +20,7 @@ import org.hibernate.query.Query;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -45,6 +46,12 @@ import java.util.Properties;
 @Path("contexts")
 @RolesAllowed({"STUDENT","USER","ADMIN"})
 public class ContextResource {
+    /**
+     * The servlet context.
+     */
+    @javax.ws.rs.core.Context
+    ServletContext context;
+
     /**
      * Returns a chunked JSON response.
      *
@@ -158,12 +165,10 @@ public class ContextResource {
                 @Override
                 public void write(OutputStream outputStream) throws IOException {
                     Properties properties = new Properties();
-                    properties.setProperty("resource.loader", "class");
-                    properties.setProperty("class.resource.loader.class",
-                            "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+                    properties.load(context.getResourceAsStream("/WEB-INF/classes/velocity.properties"));
                     VelocityEngine velocityEngine = new VelocityEngine(properties);
                     VelocityWriter velocityWriter = new VelocityWriter(new OutputStreamWriter(outputStream));
-                    Template template = velocityEngine.getTemplate("templates/kwicindex.vm");
+                    Template template = velocityEngine.getTemplate("lemming/resource/templates/kwicindex.vm");
 
                     velocityEngine.init();
                     velocityWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
