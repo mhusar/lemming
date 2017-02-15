@@ -43,8 +43,7 @@ public class PosResource {
 
         try {
             StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
-            final EntityTransaction finalTransaction = session.beginTransaction();
-            transaction = finalTransaction;
+            transaction = session.beginTransaction();
             Query query = session.createQuery("FROM Pos ORDER BY name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
@@ -56,15 +55,15 @@ public class PosResource {
                     jsonGenerator.writeStartArray();
 
                     while (results.next()) {
-                        Pos pos = (Pos) results.get(0);
-                        jsonGenerator.writeObject(pos);
+                        jsonGenerator.writeObject((Pos) results.get(0));
+                        jsonGenerator.flush();
                     }
 
                     jsonGenerator.writeEndArray();
                     jsonGenerator.flush();
                     jsonGenerator.close();
                     results.close();
-                    finalTransaction.commit();
+                    session.getTransaction().commit();
                 }
             };
 
