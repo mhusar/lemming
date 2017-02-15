@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A helper class with Java objects to build a KWIC index with JAXB.
+ * A helper class with Java objects to build a KWIC item with JAXB.
  */
 public abstract class KwicIndex {
     /**
@@ -105,49 +105,49 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Following attribute of an index.
+         * Following attribute of an item.
          */
         @XmlAttribute(required = true)
         private String following;
 
         /**
-         * Keyword value of an index.
+         * Keyword value of an item.
          */
         @XmlValue
         private String keyword;
 
         /**
-         * Lemma attribute of an index.
+         * Lemma attribute of an item.
          */
         @XmlAttribute
         private String lemma;
 
         /**
-         * Location attribute of an index.
+         * Location attribute of an item.
          */
         @XmlAttribute(required = true)
         private String location;
 
         /**
-         * Pos attribute of an index.
+         * Pos attribute of an item.
          */
         @XmlAttribute
         private String pos;
 
         /**
-         * Preceding attribute of an index.
+         * Preceding attribute of an item.
          */
         @XmlAttribute(required = true)
         private String preceding;
 
         /**
-         * Type attribute of an index.
+         * Type attribute of an item.
          */
         @XmlAttribute(required = true)
         private String type;
 
         /**
-         * Returns the following attribute of an index.
+         * Returns the following attribute of an item.
          *
          * @return An attribute as string.
          */
@@ -156,7 +156,7 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the keyword attribute of an index.
+         * Returns the keyword attribute of an item.
          *
          * @return An attribute as string.
          */
@@ -165,7 +165,7 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the lemma attribute of an index.
+         * Returns the lemma attribute of an item.
          *
          * @return An attribute as string.
          */
@@ -174,7 +174,7 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the location attribute of an index.
+         * Returns the location attribute of an item.
          *
          * @return An attribute as string.
          */
@@ -183,7 +183,7 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the pos attribute of an index.
+         * Returns the pos attribute of an item.
          *
          * @return An attribute as string.
          */
@@ -192,7 +192,7 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the preceding attribute of an index.
+         * Returns the preceding attribute of an item.
          *
          * @return An attribute as string.
          */
@@ -201,7 +201,7 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the type attribute of an index.
+         * Returns the type attribute of an item.
          *
          * @return An attribute as string.
          */
