@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lemming.data.EntityManagerListener;
 import lemming.resource.KwicIndex;
 import org.apache.velocity.Template;
@@ -73,6 +74,7 @@ public class ContextResource {
                 @Override
                 public void write(OutputStream outputStream) throws IOException, WebApplicationException {
                     JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
+                            .enable(SerializationFeature.INDENT_OUTPUT)
                             .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
                     jsonGenerator.writeStartArray();
 
