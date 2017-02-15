@@ -8,6 +8,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.filter.EncodingFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
@@ -44,6 +45,8 @@ public class Application extends ResourceConfig {
         packages("lemming.context");
         packages("lemming.lemma");
         packages("lemming.pos");
+        // disable buffering
+        property(ServerProperties.OUTBOUND_CONTENT_LENGTH_BUFFER, 0);
         register(JacksonFeature.class);
         // enable logging
         register(LoggingFeature.class);
