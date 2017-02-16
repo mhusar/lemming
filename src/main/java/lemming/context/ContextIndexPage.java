@@ -43,7 +43,7 @@ public class ContextIndexPage extends BasePage {
      */
     public ContextIndexPage() {
         GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
-                new SortParam<String>("lemma.name", true));
+                new SortParam<String>("keyword", true));
         FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
         TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
