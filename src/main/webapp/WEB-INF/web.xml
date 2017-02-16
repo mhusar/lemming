@@ -17,7 +17,7 @@
         </init-param>
         <init-param>
             <param-name>session-timeout</param-name>
-            <param-value>60</param-value>
+            <param-value>180</param-value>
         </init-param>
         <init-param>
             <param-name>ignorePaths</param-name>
