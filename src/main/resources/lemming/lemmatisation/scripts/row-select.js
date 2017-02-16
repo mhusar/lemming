@@ -246,3 +246,31 @@ jQuery(document).on("keydown", function (event) {
         }
     }
 });
+
+function selectFirstRow() {
+    var firstRow = jQuery("table.selectable tbody tr").first();
+
+    if (firstRow.length) {
+        jQuery(firstRow).find(":checkbox").first().prop("checked", true);
+        jQuery(firstRow).addClass("selected");
+    }
+}
+
+// select the first table row when a selectable table is added
+jQuery(document).ready(function () {
+    var target = jQuery("table.selectable").closest("form")[0],
+        observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.addedNodes.length) {
+                    mutation.addedNodes.forEach(function (addedNode) {
+                        if (addedNode.tagName === "table") {
+                            selectFirstRow();
+                        }
+                    });
+                }
+            });
+        });
+
+    observer.observe(target, { attributes: false, characterData: false, childList: true, subtree: false });
+    selectFirstRow();
+});
