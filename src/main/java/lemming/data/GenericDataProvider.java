@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Order;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -60,17 +59,9 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param defaultSortParam
      *            default sort param
      */
-    @SuppressWarnings("unchecked")
     public GenericDataProvider(Class<T> typeClass, SortParam<String> defaultSortParam) {
         this.typeClass = typeClass;
         this.defaultSortParam = defaultSortParam;
-
-        try {
-            state = (T) Class.forName(typeClass.getName()).getConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -51,16 +51,9 @@ public final class SenseDataProvider extends SortableDataProvider<SenseWrapper, 
      * @param defaultSortParam default sort param
      * @param typeClass data type that is provided
      */
-    @SuppressWarnings("unchecked")
     public SenseDataProvider(Class<?> typeClass, SortParam<String> defaultSortParam) {
         this.defaultSortParam = defaultSortParam;
         this.typeClass = typeClass;
-
-        try {
-            state = new SenseWrapper();
-        } catch (IllegalArgumentException | SecurityException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
