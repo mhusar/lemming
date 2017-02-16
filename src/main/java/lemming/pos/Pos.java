@@ -20,8 +20,8 @@ import java.util.UUID;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "pos", indexes = {
-        @Index(columnList = "uuid, name", unique = true),
-        @Index(columnList = "source")})
+        @Index(columnList = "uuid", unique = true),
+        @Index(columnList = "name, source")})
 public class Pos implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.

@@ -171,7 +171,13 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             if (lemmaList.isEmpty()) {
                 return null;
             } else {
-                return lemmaList.get(0);
+                for (Lemma lemma : lemmaList) {
+                    if (lemma.getName().equals(name)) {
+                        return lemma;
+                    }
+                }
+
+                return null;
             }
         } catch (RuntimeException e) {
             e.printStackTrace();

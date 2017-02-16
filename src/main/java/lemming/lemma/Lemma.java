@@ -25,8 +25,8 @@ import java.util.UUID;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
-        @Index(columnList = "uuid, name", unique = true),
-        @Index(columnList = "replacement_id, replacement_string, pos_string, source, reference")})
+        @Index(columnList = "uuid", unique = true),
+        @Index(columnList = "name, replacement_id, replacement_string, pos_string, source, reference")})
 public class Lemma implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.

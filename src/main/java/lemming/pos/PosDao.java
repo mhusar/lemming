@@ -88,7 +88,13 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             if (posList.isEmpty()) {
                 return null;
             } else {
-                return posList.get(0);
+                for (Pos pos : posList) {
+                    if (pos.getName().equals(name)) {
+                        return pos;
+                    }
+                }
+
+                return null;
             }
         } catch (RuntimeException e) {
             e.printStackTrace();
