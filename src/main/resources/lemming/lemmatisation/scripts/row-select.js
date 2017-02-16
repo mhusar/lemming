@@ -1,7 +1,7 @@
 function onShiftSelect(row) {
-    var table = jQuery(row).closest("table"), allRows, rowIndex, firstSelectedRowIndex, lastSelectedRowIndex;
+    var tbody = jQuery(row).closest("tbody"), allRows, rowIndex, firstSelectedRowIndex, lastSelectedRowIndex;
 
-    allRows = table.find("tr");
+    allRows = tbody.find("tr");
     rowIndex = allRows.index(row);
     firstSelectedRowIndex = allRows.index(allRows.filter(".selected").first());
     lastSelectedRowIndex = allRows.index(allRows.filter(".selected").last());
@@ -19,8 +19,8 @@ function onShiftSelect(row) {
     }
 }
 
-function scrollIntoViewport(table, scrollDown) {
-    var focusedRow = jQuery(table).find(".focused").first();
+function scrollIntoViewport(tbody, scrollDown) {
+    var focusedRow = jQuery(tbody).find(".focused").first();
     if (focusedRow.length) {
         if (!focusedRow.isInViewport(150)) {
             if (scrollDown) {
@@ -32,9 +32,9 @@ function scrollIntoViewport(table, scrollDown) {
     }
 }
 
-function onShiftDownSelect(table) {
-    var focusedRow = jQuery(table).find(".focused").first(),
-        lastSelectedRow = jQuery(table).find(".selected").last();
+function onShiftDownSelect(tbody) {
+    var focusedRow = jQuery(tbody).find(".focused").first(),
+        lastSelectedRow = jQuery(tbody).find(".selected").last();
 
     if (focusedRow.length) {
         var nextRow = jQuery(focusedRow).next();
@@ -59,12 +59,12 @@ function onShiftDownSelect(table) {
         nextRow.addClass("selected focused");
     }
 
-    scrollIntoViewport(table, true);
+    scrollIntoViewport(tbody, true);
 }
 
-function onShiftUpSelect(table) {
-    var focusedRow = jQuery(table).find(".focused").first(),
-        firstSelectedRow = jQuery(table).find(".selected").first();
+function onShiftUpSelect(tbody) {
+    var focusedRow = jQuery(tbody).find(".focused").first(),
+        firstSelectedRow = jQuery(tbody).find(".selected").first();
 
     if (focusedRow.length) {
         var previousRow = jQuery(focusedRow).prev();
@@ -89,7 +89,7 @@ function onShiftUpSelect(table) {
          previousRow.addClass("selected focused");
     }
 
-    scrollIntoViewport(table, false);
+    scrollIntoViewport(tbody, false);
 }
 
 function onCtrlSelect(row) {
@@ -98,9 +98,9 @@ function onCtrlSelect(row) {
     jQuery(checkbox).prop("checked", !jQuery(checkbox).prop("checked"));
 }
 
-function onCtrlDownSelect(table) {
-    var focusedRow = jQuery(table).find(".focused").first(),
-        lastSelectedRow = jQuery(table).find(".selected").last();
+function onCtrlDownSelect(tbody) {
+    var focusedRow = jQuery(tbody).find(".focused").first(),
+        lastSelectedRow = jQuery(tbody).find(".selected").last();
 
     if (focusedRow.length) {
         focusedRow.removeClass("focused");
@@ -109,12 +109,12 @@ function onCtrlDownSelect(table) {
         jQuery(lastSelectedRow).next().addClass("focused");
     }
 
-    scrollIntoViewport(table, true);
+    scrollIntoViewport(tbody, true);
 }
 
-function onCtrlUpSelect(table) {
-    var focusedRow = jQuery(table).find(".focused").first(),
-        firstSelectedRow = jQuery(table).find(".selected").first();
+function onCtrlUpSelect(tbody) {
+    var focusedRow = jQuery(tbody).find(".focused").first(),
+        firstSelectedRow = jQuery(tbody).find(".selected").first();
 
     if (focusedRow.length) {
         focusedRow.removeClass("focused");
@@ -123,11 +123,11 @@ function onCtrlUpSelect(table) {
         jQuery(firstSelectedRow).prev().addClass("focused");
     }
 
-    scrollIntoViewport(table, false);
+    scrollIntoViewport(tbody, false);
 }
 
-function onCtrlSpaceSelect(table) {
-    var focusedRow = jQuery(table).find(".focused").first();
+function onCtrlSpaceSelect(tbody) {
+    var focusedRow = jQuery(tbody).find(".focused").first();
 
     if (focusedRow.length) {
         if (focusedRow.isInViewport(100)) {
@@ -146,8 +146,8 @@ function onSelect(row) {
     });
 }
 
-function onDownSelect(table) {
-    var lastSelectedRow = jQuery(table).find(".selected").last();
+function onDownSelect(tbody) {
+    var lastSelectedRow = jQuery(tbody).find(".selected").last();
 
     if (lastSelectedRow.length) {
         var nextRow = jQuery(lastSelectedRow).next();
@@ -166,8 +166,8 @@ function onDownSelect(table) {
     }
 }
 
-function onUpSelect(table) {
-    var firstSelectedRow = jQuery(table).find(".selected").first();
+function onUpSelect(tbody) {
+    var firstSelectedRow = jQuery(tbody).find(".selected").first();
 
     if (firstSelectedRow.length) {
         var previousRow = jQuery(firstSelectedRow).prev();
@@ -200,7 +200,7 @@ function selectRows(allRows, minIndex, maxIndex) {
     });
 }
 
-jQuery(document).on("click", "table.selectable tr", function (event) {
+jQuery(document).on("click", "table.selectable tbody tr", function (event) {
     if (event.shiftKey) {
         onShiftSelect(this);
     } else if (event.ctrlKey) {
@@ -216,32 +216,32 @@ jQuery(document).on("click", "table.selectable tr", function (event) {
 });
 
 jQuery(document).on("keydown", function (event) {
-    var table = jQuery("table.selectable");
+    var tbody = jQuery("table.selectable tbody");
 
     // 32 = space, 38 = up, 40 = down
-    if (table.length && event.which === 32 || event.which === 38 || event.which === 40) {
+    if (tbody.length && event.which === 32 || event.which === 38 || event.which === 40) {
         if (event.shiftKey) {
             if (event.which === 40) {
-                onShiftDownSelect(table);
+                onShiftDownSelect(tbody);
             } else if (event.which === 38) {
-                onShiftUpSelect(table);
+                onShiftUpSelect(tbody);
             } else if (event.which === 32) {
                 // prevent form submit; why does this happen?
                 event.preventDefault();
             }
         } else if (event.ctrlKey) {
             if (event.which === 40) {
-                onCtrlDownSelect(table);
+                onCtrlDownSelect(tbody);
             } else if (event.which === 38) {
-                onCtrlUpSelect(table);
+                onCtrlUpSelect(tbody);
             } else if (event.which === 32) {
-                onCtrlSpaceSelect(table);
+                onCtrlSpaceSelect(tbody);
             }
         } else {
             if (event.which === 40) {
-                onDownSelect(table);
+                onDownSelect(tbody);
             } else if (event.which === 38) {
-                onUpSelect(table);
+                onUpSelect(tbody);
             }
         }
     }
