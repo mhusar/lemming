@@ -1,6 +1,5 @@
 package lemming.lemma;
 
-import lemming.context.ContextDao;
 import lemming.data.Source;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;

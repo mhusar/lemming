@@ -63,7 +63,7 @@ public class Lemma implements Serializable {
     /**
      * Replacement of a lemma.
      */
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "replacement_id")
     @JsonIgnore
     private Lemma replacement;
@@ -78,7 +78,7 @@ public class Lemma implements Serializable {
     /**
      * Part of speech of a lemma.
      */
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "pos_id")
     private Pos pos;
 

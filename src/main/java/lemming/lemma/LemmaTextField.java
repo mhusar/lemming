@@ -4,7 +4,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
-import org.hibernate.LazyInitializationException;
 
 import java.util.Locale;
 
@@ -89,14 +88,7 @@ public class LemmaTextField extends TextField<Lemma> {
             @Override
             public String convertToString(C lemma, Locale locale) {
                 if (lemma instanceof Lemma) {
-                    try {
-                        return ((Lemma) lemma).getName();
-                    } catch (LazyInitializationException e) {
-                        Lemma castedLemma = (Lemma) lemma;
-
-                        new LemmaDao().refresh(castedLemma);
-                        return castedLemma.getName();
-                    }
+                    return new LemmaDao().getLemmaName((Lemma) lemma);
                 }
 
                 return null;

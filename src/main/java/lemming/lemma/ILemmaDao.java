@@ -63,4 +63,12 @@ public interface ILemmaDao extends IDao<Lemma> {
      * @return True if all lemmata had a replacement.
      */
     Boolean batchResolve(List<Lemma> lemmas);
+
+    /**
+     * Returns the name of a lemma.
+     *
+     * @param lemma a lemma
+     * @return Name of a lemma.
+     */
+    String getLemmaName(Lemma lemma);
 }
