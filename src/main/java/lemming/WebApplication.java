@@ -3,8 +3,8 @@ package lemming;
 import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
 import lemming.context.ContextEditPage;
-import lemming.context.ContextIndexPage;
 import lemming.context.ContextImportPage;
+import lemming.context.ContextIndexPage;
 import lemming.lemma.LemmaEditPage;
 import lemming.lemma.LemmaIndexPage;
 import lemming.lemmatisation.LemmatisationPage;
@@ -30,17 +30,11 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.settings.ExceptionSettings;
 
 import java.util.UUID;
-import java.util.logging.Logger;
 
 /**
  * A web application that does role-based authentication.
  */
 public class WebApplication extends AuthenticatedWebApplication {
-    /**
-     * A logger named corresponding to this class.
-     */
-    private static final Logger logger = Logger.getLogger(WebApplication.class.getName());
-
     /**
      * Provides a custom initialization for this app.
      */

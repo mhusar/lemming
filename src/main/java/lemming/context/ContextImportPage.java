@@ -20,7 +20,7 @@ public class ContextImportPage extends BasePage {
      */
     public ContextImportPage() {
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
     }
 
     /**

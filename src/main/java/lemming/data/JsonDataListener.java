@@ -5,17 +5,16 @@ import lemming.lemma.Lemma;
 import lemming.lemma.LemmaDao;
 import lemming.pos.Pos;
 import lemming.pos.PosDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Listener for receiving notification events about ServletContext lifecycle changes.
@@ -25,7 +24,7 @@ public class JsonDataListener implements ServletContextListener {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = Logger.getLogger(JsonDataListener.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(JsonDataListener.class);
 
     /**
      * Persists provided lemma data from TL and pos data from DEAF.
@@ -61,7 +60,7 @@ public class JsonDataListener implements ServletContextListener {
                 Boolean result = lemmaDao.batchResolve(subList);
 
                 if (result == false) {
-                    logger.log(Level.SEVERE, "At least one replacement lemma doesn’t exist!");
+                    logger.error("At least one replacement lemma doesn’t exist!");
                 }
             }
         }

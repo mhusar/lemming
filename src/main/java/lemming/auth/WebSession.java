@@ -1,18 +1,15 @@
 package lemming.auth;
 
-import org.apache.wicket.Page;
+import lemming.user.IUserDao;
+import lemming.user.User;
+import lemming.user.UserDao;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.feedback.DefaultCleanupFeedbackMessageFilter;
 import org.apache.wicket.request.Request;
-
-import lemming.user.IUserDao;
-import lemming.user.User;
-import lemming.user.UserDao;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents an authenticated web session.
@@ -26,7 +23,7 @@ public class WebSession extends AuthenticatedWebSession {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = Logger.getLogger(WebSession.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(WebSession.class);
 
     /**
      * The owner of a web session.
@@ -76,19 +73,15 @@ public class WebSession extends AuthenticatedWebSession {
     /**
      * Checks if the session is expired. Throws a RestartResponseException to
      * send the user to the sign-in page if the session user is invalid.
-     * 
-     * @param pageClass
-     *            class of the invoking page
+     *
      * @throws RestartResponseException
      */
-    public void checkSessionExpired(Class<? extends Page> pageClass) {
-        Logger logger = Logger.getLogger(pageClass.getName());
-
+    public void checkSessionExpired() {
         if (user instanceof User) {
             return;
         } else {
             if (isTemporary()) {
-                logger.log(Level.SEVERE, "Session is expired. Redirect to sign-in page.");
+                logger.error("Session is expired. Redirect to sign-in page.");
                 bind();
             }
 
@@ -115,7 +108,7 @@ public class WebSession extends AuthenticatedWebSession {
             try {
                 userDao.createDefaultUser();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Default user creation failed");
+                logger.error("Default user creation failed");
                 e.printStackTrace();
                 return false;
             }
@@ -133,7 +126,7 @@ public class WebSession extends AuthenticatedWebSession {
                     return false;
                 }
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Authentication failed with exception");
+                logger.error("Authentication failed with exception");
                 e.printStackTrace();
                 return false;
             }

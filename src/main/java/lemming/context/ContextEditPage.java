@@ -75,7 +75,7 @@ public class ContextEditPage extends BasePage {
         super.onInitialize();
 
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
         ModalMessagePanel contextDeleteConfirmPanel;
 
         if (nextPageClass instanceof Class) {

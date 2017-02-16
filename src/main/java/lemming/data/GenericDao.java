@@ -5,15 +5,16 @@ import lemming.ui.page.UnresolvableObjectErrorPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.hibernate.*;
+import org.hibernate.StaleObjectStateException;
+import org.hibernate.UnresolvableObjectException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Implements methods from interface IDao.
@@ -26,7 +27,7 @@ public abstract class GenericDao<E> implements IDao<E> {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = Logger.getLogger(GenericDao.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(GenericDao.class);
 
     /**
      * The class of the entity.
@@ -226,7 +227,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      */
     @Override
     public void panicOnSaveLockingError(Object element, RuntimeException exception) {
-        logger.log(Level.SEVERE, "A locking error occured. Redirect user to error page.");
+        logger.error("A locking error occured. Redirect user to error page.");
 
         if (RequestCycle.get() != null) {
             Page lockingErrorPage = new LockingErrorPage(LockingErrorPage.ActionType.SAVE, element, exception);
@@ -243,7 +244,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      */
     @Override
     public void panicOnRemoveLockingError(Object element, RuntimeException exception) {
-        logger.log(Level.SEVERE, "A locking error occured. Redirect user to failure page.");
+        logger.error("A locking error occured. Redirect user to failure page.");
 
         if (RequestCycle.get() != null) {
             Page lockingErrorPage = new LockingErrorPage(LockingErrorPage.ActionType.REMOVE, element, exception);
@@ -260,7 +261,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      */
     @Override
     public void panicOnSaveUnresolvableObjectError(Object element, RuntimeException exception) {
-        logger.log(Level.SEVERE, "An object was not resolvable. Redirect user to error page.");
+        logger.error("An object was not resolvable. Redirect user to error page.");
 
         if (RequestCycle.get() != null) {
             Page unresolvableObjectErrorPage = new UnresolvableObjectErrorPage(
@@ -278,7 +279,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      */
     @Override
     public void panicOnRemoveUnresolvableObjectError(Object element, RuntimeException exception) {
-        logger.log(Level.SEVERE, "An object was not resolvable. Redirect user to error page.");
+        logger.error("An object was not resolvable. Redirect user to error page.");
 
         if (RequestCycle.get() != null) {
             Page unresolvableObjectErrorPage = new UnresolvableObjectErrorPage(

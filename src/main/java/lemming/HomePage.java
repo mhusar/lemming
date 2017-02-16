@@ -15,8 +15,6 @@ import lemming.user.UserEditPage;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
-import java.util.logging.Logger;
-
 /**
  * The home or index page of the application.
  */
@@ -26,11 +24,6 @@ public class HomePage extends BasePage {
      * Determines if a deserialized file is compatible with this class.
      */
     private static final long serialVersionUID = 1L;
-
-    /**
-     * A logger named corresponding to this class.
-     */
-    private static final Logger logger = Logger.getLogger(HomePage.class.getName());
 
     /**
      * Initializes a home page.
@@ -53,7 +46,7 @@ public class HomePage extends BasePage {
                 CharacterEditPage.class);
 
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
 
         add(lemmatisationLink);
         add(contextIndexLink);

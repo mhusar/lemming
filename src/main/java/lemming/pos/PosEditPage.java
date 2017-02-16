@@ -80,7 +80,7 @@ public class PosEditPage extends BasePage {
         super.onInitialize();
 
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
         ModalMessagePanel posDeleteConfirmPanel;
 
         if (nextPageClass instanceof Class) {

@@ -1,18 +1,17 @@
 package lemming.auth;
 
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.util.value.ValueMap;
-
 import lemming.HomePage;
 import lemming.ui.page.EmptyBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.user.User;
 import lemming.user.UserDao;
-
-import java.util.logging.Logger;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.util.value.ValueMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The sign-in page of the application.
@@ -26,7 +25,7 @@ public class SignInPage extends EmptyBasePage {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = Logger.getLogger(SignInPage.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(SignInPage.class);
 
     /**
      * Creates a sign-in page.

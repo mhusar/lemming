@@ -1,12 +1,15 @@
 package lemming.user;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.util.List;
-import java.util.UUID;
-import java.util.logging.Logger;
+import lemming.auth.SignInPage;
+import lemming.auth.UserRoles;
+import lemming.auth.WebSession;
+import lemming.data.EntityManagerListener;
+import lemming.data.GenericDao;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.hibernate.StaleObjectStateException;
+import org.hibernate.UnresolvableObjectException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -14,16 +17,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.xml.bind.DatatypeConverter;
-
-import lemming.data.EntityManagerListener;
-import org.apache.wicket.request.cycle.RequestCycle;
-import org.hibernate.StaleObjectStateException;
-import org.hibernate.UnresolvableObjectException;
-
-import lemming.auth.SignInPage;
-import lemming.auth.UserRoles;
-import lemming.auth.WebSession;
-import lemming.data.GenericDao;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for users.
@@ -47,7 +46,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = Logger.getLogger(UserDao.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
 
     /**
      * Creates an instance of a UserDao.

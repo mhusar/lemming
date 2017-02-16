@@ -36,7 +36,7 @@ public class UserEditPage extends BasePage {
         User sessionUser = WebSession.get().getUser();
 
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
         userModel = new CompoundPropertyModel<User>(sessionUser);
     }
 

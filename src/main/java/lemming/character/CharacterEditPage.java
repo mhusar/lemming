@@ -39,7 +39,7 @@ public class CharacterEditPage extends BasePage {
         List<Character> characters = new CharacterDao().getAll();
 
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
 
         if (characters.isEmpty()) {
             characterModel = new CompoundPropertyModel<Character>(new Character());

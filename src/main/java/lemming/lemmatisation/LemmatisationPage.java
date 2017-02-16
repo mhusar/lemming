@@ -76,7 +76,7 @@ public class LemmatisationPage extends EmptyBasePage {
         Fragment fragment;
 
         // check if the session is expired
-        WebSession.get().checkSessionExpired(getPageClass());
+        WebSession.get().checkSessionExpired();
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", bodyContainer);

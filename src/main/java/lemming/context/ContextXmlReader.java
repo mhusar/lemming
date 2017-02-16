@@ -2,6 +2,8 @@ package lemming.context;
 
 import lemming.WebApplication;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -20,8 +22,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Helper class to validate and read context XML data.
@@ -30,7 +30,7 @@ public class ContextXmlReader implements ErrorHandler {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = Logger.getLogger(ContextXmlReader.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ContextXmlReader.class);
 
     /**
      * Target that produces an Ajax response
@@ -90,7 +90,7 @@ public class ContextXmlReader implements ErrorHandler {
      * @param e error information encapsulated in a XML stream exception
      */
     public void onReadError(Exception e) {
-        logger.log(Level.SEVERE, "Reading of context XML file failed.", e);
+        logger.error("Reading of context XML file failed.", e);
     }
 
     /**
@@ -196,7 +196,7 @@ public class ContextXmlReader implements ErrorHandler {
             validator.setErrorHandler(this);
             validator.validate(new StreamSource(inputStream));
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Validation of context XML file failed.", e);
+            logger.error("Validation of context XML file failed.", e);
             throw new IllegalStateException(e);
         }
     }
