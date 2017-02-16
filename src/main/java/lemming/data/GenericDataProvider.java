@@ -268,9 +268,9 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
                                                              Map<String,Join<?,?>> joins) {
         if (filter instanceof String) {
             return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, typeClass);
+        } else {
+            return CriteriaHelper.getStringRestriction(criteriaBuilder, root, joins, typeClass);
         }
-
-        return null;
     }
 
     /**

@@ -91,16 +91,19 @@ public final class CriteriaHelper {
         Join<Context,Pos> pos = (Join<Context,Pos>) joins.get("pos");
 
         if (type != null) {
-            return criteriaBuilder.or(
+            // optimize context search by ignoring replaced lemmata
+            return criteriaBuilder.and(criteriaBuilder.isNull(lemma.get("replacement")), criteriaBuilder.or(
                     criteriaBuilder.like(criteriaBuilder.upper(lemma.get("name")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(pos.get("name")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("location")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("preceding")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("keyword")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase())
+                    )
             );
         } else {
-            return criteriaBuilder.or(
+            // optimize context search by ignoring replaced lemmata
+            return criteriaBuilder.and(criteriaBuilder.isNull(lemma.get("replacement")), criteriaBuilder.or(
                     criteriaBuilder.like(criteriaBuilder.upper(lemma.get("name")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(pos.get("name")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("location")), filter + "%".toUpperCase()),
@@ -108,6 +111,7 @@ public final class CriteriaHelper {
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("preceding")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("keyword")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase())
+                    )
             );
         }
     }
@@ -182,6 +186,39 @@ public final class CriteriaHelper {
             return getLemmaFilterStringRestriction(criteriaBuilder, root, filter);
         } else if (typeClass.equals(Pos.class)) {
             return getPosFilterStringRestriction(criteriaBuilder, root, filter);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns automatically created context restrictions.
+     *
+     * @param criteriaBuilder contructor for criteria queries
+     * @param root query root referencing entities
+     * @param joins map of joins
+     * @return An expression of type boolean, or null.
+     */
+    private static Expression<Boolean> getContextStringRestriction(CriteriaBuilder criteriaBuilder,
+                                                                   Root<?> root, Map<String,Join<?,?>> joins) {
+        // optimize context search by ignoring replaced lemmata
+        Join<Context,Lemma> lemma = (Join<Context,Lemma>) joins.get("lemma");
+        return criteriaBuilder.isNull(lemma.get("replacement"));
+    }
+
+    /**
+     * Returns automatically created restrictions.
+     *
+     * @param criteriaBuilder contructor for criteria queries
+     * @param root query root referencing entities
+     * @param joins map of joins
+     * @param typeClass data type
+     * @return An expression of type boolean, or null.
+     */
+    public static Expression<Boolean> getStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
+                                                           Map<String,Join<?,?>> joins, Class<?> typeClass) {
+        if (typeClass.equals(Context.class)) {
+            return getContextStringRestriction(criteriaBuilder, root, joins);
         }
 
         return null;
