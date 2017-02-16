@@ -286,6 +286,17 @@ public class User implements Principal, Serializable {
     }
 
     /**
+     * Returns the username of the user.
+     *
+     * @return A string with the user’s username.
+     * @see java.security.Principal
+     */
+    @Override
+    public String getName() {
+        return getUsername();
+    }
+
+    /**
      * Indicates if some other object is equal to this one.
      * 
      * @param object
@@ -321,16 +332,5 @@ public class User implements Principal, Serializable {
         }
 
         return uuid.hashCode();
-    }
-
-    /**
-     * Returns the username of the user.
-     *
-     * @return A string with the user’s username.
-     * @see java.security.Principal
-     */
-    @Override
-    public String getName() {
-        return getUsername();
     }
 }
