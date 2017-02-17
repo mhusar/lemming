@@ -1,6 +1,8 @@
 package lemming.pos;
 
 import lemming.auth.WebSession;
+import lemming.context.ContextDao;
+import lemming.lemma.LemmaDao;
 import lemming.table.FilterPanelColumn;
 import lemming.ui.panel.ModalMessagePanel;
 import lemming.user.User;
@@ -103,9 +105,12 @@ public class PosActionPanelColumn extends FilterPanelColumn<Pos> {
                         ModalMessagePanel posDeleteDeniedPanel = (ModalMessagePanel) getPage()
                                 .get("posDeleteDeniedPanel");
 
-                        // TODO: When to show a pos delete deny panel?
-                        //posDeleteDeniedPanel.show(target, model);
-                        posDeleteConfirmPanel.show(target, model);
+                        if (new ContextDao().findByPos(model.getObject()).isEmpty() &&
+                                new LemmaDao().findByPos(model.getObject()).isEmpty()) {
+                            posDeleteConfirmPanel.show(target, model);
+                        } else {
+                            posDeleteDeniedPanel.show(target, model);
+                        }
                     }
                 });
             }

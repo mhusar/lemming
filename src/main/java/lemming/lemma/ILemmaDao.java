@@ -2,6 +2,7 @@ package lemming.lemma;
 
 import lemming.data.IDao;
 import lemming.data.Source;
+import lemming.pos.Pos;
 
 import java.util.List;
 
@@ -40,6 +41,14 @@ public interface ILemmaDao extends IDao<Lemma> {
      * @return A list of matching lemmata.
      */
     List<Lemma> findByNameStart(String substring, Boolean excludeReplacements);
+
+    /**
+     * Returns a list of matching lemmata for a given part of speech.
+     *
+     * @param pos part of speech of a lemma
+     * @return A list of matching lemmata.
+     */
+    List<Lemma> findByPos(Pos pos);
 
     /**
      * Returns a list of matching lemmata for a given source.

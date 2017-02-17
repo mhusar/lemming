@@ -164,14 +164,10 @@ public class ContextEditForm extends Form<Context> {
         public void onClick(AjaxRequestTarget target) {
             ModalMessagePanel contextDeleteConfirmPanel = (ModalMessagePanel) getPage()
                     .get("contextDeleteConfirmPanel");
+            // not needed
             ModalMessagePanel contextDeleteDeniedPanel = (ModalMessagePanel) getPage().get("contextDeleteDeniedPanel");
 
-            // TODO:
-            //if (new ContextDao().getFicheCount(getModelObject()) > 0) {
-            //    contextDeleteDeniedPanel.show(target, getModel());
-            //} else {
-                contextDeleteConfirmPanel.show(target, getModel());
-            //}
+            contextDeleteConfirmPanel.show(target, getModel());
         }
     }
 }

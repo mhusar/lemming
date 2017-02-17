@@ -1,6 +1,8 @@
 package lemming.pos;
 
+import lemming.context.ContextDao;
 import lemming.data.Source;
+import lemming.lemma.LemmaDao;
 import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -159,12 +161,12 @@ public class PosEditForm extends Form<Pos> {
             ModalMessagePanel posDeleteConfirmPanel = (ModalMessagePanel) getPage().get("posDeleteConfirmPanel");
             ModalMessagePanel posDeleteDeniedPanel = (ModalMessagePanel) getPage().get("posDeleteDeniedPanel");
 
-            // TODO:
-            //if (new PosDao().getFicheCount(getModelObject()) > 0) {
-            //    posDeleteDeniedPanel.show(target, getModel());
-            //} else {
+            if (new ContextDao().findByPos(getModelObject()).isEmpty() &&
+                    new LemmaDao().findByPos(getModelObject()).isEmpty()) {
                 posDeleteConfirmPanel.show(target, getModel());
-            //}
+            } else {
+                posDeleteDeniedPanel.show(target, getModel());
+            }
         }
     }
 

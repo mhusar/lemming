@@ -3,6 +3,7 @@ package lemming.context;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import lemming.lemma.Lemma;
+import lemming.pos.Pos;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -200,6 +201,37 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             TypedQuery<Context> query = entityManager
                     .createQuery("FROM Context WHERE lemma = :lemma", Context.class);
             List<Context> contextList = query.setParameter("lemma", lemma).getResultList();
+            transaction.commit();
+            return contextList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public List<Context> findByPos(Pos pos) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager
+                    .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
+                            "WHERE c.pos = :pos ORDER BY c.keyword", Context.class);
+            List<Context> contextList = query.setParameter("pos", pos).getResultList();
             transaction.commit();
             return contextList;
         } catch (RuntimeException e) {

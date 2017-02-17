@@ -2,6 +2,7 @@ package lemming.context;
 
 import lemming.data.IDao;
 import lemming.lemma.Lemma;
+import lemming.pos.Pos;
 
 import java.util.List;
 
@@ -39,4 +40,12 @@ public interface IContextDao extends IDao<Context> {
      * @return A list of matching contexts.
      */
     List<Context> findByLemma(Lemma lemma);
+
+    /**
+     * Returns a list of matching contexts for a given part of speech.
+     *
+     * @param pos a pos
+     * @return A list of matching contexts.
+     */
+    List<Context> findByPos(Pos pos);
 }

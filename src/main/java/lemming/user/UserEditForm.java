@@ -203,6 +203,7 @@ public class UserEditForm extends Form<User> {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
+            // not needed because no data is ownded by a user
             ModalMessagePanel panel = (ModalMessagePanel) getPage().get("userDeleteDeniedPanel");
 
             if (getModelObject().equals(WebSession.get().getUser())) {

@@ -297,6 +297,37 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
+    public List<Lemma> findByPos(Pos pos) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Lemma> query = entityManager
+                    .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos " +
+                            "WHERE l.pos = :pos ORDER BY l.name", Lemma.class);
+            List<Lemma> lemmaList = query.setParameter("pos", pos).getResultList();
+            transaction.commit();
+            return lemmaList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public List<Lemma> findBySource(Source.LemmaType source) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
