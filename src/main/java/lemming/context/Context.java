@@ -22,7 +22,7 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, type, pos_id, lemma_id")})
+        @Index(columnList = "keyword, preceding, following, location, type, pos_string, lemma_string")})
 public class Context implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -83,16 +83,34 @@ public class Context implements Serializable {
     /**
      * Part of speech of a keyword in context.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pos_id")
     private Pos pos;
 
     /**
+     * Part of speech of a context as string.
+     *
+     * For better performance of the context index table.
+     */
+    @Column(name = "pos_string")
+    @JsonIgnore
+    private String posString;
+
+    /**
      * Lemma of a keyword in context.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lemma_id")
     private Lemma lemma;
+
+    /**
+     * Lemma of a context as string.
+     *
+     * For better performance of the context index table.
+     */
+    @Column(name = "lemma_string")
+    @JsonIgnore
+    private String lemmaString;
 
     /**
      * Selected state of a context.
@@ -273,6 +291,24 @@ public class Context implements Serializable {
     }
 
     /**
+     * Returns the part of speech of a context as string.
+     *
+     * @return Part of speech of a context as string.
+     */
+    public String getPosString() {
+        return posString;
+    }
+
+    /**
+     * Sets the part of speech string of a context.
+     *
+     * @param posString part of speech string of a context
+     */
+    public void setPosString(String posString) {
+        this.posString = posString;
+    }
+
+    /**
      * Returns the lemma of a context.
      *
      * @return Lemma of a context.
@@ -288,6 +324,24 @@ public class Context implements Serializable {
      */
     public void setLemma(Lemma lemma) {
         this.lemma = lemma;
+    }
+
+    /**
+     * Returns the lemma of a context as string.
+     *
+     * @return Lemma of a context as string.
+     */
+    public String getLemmaString() {
+        return lemmaString;
+    }
+
+    /**
+     * Sets the lemma string of a context.
+     *
+     * @param lemmaString lemma string of a context
+     */
+    public void setLemmaString(String lemmaString) {
+        this.lemmaString = lemmaString;
     }
 
     /**

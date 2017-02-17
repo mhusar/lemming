@@ -62,8 +62,8 @@ public class ContextEditPage extends BasePage {
 
         if (contextModel instanceof IModel) {
             Context context = contextModel.getObject();
-            this.contextModel = new CompoundPropertyModel<Context>(contextModel);
-            new ContextDao().refresh(context);
+            Context refreshedContext = new ContextDao().refresh(context);
+            this.contextModel = new CompoundPropertyModel<Context>(refreshedContext);
         }
     }
 

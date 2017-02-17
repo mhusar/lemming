@@ -7,8 +7,6 @@ import lemming.context.FollowingContextTextFilterColumn;
 import lemming.context.KeywordTextFilterColumn;
 import lemming.context.PrecedingContextTextFilterColumn;
 import lemming.data.GenericDataProvider;
-import lemming.lemma.LemmaTextFilterColumn;
-import lemming.pos.PosTextFilterColumn;
 import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.input.InputPanel;
@@ -135,10 +133,10 @@ public class LemmatisationPage extends EmptyBasePage {
         List<IColumn<Context, String>> columns = new ArrayList<>();
 
         columns.add(new ContextRowSelectColumn(Model.of(""), "selected"));
-        columns.add(new LemmaTextFilterColumn<Context,Context, String>(Model.of(getString("Context.lemma")),
-                "lemma.name", "lemma"));
-        columns.add(new PosTextFilterColumn<Context,Context,String>(Model.of(getString("Context.pos")),
-                "pos.name", "pos"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.lemma")),
+                "lemmaString", "lemmaString"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")),
+                "posString", "posString"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")),
                 "location", "location"));
         columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")), "preceding",

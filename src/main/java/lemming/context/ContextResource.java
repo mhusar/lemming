@@ -120,9 +120,8 @@ public class ContextResource {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            Iterator<Context> iterator = entityManager
-                    .createQuery("SELECT c FROM Context c WHERE c.keyword = :keyword ORDER BY c.location",
-                            Context.class)
+            Iterator<Context> iterator = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                            "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                     .setParameter("keyword", keyword).getResultList().iterator();
 
             while (iterator.hasNext()) {
@@ -218,9 +217,8 @@ public class ContextResource {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            Iterator<Context> iterator = entityManager
-                    .createQuery("SELECT c FROM Context c WHERE c.keyword = :keyword ORDER BY c.location",
-                            Context.class)
+            Iterator<Context> iterator = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                            "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                     .setParameter("keyword", keyword).getResultList().iterator();
             KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 
@@ -282,9 +280,9 @@ public class ContextResource {
                         while (results.next()) {
                             String keyword = results.getString(0);
                             EntityManager entityManager2 = EntityManagerListener.createEntityManager();
-                            Iterator<Context> iterator = entityManager2
-                                    .createQuery("SELECT c FROM Context c WHERE c.keyword = :keyword ORDER BY c.location",
-                                            Context.class)
+                            Iterator<Context> iterator = entityManager2.createQuery("SELECT c FROM Context c " +
+                                            "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
+                                            "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                                     .setParameter("keyword", keyword).getResultList().iterator();
                             KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 

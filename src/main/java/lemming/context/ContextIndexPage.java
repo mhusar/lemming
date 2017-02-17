@@ -2,8 +2,6 @@ package lemming.context;
 
 import lemming.auth.WebSession;
 import lemming.data.GenericDataProvider;
-import lemming.lemma.LemmaTextFilterColumn;
-import lemming.pos.PosTextFilterColumn;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
 import lemming.ui.page.BasePage;
@@ -85,10 +83,10 @@ public class ContextIndexPage extends BasePage {
     private List<IColumn<Context, String>> getColumns() {
         List<IColumn<Context, String>> columns = new ArrayList<IColumn<Context, String>>();
 
-        columns.add(new LemmaTextFilterColumn<Context, Context, String>(Model.of(getString("Context.lemma")),
-                "lemma.name", "lemma"));
-        columns.add(new PosTextFilterColumn<Context, Context, String>(Model.of(getString("Context.pos")),
-                "pos.name", "pos"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.lemma")),
+                "lemmaString", "lemmaString"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")),
+                "posString", "posString"));
         columns.add(new ContextTypeTextFilterColumn(Model.of(getString("Context.type")),
                 "type", "type"));
         columns.add(new TextFilterColumn<Context, Context, String>(Model.of(getString("Context.location")),

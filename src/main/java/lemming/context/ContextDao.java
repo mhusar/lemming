@@ -33,6 +33,52 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
     }
 
     /**
+     * Refreshes foreign key strings of a context.
+     *
+     * @param context the refreshed context
+     */
+    private void refreshForeignKeyStrings(Context context) {
+        if (context.getLemma() instanceof Lemma) {
+            context.setLemmaString(context.getLemma().getName());
+        }
+
+        if (context.getPos() instanceof Pos) {
+            context.setPosString(context.getPos().getName());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Context refresh(Context context) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            context = entityManager.merge(context);
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                    "LEFT JOIN FETCH c.pos WHERE c.id = :id", Context.class);
+            Context refreshedContext = query.setParameter("id", context.getId()).getSingleResult();
+            transaction.commit();
+            return refreshedContext;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws RuntimeException
@@ -48,6 +94,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
+            refreshForeignKeyStrings(context);
             entityManager.persist(context);
             transaction.commit();
         } catch (RuntimeException e) {
@@ -92,6 +139,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                     context.setUuid(UUID.randomUUID().toString());
                 }
 
+                refreshForeignKeyStrings(context);
                 entityManager.persist(context);
                 counter++;
 
@@ -126,6 +174,43 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      *
      * @throws RuntimeException
      */
+    public Context merge(Context context) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            Context mergedContext = entityManager.merge(context);
+            refreshForeignKeyStrings(mergedContext);
+            mergedContext = entityManager.merge(mergedContext);
+            transaction.commit();
+            return mergedContext;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(context, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(context, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Context findByKeyword(String keyword) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -133,8 +218,8 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<Context> query = entityManager
-                    .createQuery("FROM Context WHERE keyword = :keyword", Context.class);
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                    "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword", Context.class);
             List<Context> contextList = query.setParameter("keyword", keyword).getResultList();
             transaction.commit();
 
@@ -168,8 +253,8 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<Context> query = entityManager
-                    .createQuery("FROM Context WHERE keyword LIKE :substring", Context.class);
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                    "LEFT JOIN FETCH c.pos WHERE c.keyword LIKE :substring", Context.class);
             List<Context> contextList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return contextList;
@@ -198,8 +283,8 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<Context> query = entityManager
-                    .createQuery("FROM Context WHERE lemma = :lemma", Context.class);
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                    "LEFT JOIN FETCH c.pos WHERE c.lemma = :lemma", Context.class);
             List<Context> contextList = query.setParameter("lemma", lemma).getResultList();
             transaction.commit();
             return contextList;

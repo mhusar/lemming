@@ -1,5 +1,6 @@
 package lemming.lemma;
 
+import lemming.context.Context;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import lemming.data.Source;
@@ -36,13 +37,22 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @param lemma the refreshed lemma
      */
-    private void refreshForeignKeyStrings(Lemma lemma) {
+    private void refreshForeignKeyStrings(EntityManager entityManager, Lemma lemma) {
+        TypedQuery<Context> query = entityManager.createQuery("FROM Context WHERE lemma = :lemma", Context.class);
+
         if (lemma.getReplacement() instanceof Lemma) {
             lemma.setReplacementString(lemma.getReplacement().getName());
         }
 
         if (lemma.getPos() instanceof Pos) {
             lemma.setPosString(lemma.getPos().getName());
+        }
+
+        if (!isTransient(lemma)) {
+            List<Context> contextList = query.setParameter("lemma", lemma).getResultList();
+            for (Context context : contextList) {
+                context.setLemmaString(lemma.getName());
+            }
         }
     }
 
@@ -59,10 +69,11 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             lemma = entityManager.merge(lemma);
-            entityManager.refresh(lemma);
-            lemma.getSenses().size();
+            TypedQuery<Lemma> query = entityManager.createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
+                    "LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.senses WHERE l.id = :id", Lemma.class);
+            Lemma refresedLemma = query.setParameter("id", lemma.getId()).getSingleResult();
             transaction.commit();
-            return lemma;
+            return refresedLemma;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -92,7 +103,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            refreshForeignKeyStrings(lemma);
+            refreshForeignKeyStrings(entityManager, lemma);
             entityManager.persist(lemma);
             transaction.commit();
         } catch (RuntimeException e) {
@@ -137,7 +148,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
                     lemma.setUuid(UUID.randomUUID().toString());
                 }
 
-                refreshForeignKeyStrings(lemma);
+                refreshForeignKeyStrings(entityManager, lemma);
                 entityManager.persist(lemma);
                 counter++;
 
@@ -179,10 +190,11 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            refreshForeignKeyStrings(lemma);
-            Lemma mergedEntity = entityManager.merge(lemma);
+            Lemma mergedLemma = entityManager.merge(lemma);
+            refreshForeignKeyStrings(entityManager, mergedLemma);
+            mergedLemma = entityManager.merge(mergedLemma);
             transaction.commit();
-            return mergedEntity;
+            return mergedLemma;
         } catch (RuntimeException e) {
             e.printStackTrace();
 

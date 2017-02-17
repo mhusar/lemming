@@ -68,8 +68,8 @@ public class LemmaEditPage extends BasePage {
 
         if (lemmaModel instanceof IModel) {
             Lemma lemma = lemmaModel.getObject();
-            this.lemmaModel = new CompoundPropertyModel<Lemma>(lemmaModel);
-            new LemmaDao().refresh(lemma);
+            Lemma refreshedLemma = new LemmaDao().refresh(lemma);
+            this.lemmaModel = new CompoundPropertyModel<Lemma>(refreshedLemma);
         }
     }
 

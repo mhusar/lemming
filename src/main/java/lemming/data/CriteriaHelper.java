@@ -8,7 +8,6 @@ import org.apache.wicket.model.ResourceModel;
 
 import javax.persistence.criteria.*;
 import java.lang.reflect.Array;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -87,31 +86,25 @@ public final class CriteriaHelper {
                                                                          Root<?> root, Map<String,Join<?,?>> joins,
                                                                          String filter) {
         ContextType.Type type = matchContextType(filter);
-        Join<Context,Lemma> lemma = (Join<Context,Lemma>) joins.get("lemma");
-        Join<Context,Pos> pos = (Join<Context,Pos>) joins.get("pos");
 
         if (type != null) {
-            // optimize context search by ignoring replaced lemmata
-            return criteriaBuilder.and(criteriaBuilder.isNull(lemma.get("replacement")), criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(lemma.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(pos.get("name")), filter + "%".toUpperCase()),
+            return criteriaBuilder.or(
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("location")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("preceding")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("keyword")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase())
-                    )
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("lemmaString")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase())
             );
         } else {
-            // optimize context search by ignoring replaced lemmata
-            return criteriaBuilder.and(criteriaBuilder.isNull(lemma.get("replacement")), criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(lemma.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(pos.get("name")), filter + "%".toUpperCase()),
+            return criteriaBuilder.or(
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("location")), filter + "%".toUpperCase()),
                     criteriaBuilder.equal(root.get("type"), type),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("preceding")), filter + "%".toUpperCase()),
                     criteriaBuilder.like(criteriaBuilder.upper(root.get("keyword")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase())
-                    )
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("lemmaString")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase())
             );
         }
     }
@@ -192,39 +185,6 @@ public final class CriteriaHelper {
     }
 
     /**
-     * Returns automatically created context restrictions.
-     *
-     * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param joins map of joins
-     * @return An expression of type boolean, or null.
-     */
-    private static Expression<Boolean> getContextStringRestriction(CriteriaBuilder criteriaBuilder,
-                                                                   Root<?> root, Map<String,Join<?,?>> joins) {
-        // optimize context search by ignoring replaced lemmata
-        Join<Context,Lemma> lemma = (Join<Context,Lemma>) joins.get("lemma");
-        return criteriaBuilder.isNull(lemma.get("replacement"));
-    }
-
-    /**
-     * Returns automatically created restrictions.
-     *
-     * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param joins map of joins
-     * @param typeClass data type
-     * @return An expression of type boolean, or null.
-     */
-    public static Expression<Boolean> getStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
-                                                           Map<String,Join<?,?>> joins, Class<?> typeClass) {
-        if (typeClass.equals(Context.class)) {
-            return getContextStringRestriction(criteriaBuilder, root, joins);
-        }
-
-        return null;
-    }
-
-    /**
      * Returns an automatically created order object for a proprty string.
      *
      * @param criteriaBuilder contructor for criteria queries
@@ -261,14 +221,6 @@ public final class CriteriaHelper {
      * @return A map of joins, or null.
      */
     public static Map<String,Join<?,?>> getJoins(Root<?> root, Class<?> typeClass) {
-        Map<String,Join<?,?>> joins = new HashMap<String,Join<?,?>>();
-
-        if (typeClass.equals(Context.class)) {
-            joins.put("lemma", root.join("lemma", JoinType.LEFT));
-            joins.put("pos", root.join("pos", JoinType.LEFT));
-            return joins;
-        }
-
         return null;
     }
 }

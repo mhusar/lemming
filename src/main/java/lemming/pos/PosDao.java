@@ -1,8 +1,10 @@
 package lemming.pos;
 
+import lemming.context.Context;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import lemming.data.Source;
+import lemming.lemma.Lemma;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -28,6 +30,26 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
      */
     public Boolean isTransient(Pos pos) {
         return !(pos.getId() instanceof Integer);
+    }
+
+    /**
+     * Refreshes foreign key strings of a part of speech.
+     *
+     * @param pos the refreshed part of speech
+     */
+    private void refreshForeignKeyStrings(EntityManager entityManager, Pos pos) {
+        TypedQuery<Context> contextQuery = entityManager.createQuery("FROM Context WHERE pos = :pos", Context.class);
+        List<Context> contextList = contextQuery.setParameter("pos", pos).getResultList();
+        TypedQuery<Lemma> lemmaQuery = entityManager.createQuery("FROM Lemma WHERE pos = :pos", Lemma.class);
+        List<Lemma> lemmaList = lemmaQuery.setParameter("pos", pos).getResultList();
+
+        for (Context context : contextList) {
+            context.setPosString(pos.getName());
+        }
+
+        for (Lemma lemma : lemmaList) {
+            lemma.setPosString(pos.getName());
+        }
     }
 
     /**
@@ -64,6 +86,42 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             }
         } finally {
             entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Pos merge(Pos pos) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            refreshForeignKeyStrings(entityManager, pos);
+            Pos mergedPos = entityManager.merge(pos);
+            transaction.commit();
+            return mergedPos;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(pos, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(pos, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+            return null;
         }
     }
 
