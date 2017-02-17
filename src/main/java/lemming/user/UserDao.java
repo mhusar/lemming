@@ -58,7 +58,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
     /**
      * {@inheritDoc}
      */
-    @Override
     public Boolean isTransient(User user) {
         return !(user.getId() instanceof Integer);
     }
@@ -105,7 +104,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public Boolean isDefaultUserNeeded() throws RuntimeException {
         return getAll().isEmpty();
     }
@@ -115,7 +113,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public User findByUsername(String username) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -151,7 +148,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public User findByRealName(String realName) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -187,7 +183,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public List<User> getAll() throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -218,7 +213,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      * @throws InvalidKeySpecException
      * @throws NoSuchAlgorithmException
      */
-    @Override
     public Boolean authenticate(User user, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         if (user instanceof User) {
             String hashedPassword = hashPassword(password, user.getSalt());
@@ -280,7 +274,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      * @throws NoSuchAlgorithmException
      * @throws RuntimeException
      */
-    @Override
     public void createDefaultUser() throws InvalidKeySpecException, NoSuchAlgorithmException, RuntimeException {
         User defaultUser = new User();
         byte[] saltBytes = createRandomSaltBytes();

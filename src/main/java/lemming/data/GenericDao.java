@@ -225,7 +225,6 @@ public abstract class GenericDao<E> implements IDao<E> {
      *
      * @throws RestartResponseException
      */
-    @Override
     public void panicOnSaveLockingError(Object element, RuntimeException exception) {
         logger.error("A locking error occured. Redirect user to error page.");
 
@@ -242,7 +241,6 @@ public abstract class GenericDao<E> implements IDao<E> {
      *
      * @throws RestartResponseException
      */
-    @Override
     public void panicOnRemoveLockingError(Object element, RuntimeException exception) {
         logger.error("A locking error occured. Redirect user to failure page.");
 
@@ -259,7 +257,6 @@ public abstract class GenericDao<E> implements IDao<E> {
      *
      * @throws RestartResponseException
      */
-    @Override
     public void panicOnSaveUnresolvableObjectError(Object element, RuntimeException exception) {
         logger.error("An object was not resolvable. Redirect user to error page.");
 
@@ -277,7 +274,6 @@ public abstract class GenericDao<E> implements IDao<E> {
      *
      * @throws RestartResponseException
      */
-    @Override
     public void panicOnRemoveUnresolvableObjectError(Object element, RuntimeException exception) {
         logger.error("An object was not resolvable. Redirect user to error page.");
 

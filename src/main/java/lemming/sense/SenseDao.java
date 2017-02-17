@@ -29,7 +29,6 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
     /**
      * {@inheritDoc}
      */
-    @Override
     public Boolean isTransient(Sense sense) {
         return !(sense.getId() instanceof Integer);
     }
@@ -143,7 +142,6 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public List<Sense> findRootNodes(Lemma lemma) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

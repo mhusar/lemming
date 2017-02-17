@@ -26,7 +26,6 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
     /**
      * {@inheritDoc}
      */
-    @Override
     public Boolean isTransient(Pos pos) {
         return !(pos.getId() instanceof Integer);
     }
