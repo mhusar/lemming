@@ -89,22 +89,22 @@ public final class CriteriaHelper {
 
         if (type != null) {
             return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("location")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("preceding")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("keyword")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("lemmaString")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase())
+                    criteriaBuilder.like(root.get("location"), filter + "%"),
+                    criteriaBuilder.like(root.get("preceding"), filter + "%"),
+                    criteriaBuilder.like(root.get("keyword"), filter + "%"),
+                    criteriaBuilder.like(root.get("following"), filter + "%"),
+                    criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
+                    criteriaBuilder.like(root.get("posString"), filter + "%")
             );
         } else {
             return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("location")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(root.get("location"), filter + "%"),
                     criteriaBuilder.equal(root.get("type"), type),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("preceding")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("keyword")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("following")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("lemmaString")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase())
+                    criteriaBuilder.like(root.get("preceding"), filter + "%"),
+                    criteriaBuilder.like(root.get("keyword"), filter + "%"),
+                    criteriaBuilder.like(root.get("following"), filter + "%"),
+                    criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
+                    criteriaBuilder.like(root.get("posString"), filter + "%")
             );
         }
     }
@@ -123,19 +123,17 @@ public final class CriteriaHelper {
 
         if (source != null) {
             return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("replacementString")),
-                            filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(root.get("name"), filter + "%"),
+                    criteriaBuilder.like(root.get("replacementString"), filter + "%"),
+                    criteriaBuilder.like(root.get("posString"), filter + "%"),
                     criteriaBuilder.equal(root.get("source"), source),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("reference")), filter + "%".toUpperCase()));
+                    criteriaBuilder.like(root.get("reference"), filter + "%"));
         } else {
             return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("replacementString")),
-                            filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("posString")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("reference")), filter + "%".toUpperCase()));
+                    criteriaBuilder.like(root.get("name"), filter + "%"),
+                    criteriaBuilder.like(root.get("replacementString"), filter + "%"),
+                    criteriaBuilder.like(root.get("posString"), filter + "%"),
+                    criteriaBuilder.like(root.get("reference"), filter + "%"));
         }
     }
 
@@ -153,10 +151,10 @@ public final class CriteriaHelper {
 
         if (source != null) {
             return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase()),
+                    criteriaBuilder.like(root.get("name"), filter + "%"),
                     criteriaBuilder.equal(root.get("source"), source));
         } else {
-            return criteriaBuilder.like(criteriaBuilder.upper(root.get("name")), filter + "%".toUpperCase());
+            return criteriaBuilder.like(root.get("name"), filter + "%");
         }
     }
 
@@ -207,9 +205,9 @@ public final class CriteriaHelper {
         }
 
         if (isAscending) {
-            return criteriaBuilder.asc(criteriaBuilder.upper(expression));
+            return criteriaBuilder.asc(expression);
         } else {
-            return criteriaBuilder.desc(criteriaBuilder.upper(expression));
+            return criteriaBuilder.desc(expression);
         }
     }
 

@@ -216,14 +216,14 @@ public final class SenseDataProvider extends SortableDataProvider<SenseWrapper, 
                 String senseString = state.getSenseString();
 
                 if (lemmaString instanceof String) {
-                    Expression<String> expression = criteriaBuilder.upper(lemma.get("name"));
-                    String filter = lemmaString + "%".toUpperCase();
+                    Expression<String> expression = lemma.get("name");
+                    String filter = lemmaString + "%";
                     predicateList.add(criteriaBuilder.like(expression, filter));
                 }
 
                 if (senseString instanceof String) {
-                    Expression<String> expression = criteriaBuilder.upper(senses.get("meaning"));
-                    String filter = senseString + "%".toUpperCase();
+                    Expression<String> expression = senses.get("meaning");
+                    String filter = senseString + "%";
                     predicateList.add(criteriaBuilder.like(expression, filter));
                 }
             }
@@ -248,8 +248,8 @@ public final class SenseDataProvider extends SortableDataProvider<SenseWrapper, 
                                                              ListJoin<Lemma, Sense> senses) {
         if (filter instanceof String) {
             return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.upper(lemma.get("name")), filter + "%".toUpperCase()),
-                    criteriaBuilder.like(criteriaBuilder.upper(senses.get("meaning")), filter + "%".toUpperCase()));
+                    criteriaBuilder.like(lemma.get("name"), filter + "%"),
+                    criteriaBuilder.like(senses.get("meaning"), filter + "%"));
         }
 
         return null;

@@ -239,8 +239,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
 
                 if (value != null) {
                     if (value instanceof String) {
-                        Expression<String> expression = criteriaBuilder.upper(root.get(field.getName()));
-                        String filter = (String) value + "%".toUpperCase();
+                        Expression<String> expression = root.get(field.getName());
+                        String filter = (String) value + "%";
                         predicateList.add(criteriaBuilder.like(expression, filter));
                     } else {
                         Expression<String> expression = root.get(field.getName());
