@@ -168,4 +168,36 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             entityManager.close();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public String getPosName(Pos pos) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            pos = entityManager.merge(pos);
+            entityManager.refresh(pos);
+            TypedQuery<String> query = entityManager
+                    .createQuery("SELECT name FROM Pos WHERE id = :id", String.class);
+            String lemmaName = query.setParameter("id", pos.getId()).getSingleResult();
+            transaction.commit();
+            return lemmaName;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
 }

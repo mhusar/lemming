@@ -32,4 +32,12 @@ public interface IPosDao extends IDao<Pos> {
      * @return A list of matching parts of speech.
      */
     List<Pos> findBySource(Source.PosType source);
+
+    /**
+     * Returns the name of a lemma.
+     *
+     * @param pos a part of speech
+     * @return Name of a part of speech.
+     */
+    String getPosName(Pos pos);
 }

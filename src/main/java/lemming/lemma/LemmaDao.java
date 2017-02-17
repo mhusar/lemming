@@ -3,6 +3,7 @@ package lemming.lemma;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import lemming.data.Source;
+import lemming.pos.Pos;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -26,9 +27,23 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
     /**
      * {@inheritDoc}
      */
-    @Override
     public Boolean isTransient(Lemma lemma) {
         return !(lemma.getId() instanceof Integer);
+    }
+
+    /**
+     * Refreshes foreign key strings of a lemma.
+     *
+     * @param lemma the refreshed lemma
+     */
+    private void refreshForeignKeyStrings(Lemma lemma) {
+        if (lemma.getReplacement() instanceof Lemma) {
+            lemma.setReplacementString(lemma.getReplacement().getName());
+        }
+
+        if (lemma.getPos() instanceof Pos) {
+            lemma.setPosString(lemma.getPos().getName());
+        }
     }
 
     /**
@@ -77,6 +92,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
+            refreshForeignKeyStrings(lemma);
             entityManager.persist(lemma);
             transaction.commit();
         } catch (RuntimeException e) {
@@ -121,6 +137,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
                     lemma.setUuid(UUID.randomUUID().toString());
                 }
 
+                refreshForeignKeyStrings(lemma);
                 entityManager.persist(lemma);
                 counter++;
 
@@ -147,6 +164,42 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             }
         } finally {
             entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Lemma merge(Lemma lemma) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            refreshForeignKeyStrings(lemma);
+            Lemma mergedEntity = entityManager.merge(lemma);
+            transaction.commit();
+            return mergedEntity;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(lemma, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(lemma, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+            return null;
         }
     }
 
@@ -206,7 +259,6 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public List<Lemma> findByNameStart(String substring, Boolean excludeReplacements) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -357,7 +409,6 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public String getLemmaName(Lemma lemma) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -390,7 +441,6 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
-    @Override
     public List<Lemma> getAll() {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;

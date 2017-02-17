@@ -26,7 +26,7 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "name, replacement_id, replacement_string, pos_string, source, reference")})
+        @Index(columnList = "name, replacement_string, pos_string, source, reference")})
 public class Lemma implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -70,6 +70,8 @@ public class Lemma implements Serializable {
 
     /**
      * Replacement of a lemma as string.
+     *
+     * For better performance of the lemma index table.
      */
     @Column(name = "replacement_string")
     @JsonIgnore
@@ -84,6 +86,9 @@ public class Lemma implements Serializable {
 
     /**
      * Part of speech of a lemma as string.
+     *
+     * For better performance of the lemma index table. TL lemmata don’t have a pos object because of different part
+     * of speech names.
      */
     @Column(name = "pos_string")
     private String posString;
@@ -206,25 +211,21 @@ public class Lemma implements Serializable {
      */
     public void setReplacement(Lemma replacement) {
         this.replacement = replacement;
-
-        if (replacement instanceof Lemma) {
-            replacementString = replacement.getName();
-        } else {
-            replacementString = null;
-        }
     }
 
     /**
+     * Returns the replacement string of a lemma.
      *
-     * @return
+     * @return Replacement string of a lemma.
      */
     public String getReplacementString() {
         return replacementString;
     }
 
     /**
+     * Sets the replacement string of a lemma.
      *
-     * @param replacementString
+     * @param replacementString replacement string of a lemma
      */
     public void setReplacementString(String replacementString) {
         this.replacementString = replacementString;

@@ -89,14 +89,7 @@ public class PosTextField extends TextField<Pos> {
             @Override
             public String convertToString(C pos, Locale locale) {
                 if (pos instanceof Pos) {
-                    try {
-                        return ((Pos) pos).getName();
-                    } catch (LazyInitializationException e) {
-                        Pos castedPos = (Pos) pos;
-
-                        new PosDao().refresh(castedPos);
-                        return castedPos.getName();
-                    }
+                    return new PosDao().getPosName((Pos) pos);
                 }
 
                 return null;
