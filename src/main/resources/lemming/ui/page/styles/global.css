@@ -21,15 +21,12 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: "Helvetica Neue";
-  src: url("../fonts/FiraSans-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
 html {
   text-rendering: optimizelegibility;
+}
+
+body {
+  font-family: "Fira Sans";
 }
 
 .basePage {
@@ -338,7 +335,6 @@ table th a span {
 .inputPanel {
   bottom: 0;
   color: #37474F;
-  font-family: "Fira Sans";
   font-size: 120%;
   font-weight: 400;
   left: 0;
