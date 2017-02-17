@@ -123,7 +123,7 @@
   <entry key="PosEditPage.newHeader">Create part of speech</entry>
   <entry key="PosIndexPage.header">Parts of speech</entry>
   <entry key="PosIndexPage.new">Create part of speech</entry>
-  <entry key="PosType.DEAF">Dictionnaire Étymologique de l'Ancien Français</entry>
+  <entry key="PosType.DEAF">DEAF</entry>
   <entry key="PosType.USER">User-generated</entry>
   <entry key="ResourcePage.contexts">Contexts</entry>
   <entry key="ResourcePage.downloadContextKwicIndex">Download contexts as KWIC index</entry>

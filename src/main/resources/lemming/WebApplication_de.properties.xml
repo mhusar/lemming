@@ -126,7 +126,7 @@
   <entry key="PosEditPage.newHeader">Wortart erstellen</entry>
   <entry key="PosIndexPage.header">Wortarten</entry>
   <entry key="PosIndexPage.new">Wortart erstellen</entry>
-  <entry key="PosType.DEAF">Dictionnaire Étymologique de l'Ancien Français</entry>
+  <entry key="PosType.DEAF">DEAF</entry>
   <entry key="PosType.USER">Benutzer</entry>
   <entry key="ResourcePage.contexts">Kontexte</entry>
   <entry key="ResourcePage.downloadContextKwicIndex">Kontexte als KWIC-Index herunterladen</entry>
