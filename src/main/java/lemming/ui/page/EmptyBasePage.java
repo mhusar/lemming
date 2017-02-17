@@ -1,8 +1,6 @@
 package lemming.ui.page;
 
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.http.WebResponse;
@@ -53,35 +51,30 @@ public class EmptyBasePage extends WebPage {
      *            the response object
      */
     public void renderHead(IHeaderResponse response) {
-        PackageResourceReference jQueryUiStyle = new CssResourceReference(EmptyBasePage.class,
-                "styles/jquery-ui.css");
-        PackageResourceReference bootstrapStyle = new CssResourceReference(EmptyBasePage.class,
-                "styles/bootstrap.css");
-        PackageResourceReference bootstrapThemeStyle = new CssResourceReference(EmptyBasePage.class,
-                "styles/bootstrap-theme.css");
-        PackageResourceReference globalStyle = new JavaScriptResourceReference(EmptyBasePage.class,
-                "styles/global.css");
-        PackageResourceReference jQueryUiScript = new JavaScriptResourceReference(EmptyBasePage.class,
-                "scripts/jquery-ui.min.js");
-        PackageResourceReference bootstrapScript = new JavaScriptResourceReference(EmptyBasePage.class,
-                "scripts/bootstrap.js");
+        PackageResourceReference globalStyle = new CssResourceReference(EmptyBasePage.class, "styles/global.css");
         PackageResourceReference globalScript = new JavaScriptResourceReference(EmptyBasePage.class,
                 "scripts/global.js");
 
-        CssHeaderItem jQueryUiStyleItem = CssHeaderItem.forReference(jQueryUiStyle);
-        CssHeaderItem bootstrapStyleItem = CssHeaderItem.forReference(bootstrapStyle);
-        CssHeaderItem bootstrapThemeStyleItem = CssHeaderItem.forReference(bootstrapThemeStyle);
+        HeaderItem jQueryUiStyleItem = CssUrlReferenceHeaderItem
+                .forUrl("/webjars/jquery-ui/1.12.1/jquery-ui.min.css");
+        HeaderItem bootstrapStyleItem = CssUrlReferenceHeaderItem
+                .forUrl("/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css");
+        HeaderItem bootstrapThemeStyleItem = CssUrlReferenceHeaderItem
+                .forUrl("/webjars/bootstrap/3.3.7-1/css/bootstrap-theme.min.css");
         CssHeaderItem globalStyleItem = CssHeaderItem.forReference(globalStyle);
-        JavaScriptHeaderItem jQueryUiScriptItem = JavaScriptHeaderItem.forReference(jQueryUiScript);
-        JavaScriptHeaderItem bootstrapScriptItem = JavaScriptHeaderItem.forReference(bootstrapScript);
+        HeaderItem jqueryScriptItem = JavaScriptHeaderItem.forReference(getApplication()
+                .getJavaScriptLibrarySettings().getJQueryReference());
+        HeaderItem jQueryUiScriptItem = JavaScriptUrlReferenceHeaderItem
+                .forUrl("/webjars/jquery-ui/1.12.1/jquery-ui.min.js");
+        HeaderItem bootstrapScriptItem = JavaScriptUrlReferenceHeaderItem
+                .forUrl("/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js");
         JavaScriptHeaderItem globalScriptItem = JavaScriptHeaderItem.forReference(globalScript);
 
         response.render(jQueryUiStyleItem);
         response.render(bootstrapStyleItem);
         response.render(bootstrapThemeStyleItem);
         response.render(globalStyleItem);
-        response.render(JavaScriptHeaderItem
-                .forReference(getApplication().getJavaScriptLibrarySettings().getJQueryReference()));
+        response.render(jqueryScriptItem);
         response.render(jQueryUiScriptItem);
         response.render(bootstrapScriptItem);
         response.render(globalScriptItem);

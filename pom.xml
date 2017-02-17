@@ -25,6 +25,8 @@
         <log4j.version>1.2.17</log4j.version>
         <junit.version>4.12</junit.version>
         <wicket.version>7.5.0</wicket.version>
+        <bootstrap.version>3.3.7-1</bootstrap.version>
+        <jquery.ui.version>1.12.1</jquery.ui.version>
     </properties>
 
     <repositories>
@@ -238,6 +240,17 @@
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
             <version>${wicket.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-ui</artifactId>
+            <version>${jquery.ui.version}</version>
         </dependency>
 
     </dependencies>

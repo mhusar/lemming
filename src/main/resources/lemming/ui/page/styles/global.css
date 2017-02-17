@@ -123,9 +123,6 @@ html {
   position: absolute;
   top: 30%;
   transform: translate(-50%, -50%) !important;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  -webkit-hyphens: none;
 }
 
 .navbar-left {
