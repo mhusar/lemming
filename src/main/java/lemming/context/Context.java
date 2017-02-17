@@ -59,6 +59,7 @@ public class Context implements Serializable {
     /**
      * Type of a context.
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private ContextType.Type type;
 
