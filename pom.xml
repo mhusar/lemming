@@ -110,7 +110,6 @@
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
-                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>environment</name>
                     <value>dev</value>
@@ -129,6 +128,7 @@
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
+  		<activeByDefault>true</activeByDefault>
                 <property>
                     <name>environment</name>
                     <value>prod</value>
