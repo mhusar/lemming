@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,7 +31,22 @@ public class ContextXmlReader implements ErrorHandler {
     /**
      * A logger named corresponding to this class.
      */
-    private static final Logger logger = LoggerFactory.getLogger(ContextXmlReader.class);
+    public static final Logger logger = LoggerFactory.getLogger(ContextXmlReader.class);
+
+    /**
+     * A SaxException with error occurred.
+     */
+    public static final int ERROR = 0;
+
+    /**
+     * A SaxException with fatal error occurred.
+     */
+    public static final int FATAL_ERROR = 1;
+
+    /**
+     * A SaxException with warning occurred.
+     */
+    public static final int WARNING = 2;
 
     /**
      * Target that produces an Ajax response
@@ -38,59 +54,57 @@ public class ContextXmlReader implements ErrorHandler {
     private AjaxRequestTarget target;
 
     /**
-     * A data access object for contexts.
+     *
      */
-    private transient ContextDao contextDao = new ContextDao();
+    private ContextImportForm form;
 
     /**
      * Creates a context XML reader.
      *
      * @param target target that produces an Ajax response
      */
-    public ContextXmlReader(AjaxRequestTarget target) {
+    public ContextXmlReader(AjaxRequestTarget target, ContextImportForm form) {
         this.target = target;
+        this.form = form;
     }
 
     /**
      * Receive notification of a recoverable error.
      *
-     * @param e error information encapsulated in a SAX parse exception
+     * @param exception error information encapsulated in a SAX parse exception
      * @throws SAXException
      */
     @Override
-    public void error(SAXParseException e) throws SAXException {
-        e.printStackTrace();
+    public void error(SAXParseException exception) throws SAXException {
+        form.onException(target, exception, ERROR);
+        logger.error("Validation of context XML file failed.", exception);
+        throw (exception);
     }
 
     /**
      * Receive notification of a non-recoverable error.
      *
-     * @param e error information encapsulated in a SAX parse exception
+     * @param exception error information encapsulated in a SAX parse exception
      * @throws SAXException
      */
     @Override
-    public void fatalError(SAXParseException e) throws SAXException {
-        e.printStackTrace();
+    public void fatalError(SAXParseException exception) throws SAXException {
+        form.onException(target, exception, FATAL_ERROR);
+        logger.error("Validation of context XML file failed.", exception);
+        throw (exception);
     }
 
     /**
      * Receive notification of a warning.
      *
-     * @param e warning information encapsulated in a SAX parse exception
+     * @param exception warning information encapsulated in a SAX parse exception
      * @throws SAXException
      */
     @Override
-    public void warning(SAXParseException e) throws SAXException {
-        e.printStackTrace();
-    }
-
-    /**
-     * Receive notification of a XML read error.
-     *
-     * @param e error information encapsulated in a XML stream exception
-     */
-    public void onReadError(Exception e) {
-        logger.error("Reading of context XML file failed.", e);
+    public void warning(SAXParseException exception) throws SAXException {
+        form.onException(target, exception, WARNING);
+        logger.error("There was a warning during validation of a context.", exception);
+        throw (exception);
     }
 
     /**
@@ -135,36 +149,32 @@ public class ContextXmlReader implements ErrorHandler {
      * Reads context XML from an input stream.
      *
      * @param inputStream input stream
+     * @return A list of contexts or null.
      */
-    public List<Context> readXml(InputStream inputStream) {
+    public List<Context> readXml(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         List<Context> contexts = new ArrayList<Context>();
+        XMLEventReader reader = factory.createXMLEventReader(inputStream);
+        Context context;
 
-        try {
-            XMLEventReader reader = factory.createXMLEventReader(inputStream);
-            Context context = null;
+        while (reader.hasNext()) {
+            XMLEvent event = reader.nextEvent();
 
-            while (reader.hasNext()) {
-                XMLEvent event = reader.nextEvent();
+            switch (event.getEventType()) {
+                case XMLStreamConstants.START_ELEMENT:
+                    StartElement startElement = event.asStartElement();
 
-                switch (event.getEventType()) {
-                    case XMLStreamConstants.START_ELEMENT:
-                        StartElement startElement = event.asStartElement();
+                    if (startElement.getName().getLocalPart().equals("item")) {
+                        context = getContext(startElement);
+                        context.setKeyword(reader.getElementText());
+                        contexts.add(context);
+                    }
 
-                        if (startElement.getName().getLocalPart().equals("item")) {
-                            context = getContext(startElement);
-                            context.setKeyword(reader.getElementText());
-                            contexts.add(context);
-                        }
-
-                        break;
-                    case XMLStreamConstants.END_DOCUMENT:
-                        reader.close();
-                        break;
-                }
+                    break;
+                case XMLStreamConstants.END_DOCUMENT:
+                    reader.close();
+                    break;
             }
-        } catch (XMLStreamException e) {
-            onReadError(e);
         }
 
         return contexts;
@@ -185,19 +195,13 @@ public class ContextXmlReader implements ErrorHandler {
      *
      * @param inputStream input stream
      */
-    public void validateXml(InputStream inputStream) throws RuntimeException {
+    public void validateXml(InputStream inputStream) throws IOException, SAXException {
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        InputStream schemaStream = getSchema();
+        Schema schema = schemaFactory.newSchema(new StreamSource(schemaStream));
+        Validator validator = schema.newValidator();
 
-        try {
-            InputStream schemaStream = getSchema();
-            Schema schema = schemaFactory.newSchema(new StreamSource(schemaStream));
-            Validator validator = schema.newValidator();
-
-            validator.setErrorHandler(this);
-            validator.validate(new StreamSource(inputStream));
-        } catch (Exception e) {
-            logger.error("Validation of context XML file failed.", e);
-            throw new IllegalStateException(e);
-        }
+        validator.setErrorHandler(this);
+        validator.validate(new StreamSource(inputStream));
     }
 }
