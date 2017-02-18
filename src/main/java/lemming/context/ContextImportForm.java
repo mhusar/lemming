@@ -8,7 +8,9 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.util.lang.Bytes;
+import org.xml.sax.SAXException;
 
+import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +24,26 @@ public class ContextImportForm extends Form<Void> {
     private static final long serialVersionUID = 1L;
 
     /**
+     * An IOException occurred.
+     */
+    private static final int IO_ERROR = 3;
+
+    /**
+     * A SAXException occurred.
+     */
+    private static final int SAX_ERROR = 4;
+
+    /**
+     * A XMLStreamException occurred.
+     */
+    private static final int XML_STREAM_ERROR = 5;
+
+    /**
+     * A panel providing drag and drop file uploads.
+     */
+    private static DropzonePanel dropzonePanel;
+
+    /**
      * Creates a context import form.
      *
      * @param id ID of the form
@@ -29,8 +51,8 @@ public class ContextImportForm extends Form<Void> {
     public ContextImportForm(String id) {
         super(id);
         setMultiPart(true);
-        setMaxSize(Bytes.megabytes(5));
-        setFileMaxSize(Bytes.megabytes(5));
+        setMaxSize(Bytes.megabytes(10));
+        setFileMaxSize(Bytes.megabytes(10));
     }
 
     /**
@@ -39,14 +61,64 @@ public class ContextImportForm extends Form<Void> {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        DropzonePanel dropzonePanel = new DropzonePanel("dropzone");
+        dropzonePanel = new DropzonePanel("dropzone");
         SubmitButton submitButton = new SubmitButton("submitButton");
 
         add(dropzonePanel);
         dropzonePanel.registerSubmitListener(submitButton);
         getPage().add(new ToHomePageButton("toHomePageButton"));
         getPage().add(submitButton);
+    }
+
+    /**
+     * Called on submit of the dropzone panel.
+     *
+     * @param target target that produces an Ajax response
+     * @param fileItem object representing a file for a form item
+     */
+    public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
+        ContextXmlReader xmlReader = new ContextXmlReader(target, this);
+        List<Context> contexts = null;
+        Boolean isXmlValid = false;
+
+        try {
+            xmlReader.validateXml(fileItem.getInputStream());
+            isXmlValid = true;
+        } catch (IOException e) {
+            onException(target, e, IO_ERROR);
+        } catch (SAXException e) {
+            onException(target, e, SAX_ERROR);
+        }
+
+        if (isXmlValid) {
+            try {
+                contexts = xmlReader.readXml(fileItem.getInputStream());
+            } catch (IOException e) {
+                onException(target, e, IO_ERROR);
+            } catch (XMLStreamException e) {
+                onException(target, e, XML_STREAM_ERROR);
+            }
+        }
+
+        if (contexts instanceof List) {
+            new ContextDao().batchPersist(contexts);
+            dropzonePanel.showMessage(target);
+        }
+    }
+
+    /**
+     * Called when an exception occurs.
+     *
+     * @param target target that produces an Ajax response
+     * @param exception exception which occurred.
+     * @param type type of exception
+     */
+    public void onException(AjaxRequestTarget target, Exception exception, int type) {
+        if (type == ContextXmlReader.WARNING) {
+            return;
+        }
+
+        dropzonePanel.setErrorMessage(target, exception.getMessage());
     }
 
     /**
@@ -100,15 +172,7 @@ public class ContextImportForm extends Form<Void> {
          */
         @Override
         public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
-            ContextXmlReader xmlReader = new ContextXmlReader(target);
-
-            try {
-                xmlReader.validateXml(fileItem.getInputStream());
-                List<Context> contexts = xmlReader.readXml(fileItem.getInputStream());
-                new ContextDao().batchPersist(contexts);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ContextImportForm.this.onSubmit(target, fileItem);
         }
     }
 }

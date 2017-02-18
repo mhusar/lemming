@@ -17,8 +17,6 @@ jQuery(document).one("click", "#${submitButtonId}", function () {
             jQuery("#dropzone-submit").remove();
             script[0].appendChild(document.createCDATASection(javaScript));
             jQuery("body").append(script[0]);
-            jQuery(".filename", dropzone).hide().text("");
-            jQuery(".message", dropzone).fadeIn();
         });
     }
 });

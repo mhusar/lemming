@@ -3,10 +3,15 @@ package lemming.ui.panel;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.head.*;
+import org.apache.wicket.markup.head.CssReferenceHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.protocol.http.servlet.MultipartServletWebRequest;
@@ -23,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *A panel providing drag and drop file uploads.
+ * A panel providing drag and drop file uploads.
  */
 public class DropzonePanel extends Panel {
     /**
@@ -39,6 +44,8 @@ public class DropzonePanel extends Panel {
         void onSubmit(AjaxRequestTarget target, FileItem fileItem);
     }
 
+    private FileItem fileItem;
+
     /**
      * Creates a dropzone panel.
      *
@@ -46,9 +53,14 @@ public class DropzonePanel extends Panel {
      */
     public DropzonePanel(String id) {
         super(id);
+        setMarkupId(id);
         FileUploadField fileUploadField = new FileUploadField("file");
+        MarkupContainer messageContainer = new WebMarkupContainer("message");
+        MarkupContainer errorMessageContainer = new WebMarkupContainer("errorMessage");
 
         add(fileUploadField);
+        add(messageContainer);
+        add(errorMessageContainer);
         add(new FileDropBehavior(fileUploadField.getMarkupId()));
     }
 
@@ -64,6 +76,29 @@ public class DropzonePanel extends Panel {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Shows an info message.
+     *
+     * @param target target that produces an Ajax response
+     */
+    public void showMessage(AjaxRequestTarget target) {
+        String javaScript = "jQuery('#" + getMarkupId() + " .filename').hide().text(''); " +
+                "jQuery('#" + getMarkupId() + " .message').fadeIn();";
+        target.appendJavaScript(javaScript);
+    }
+
+    /**
+     * Sets an error message if an exception occurred.
+     *
+     * @param target target that produces an Ajax response
+     * @param message error message
+     */
+    public void setErrorMessage(AjaxRequestTarget target, String message) {
+        String javaScript = "jQuery('#" + getMarkupId() + " .filename').hide().text(''); " +
+                "jQuery('#" + getMarkupId() + " .error-message').text('" + message + "').fadeIn();";
+        target.appendJavaScript(javaScript);
     }
 
     /**
@@ -93,7 +128,8 @@ public class DropzonePanel extends Panel {
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
-            PackageResourceReference cssReference = new CssResourceReference(DropzonePanel.class, "styles/dropzone.css");
+            PackageResourceReference cssReference = new CssResourceReference(DropzonePanel.class,
+                    "styles/dropzone.css");
             PackageTextTemplate javascriptTemplate = new PackageTextTemplate(DropzonePanel.class,
                     "scripts/dropzone-formdata.js");
             Map<String, Object> map = new HashMap<>();
@@ -155,18 +191,62 @@ public class DropzonePanel extends Panel {
 
                 if (parameterIterator.hasNext()) {
                     MultipartServletWebRequest multipartRequest = request
-                            .newMultipartWebRequest(Bytes.megabytes(5), "ignored");
+                            .newMultipartWebRequest(Bytes.megabytes(10), "ignored");
+                    multipartRequest.parseFileParts();
+                    List<FileItem> fileItems = multipartRequest.getFiles().get("file");
+
+                    if (fileItems != null) {
+                        if (fileItems.size() > 0) {
+                            fileItem = fileItems.get(0);
+                        }
+                    }
+                }
+            } catch (FileUploadException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Implementation of a file submit behavior.
+     */
+    private class FileProcessBehavior extends AbstractDefaultAjaxBehavior {
+        /**
+         * ID of a dropzone.
+         */
+        private String dropzoneId;
+
+        /**
+         * Creates a file process behavior.
+         *
+         * @param dropzoneId ID of a dropzone
+         */
+        public FileProcessBehavior(String dropzoneId) {
+            this.dropzoneId = dropzoneId;
+        }
+
+        /**
+         * Generates a response.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        protected void respond(AjaxRequestTarget target) {
+            ServletWebRequest request = (ServletWebRequest) RequestCycle.get().getRequest();
+
+            try {
+                Iterator<String> parameterIterator = request.getRequestParameters().getParameterNames().iterator();
+
+                if (parameterIterator.hasNext()) {
+                    MultipartServletWebRequest multipartRequest = request
+                            .newMultipartWebRequest(Bytes.megabytes(10), "ignored");
                     multipartRequest.parseFileParts();
                     List<FileItem> fileItems = multipartRequest.getFiles().get("file");
                     SubmitListener listener = (SubmitListener) getComponent();
 
                     if (fileItems != null) {
                         if (fileItems.size() > 0) {
-                            try {
-                                listener.onSubmit(target, fileItems.get(0));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                            listener.onSubmit(target, fileItems.get(0));
                         }
                     }
                 }
