@@ -12,6 +12,10 @@
             <param-value>lemming.WebApplication</param-value>
         </init-param>
         <init-param>
+            <param-name>wicket.configuration</param-name>
+            <param-value>${wicket.configuration}</param-value>
+        </init-param>
+        <init-param>
             <param-name>session-timeout</param-name>
             <param-value>180</param-value>
         </init-param>
@@ -32,6 +36,10 @@
         <init-param>
             <param-name>applicationClassName</param-name>
             <param-value>lemming.WebApplication</param-value>
+        </init-param>
+        <init-param>
+            <param-name>wicket.configuration</param-name>
+            <param-value>${wicket.configuration}</param-value>
         </init-param>
         <init-param>
             <param-name>session-timeout</param-name>

@@ -59,6 +59,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${maven.war.plugin.version}</version>
                 <configuration>
+                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                     <webResources>
                         <resource>
                             <filtering>true</filtering>
@@ -67,24 +68,6 @@
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>db.properties</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -101,39 +84,41 @@
 
     <profiles>
         <profile>
-            <id>profile-development</id>
+            <id>deployment</id>
             <properties>
-                <environment>dev</environment>
-                <db.username>${db.username.dev}</db.username>
-                <db.password>${db.password.dev}</db.password>
-                <db.url>${db.url.dev}</db.url>
-                <db.hbm2ddl.auto>${db.hbm2ddl.auto.dev}</db.hbm2ddl.auto>
+                <environment>deployment</environment>
+                <wicket.configuration>deployment</wicket.configuration>
+                <db.username>lemming</db.username>
+                <db.password></db.password>
+                <db.url>jdbc:mysql://localhost/lemming</db.url>
+                <db.hbm2ddl.auto>validate</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>environment</name>
-                    <value>dev</value>
+                    <value>deployment</value>
                 </property>
             </activation>
         </profile>
         <profile>
-            <id>profile-production</id>
+            <id>development</id>
             <properties>
-                <environment>prod</environment>
-                <db.username>${db.username.prod}</db.username>
-                <db.password>${db.password.prod}</db.password>
-                <db.url>${db.url.prod}</db.url>
-                <db.hbm2ddl.auto>${db.hbm2ddl.auto.prod}</db.hbm2ddl.auto>
+                <environment>development</environment>
+                <wicket.configuration>development</wicket.configuration>
+                <db.username>lemming</db.username>
+                <db.password></db.password>
+                <db.url>jdbc:mysql://localhost/lemming</db.url>
+                <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
-  		<activeByDefault>true</activeByDefault>
                 <property>
                     <name>environment</name>
-                    <value>prod</value>
+                    <value>development</value>
                 </property>
             </activation>
         </profile>
