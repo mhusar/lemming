@@ -4,16 +4,34 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
     <display-name>lemming</display-name>
+    <servlet>
+        <servlet-name>lemming</servlet-name>
+        <servlet-class>org.apache.wicket.protocol.http.WicketServlet</servlet-class>
+        <init-param>
+            <param-name>applicationClassName</param-name>
+            <param-value>lemming.WebApplication</param-value>
+        </init-param>
+        <init-param>
+            <param-name>session-timeout</param-name>
+            <param-value>180</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>10485760</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>lemming</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>WicketFilter</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
             <param-value>lemming.WebApplication</param-value>
-        </init-param>
-        <init-param>
-            <param-name>wicket.configuration</param-name>
-            <param-value>deployment</param-value>
         </init-param>
         <init-param>
             <param-name>session-timeout</param-name>
@@ -41,14 +59,10 @@
         <url-pattern>/api/*</url-pattern>
     </filter-mapping>
     <listener>
-        <listener-class>
-            lemming.data.EntityManagerListener
-        </listener-class>
+        <listener-class>lemming.data.EntityManagerListener</listener-class>
     </listener>
     <listener>
-        <listener-class>
-            lemming.data.JsonDataListener
-        </listener-class>
+        <listener-class>lemming.data.JsonDataListener</listener-class>
     </listener>
     <servlet>
         <servlet-name>jersey-servlet</servlet-name>
