@@ -20,6 +20,8 @@
     <entry key="Action.save">Speichern</entry>
     <entry key="Action.submit">Absenden</entry>
     <entry key="Action.view">Ansehen</entry>
+    <entry key="AlertPanel.error">Fehler</entry>
+    <entry key="AlertPanel.warning">Warnung</entry>
     <entry key="Character.character">Sonderzeichen</entry>
     <entry key="Character.position">Position</entry>
     <entry key="CharacterEditPage.addCharacter">Sonderzeichen hinzufügen</entry>

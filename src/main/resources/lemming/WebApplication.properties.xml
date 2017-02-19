@@ -20,6 +20,8 @@
     <entry key="Action.save">Save</entry>
     <entry key="Action.submit">Submit</entry>
     <entry key="Action.view">View</entry>
+    <entry key="AlertPanel.error">Error</entry>
+    <entry key="AlertPanel.warning">Warning</entry>
     <entry key="Character.character">Special character</entry>
     <entry key="Character.position">Position</entry>
     <entry key="CharacterEditPage.addCharacter">Add character</entry>
