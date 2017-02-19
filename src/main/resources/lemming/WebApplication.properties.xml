@@ -41,7 +41,6 @@
     <entry key="ContextImportPage.header">Import of contexts</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
-    <entry key="dropzone.message">Drop files here or click to upload</entry>
     <entry key="FilterPanelColumn.clear">Clear</entry>
     <entry key="FilterPanelColumn.go">Go</entry>
     <entry key="HeaderPanel.contexts">Contexts</entry>

@@ -41,7 +41,6 @@
     <entry key="ContextImportPage.header">Kontext-Import</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
-    <entry key="dropzone.message">Datei per Drag and Drop fallen lassen oder klicken</entry>
     <entry key="FilterPanelColumn.clear">Aufheben</entry>
     <entry key="FilterPanelColumn.go">Filtern</entry>
     <entry key="HeaderPanel.contexts">Kontexte</entry>
