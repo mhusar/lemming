@@ -1,17 +1,38 @@
 package lemming.context;
 
 import lemming.HomePage;
-import lemming.ui.panel.DropzonePanel;
+import lemming.ui.panel.AlertPanel;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.protocol.http.servlet.MultipartServletWebRequest;
+import org.apache.wicket.protocol.http.servlet.ServletWebRequest;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.lang.Bytes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,24 +45,9 @@ public class ContextImportForm extends Form<Void> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * An IOException occurred.
+     * A logger named corresponding to this class.
      */
-    private static final int IO_ERROR = 3;
-
-    /**
-     * A SAXException occurred.
-     */
-    private static final int SAX_ERROR = 4;
-
-    /**
-     * A XMLStreamException occurred.
-     */
-    private static final int XML_STREAM_ERROR = 5;
-
-    /**
-     * A panel providing drag and drop file uploads.
-     */
-    private static DropzonePanel dropzonePanel;
+    public static final Logger logger = LoggerFactory.getLogger(ContextImportForm.class);
 
     /**
      * Creates a context import form.
@@ -56,18 +62,57 @@ public class ContextImportForm extends Form<Void> {
     }
 
     /**
+     * A file input field.
+     */
+    private FileUploadField fileInput;
+
+    /**
+     * A text input field.
+     */
+    private TextField textInput;
+
+    /**
+     * A button which triggers a file open event.
+     */
+    private Button browseButton;
+
+    /**
+     * A button which clears all form components.
+     */
+    private RemoveButton removeButton;
+
+    /**
+     * A panel which displays the import status.
+     */
+    private AlertPanel alertPanel;
+
+    /**
      * Called when a context import form is initialized.
      */
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        dropzonePanel = new DropzonePanel("dropzone");
-        SubmitButton submitButton = new SubmitButton("submitButton");
+        setMarkupId(getId());
+        fileInput = new FileUploadField("fileInput", new Model<ArrayList<FileUpload>>(new ArrayList<FileUpload>()));
+        textInput = new TextField("textInput", Model.of(""));
+        removeButton = new RemoveButton("removeButton");
+        browseButton = new Button("browseButton");
+        alertPanel = new AlertPanel("alertPanel");
+        SubmitButton submitButton = new SubmitButton("submitButton", this);
 
-        add(dropzonePanel);
-        dropzonePanel.registerSubmitListener(submitButton);
+        fileInput.add(new FileInputChangeBehavior())
+                .add(AttributeModifier.append("style", "position: absolute; left: -9999px;"));
+        add(fileInput.setMarkupId(fileInput.getId()));
+        add(textInput.setMarkupId(textInput.getId()));
+        add(removeButton.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
+        add(browseButton.setMarkupId(browseButton.getId()).add(new BrowseButtonBehavior()));
+        getPage().add(alertPanel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
         getPage().add(new ToHomePageButton("toHomePageButton"));
         getPage().add(submitButton);
+    }
+
+    private void logException(Exception exception) {
+        logger.error("Context import failed with exception.", exception);
     }
 
     /**
@@ -77,32 +122,44 @@ public class ContextImportForm extends Form<Void> {
      * @param fileItem object representing a file for a form item
      */
     public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
-        ContextXmlReader xmlReader = new ContextXmlReader(target, this);
+        ContextXmlReader xmlReader = new ContextXmlReader();
         List<Context> contexts = null;
         Boolean isXmlValid = false;
 
         try {
             xmlReader.validateXml(fileItem.getInputStream());
             isXmlValid = true;
-        } catch (IOException e) {
-            onException(target, e, IO_ERROR);
-        } catch (SAXException e) {
-            onException(target, e, SAX_ERROR);
+        } catch (IOException | SAXException e) {
+            onException(target, e);
+            logException(e);
+            return;
         }
 
         if (isXmlValid) {
             try {
                 contexts = xmlReader.readXml(fileItem.getInputStream());
-            } catch (IOException e) {
-                onException(target, e, IO_ERROR);
-            } catch (XMLStreamException e) {
-                onException(target, e, XML_STREAM_ERROR);
+            } catch (IOException | XMLStreamException e) {
+                onException(target, e);
+                logException(e);
+                return;
             }
         }
 
         if (contexts instanceof List) {
-            new ContextDao().batchPersist(contexts);
-            dropzonePanel.showMessage(target);
+            String message;
+
+            if (contexts.size() > 0) {
+                StringResourceModel messageModel = new StringResourceModel("ContextImportPage.successMessage", this)
+                        .setParameters(String.valueOf(contexts.size()));
+                message = messageModel.getString();
+                alertPanel.setMessage(message).setType(AlertPanel.Type.SUCCESS).setVisible(true);
+                new ContextDao().batchPersist(contexts);
+            } else {
+                message = getString("ContextImportPage.noContextsMessage");
+                alertPanel.setMessage(message).setType(AlertPanel.Type.INFO).setVisible(true);
+            }
+
+            target.add(alertPanel);
         }
     }
 
@@ -111,14 +168,96 @@ public class ContextImportForm extends Form<Void> {
      *
      * @param target target that produces an Ajax response
      * @param exception exception which occurred.
-     * @param type type of exception
      */
-    public void onException(AjaxRequestTarget target, Exception exception, int type) {
-        if (type == ContextXmlReader.WARNING) {
-            return;
+    public void onException(AjaxRequestTarget target, Exception exception) {
+        String message = exception.getMessage();
+
+        if (exception instanceof SAXParseException) {
+            SAXParseException saxParseException = (SAXParseException) exception;
+
+            if (saxParseException.getLineNumber() != -1 && saxParseException.getColumnNumber() != -1) {
+                message += "<br/>" + getString("ContextImportPage.line") + ": " + saxParseException.getLineNumber();
+                message += ", " + getString("ContextImportPage.column") + ": "
+                        + saxParseException.getColumnNumber();
+            }
         }
 
-        dropzonePanel.setErrorMessage(target, exception.getMessage());
+        alertPanel.setMessage(message).setType(AlertPanel.Type.ERROR).setVisible(true);
+        target.add(alertPanel);
+    }
+
+    /**
+     * A behavior which syncs the text input field with the file input field.
+     */
+    private class FileInputChangeBehavior extends AjaxEventBehavior {
+        public FileInputChangeBehavior() {
+            super("change");
+        }
+
+        @Override
+        protected void onEvent(AjaxRequestTarget target) {
+            String javaScript = "var filename = jQuery('#" + fileInput.getMarkupId() + "')[0].files.length ? " +
+                    "jQuery('#" + fileInput.getMarkupId() + "')[0].files[0].name : ''; " +
+                    "jQuery('#" + textInput.getMarkupId() + "').val(filename);";
+            target.appendJavaScript(javaScript);
+            target.add(removeButton.setVisible(true));
+            target.add(alertPanel.setVisible(false));
+        }
+    }
+
+    /**
+     * A behavior which triggers a file open event.
+     */
+    private class BrowseButtonBehavior extends Behavior {
+        /**
+         * Determines if a deserialized file is compatible with this class.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Renders to the web response what the component wants to contribute.
+         *
+         * @param component component object
+         * @param response response object
+         */
+        @Override
+        public void renderHead(Component component, IHeaderResponse response) {
+            String javaScript = "jQuery(document).on('click', '#" + browseButton.getMarkupId() + "', function (e) { " +
+                    "e.preventDefault(); jQuery('#" + fileInput.getMarkupId() + "')[0].click(); });";
+            response.render(OnDomReadyHeaderItem.forScript(javaScript));
+        }
+    }
+
+    /**
+     * A button which clears all form components.
+     */
+    private class RemoveButton extends AjaxLink<Void> {
+        /**
+         * Determines if a deserialized file is compatible with this class.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Creates a remove button.
+         *
+         * @param id ID of the button
+         */
+        public RemoveButton(String id) {
+            super(id);
+        }
+
+        /**
+         * Called on button click.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            setVisible(false);
+            target.add(this);
+            target.appendJavaScript("jQuery('#" + ContextImportForm.this.getMarkupId() + "')" +
+                    ".find('input[type=file], input[type=text]').val('');");
+        }
     }
 
     /**
@@ -133,8 +272,7 @@ public class ContextImportForm extends Form<Void> {
         /**
          * Creates a redirect button.
          *
-         * @param id
-         *            ID of the button
+         * @param id ID of the button
          */
         public ToHomePageButton(String id) {
             super(id);
@@ -152,27 +290,52 @@ public class ContextImportForm extends Form<Void> {
     }
 
     /**
-     * A submit button implementing the SubmitListener interface of a dropzone panel.
+     * An Ajax submit button.
      */
-    private class SubmitButton extends Button implements DropzonePanel.SubmitListener {
+    private class SubmitButton extends AjaxButton {
         /**
          * Creates a submit button.
          *
          * @param id ID of the submit button
+         * @param form that is submitted
          */
-        public SubmitButton(String id) {
-            super(id);
+        public SubmitButton(String id, Form<?> form) {
+            super(id, form);
         }
 
         /**
-         * Called on submit of a dropzone panel.
+         * Submits a form.
          *
-         * @param target target that produces an Ajax response
-         * @param fileItem object representing a file for a form item
+         * @param target target target that produces an Ajax response
+         * @param form form that is submitted
          */
         @Override
-        public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
-            ContextImportForm.this.onSubmit(target, fileItem);
+        protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            ServletWebRequest request = (ServletWebRequest) RequestCycle.get().getRequest();
+
+            try {
+                Iterator<String> parameterIterator = request.getRequestParameters().getParameterNames().iterator();
+
+                if (parameterIterator.hasNext()) {
+                    MultipartServletWebRequest multipartRequest = request
+                            .newMultipartWebRequest(Bytes.megabytes(10), "ignored");
+                    multipartRequest.parseFileParts();
+                    List<FileItem> fileItems = multipartRequest.getFiles().get(fileInput.getId());
+
+                    if (fileItems != null) {
+                        if (fileItems.size() > 0) {
+                            ContextImportForm.this.onSubmit(target, fileItems.get(0));
+                        }
+                    }
+                }
+            } catch (FileUploadException e) {
+                e.printStackTrace();
+            }
+
+            removeButton.setVisible(false);
+            target.add(removeButton);
+            target.appendJavaScript("jQuery('#" + ContextImportForm.this.getMarkupId() + "')" +
+                    ".find('input[type=file], input[type=text]').val('');");
         }
     }
 }

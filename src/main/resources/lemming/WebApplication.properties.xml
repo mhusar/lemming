@@ -17,6 +17,7 @@
     <entry key="Action.toIndex">To Index</entry>
     <entry key="Action.intermediateStorage">Intermediate storage</entry>
     <entry key="Action.open">Open</entry>
+    <entry key="Action.remove">Remove</entry>
     <entry key="Action.save">Save</entry>
     <entry key="Action.submit">Submit</entry>
     <entry key="Action.view">View</entry>
@@ -40,7 +41,13 @@
     <entry key="ContextDeleteConfirmPanel.title">Delete context</entry>
     <entry key="ContextEditPage.editHeader">Edit context</entry>
     <entry key="ContextEditPage.newHeader">Create context</entry>
+    <entry key="ContextImportPage.column">Column</entry>
     <entry key="ContextImportPage.header">Import of contexts</entry>
+    <entry key="ContextImportPage.line">Line</entry>
+    <entry key="ContextImportPage.noContextsMessage">No contexts to import.</entry>
+    <entry key="ContextImportPage.open">Open…</entry>
+    <entry key="ContextImportPage.selectFile">Select file</entry>
+    <entry key="ContextImportPage.successMessage">{0} contexts were successfully imported.</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
     <entry key="FilterPanelColumn.clear">Clear</entry>

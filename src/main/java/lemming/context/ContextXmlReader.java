@@ -1,9 +1,6 @@
 package lemming.context;
 
 import lemming.WebApplication;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -29,46 +26,6 @@ import java.util.List;
  */
 public class ContextXmlReader implements ErrorHandler {
     /**
-     * A logger named corresponding to this class.
-     */
-    public static final Logger logger = LoggerFactory.getLogger(ContextXmlReader.class);
-
-    /**
-     * A SaxException with error occurred.
-     */
-    public static final int ERROR = 0;
-
-    /**
-     * A SaxException with fatal error occurred.
-     */
-    public static final int FATAL_ERROR = 1;
-
-    /**
-     * A SaxException with warning occurred.
-     */
-    public static final int WARNING = 2;
-
-    /**
-     * Target that produces an Ajax response
-     */
-    private AjaxRequestTarget target;
-
-    /**
-     *
-     */
-    private ContextImportForm form;
-
-    /**
-     * Creates a context XML reader.
-     *
-     * @param target target that produces an Ajax response
-     */
-    public ContextXmlReader(AjaxRequestTarget target, ContextImportForm form) {
-        this.target = target;
-        this.form = form;
-    }
-
-    /**
      * Receive notification of a recoverable error.
      *
      * @param exception error information encapsulated in a SAX parse exception
@@ -76,8 +33,6 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void error(SAXParseException exception) throws SAXException {
-        form.onException(target, exception, ERROR);
-        logger.error("Validation of context XML file failed.", exception);
         throw (exception);
     }
 
@@ -89,8 +44,6 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void fatalError(SAXParseException exception) throws SAXException {
-        form.onException(target, exception, FATAL_ERROR);
-        logger.error("Validation of context XML file failed.", exception);
         throw (exception);
     }
 
@@ -102,8 +55,6 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void warning(SAXParseException exception) throws SAXException {
-        form.onException(target, exception, WARNING);
-        logger.error("There was a warning during validation of a context.", exception);
         throw (exception);
     }
 

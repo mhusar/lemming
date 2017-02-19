@@ -17,6 +17,7 @@
     <entry key="Action.toIndex">Zum Index</entry>
     <entry key="Action.intermediateStorage">Zwischenspeichern</entry>
     <entry key="Action.open">Öffnen</entry>
+    <entry key="Action.remove">Entfernen</entry>
     <entry key="Action.save">Speichern</entry>
     <entry key="Action.submit">Absenden</entry>
     <entry key="Action.view">Ansehen</entry>
@@ -40,7 +41,13 @@
     <entry key="ContextDeleteConfirmPanel.title">Kontext löschen</entry>
     <entry key="ContextEditPage.editHeader">Kontext bearbeiten</entry>
     <entry key="ContextEditPage.newHeader">Kontext erstellen</entry>
+    <entry key="ContextImportPage.column">Spalte</entry>
     <entry key="ContextImportPage.header">Kontext-Import</entry>
+    <entry key="ContextImportPage.line">Zeile</entry>
+    <entry key="ContextImportPage.noContextsMessage">Die Datei enthält keine Kontexte.</entry>
+    <entry key="ContextImportPage.open">Öffnen…</entry>
+    <entry key="ContextImportPage.selectFile">Datei auswählen</entry>
+    <entry key="ContextImportPage.successMessage">{0} Kontexte wurden erfolgreich importiert.</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
     <entry key="FilterPanelColumn.clear">Aufheben</entry>

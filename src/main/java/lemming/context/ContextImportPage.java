@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.basic.Label;
 /**
  * A page containg a context import form.
  */
-@AuthorizeInstantiation({ "STUDENT", "USER", "ADMIN" })
+@AuthorizeInstantiation({ "SIGNED_IN" })
 public class ContextImportPage extends BasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
