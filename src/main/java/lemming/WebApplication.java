@@ -53,7 +53,8 @@ public class WebApplication extends AuthenticatedWebApplication {
                             if (WebSession.get().getUser() instanceof User) {
                                 throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
                             } else {
-                                if (component instanceof LemmaEditPage || component instanceof LemmaIndexPage) {
+                                if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||
+                                        component instanceof PosEditPage || component instanceof SenseEditPage) {
                                     component.setResponsePage(SignInPage.class);
                                 } else {
                                     throw new RestartResponseAtInterceptPageException(SignInPage.class);
