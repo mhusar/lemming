@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A helper class with Java objects to build a KWIC item with JAXB.
+ * A helper class with Java objects to build a KWIC item with JAXB or Velocity.
  */
 public abstract class KwicIndex {
     /**

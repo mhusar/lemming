@@ -9,6 +9,7 @@
 
     <properties>
         <bootstrap.version>3.3.7-1</bootstrap.version>
+        <guava.version>21.0</guava.version>
         <hibernate.validator.version>5.3.3.Final</hibernate.validator.version>
         <hibernate.version>5.2.5.Final</hibernate.version>
         <jackson.version>2.8.6</jackson.version>
@@ -129,6 +130,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
