@@ -120,7 +120,8 @@ public class ContextResource {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            Iterator<Context> iterator = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+            Iterator<Context> iterator = entityManager
+                    .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma l LEFT JOIN FETCH l.pos " +
                             "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                     .setParameter("keyword", keyword).getResultList().iterator();
 
