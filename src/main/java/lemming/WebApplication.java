@@ -25,11 +25,7 @@ import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AnnotationsRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.SecurePackageResourceGuard;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.cycle.AbstractRequestCycleListener;
-import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.settings.ExceptionSettings;
-
-import java.util.UUID;
 
 /**
  * A web application that does role-based authentication.
@@ -41,7 +37,6 @@ public class WebApplication extends AuthenticatedWebApplication {
     @Override
     protected void init() {
         super.init();
-
         SecurePackageResourceGuard packageResourceGuard = (SecurePackageResourceGuard) getResourceSettings()
                 .getPackageResourceGuard();
 
@@ -69,21 +64,6 @@ public class WebApplication extends AuthenticatedWebApplication {
                 });
         getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
         getApplicationSettings().setPageExpiredErrorPage(PageExpiredPage.class);
-
-        /*
-         * Disable page recreation for expired pages this should help to prevent
-         * problems with Jetty (see symptoms in Wicket #5390). Also set a random
-         * attribute for every request to prevent further problems. See Wicket
-         * mailing list: "How could refreshing a page cause future onClick()
-         * listeners to malfunction?" (May 14, 2015).
-         */
-        getPageSettings().setRecreateBookmarkablePagesAfterExpiry(false);
-        getRequestCycleListeners().add(new AbstractRequestCycleListener() {
-            @Override
-            public void onEndRequest(RequestCycle cycle) {
-                Session.get().setAttribute("randomAttribute", UUID.randomUUID().toString());
-            }
-        });
 
         if (AuthenticatedWebApplication.get().getConfigurationType().equals(RuntimeConfigurationType.DEPLOYMENT)) {
             // don’t show an exception page when an unexpected exception is thrown
