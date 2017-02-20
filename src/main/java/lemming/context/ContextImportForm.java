@@ -9,8 +9,8 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Button;
@@ -292,7 +292,7 @@ public class ContextImportForm extends Form<Void> {
     /**
      * An Ajax submit button.
      */
-    private class SubmitButton extends AjaxButton {
+    private class SubmitButton extends IndicatingAjaxButton {
         /**
          * Creates a submit button.
          *
@@ -336,6 +336,16 @@ public class ContextImportForm extends Form<Void> {
             target.add(removeButton);
             target.appendJavaScript("jQuery('#" + ContextImportForm.this.getMarkupId() + "')" +
                     ".find('input[type=file], input[type=text]').val('');");
+        }
+
+        /**
+         * Returns the markup ID of the Ajax indicator.
+         *
+         * @return A component markup id.
+         */
+        @Override
+        public String getAjaxIndicatorMarkupId() {
+            return "indicatorOverlayPanel";
         }
     }
 }

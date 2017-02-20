@@ -2,6 +2,7 @@ package lemming.context;
 
 import lemming.auth.WebSession;
 import lemming.ui.page.BasePage;
+import lemming.ui.panel.IndicatorOverlayPanel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 
@@ -32,5 +33,6 @@ public class ContextImportPage extends BasePage {
 
         add(new Label("header", getString("ContextImportPage.header")));
         add(new ContextImportForm("contextImportForm"));
+        add(new IndicatorOverlayPanel("indicatorOverlayPanel"));
     }
 }
