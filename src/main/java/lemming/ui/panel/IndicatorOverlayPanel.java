@@ -13,7 +13,7 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 /**
  * An overlay panel showing an animated throbber image.
  */
-public class ThrobberOverlayPanel extends Panel {
+public class IndicatorOverlayPanel extends Panel {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -22,38 +22,31 @@ public class ThrobberOverlayPanel extends Panel {
     /**
      * Creates a throbber overlay panel.
      * 
-     * @param id
-     *            if of a panel
+     * @param id ID of the panel
      */
-    public ThrobberOverlayPanel(String id) {
+    public IndicatorOverlayPanel(String id) {
         super(id);
-        setOutputMarkupId(true);
+        setMarkupId(id);
 
-        MarkupContainer throbberContainer = new WebMarkupContainer("throbberContainer");
+        MarkupContainer throbberContainer = new WebMarkupContainer("indicatorContainer");
         PackageResourceReference throbberReference = new PackageResourceReference(getClass(), "images/throbber.svg");
         Image throbberImage = new Image("throbberImage", throbberReference);
 
+        add(AttributeModifier.append("style", "display: none;"));
         add(throbberContainer);
         throbberContainer.add(throbberImage);
-        throbberContainer.add(AttributeModifier.append("class", "throbber-overlay initial"));
+        throbberContainer.add(AttributeModifier.append("class", "indicator-overlay"));
     }
 
     /**
      * Renders a css header item to the web response.
      * 
-     * @param response
-     *            the response object
+     * @param response the response object
      */
     @Override
     public void renderHead(IHeaderResponse response) {
-        CssResourceReference throbberCssReference = new CssResourceReference(getClass(), "styles/throbber-overlay.css");
-        response.render(CssReferenceHeaderItem.forReference(throbberCssReference));
-    }
-
-    /**
-     * Starts the animation of the throbber overlay.
-     */
-    public void show() {
-        get("throbberContainer").add(AttributeModifier.replace("class", "throbber-overlay animation"));
+        CssResourceReference indicatorCssReference = new CssResourceReference(getClass(),
+                "styles/indicator-overlay.css");
+        response.render(CssReferenceHeaderItem.forReference(indicatorCssReference));
     }
 }

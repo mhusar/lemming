@@ -1,0 +1,19 @@
+.indicator-overlay {
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.indicator-overlay img {
+  height: 128px;
+  left: 50%;
+  margin-left: -64px;
+  margin-top: -64px;
+  position: absolute;
+  top: 25%;
+  width: 128px;
+}
