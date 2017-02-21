@@ -5,7 +5,10 @@ import lemming.lemma.LemmaTextFilterColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
+import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.attributes.ThrottlingSettings;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -15,6 +18,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.time.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +144,18 @@ public class SenseIndexPage extends BasePage {
         protected void onUpdate(AjaxRequestTarget target) {
             dataProvider.updateFilter(textField.getInput());
             target.add(dataTable);
+        }
+
+        /**
+         * Modifies Ajax request attributes.
+         *
+         * @param attributes Ajax request attributes
+         */
+        @Override
+        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+            super.updateAjaxAttributes(attributes);
+            attributes.setChannel(new AjaxChannel(getComponent().getId(), AjaxChannel.Type.DROP));
+            attributes.setThrottlingSettings(new ThrottlingSettings(Duration.milliseconds(200)));
         }
     }
 }

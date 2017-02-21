@@ -2,12 +2,11 @@ package lemming.context;
 
 import lemming.auth.WebSession;
 import lemming.data.GenericDataProvider;
+import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
@@ -100,61 +99,6 @@ public class ContextIndexPage extends BasePage {
         columns.add(new ContextActionPanelColumn(Model.of("")));
 
         return columns;
-    }
-
-    /**
-     * Implementation of a form component updating behavior for a filter text field.
-     */
-    private class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * The text field used as filter component.
-         */
-        TextField<String> textField;
-
-        /**
-         * Data table displaying filtered data.
-         */
-        GenericDataTable<Context> dataTable;
-
-        /**
-         * Data provider which delivers data for the table.
-         */
-        GenericDataProvider<Context> dataProvider;
-
-        /**
-         * Creates a behavior.
-         *
-         * @param textField
-         *            text field used a filter component
-         * @param dataTable
-         *            data table displaying filtered data
-         * @param dataProvider
-         *            data provider which delivers data for the table.
-         */
-        public FilterUpdatingBehavior(TextField<String> textField, GenericDataTable<Context> dataTable,
-                GenericDataProvider<Context> dataProvider) {
-            super("input");
-            this.textField = textField;
-            this.dataTable = dataTable;
-            this.dataProvider = dataProvider;
-        }
-
-        /**
-         * Called when the text field content changes.
-         *
-         * @param target
-         *            target that produces an Ajax response
-         */
-        @Override
-        protected void onUpdate(AjaxRequestTarget target) {
-            dataProvider.updateFilter(textField.getInput());
-            target.add(dataTable);
-        }
     }
 
     /**
