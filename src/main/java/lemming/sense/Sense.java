@@ -1,5 +1,6 @@
 package lemming.sense;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.lemma.Lemma;
 import org.hibernate.annotations.*;
 
@@ -22,7 +23,8 @@ import java.util.UUID;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "sense", indexes = {
-        @Index(columnList = "uuid, meaning", unique = true)})
+        @Index(columnList = "uuid", unique = true),
+        @Index(columnList = "meaning, parent_position, child_position, lemma_string")})
 public class Sense implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -40,6 +42,7 @@ public class Sense implements Serializable {
      * A UUID used to distinguish senses.
      */
     @Column(name = "uuid")
+    @JsonIgnore
     private String uuid;
 
     /**
@@ -48,13 +51,6 @@ public class Sense implements Serializable {
     @Column(name = "version")
     @Version
     private Long version;
-
-    /**
-     * Lemma of a sense.
-     */
-    @ManyToOne
-    @JoinColumn(name = "lemma_id", nullable = false)
-    private Lemma lemma;
 
     /**
      * Meaning of a sense.
@@ -66,13 +62,31 @@ public class Sense implements Serializable {
      * Parent node position of a sense (0-based).
      */
     @Column(name = "parent_position", nullable = false)
+    @JsonIgnore
     private Integer parentPosition;
 
     /**
      * Child node position of a sense (0-based).
      */
     @Column(name = "child_position")
+    @JsonIgnore
     private Integer childPosition;
+
+    /**
+     * Lemma of a sense.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lemma_id", nullable = false)
+    private Lemma lemma;
+
+    /**
+     * Lemma of a sense as string.
+     *
+     * For better performance of the sense index table.
+     */
+    @Column(name = "lemma_string")
+    @JsonIgnore
+    private String lemmaString;
 
     /**
      * Child senses of a sense.
@@ -145,24 +159,6 @@ public class Sense implements Serializable {
     }
 
     /**
-     * Returns the lemma of a sense.
-     *
-     * @return Lemma of a sense.
-     */
-    public Lemma getLemma() {
-        return lemma;
-    }
-
-    /**
-     * Sets the lemma of a sense.
-     *
-     * @param lemma lemma of a sense
-     */
-    public void setLemma(Lemma lemma) {
-        this.lemma = lemma;
-    }
-
-    /**
      * Returns the meaning of a sense.
      *
      * @return Meaning of a sense.
@@ -214,6 +210,42 @@ public class Sense implements Serializable {
      */
     public void setChildPosition(Integer childPosition) {
         this.childPosition = childPosition;
+    }
+
+    /**
+     * Returns the lemma of a sense.
+     *
+     * @return Lemma of a sense.
+     */
+    public Lemma getLemma() {
+        return lemma;
+    }
+
+    /**
+     * Sets the lemma of a sense.
+     *
+     * @param lemma lemma of a sense
+     */
+    public void setLemma(Lemma lemma) {
+        this.lemma = lemma;
+    }
+
+    /**
+     * Returns the lemma of a sense as string.
+     *
+     * @return Lemma of a sense as string.
+     */
+    public String getLemmaString() {
+        return lemmaString;
+    }
+
+    /**
+     * Sets the lemma string of a sense.
+     *
+     * @param lemmaString lemma string of a sense
+     */
+    public void setLemmaString(String lemmaString) {
+        this.lemmaString = lemmaString;
     }
 
     /**
