@@ -9,6 +9,8 @@ import org.apache.wicket.model.ResourceModel;
 
 import javax.persistence.criteria.*;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -199,19 +201,67 @@ public final class CriteriaHelper {
     }
 
     /**
-     * Returns an automatically created order object for a proprty string.
+     * Returns an automatically created list of order objects for sense ordering.
+     *
+     * @param criteriaBuilder contructor for criteria queries
+     * @param root query root referencing entities
+     * @param property sort property
+     * @param isAscending sort direction
+     * @return A list of order objects.
+     */
+    private static List<Order> getSenseOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
+                                             Boolean isAscending) {
+        List<Order> orderList = new ArrayList<Order>();
+
+        if (isAscending) {
+            switch (property) {
+                case "meaning":
+                    orderList.add(criteriaBuilder.asc(root.get("meaning")));
+                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
+                    break;
+                case "lemmaString":
+                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
+                    orderList.add(criteriaBuilder.asc(root.get("parentPosition")));
+                    orderList.add(criteriaBuilder.asc(root.get("childPosition")));
+                    break;
+            }
+        } else {
+            switch (property) {
+                case "meaning":
+                    orderList.add(criteriaBuilder.desc(root.get("meaning")));
+                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
+                    break;
+                case "lemmaString":
+                    orderList.add(criteriaBuilder.desc(root.get("lemmaString")));
+                    orderList.add(criteriaBuilder.asc(root.get("parentPosition")));
+                    orderList.add(criteriaBuilder.asc(root.get("childPosition")));
+                    break;
+            }
+        }
+
+        return orderList;
+    }
+
+    /**
+     * Returns an automatically created list of order objects for a property string.
      *
      * @param criteriaBuilder contructor for criteria queries
      * @param root query root referencing entities
      * @param joins map of joins
      * @param property sort property
      * @param isAscending sort direction
-     * @return An order object.
+     * @param typeClass data type
+     * @return A list of order objects.
      */
-    public static Order getOrder(CriteriaBuilder criteriaBuilder, Root<?> root, Map<String,Join<?,?>> joins,
-                                 String property, Boolean isAscending) {
+    public static List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<?> root, Map<String,Join<?,?>> joins,
+                                 String property, Boolean isAscending, Class<?> typeClass) {
+        List<Order> orderList = new ArrayList<Order>();
         String[] splitProperty = property.split("\\.");
         Expression<String> expression;
+
+        if (typeClass.equals(Sense.class)) {
+            return getSenseOrder(criteriaBuilder, root, property, isAscending);
+        }
 
         if (Array.getLength(splitProperty) == 2) {
             Join<?,?> join = joins.get(splitProperty[0]);
@@ -226,10 +276,12 @@ public final class CriteriaHelper {
         }
 
         if (isAscending) {
-            return criteriaBuilder.asc(expression);
+            orderList.add(criteriaBuilder.asc(expression));
         } else {
-            return criteriaBuilder.desc(expression);
+            orderList.add(criteriaBuilder.desc(expression));
         }
+
+        return orderList;
     }
 
     /**

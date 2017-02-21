@@ -89,15 +89,15 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Selection<T> selection = getSelection(root);
         Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
         Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
-        Order order = getOrder(criteriaBuilder, root, joins);
+        List<Order> orderList = getOrder(criteriaBuilder, root, joins);
         TypedQuery<T> typedQuery = null;
 
         if (restriction == null) {
-            typedQuery = entityManager.createQuery(criteriaQuery.select(selection).orderBy(order))
+            typedQuery = entityManager.createQuery(criteriaQuery.select(selection).orderBy(orderList))
                     .setFirstResult((int) first).setMaxResults((int) count);
         } else {
-            typedQuery = entityManager.createQuery(criteriaQuery.select(selection).where(restriction).orderBy(order))
-                    .setFirstResult((int) first).setMaxResults((int) count);
+            typedQuery = entityManager.createQuery(criteriaQuery.select(selection).where(restriction)
+                    .orderBy(orderList)).setFirstResult((int) first).setMaxResults((int) count);
         }
 
         try {
@@ -315,17 +315,18 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     }
 
     /**
-     * Returns an order matching sort properties.
+     * Returns a list of orders matching sort properties.
      *
      * @param criteriaBuilder contructor for criteria queries
      * @param root query root referencing entities
      * @param joins map of joins
-     * @return An order object.
+     * @return A list of order objects.
      */
-    protected Order getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String,Join<?,?>> joins) {
+    protected List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String,Join<?,?>> joins) {
         String property = getSort().getProperty();
-        Order order = CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending());
+        List<Order> orderList = CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending(),
+                typeClass);
 
-        return order;
+        return orderList;
     }
 }
