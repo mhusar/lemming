@@ -15,13 +15,18 @@ import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.HeaderPanel;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.ajax.attributes.ThrottlingSettings;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -30,6 +35,7 @@ import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.time.Duration;
 
 import javax.json.JsonArray;
 import java.util.ArrayList;
@@ -150,6 +156,21 @@ public class LemmatisationPage extends EmptyBasePage {
     }
 
     /**
+     * Renders to the web response what the component wants to contribute.
+     *
+     * @param response response object
+     */
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        // focus autofocus input when they become visible
+        String javaScript = "jQuery(window).on('resize scroll', jQuery.debounce(250, function() { " +
+                "var autofocusInput = jQuery('input[autofocus]').first(); " +
+                "if (autofocusInput.length && autofocusInput.isInViewport()) { " +
+                "jQuery('input[autofocus]').first().focus(); } }));";
+        response.render(OnDomReadyHeaderItem.forScript(javaScript));
+    }
+
+    /**
      * A row selection column for contexts.
      */
     private class ContextRowSelectColumn extends GenericRowSelectColumn<Context, Context, String> {
@@ -226,6 +247,18 @@ public class LemmatisationPage extends EmptyBasePage {
         protected void onUpdate(AjaxRequestTarget target) {
             dataProvider.updateFilter(textField.getInput());
             target.add(dataTable);
+        }
+
+        /**
+         * Modifies Ajax request attributes.
+         *
+         * @param attributes Ajax request attributes
+         */
+        @Override
+        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+            super.updateAjaxAttributes(attributes);
+            attributes.setChannel(new AjaxChannel(getComponent().getId(), AjaxChannel.Type.DROP));
+            attributes.setThrottlingSettings(new ThrottlingSettings(Duration.milliseconds(200)));
         }
     }
 

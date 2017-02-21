@@ -43,11 +43,19 @@ jQuery.fn.isInViewport = function (offset) {
     return elementBottom - offset > viewportTop && elementTop + offset < viewportBottom;
 };
 
-// focus autofocus inputs when they become visible
-jQuery(window).on("resize scroll", function () {
-    var autofocusInput = jQuery("input[autofocus]").first();
+jQuery.debounce = function (delay, callback) {
+    var timeout = null;
 
-    if (autofocusInput.length && autofocusInput.isInViewport()) {
-        jQuery("input[autofocus]").first().focus();
-    }
-});
+    return function () {
+        var _arguments = arguments;
+
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+
+        timeout = setTimeout(function () {
+            callback.apply(null, _arguments);
+            timeout = null;
+        }, delay);
+    };
+}
