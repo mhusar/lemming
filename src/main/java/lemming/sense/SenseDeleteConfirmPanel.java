@@ -1,5 +1,6 @@
 package lemming.sense;
 
+import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.authorization.Action;
@@ -31,7 +32,7 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
      * @param id ID of the panel
      * @param dataTable data table that is refreshed
      */
-    public SenseDeleteConfirmPanel(String id, SenseDataTable dataTable) {
+    public SenseDeleteConfirmPanel(String id, GenericDataTable<Sense> dataTable) {
         super(id, DialogType.YES_NO, dataTable);
     }
 

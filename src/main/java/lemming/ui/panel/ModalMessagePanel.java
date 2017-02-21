@@ -1,7 +1,5 @@
 package lemming.ui.panel;
 
-import lemming.sense.SenseDataTable;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -297,7 +295,7 @@ public abstract class ModalMessagePanel extends Panel {
                 setResponsePage(responsePage);
             } else if (responsePageClass instanceof Class) {
                 setResponsePage(responsePageClass);
-            } else if (dataTable instanceof GenericDataTable<?> || dataTable instanceof SenseDataTable) {
+            } else if (dataTable instanceof GenericDataTable<?>) {
                 target.add(dataTable);
                 target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
             } else {

@@ -9,7 +9,7 @@ import org.apache.wicket.model.IModel;
 /**
  * A form for editing senses.
  */
-public class SenseEditForm extends Form<SenseWrapper> {
+public class SenseEditForm extends Form<Sense> {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -30,12 +30,11 @@ public class SenseEditForm extends Form<SenseWrapper> {
      * @param nextPageClass
      *            class of the next page
      */
-    public SenseEditForm(String id, IModel<SenseWrapper> model, Class<? extends Page> nextPageClass) {
+    public SenseEditForm(String id, IModel<Sense> model, Class<? extends Page> nextPageClass) {
         super(id, model);
         this.nextPageClass = nextPageClass;
-        Sense selectedSense = model.getObject().getSense();
         ITreeProvider<Sense> treeProvider = new SenseTreeProvider(model.getObject().getLemma());
-        AbstractTree<Sense> senseTree = new SenseTree("senses", treeProvider, selectedSense);
+        AbstractTree<Sense> senseTree = new SenseTree("senses", treeProvider, model.getObject());
 
         add(senseTree);
     }

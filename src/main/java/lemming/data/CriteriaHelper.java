@@ -4,6 +4,7 @@ import lemming.context.Context;
 import lemming.context.ContextType;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
+import lemming.sense.Sense;
 import org.apache.wicket.model.ResourceModel;
 
 import javax.persistence.criteria.*;
@@ -78,13 +79,11 @@ public final class CriteriaHelper {
      *
      * @param criteriaBuilder contructor for criteria queries
      * @param root query root referencing entities
-     * @param joins map of joins
      * @param filter string filter
      * @return An expression of type boolean, or null.
      */
     private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
-                                                                         Root<?> root, Map<String,Join<?,?>> joins,
-                                                                         String filter) {
+                                                                         Root<?> root, String filter) {
         ContextType.Type type = matchContextType(filter);
 
         if (type != null) {
@@ -159,6 +158,21 @@ public final class CriteriaHelper {
     }
 
     /**
+     * Returns automatically created sense restrictions for a string filter.
+     *
+     * @param criteriaBuilder contructor for criteria queries
+     * @param root query root referencing entities
+     * @param filter string filter
+     * @return An expression of type boolean, or null.
+     */
+    private static Expression<Boolean> getSenseFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
+                                                                       String filter) {
+        return criteriaBuilder.or(
+                criteriaBuilder.like(root.get("meaning"), filter + "%"),
+                criteriaBuilder.like(root.get("lemmaString"), filter + "%"));
+    }
+
+    /**
      * Returns automatically created restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
@@ -172,11 +186,13 @@ public final class CriteriaHelper {
                                                                  Map<String,Join<?,?>> joins, String filter,
                                                                  Class<?> typeClass) {
         if (typeClass.equals(Context.class)) {
-            return getContextFilterStringRestriction(criteriaBuilder, root, joins, filter);
+            return getContextFilterStringRestriction(criteriaBuilder, root, filter);
         } else if (typeClass.equals(Lemma.class)) {
             return getLemmaFilterStringRestriction(criteriaBuilder, root, filter);
         } else if (typeClass.equals(Pos.class)) {
             return getPosFilterStringRestriction(criteriaBuilder, root, filter);
+        } else if (typeClass.equals(Sense.class)) {
+            return getSenseFilterStringRestriction(criteriaBuilder, root, filter);
         }
 
         return null;

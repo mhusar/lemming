@@ -15,7 +15,7 @@ import org.apache.wicket.model.Model;
 /**
  * A custom column with actions for senses and and a filter panel as filter.
  */
-public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
+public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -28,7 +28,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
      *            title of the column
      */
     public SenseActionPanelColumn(IModel<String> displayModel) {
-        super(displayModel, SenseWrapper.class);
+        super(displayModel, Sense.class);
     }
 
     /**
@@ -52,7 +52,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
      *            model of the row
      */
     @Override
-    public void populateItem(Item<ICellPopulator<SenseWrapper>> cellItem, String componentId, IModel<SenseWrapper> rowModel) {
+    public void populateItem(Item<ICellPopulator<Sense>> cellItem, String componentId, IModel<Sense> rowModel) {
         cellItem.add(new ActionPanel(componentId, rowModel));
     }
 
@@ -73,7 +73,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
          * @param model
          *            sense model of a cell item
          */
-        public ActionPanel(String id, final IModel<SenseWrapper> model) {
+        public ActionPanel(String id, final IModel<Sense> model) {
             super(id, model);
             User sessionUser = WebSession.get().getUser();
 
@@ -106,7 +106,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<SenseWrapper> {
 
                         // TODO: When to show a sense delete deny panel?
                         //senseDeleteDeniedPanel.show(target, model);
-                        senseDeleteConfirmPanel.show(target, new Model<Sense>(model.getObject().getSense()));
+                        senseDeleteConfirmPanel.show(target, new Model<Sense>(model.getObject()));
                     }
                 });
             }

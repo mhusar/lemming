@@ -4,10 +4,10 @@ import lemming.auth.WebSession;
 import lemming.lemma.LemmaDao;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
-import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 
 /**
@@ -23,7 +23,7 @@ public class SenseEditPage extends BasePage {
     /**
      * Model of the edited sense object.
      */
-    private IModel<SenseWrapper> senseWrapperModel;
+    private IModel<Sense> senseModel;
 
     /**
      * Class of the next page.
@@ -32,23 +32,26 @@ public class SenseEditPage extends BasePage {
 
     /**
      * Creates a sense edit page.
-     * 
-     * @param senseWrapperModel
-     *            model of the edited sense wrapper object
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param nextPageClass class of the next page
      */
-    public SenseEditPage(IModel<SenseWrapper> senseWrapperModel, Class<? extends Page> nextPageClass) {
+    public SenseEditPage(Class<? extends Page> nextPageClass) {
+        this.nextPageClass = nextPageClass;
+    }
+
+    /**
+     * Creates a sense edit page.
+     * 
+     * @param senseModel model of the edited sense object
+     * @param nextPageClass class of the next page
+     */
+    public SenseEditPage(IModel<Sense> senseModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;
 
-        if (senseWrapperModel instanceof IModel) {
-            this.senseWrapperModel = senseWrapperModel;
-            SenseWrapper senseWrapper = senseWrapperModel.getObject();
-            senseWrapper.setLemma(new LemmaDao().refresh(senseWrapper.getLemma()));
-
-            if (senseWrapper.getSense() instanceof Sense) {
-                senseWrapper.setSense(new SenseDao().refresh(senseWrapper.getSense()));
-            }
+        if (senseModel instanceof IModel) {
+            Sense sense = senseModel.getObject();
+            Sense refreshedSense = new SenseDao().refresh(sense);
+            this.senseModel = new CompoundPropertyModel<Sense>(refreshedSense);
         }
     }
 
@@ -61,17 +64,10 @@ public class SenseEditPage extends BasePage {
 
         // check if the session is expired
         WebSession.get().checkSessionExpired();
-        ModalMessagePanel senseDeleteConfirmPanel;
 
-        if (nextPageClass instanceof Class) {
-            senseDeleteConfirmPanel = new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", nextPageClass);
-        } else {
-            senseDeleteConfirmPanel = new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", SenseIndexPage.class);
-        }
-
-        add(senseDeleteConfirmPanel);
+        add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel"));
         add(new Label("header", getString("SenseEditPage.editHeader")));
         add(new FeedbackPanel("feedbackPanel"));
-        add(new SenseEditForm("senseEditForm", senseWrapperModel, nextPageClass));
+        add(new SenseEditForm("senseEditForm", senseModel, nextPageClass));
     }
 }
