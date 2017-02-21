@@ -215,7 +215,12 @@ public final class CriteriaHelper {
 
         if (Array.getLength(splitProperty) == 2) {
             Join<?,?> join = joins.get(splitProperty[0]);
-            expression = join.get(splitProperty[1]);
+
+            if (join instanceof Join) {
+                expression = join.get(splitProperty[1]);
+            } else {
+                throw new IllegalStateException("Join for sort property " + property + " is missing.");
+            }
         } else {
             expression = root.get(property);
         }
