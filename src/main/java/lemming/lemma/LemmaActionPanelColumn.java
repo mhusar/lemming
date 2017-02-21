@@ -2,6 +2,7 @@ package lemming.lemma;
 
 import lemming.context.ContextDao;
 import lemming.data.Source;
+import lemming.sense.SenseDao;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -106,7 +107,8 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
                         ModalMessagePanel lemmaDeleteDeniedPanel = (ModalMessagePanel) getPage()
                                 .get("lemmaDeleteDeniedPanel");
 
-                        if (new ContextDao().findByLemma(model.getObject()).isEmpty()) {
+                        if (new ContextDao().findByLemma(model.getObject()).isEmpty() &&
+                                new SenseDao().findByLemma(model.getObject()).isEmpty()) {
                             lemmaDeleteConfirmPanel.show(target, model);
                         } else {
                             lemmaDeleteDeniedPanel.show(target, model);

@@ -107,6 +107,36 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      *
      * @throws RuntimeException
      */
+    public List<Sense> findByLemma(Lemma lemma) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
+                    "WHERE s.lemma = :lemma", Sense.class);
+            List<Sense> senseList = query.setParameter("lemma", lemma).getResultList();
+            transaction.commit();
+            return senseList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Sense findByMeaning(String meaning) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -115,7 +145,8 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Sense> query = entityManager
-                    .createQuery("FROM Sense WHERE meaning = :meaning ORDER BY meaning", Sense.class);
+                    .createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma WHERE s.meaning = :meaning " +
+                            "ORDER BY s.meaning", Sense.class);
             List<Sense> senseList = query.setParameter("meaning", meaning).getResultList();
             transaction.commit();
 

@@ -4,6 +4,7 @@ import lemming.context.ContextDao;
 import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosTextField;
+import lemming.sense.SenseDao;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
@@ -192,7 +193,8 @@ public class LemmaEditForm extends Form<Lemma> {
             ModalMessagePanel lemmaDeleteConfirmPanel = (ModalMessagePanel) getPage().get("lemmaDeleteConfirmPanel");
             ModalMessagePanel lemmaDeleteDeniedPanel = (ModalMessagePanel) getPage().get("lemmaDeleteDeniedPanel");
 
-            if (new ContextDao().findByLemma(getModelObject()).isEmpty()) {
+            if (new ContextDao().findByLemma(getModelObject()).isEmpty() &&
+                    new SenseDao().findByLemma(getModelObject()).isEmpty()) {
                 lemmaDeleteConfirmPanel.show(target, getModel());
             } else {
                 lemmaDeleteDeniedPanel.show(target, getModel());
