@@ -34,6 +34,17 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
     }
 
     /**
+     * Refreshes foreign key strings of a sense.
+     *
+     * @param sense the refreshed sense
+     */
+    private void refreshForeignKeyStrings(Sense sense) {
+        if (sense.getLemma() instanceof Lemma) {
+            sense.setLemmaString(sense.getLemma().getName());
+        }
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws RuntimeException
@@ -45,13 +56,12 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-
             sense = entityManager.merge(sense);
-            entityManager.refresh(sense);
-            sense.getChildren().size();
-
+            TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
+                    "WHERE s.id = :id", Sense.class);
+            Sense refreshedSense = query.setParameter("id", sense.getId()).getSingleResult();
             transaction.commit();
-            return sense;
+            return refreshedSense;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -81,6 +91,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
+            refreshForeignKeyStrings(sense);
             entityManager.persist(sense);
             transaction.commit();
         } catch (RuntimeException e) {
@@ -99,6 +110,43 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             }
         } finally {
             entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public Sense merge(Sense sense) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            Sense mergedSense = entityManager.merge(sense);
+            refreshForeignKeyStrings(mergedSense);
+            mergedSense = entityManager.merge(mergedSense);
+            transaction.commit();
+            return mergedSense;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(sense, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(sense, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+            return null;
         }
     }
 
