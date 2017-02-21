@@ -1,4 +1,4 @@
-package lemming.resource;
+package lemming.context;
 
 import com.google.common.xml.XmlEscapers;
 import org.apache.velocity.app.event.ReferenceInsertionEventHandler;
