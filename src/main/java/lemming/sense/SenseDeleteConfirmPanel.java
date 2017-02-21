@@ -2,7 +2,6 @@ package lemming.sense;
 
 import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.model.StringResourceModel;
@@ -20,34 +19,17 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      * 
-     * @param id
-     *            ID of the panel
-     * @param responsePage
-     *            page loaded on confirmation
+     * @param id ID of the panel
      */
-    public SenseDeleteConfirmPanel(String id, Page responsePage) {
-        super(id, DialogType.YES_NO, responsePage);
+    public SenseDeleteConfirmPanel(String id) {
+        super(id, DialogType.YES_NO);
     }
 
     /**
      * Creates a panel.
      * 
-     * @param id
-     *            ID of the panel
-     * @param responsePageClass
-     *            class of page loaded on confirmation
-     */
-    public SenseDeleteConfirmPanel(String id, Class<? extends Page> responsePageClass) {
-        super(id, DialogType.YES_NO, responsePageClass);
-    }
-
-    /**
-     * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param dataTable
-     *            data table that is refreshed
+     * @param id ID of the panel
+     * @param dataTable data table that is refreshed
      */
     public SenseDeleteConfirmPanel(String id, SenseDataTable dataTable) {
         super(id, DialogType.YES_NO, dataTable);
