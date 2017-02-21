@@ -3,7 +3,7 @@ package lemming.lemma;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AbstractAjaxBehavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.Request;
@@ -93,9 +93,8 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
                 builder.add(lemmaList.get(i).getName());
             }
 
-            requestCycle
-                    .scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json",
-                            "UTF-8", builder.build().toString()));
+            requestCycle.scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json",
+                    "UTF-8", builder.build().toString()));
         }
 
         /**
@@ -108,10 +107,9 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
-            super.renderHead(component, response);
-            response.render(JavaScriptHeaderItem.forScript(
-                    "var lemmaSelector = \"#" + textFieldId + "\";\nvar lemmaCallbackUrl = \""
-                            + getCallbackUrl() + "\";", "lemmaCallback"));
+            String javaScript = "jQuery('#" + textFieldId + "').autocomplete({ " +
+                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "' });";
+            response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
 }
