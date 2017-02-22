@@ -84,7 +84,7 @@ public class Sense implements Serializable {
      *
      * For better performance of the sense index table.
      */
-    @Column(name = "lemma_string")
+    @Column(name = "lemma_string", nullable = false)
     @JsonIgnore
     private String lemmaString;
 
