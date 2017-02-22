@@ -68,19 +68,19 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     /**
      * Selects the given node.
      *
-     * @param t object to select
+     * @param object object to select
      */
-    public void select(T t) {
+    public void select(T object) {
         modelChanging();
-        getModelObject().add(t);
-        selectedNodeModel.setObject(t);
+        getModelObject().add(object);
+        selectedNodeModel.setObject(object);
         modelChanged();
 
         if (listener instanceof GenericNestedTree.SelectListener) {
             listener.onSelect();
         }
 
-        updateBranch(t, getRequestCycle().find(AjaxRequestTarget.class));
+        updateBranch(object, getRequestCycle().find(AjaxRequestTarget.class));
     }
 
     /**
