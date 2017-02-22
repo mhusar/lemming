@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:panel>
+    <form wicket:id="senseEditForm" class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-md-12">
+                <div wicket:id="senses" id="senses" class="tree"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input wicket:id="meaning" type="text" class="form-control" autofocus="autofocus"></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button wicket:id="createSenseButton" type="button" class="btn btn-default">
+                    <wicket:message key="Action.create"></wicket:message>
+                </button>
+                <button wicket:id="saveSenseButton" type="button" class="btn btn-primary">
+                    <wicket:message key="Action.save"></wicket:message>
+                </button>
+                <button wicket:id="deleteSenseButton" type="button" class="btn btn-danger pull-right">
+                    <wicket:message key="Action.delete"></wicket:message>
+                </button>
+            </div>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package lemming.sense;
 
 import lemming.auth.WebSession;
+import lemming.lemma.Lemma;
 import lemming.lemma.LemmaDao;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
@@ -9,9 +10,10 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 /**
- * A page containing a sense edit form.
+ * A page for sense editing.
  */
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class SenseEditPage extends BasePage {
@@ -19,6 +21,11 @@ public class SenseEditPage extends BasePage {
      * Determines if a deserialized file is compatible with this class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Model of the parent lemma.
+     */
+    private IModel<Lemma> lemmaModel;
 
     /**
      * Model of the edited sense object.
@@ -32,26 +39,24 @@ public class SenseEditPage extends BasePage {
 
     /**
      * Creates a sense edit page.
-     *
-     * @param nextPageClass class of the next page
-     */
-    public SenseEditPage(Class<? extends Page> nextPageClass) {
-        this.nextPageClass = nextPageClass;
-    }
-
-    /**
-     * Creates a sense edit page.
      * 
-     * @param senseModel model of the edited sense object
+     * @param model model of the edited lemma or sense object
      * @param nextPageClass class of the next page
      */
-    public SenseEditPage(IModel<Sense> senseModel, Class<? extends Page> nextPageClass) {
+    public SenseEditPage(IModel<?> model, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;
 
-        if (senseModel instanceof IModel) {
-            Sense sense = senseModel.getObject();
-            Sense refreshedSense = new SenseDao().refresh(sense);
-            this.senseModel = new CompoundPropertyModel<Sense>(refreshedSense);
+        if (model instanceof IModel) {
+            if (model.getObject() instanceof Lemma) {
+                Lemma lemma = (Lemma) model.getObject();
+                Lemma refreshedLemma = new LemmaDao().refresh(lemma);
+                lemmaModel = new Model<Lemma>(refreshedLemma);
+            } else if (model.getObject() instanceof Sense) {
+                Sense sense = (Sense) model.getObject();
+                Sense refreshedSense = new SenseDao().refresh(sense);
+                senseModel = new CompoundPropertyModel<Sense>(refreshedSense);
+                lemmaModel = new Model<Lemma>(refreshedSense.getLemma());
+            }
         }
     }
 
@@ -68,6 +73,11 @@ public class SenseEditPage extends BasePage {
         add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel"));
         add(new Label("header", getString("SenseEditPage.editHeader")));
         add(new FeedbackPanel("feedbackPanel"));
-        add(new SenseEditForm("senseEditForm", senseModel, nextPageClass));
+
+        if (senseModel instanceof IModel) {
+            add(new SenseEditPanel("senseEditPanel", lemmaModel, senseModel));
+        } else {
+            add(new SenseEditPanel("senseEditPanel", lemmaModel));
+        }
     }
 }
