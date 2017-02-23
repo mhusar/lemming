@@ -358,12 +358,12 @@ public class SenseEditPanel extends Panel {
                 }
 
                 senseDao.persist(sense);
+                senseTree.select(target, sense);
             } else {
-                senseDao.merge(sense);
-                senseModel.setObject(senseDao.find(sense.getId()));
+                Sense mergedSense = senseDao.merge(sense);
+                senseModel.setObject(mergedSense);
+                senseTree.select(target, mergedSense);
             }
-
-            target.add(senseTree);
         }
 
         /**
@@ -398,12 +398,12 @@ public class SenseEditPanel extends Panel {
                     parentSense.getChildren().add(childSense);
                     senseDao.persist(childSense);
                     senseDao.merge(parentSense);
+                    senseTree.select(target, childSense);
                 } else {
-                    senseDao.merge(childSense);
-                    senseModel.setObject(senseDao.find(childSense.getId()));
+                    Sense mergedChildSense = senseDao.merge(childSense);
+                    senseModel.setObject(mergedChildSense);
+                    senseTree.select(target, mergedChildSense);
                 }
-
-                target.add(senseTree);
             }
         }
     }
