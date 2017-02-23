@@ -116,9 +116,9 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     }
 
     /**
-     * Returns the model of a selected node.
+     * Returns the model of the selected node.
      *
-     * @return A model of a selected node or an empty model if no node is selected.
+     * @return A model of the selected node or an empty model if no node is selected.
      */
     public IModel<T> getSelectedNodeModel() {
         return selectedNodeModel;
