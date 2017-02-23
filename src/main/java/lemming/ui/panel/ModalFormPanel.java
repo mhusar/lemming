@@ -24,7 +24,7 @@ import org.apache.wicket.util.visit.IVisitor;
 import java.util.List;
 
 /**
- * A panel containing a modal window with a parentForm.
+ * A panel containing a modal window with a form.
  */
 public abstract class ModalFormPanel extends Panel {
     /**
