@@ -30,6 +30,9 @@
     <entry key="CharacterEditPage.character-is-non-unique">Dieses Sonderzeichen gibt es bereits.</entry>
     <entry key="CharacterEditPage.header">Sonderzeichen bearbeiten</entry>
     <entry key="CharacterViewPanel.dummyItemText">Kein Eintrag vorhanden</entry>
+    <entry key="ChooseLemmaPanel.lemma">Lemma</entry>
+    <entry key="ChooseLemmaPanel.chooseLemma">Lemma wählen</entry>
+    <entry key="ChooseLemmaPanel.okay">OK</entry>
     <entry key="Context.following">Nachfolgend</entry>
     <entry key="Context.keyword">Stichwort</entry>
     <entry key="Context.lemma">Lemma</entry>

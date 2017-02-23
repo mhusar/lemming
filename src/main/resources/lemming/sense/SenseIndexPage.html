@@ -24,12 +24,16 @@
                        wicket:message="placeholder:Action.filter"/>
             </div>
             <div class="col-md-9">
+                <button wicket:id="new" class="btn btn-default">
+                    <wicket:message key="SenseIndexPage.new"></wicket:message>
+                </button>
             </div>
         </div>
     </div>
     <div wicket:id="container" class="container">
         <div wicket:id="fragment"></div>
     </div>
+    <div wicket:id="chooseLemmaPanel"></div>
     <wicket:fragment wicket:id="withoutFilterForm">
         <table wicket:id="senseDataTable"></table>
     </wicket:fragment>
