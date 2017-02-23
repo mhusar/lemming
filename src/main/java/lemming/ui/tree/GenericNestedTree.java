@@ -13,6 +13,8 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
+import java.util.Iterator;
+
 /**
  * A nested tree with select functionality and custom style.
  *
@@ -20,7 +22,7 @@ import org.apache.wicket.request.resource.ResourceReference;
  */
 public class GenericNestedTree<T> extends NestedTree<T> {
     /**
-     * Model of the selected sense.
+     * Model of the selected node.
      */
     private IModel<T> selectedNodeModel;
 
@@ -35,8 +37,10 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     public interface SelectListener {
         /**
          * Called when a select event occurs.
+         *
+         * @param target target that produces an Ajax response
          */
-        void onSelect();
+        void onSelect(AjaxRequestTarget target);
     }
 
     /**
@@ -49,6 +53,19 @@ public class GenericNestedTree<T> extends NestedTree<T> {
         super(id, provider);
         add(new StyleBehavior());
         selectedNodeModel = new Model();
+    }
+
+    /**
+     * Creates a nested tree.
+     *
+     * @param id ID of a tree
+     * @param provider provider of tree data
+     * @param selectedNodeModel model of the selected node object
+     */
+    public GenericNestedTree(String id, ITreeProvider<T> provider, IModel<T> selectedNodeModel) {
+        super(id, provider);
+        add(new StyleBehavior());
+        this.selectedNodeModel = selectedNodeModel;
     }
 
     /**
@@ -66,21 +83,36 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     }
 
     /**
+     * Expands all tree branches.
+     */
+    public void expandAll() {
+        Iterator<? extends T> rootsIterator = getProvider().getRoots();
+
+        while (rootsIterator.hasNext()) {
+            expand(rootsIterator.next());
+        }
+    }
+
+    /**
      * Selects the given node.
      *
+     * @param target target that produces an Ajax response
      * @param object object to select
      */
-    public void select(T object) {
+    public void select(AjaxRequestTarget target, T object) {
         modelChanging();
+        getModelObject().clear();
         getModelObject().add(object);
         selectedNodeModel.setObject(object);
         modelChanged();
 
         if (listener instanceof GenericNestedTree.SelectListener) {
-            listener.onSelect();
+            listener.onSelect(target);
         }
 
-        updateBranch(object, getRequestCycle().find(AjaxRequestTarget.class));
+        updateNode(object, target);
+        expandAll();
+        target.add(this);
     }
 
     /**

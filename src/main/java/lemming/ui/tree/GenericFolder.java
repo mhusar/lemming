@@ -85,7 +85,13 @@ public class GenericFolder<T> extends Folder<T> {
      */
     @Override
     protected boolean isSelected() {
-        return tree.getSelectedNodeModel().getObject().equals(getModelObject()) ? true : false;
+        if (tree.getSelectedNodeModel() instanceof IModel) {
+            if (tree.getSelectedNodeModel().getObject() instanceof Object) {
+                return tree.getSelectedNodeModel().getObject().equals(getModelObject()) ? true : false;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -96,6 +102,6 @@ public class GenericFolder<T> extends Folder<T> {
     @Override
     protected void onClick(AjaxRequestTarget target) {
         super.onClick(target);
-        tree.select(getModelObject());
+        tree.select(target, getModelObject());
     }
 }

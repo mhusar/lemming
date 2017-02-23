@@ -43,6 +43,10 @@ public class SenseTreeProvider implements ITreeProvider<Sense> {
      */
     @Override
     public boolean hasChildren(Sense node) {
+        if (new SenseDao().isTransient(node)) {
+            return false;
+        }
+
         Sense refreshedNode = new SenseDao().refresh(node);
         return !refreshedNode.getChildren().isEmpty();
     }

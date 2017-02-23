@@ -25,11 +25,10 @@ public class SenseTree extends GenericNestedTree<Sense> {
      *
      * @param id ID of a tree
      * @param provider provider of tree data
-     * @param selectedSense selected sense
+     * @param selectedSenseModel model of the selected sense
      */
-    public SenseTree(String id, ITreeProvider<Sense> provider, Sense selectedSense) {
-        super(id, provider);
-        select(selectedSense);
+    public SenseTree(String id, ITreeProvider<Sense> provider, IModel<Sense> selectedSenseModel) {
+        super(id, provider, selectedSenseModel);
     }
 
     /**

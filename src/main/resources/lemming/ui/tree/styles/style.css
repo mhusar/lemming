@@ -13,7 +13,7 @@
 }
 
 .tree-branch-mid {
-	background-image: url(tree.gif);
+	background-image: url(images/tree.gif);
 	background-position: -54px center;
 	background-repeat: repeat-y;
 }
@@ -22,7 +22,7 @@
 	display: block;
 	float: left;
 	width: 18px;
-	background-image: url(tree.gif);
+	background-image: url(images/tree.gif);
 	background-position: -36px center;
 	background-repeat: no-repeat;
 }
@@ -35,7 +35,7 @@
 	display: block;
 	float: left;
 	width: 18px;
-	background-image: url(tree.gif);
+	background-image: url(images/tree.gif);
 	background-position: -18px center;
 	background-repeat: no-repeat;
 	text-decoration: none;
