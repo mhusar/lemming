@@ -58,7 +58,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             transaction.begin();
             sense = entityManager.merge(sense);
             TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
-                    "WHERE s.id = :id", Sense.class);
+                    "LEFT JOIN FETCH s.children WHERE s.id = :id", Sense.class);
             Sense refreshedSense = query.setParameter("id", sense.getId()).getSingleResult();
             transaction.commit();
             return refreshedSense;
@@ -163,7 +163,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
-                    "WHERE s.lemma = :lemma", Sense.class);
+                    "LEFT JOIN FETCH s.children WHERE s.lemma = :lemma", Sense.class);
             List<Sense> senseList = query.setParameter("lemma", lemma).getResultList();
             transaction.commit();
             return senseList;
@@ -193,8 +193,8 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Sense> query = entityManager
-                    .createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma WHERE s.meaning = :meaning " +
-                            "ORDER BY s.meaning", Sense.class);
+                    .createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma LEFT JOIN FETCH s.children " +
+                            "WHERE s.meaning = :meaning ORDER BY s.meaning", Sense.class);
             List<Sense> senseList = query.setParameter("meaning", meaning).getResultList();
             transaction.commit();
 
