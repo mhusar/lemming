@@ -9,7 +9,6 @@
     <entry key="Action.continue">Weiter</entry>
     <entry key="Action.correct">Korrigieren</entry>
     <entry key="Action.correction">Korrektur</entry>
-    <entry key="Action.create">Erstellen</entry>
     <entry key="Action.delete">Löschen</entry>
     <entry key="Action.done">Fertig</entry>
     <entry key="Action.edit">Bearbeiten</entry>
@@ -155,6 +154,8 @@
     <entry key="SenseDeleteConfirmPanel.message">Möchten Sie die Bedeutung “{0}” wirklich löschen ?</entry>
     <entry key="SenseDeleteConfirmPanel.title">Bedeutung löschen</entry>
     <entry key="SenseEditPage.editHeader">Bedeutungen bearbeiten</entry>
+    <entry key="SenseEditPanel.addChildSense">Unterbedeutung hinzufügen</entry>
+    <entry key="SenseEditPanel.addSense">Bedeutung hinzufügen</entry>
     <entry key="SenseIndexPage.header">Bedeutungen</entry>
     <entry key="SenseIndexPage.new">Bedeutung erstellen</entry>
     <entry key="SetLemmaPanel.lemma">Lemma</entry>

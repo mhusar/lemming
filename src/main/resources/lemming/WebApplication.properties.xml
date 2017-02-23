@@ -9,7 +9,6 @@
     <entry key="Action.continue">Continue</entry>
     <entry key="Action.correct">Correct</entry>
     <entry key="Action.correction">Correction</entry>
-    <entry key="Action.create">Create</entry>
     <entry key="Action.delete">Delete</entry>
     <entry key="Action.done">Done</entry>
     <entry key="Action.edit">Edit</entry>
@@ -155,6 +154,8 @@
     <entry key="SenseDeleteConfirmPanel.message">Are you sure you want to delete the sense “{0}” ?</entry>
     <entry key="SenseDeleteConfirmPanel.title">Delete sense</entry>
     <entry key="SenseEditPage.editHeader">Edit sense</entry>
+    <entry key="SenseEditPanel.addChildSense">Add child sense</entry>
+    <entry key="SenseEditPanel.addSense">Add sense</entry>
     <entry key="SenseIndexPage.header">Senses</entry>
     <entry key="SenseIndexPage.new">Create sense</entry>
     <entry key="SetLemmaPanel.lemma">Lemma</entry>
