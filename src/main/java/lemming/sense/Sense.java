@@ -213,6 +213,19 @@ public class Sense implements Serializable {
     }
 
     /**
+     * Checks if a sense is a parent sense.
+     *
+     * @return True if a sense is a parent sense, false otherwise.
+     */
+    public Boolean isParentSense() {
+        if (childPosition == null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the lemma of a sense.
      *
      * @return Lemma of a sense.

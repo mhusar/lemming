@@ -163,7 +163,7 @@ public class SenseEditPanel extends Panel {
             saveSenseButton = new SaveSenseButton("saveSenseButton", this);
 
             if (senseModel instanceof IModel) {
-                if (senseModel.getObject().getChildPosition() == null) {
+                if (senseModel.getObject().isParentSense()) {
                     type = SenseType.PARENT;
                 } else {
                     type = SenseType.CHILD;
@@ -192,7 +192,7 @@ public class SenseEditPanel extends Panel {
             senseModel = senseTree.getSelectedNodeModel();
 
             if (senseModel.getObject() instanceof Sense) {
-                if (senseModel.getObject().getChildPosition() == null) {
+                if (senseModel.getObject().isParentSense()) {
                     setSenseType(SenseType.PARENT);
                     addChildSenseButton.setEnabled(true);
                     target.add(addChildSenseButton);
