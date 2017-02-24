@@ -101,11 +101,6 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
                     public void onClick(AjaxRequestTarget target) {
                         ModalMessagePanel senseDeleteConfirmPanel = (ModalMessagePanel) getPage()
                                 .get("senseDeleteConfirmPanel");
-                        ModalMessagePanel senseDeleteDeniedPanel = (ModalMessagePanel) getPage()
-                                .get("senseDeleteDeniedPanel");
-
-                        // TODO: When to show a sense delete deny panel?
-                        //senseDeleteDeniedPanel.show(target, model);
                         senseDeleteConfirmPanel.show(target, new Model<Sense>(model.getObject()));
                     }
                 });
