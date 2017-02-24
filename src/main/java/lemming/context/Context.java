@@ -3,6 +3,7 @@ package lemming.context;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
+import lemming.sense.Sense;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -112,6 +113,14 @@ public class Context implements Serializable {
     @Column(name = "lemma_string")
     @JsonIgnore
     private String lemmaString;
+
+    /**
+     * Sense of a keyword in context.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sense_id")
+    @JsonIgnore
+    private Sense sense;
 
     /**
      * Selected state of a context.
@@ -343,6 +352,24 @@ public class Context implements Serializable {
      */
     public void setLemmaString(String lemmaString) {
         this.lemmaString = lemmaString;
+    }
+
+    /**
+     * Returns the sense of a context.
+     *
+     * @return Sense of a context.
+     */
+    public Sense getSense() {
+        return sense;
+    }
+
+    /**
+     * Sets the sense of a context.
+     *
+     * @param sense sense of a context
+     */
+    public void setSense(Sense sense) {
+        this.sense = sense;
     }
 
     /**
