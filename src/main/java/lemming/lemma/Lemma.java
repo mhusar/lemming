@@ -3,17 +3,13 @@ package lemming.lemma;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.Source;
 import lemming.pos.Pos;
-import lemming.sense.Sense;
 import org.hibernate.annotations.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -105,14 +101,6 @@ public class Lemma implements Serializable {
      */
     @Column(name = "reference")
     private String reference;
-
-    /**
-     * Senses of a lemma.
-     */
-    @OneToMany(mappedBy="lemma", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    @OrderBy("parent_position")
-    @JsonIgnore
-    private List<Sense> senses;
 
     /**
      * Creates an instance of a lemma.
@@ -309,24 +297,6 @@ public class Lemma implements Serializable {
      */
     public void setReference(String reference) {
         this.reference = reference;
-    }
-
-    /**
-     * Returns senses of a lemma.
-     *
-     * @return A list of senses.
-     */
-    public List<Sense> getSenses() {
-        return senses;
-    }
-
-    /**
-     * Sets senses of a lemma.
-     *
-     * @param senses list of senses
-     */
-    public void setSenses(List<Sense> senses) {
-        this.senses = senses;
     }
 
     /**
