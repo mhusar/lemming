@@ -162,7 +162,7 @@ public class LemmatisationPage extends EmptyBasePage {
      */
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        // focus autofocus input when they become visible
+        // focus autofocus input when it becomes visible
         String javaScript = "jQuery(window).on('resize scroll', jQuery.debounce(250, function() { " +
                 "var autofocusInput = jQuery('input[autofocus]').first(); " +
                 "if (autofocusInput.length && autofocusInput.isInViewport()) { " +
