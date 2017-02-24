@@ -8,6 +8,7 @@ import org.hibernate.UnresolvableObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -147,6 +148,96 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
         } finally {
             entityManager.close();
             return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public void remove(Sense sense) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            Sense mergedSense = entityManager.merge(sense);
+
+            // remove contexts from sense
+            Query updateContextsQuery = entityManager
+                    .createQuery("UPDATE Context c SET c.sense = null WHERE c.sense = :sense");
+            updateContextsQuery.setParameter("sense", mergedSense).executeUpdate();
+
+            if (sense.isParentSense()) {
+                // fix parent positions of siblings and their children
+                fixParentPositions(entityManager, mergedSense);
+            } else {
+                // remove sense from parent sense and fix child positions
+                removeFromParentSense(entityManager, mergedSense);
+            }
+
+            entityManager.remove(mergedSense);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * Remove sense from parent sense and fix child positions.
+     *
+     * @param entityManager an interface to interact with the persistence context
+     * @param sense the sense to remove
+     */
+    private void removeFromParentSense(EntityManager entityManager, Sense sense) {
+        TypedQuery<Sense> parentQuery = entityManager
+                .createQuery("SELECT s FROM Sense s WHERE :sense IN ELEMENTS(s.children)", Sense.class);
+        Sense parentSense = parentQuery.setParameter("sense", sense).getSingleResult();
+
+        // remove sense from parent sense
+        parentSense.getChildren().remove(sense);
+
+        // refresh parent sense
+        TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
+                "LEFT JOIN FETCH s.children WHERE s.id = :id", Sense.class);
+        Sense refreshedParentSense = query.setParameter("id", parentSense.getId()).getSingleResult();
+
+        // fix child positions of siblings
+        for (int i = 0; i < refreshedParentSense.getChildren().size(); i++) {
+            refreshedParentSense.getChildren().get(i).setChildPosition(i + 1);
+        }
+    }
+
+    /**
+     * Fix parent positions of siblings and their children.
+     *
+     * @param entityManager an interface to interact with the persistence context
+     * @param sense the sense to remove
+     */
+    private void fixParentPositions(EntityManager entityManager, Sense sense) {
+        TypedQuery<Sense> siblingsQuery = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
+                "LEFT JOIN FETCH s.children WHERE s.lemma = :lemma AND s != :sense", Sense.class);
+        List<Sense> siblingList = siblingsQuery.setParameter("lemma", sense.getLemma()).setParameter("sense", sense)
+                .getResultList();
+
+        for (int i = 0; i < siblingList.size(); i++) {
+            Sense sibling = siblingList.get(i);
+            sibling.setParentPosition(i + 1);
+
+            for (Sense child : sibling.getChildren()) {
+                child.setParentPosition(i + 1);
+            }
         }
     }
 
