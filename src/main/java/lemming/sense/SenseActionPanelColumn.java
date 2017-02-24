@@ -103,6 +103,17 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
                                 .get("senseDeleteConfirmPanel");
                         senseDeleteConfirmPanel.show(target, new Model<Sense>(model.getObject()));
                     }
+
+                    @Override
+                    public boolean isVisible() {
+                        Sense sense = model.getObject();
+
+                        if (sense.isParentSense() && new SenseDao().hasChildSenses(sense)) {
+                            return false;
+                        }
+
+                        return true;
+                    }
                 });
             }
         }
