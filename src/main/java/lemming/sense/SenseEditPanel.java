@@ -1,6 +1,7 @@
 package lemming.sense;
 
 import lemming.lemma.Lemma;
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -51,6 +52,15 @@ public class SenseEditPanel extends Panel {
     public SenseEditPanel(String id, IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
         super(id);
         add(new SenseEditForm("senseEditForm", lemmaModel, senseModel));
+    }
+
+    /**
+     * Called when a sense edit panel is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel"));
     }
 
     /**
@@ -165,6 +175,10 @@ public class SenseEditPanel extends Panel {
             if (senseModel instanceof IModel) {
                 if (senseModel.getObject().isParentSense()) {
                     type = SenseType.PARENT;
+
+                    if (senseDao.hasChildSenses(senseModel.getObject())) {
+                        deleteSenseButton.setEnabled(false);
+                    }
                 } else {
                     type = SenseType.CHILD;
                     addChildSenseButton.setVisible(false);
@@ -195,11 +209,15 @@ public class SenseEditPanel extends Panel {
                 if (senseModel.getObject().isParentSense()) {
                     setSenseType(SenseType.PARENT);
                     addChildSenseButton.setEnabled(true);
+                    deleteSenseButton.setEnabled(false);
                     target.add(addChildSenseButton);
+                    target.add(deleteSenseButton);
                 } else {
                     setSenseType(SenseType.CHILD);
                     addChildSenseButton.setEnabled(false);
+                    deleteSenseButton.setEnabled(true);
                     target.add(addChildSenseButton);
+                    target.add(deleteSenseButton);
                 }
 
                 meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
@@ -300,7 +318,9 @@ public class SenseEditPanel extends Panel {
              */
             @Override
             public void onClick(AjaxRequestTarget target) {
-
+                ModalMessagePanel senseDeleteConfirmPanel = (ModalMessagePanel) SenseEditPanel.this
+                        .get("senseDeleteConfirmPanel");
+                senseDeleteConfirmPanel.show(target, new Model<Sense>(senseModel.getObject()));
             }
         }
 
