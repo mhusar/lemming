@@ -215,7 +215,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
 
         // fix child positions of siblings
         for (int i = 0; i < refreshedParentSense.getChildren().size(); i++) {
-            refreshedParentSense.getChildren().get(i).setChildPosition(i + 1);
+            refreshedParentSense.getChildren().get(i).setChildPosition(i);
         }
     }
 
@@ -233,10 +233,10 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
 
         for (int i = 0; i < siblingList.size(); i++) {
             Sense sibling = siblingList.get(i);
-            sibling.setParentPosition(i + 1);
+            sibling.setParentPosition(i);
 
             for (Sense child : sibling.getChildren()) {
-                child.setParentPosition(i + 1);
+                child.setParentPosition(i);
             }
         }
     }
