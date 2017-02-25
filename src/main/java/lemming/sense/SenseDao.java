@@ -10,9 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.UUID;
 
@@ -314,21 +311,13 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      */
     public List<Sense> findRootNodes(Lemma lemma) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Sense> criteriaQuery = criteriaBuilder.createQuery(Sense.class);
-        Root<Sense> root = criteriaQuery.from(Sense.class);
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-
-            criteriaQuery.select(root);
-            criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(root.get("lemma"), lemma)),
-                    criteriaBuilder.isNull(root.get("childPosition")));
-            criteriaQuery.orderBy(criteriaBuilder.asc(root.get("parentPosition")));
-
-            TypedQuery<Sense> query = entityManager.createQuery(criteriaQuery);
+            TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s "
+                    + "WHERE s.childPosition IS NULL", Sense.class);
             List<Sense> senseList = query.getResultList();
             transaction.commit();
             return senseList;
