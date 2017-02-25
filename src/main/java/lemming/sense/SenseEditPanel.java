@@ -1,7 +1,6 @@
 package lemming.sense;
 
 import lemming.lemma.Lemma;
-import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -55,15 +54,6 @@ public class SenseEditPanel extends Panel {
     }
 
     /**
-     * Called when a sense edit panel is initialized.
-     */
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-        add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel"));
-    }
-
-    /**
      * A form for editing senses.
      */
     private class SenseEditForm extends Form<Sense> implements SenseTree.SelectListener {
@@ -81,6 +71,11 @@ public class SenseEditPanel extends Panel {
          * Model of the edited sense object.
          */
         private IModel<Sense> senseModel;
+
+        /**
+         * Parent sense model of a child sense.
+         */
+        private IModel<Sense> parentSenseModel;
 
         /**
          * Sense type which is saved.
@@ -139,6 +134,7 @@ public class SenseEditPanel extends Panel {
             super(id);
             this.lemmaModel = lemmaModel;
             this.senseModel = senseModel;
+            parentSenseModel = new Model<Sense>();
         }
 
         /**
@@ -166,7 +162,8 @@ public class SenseEditPanel extends Panel {
 
             senseTree.expandAll();
             senseTree.registerSelectListener(this);
-            senseTree.setOutputMarkupPlaceholderTag(true).setOutputMarkupId(true);
+            SenseEditPanel.this.add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", lemmaModel, senseTree));
+
             addSenseButton = new AddSenseButton("addSenseButton");
             addChildSenseButton = new AddChildSenseButton("addChildSenseButton");
             deleteSenseButton = new DeleteSenseButton("deleteSenseButton");
@@ -190,7 +187,7 @@ public class SenseEditPanel extends Panel {
                 saveSenseButton.setVisible(false);
             }
 
-            add(senseTree);
+            add(senseTree.setOutputMarkupPlaceholderTag(true).setOutputMarkupId(true));
             add(meaningTextField.setOutputMarkupId(true));
             add(addSenseButton.setOutputMarkupId(true));
             add(addChildSenseButton.setOutputMarkupPlaceholderTag(true).setOutputMarkupId(true));
@@ -203,26 +200,38 @@ public class SenseEditPanel extends Panel {
          */
         @Override
         public void onSelect(AjaxRequestTarget target) {
+            SenseDao senseDao = new SenseDao();
             senseModel = senseTree.getSelectedNodeModel();
 
             if (senseModel.getObject() instanceof Sense) {
+                senseModel.setObject(senseDao.refresh(senseModel.getObject()));
+
                 if (senseModel.getObject().isParentSense()) {
                     setSenseType(SenseType.PARENT);
-                    addChildSenseButton.setEnabled(true);
-                    deleteSenseButton.setEnabled(false);
+                    addChildSenseButton.setVisible(true).setEnabled(true);
+
+                    if (senseDao.hasChildSenses(senseModel.getObject())) {
+                        deleteSenseButton.setVisible(true).setEnabled(false);
+                    } else {
+                        deleteSenseButton.setVisible(true).setEnabled(true);
+                    }
+
                     target.add(addChildSenseButton);
                     target.add(deleteSenseButton);
                 } else {
                     setSenseType(SenseType.CHILD);
-                    addChildSenseButton.setEnabled(false);
-                    deleteSenseButton.setEnabled(true);
+                    addChildSenseButton.setVisible(true).setEnabled(false);
+                    deleteSenseButton.setVisible(true).setEnabled(true);
                     target.add(addChildSenseButton);
                     target.add(deleteSenseButton);
                 }
 
                 meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
-                target.add(meaningTextField);
+            } else {
+                meaningTextField.setDefaultModel(new Model<String>(""));
             }
+
+            target.add(meaningTextField);
         }
 
         /**
@@ -263,6 +272,7 @@ public class SenseEditPanel extends Panel {
                 target.add(meaningTextField);
                 target.add(saveSenseButton);
                 target.focusComponent(meaningTextField);
+                senseTree.deselect(target);
             }
         }
 
@@ -286,6 +296,7 @@ public class SenseEditPanel extends Panel {
              */
             @Override
             public void onClick(AjaxRequestTarget target) {
+                parentSenseModel.setObject(senseModel.getObject());
                 senseModel = new Model<Sense>(new Sense());
 
                 setSenseType(SenseType.CHILD);
@@ -295,6 +306,7 @@ public class SenseEditPanel extends Panel {
                 target.add(meaningTextField);
                 target.add(saveSenseButton);
                 target.focusComponent(meaningTextField);
+                senseTree.deselect(target);
             }
         }
 
@@ -318,7 +330,7 @@ public class SenseEditPanel extends Panel {
              */
             @Override
             public void onClick(AjaxRequestTarget target) {
-                ModalMessagePanel senseDeleteConfirmPanel = (ModalMessagePanel) SenseEditPanel.this
+                SenseDeleteConfirmPanel senseDeleteConfirmPanel = (SenseDeleteConfirmPanel) SenseEditPanel.this
                         .get("senseDeleteConfirmPanel");
                 senseDeleteConfirmPanel.show(target, new Model<Sense>(senseModel.getObject()));
             }
@@ -374,11 +386,11 @@ public class SenseEditPanel extends Panel {
                     Sense lastRootNode = rootNodes.get(rootNodes.size() - 1);
                     sense.setParentPosition(lastRootNode.getParentPosition() + 1);
                 } else {
-                    sense.setParentPosition(1);
+                    sense.setParentPosition(0);
                 }
 
                 senseDao.persist(sense);
-                senseTree.select(target, sense);
+                senseTree.select(target, senseDao.find(sense.getId()));
             } else {
                 Sense mergedSense = senseDao.merge(sense);
                 senseModel.setObject(mergedSense);
@@ -394,37 +406,35 @@ public class SenseEditPanel extends Panel {
          */
         private void saveChildSense(AjaxRequestTarget target, Form<?> form) {
             SenseDao senseDao = new SenseDao();
-            IModel<Sense> selectedNodeModel = senseTree.getSelectedNodeModel();
             String meaning = meaningTextField.getInput();
+            Sense parentSense = parentSenseModel.getObject();
+            List<Sense> children = parentSense.getChildren();
             Sense childSense = senseModel.getObject();
 
-            if (selectedNodeModel.getObject() instanceof Sense) {
-                Sense parentSense = senseDao.refresh(selectedNodeModel.getObject());
-                List<Sense> children = parentSense.getChildren();
+            childSense.setMeaning(meaning);
 
-                childSense.setMeaning(meaning);
+            if (senseDao.isTransient(childSense)) {
+                childSense.setLemma(lemmaModel.getObject());
+                childSense.setParentPosition(parentSense.getParentPosition());
 
-                if (senseDao.isTransient(childSense)) {
-                    childSense.setLemma(lemmaModel.getObject());
-                    childSense.setParentPosition(parentSense.getParentPosition());
-
-                    if (!children.isEmpty()) {
-                        Sense lastChild = children.get(children.size() - 1);
-                        childSense.setChildPosition(lastChild.getChildPosition() + 1);
-                    } else {
-                        childSense.setChildPosition(1);
-                    }
-
-                    parentSense.getChildren().add(childSense);
-                    senseDao.persist(childSense);
-                    senseDao.merge(parentSense);
-                    senseTree.select(target, childSense);
+                if (!children.isEmpty()) {
+                    Sense lastChild = children.get(children.size() - 1);
+                    childSense.setChildPosition(lastChild.getChildPosition() + 1);
                 } else {
-                    Sense mergedChildSense = senseDao.merge(childSense);
-                    senseModel.setObject(mergedChildSense);
-                    senseTree.select(target, mergedChildSense);
+                    childSense.setChildPosition(0);
                 }
+
+                parentSense.getChildren().add(childSense);
+                senseDao.persist(childSense);
+                senseDao.merge(parentSense);
+                senseTree.select(target, senseDao.find(childSense.getId()));
+            } else {
+                Sense mergedChildSense = senseDao.merge(childSense);
+                senseModel.setObject(mergedChildSense);
+                senseTree.select(target, mergedChildSense);
             }
+
+            parentSenseModel.setObject(null);
         }
     }
 }

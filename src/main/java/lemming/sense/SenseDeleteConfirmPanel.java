@@ -1,12 +1,16 @@
 package lemming.sense;
 
+import lemming.lemma.Lemma;
 import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
+
+import java.util.List;
 
 /**
  * A panel containing a modal window dialog asking if a sense shall be deleted.
@@ -17,6 +21,16 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
      * Determines if a deserialized file is compatible with this class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * A tree of senses.
+     */
+    private SenseTree senseTree;
+
+    /**
+     * Model of the parent lemma.
+     */
+    private IModel<Lemma> lemmaModel;
 
     /**
      * Creates a panel.
@@ -35,6 +49,19 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
      */
     public SenseDeleteConfirmPanel(String id, GenericDataTable<Sense> dataTable) {
         super(id, DialogType.YES_NO, dataTable);
+    }
+
+    /**
+     * Creates a panel.
+     *
+     * @param id ID of the panel
+     * @param lemmaModel model of the parent lemma
+     * @param senseTree a tree of senses
+     */
+    public SenseDeleteConfirmPanel(String id, IModel<Lemma> lemmaModel, SenseTree senseTree) {
+        super(id, DialogType.YES_NO);
+        this.lemmaModel = lemmaModel;
+        this.senseTree = senseTree;
     }
 
     /**
@@ -77,7 +104,34 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
      * @param target target that produces an Ajax response
      */
     @Override
-        new SenseDao().remove((Sense) getDefaultModelObject());
     public void onConfirm(AjaxRequestTarget target) {
+        Sense sense = (Sense) getDefaultModelObject();
+
+        if (senseTree == null) {
+            new SenseDao().remove(sense);
+            return;
+        }
+
+        SenseDao senseDao = new SenseDao();
+        Integer parentPosition = sense.getParentPosition();
+        Integer childPosition = sense.getChildPosition();
+
+        new SenseDao().remove(sense);
+        List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
+
+        if (childPosition == null && parentPosition == 0) {
+            if (!rootNodes.isEmpty()) {
+                senseTree.select(target, rootNodes.get(parentPosition));
+            } else {
+                senseTree.deselect(target);
+            }
+        } else if (childPosition == null && parentPosition > 0) {
+            senseTree.select(target, rootNodes.get(parentPosition - 1));
+        } else if (childPosition == null || childPosition == 0) {
+            senseTree.select(target, rootNodes.get(parentPosition));
+        } else if (childPosition > 0) {
+            Sense parentSense = senseDao.refresh(rootNodes.get(parentPosition));
+            senseTree.select(target, parentSense.getChildren().get(childPosition - 1));
+        }
     }
 }
