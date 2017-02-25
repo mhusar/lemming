@@ -48,10 +48,10 @@ InputPanel = (function () {
         adjust = function () {
             var body = jQuery("body"),
                 inputPanel = jQuery(".inputPanel"),
-                lemmatisationPanel = jQuery(".lemmatisationPanel");
+                lemmatizationPanel = jQuery(".lemmatizationPanel");
 
             if (inputPanel.outerHeight() > getPixelsAsNumber(body.css("padding-bottom"))) {
-                if (lemmatisationPanel.length) {
+                if (lemmatizationPanel.length) {
                     body.animate({
                         "padding-bottom" : 51 + inputPanel.outerHeight() + "px"
                     }, duration);
@@ -62,7 +62,7 @@ InputPanel = (function () {
                 }
             }
 
-            if (lemmatisationPanel.length) {
+            if (lemmatizationPanel.length) {
                 inputPanel.animate({
                      "bottom" : 51 + "px"
                 }, duration, function () {
@@ -109,13 +109,13 @@ InputPanel = (function () {
         prepare = function () {
             var body = jQuery("body"),
                 inputPanel = jQuery(".inputPanel"),
-                lemmatisationPanel = jQuery(".lemmatisationPanel");
+                lemmatizationPanel = jQuery(".lemmatizationPanel");
 
             body.stop(true, true);
             inputPanel.stop(true, true);
 
             if (inputPanel.css("visibility") === "hidden") {
-                if (lemmatisationPanel.length) {
+                if (lemmatizationPanel.length) {
                     body.css("padding-bottom", 51 + "px");
                 } else {
                     body.css("padding-bottom", "0px");

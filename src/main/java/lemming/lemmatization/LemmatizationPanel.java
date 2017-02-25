@@ -1,11 +1,11 @@
-package lemming.lemmatisation;
+package lemming.lemmatization;
 
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * A panel that provides buttons for lemmatisation.
+ * A panel that provides buttons for lemmatization.
  */
-public class LemmatisationPanel extends Panel {
+public class LemmatizationPanel extends Panel {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -16,7 +16,7 @@ public class LemmatisationPanel extends Panel {
      *
      * @param id ID of the panel
      */
-    public LemmatisationPanel(String id) {
+    public LemmatizationPanel(String id) {
         super(id);
     }
 }

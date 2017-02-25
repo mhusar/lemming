@@ -57,7 +57,7 @@
     <entry key="FilterPanelColumn.go">Go</entry>
     <entry key="HeaderPanel.contexts">Contexts</entry>
     <entry key="HeaderPanel.lemmas">Lemmata</entry>
-    <entry key="HeaderPanel.lemmatisation">Lemmatisation</entry>
+    <entry key="HeaderPanel.lemmatization">Lemmatization</entry>
     <entry key="HeaderPanel.logout">Logout</entry>
     <entry key="HeaderPanel.overview">Dashboard</entry>
     <entry key="HeaderPanel.pos">Parts of speech</entry>
@@ -70,7 +70,7 @@
     <entry key="HomePage.contextImport">Import of contexts</entry>
     <entry key="HomePage.dataMaintenance">Data maintenance</entry>
     <entry key="HomePage.lemmas">Lemmata</entry>
-    <entry key="HomePage.lemmatisation">Lemmatisation</entry>
+    <entry key="HomePage.lemmatization">Lemmatization</entry>
     <entry key="HomePage.overview">Dashboard</entry>
     <entry key="HomePage.pos">Parts of speech</entry>
     <entry key="HomePage.resources">Data resources</entry>
@@ -84,10 +84,10 @@
     <entry key="Lemma.reference">Reference</entry>
     <entry key="Lemma.replacement">Replacement lemma</entry>
     <entry key="Lemma.source">Source</entry>
-    <entry key="LemmatisationPage.header">Lemmatisation</entry>
-    <entry key="LemmatisationPanel.setLemma">Set lemma</entry>
-    <entry key="LemmatisationPanel.setPos">Set part of speech</entry>
-    <entry key="LemmatisationPanel.toggleNavigation">Toggle navigation</entry>
+    <entry key="LemmatizationPage.header">Lemmatization</entry>
+    <entry key="LemmatizationPanel.setLemma">Set lemma</entry>
+    <entry key="LemmatizationPanel.setPos">Set part of speech</entry>
+    <entry key="LemmatizationPanel.toggleNavigation">Toggle navigation</entry>
     <entry key="LemmaDeleteConfirmPanel.confirm">Delete lemma</entry>
     <entry key="LemmaDeleteConfirmPanel.message">Are you sure you want to delete the lemma {0} ?</entry>
     <entry key="LemmaDeleteConfirmPanel.title">Delete lemma</entry>
