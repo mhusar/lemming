@@ -70,7 +70,6 @@ public class SenseEditPage extends BasePage {
         // check if the session is expired
         WebSession.get().checkSessionExpired();
 
-        add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel"));
         add(new Label("header", getString("SenseEditPage.editHeader")));
         add(new FeedbackPanel("feedbackPanel"));
 
