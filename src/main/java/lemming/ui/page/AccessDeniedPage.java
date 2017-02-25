@@ -20,11 +20,8 @@ public class AccessDeniedPage extends EmptyBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new Label("accessDeniedHeader",
-                getString("AccessDeniedPage.header")));
-        add(new Label("accessDeniedMessage",
-                getString("AccessDeniedPage.message")));
-        add(new BookmarkablePageLink<Void>("accessDeniedRedirectionLink",
-                HomePage.class));
+        add(new Label("accessDeniedHeader", getString("AccessDeniedPage.header")));
+        add(new Label("accessDeniedMessage", getString("AccessDeniedPage.message")));
+        add(new BookmarkablePageLink<Void>("accessDeniedRedirectionLink", HomePage.class));
     }
 }
