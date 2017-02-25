@@ -106,11 +106,11 @@
     <entry key="LockingErrorPage.identifier">Identifier</entry>
     <entry key="LockingErrorPage.exceptionMessage">Exception message</entry>
     <entry key="LockingErrorPage.redirection">Dashboard</entry>
-    <entry key="LockingErrorPage.removeMessage">Der zu löschende Datensatz wurde in der Zwischenzeit bearbeitet oder
-        gelöscht. Um Konflikte zu vermeiden, wird das Löschen verweigert.
+    <entry key="LockingErrorPage.removeMessage">This record has been edited or deleted in the meantime. To avoid
+        conflicts, deletion is denied.
     </entry>
-    <entry key="LockingErrorPage.saveMessage">Der bearbeitete Datensatz wurde in der Zwischenzeit bereits bearbeitet. Um
-        Konflikte zu vermeiden, wird das Speichern verweigert.
+    <entry key="LockingErrorPage.saveMessage">This record has been edited in the meantime. To prevent conflicts,
+        saving is denied.
     </entry>
     <entry key="LockingErrorPage.removeHeader">Deletion not possible</entry>
     <entry key="LockingErrorPage.saveHeader">Saving not possible</entry>
@@ -176,11 +176,10 @@
     <entry key="UnresolvableObjectErrorPage.identifier">Identifier</entry>
     <entry key="UnresolvableObjectErrorPage.exceptionMessage">Exception message</entry>
     <entry key="UnresolvableObjectErrorPage.redirection">Dashboard</entry>
-    <entry key="UnresolvableObjectErrorPage.removeMessage">Der zu löschende Datensatz ist nicht auffindbar. Das Löschen
-        ist nicht möglich.
+    <entry key="UnresolvableObjectErrorPage.removeMessage">The record to be deleted can not be found. Deletion is not
+        possible.
     </entry>
-    <entry key="UnresolvableObjectErrorPage.saveMessage">Der bearbeitete Datensatz ist nicht auffindbar. Das Speichern
-        ist nicht möglich.
+    <entry key="UnresolvableObjectErrorPage.saveMessage">The edited record can not be found. Saving is not possible.
     </entry>
     <entry key="UnresolvableObjectErrorPage.removeHeader">Deletion not possible</entry>
     <entry key="UnresolvableObjectErrorPage.saveHeader">Saving not possible</entry>
@@ -190,7 +189,7 @@
     <entry key="User.role">Role</entry>
     <entry key="User.username">Username</entry>
     <entry key="UserDeleteDeniedPanel.confirm">Close</entry>
-    <entry key="UserDeleteDeniedPanel.message">Der Benutzer {0} hat mindestens einen Zettelkasten.</entry>
+    <entry key="UserDeleteDeniedPanel.message"></entry>
     <entry key="UserDeleteDeniedPanel.title">Deletion not possible</entry>
     <entry key="UserEditForm.realName-is-non-unique">A user with this name already exists.</entry>
     <entry key="UserEditForm.role-is-required">Please select a user role.</entry>
