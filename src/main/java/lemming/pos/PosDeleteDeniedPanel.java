@@ -3,6 +3,7 @@ package lemming.pos;
 import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.model.StringResourceModel;
@@ -76,8 +77,10 @@ public class PosDeleteDeniedPanel extends ModalMessagePanel {
 
     /**
      * Does nothing.
+     *
+     * @param target target that produces an Ajax response
      */
     @Override
-    public void onConfirm() {
+    public void onConfirm(AjaxRequestTarget target) {
     }
 }

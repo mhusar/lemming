@@ -227,8 +227,10 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Called when the modal dialog is confirmed.
+     *
+     * @param target target that produces an Ajax response
      */
-    public abstract void onConfirm();
+    public abstract void onConfirm(AjaxRequestTarget target);
 
     /**
      * Cancels the dialog when clicked.
@@ -289,7 +291,7 @@ public abstract class ModalMessagePanel extends Panel {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            onConfirm();
+            onConfirm(target);
 
             if (responsePage instanceof Page) {
                 setResponsePage(responsePage);
