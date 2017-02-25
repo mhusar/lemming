@@ -73,7 +73,7 @@ public class SenseEditPanel extends Panel {
         private IModel<Sense> senseModel;
 
         /**
-         * Parent sense model of a child sense.
+         * Parent sense model of the edited sense object.
          */
         private IModel<Sense> parentSenseModel;
 
@@ -201,36 +201,46 @@ public class SenseEditPanel extends Panel {
         @Override
         public void onSelect(AjaxRequestTarget target) {
             SenseDao senseDao = new SenseDao();
-            senseModel = senseTree.getSelectedNodeModel();
+            IModel<Sense> selectedNodeModel = senseTree.getSelectedNodeModel();
 
-            if (senseModel.getObject() instanceof Sense) {
-                senseModel.setObject(senseDao.refresh(senseModel.getObject()));
+            if (selectedNodeModel instanceof IModel) {
+                senseModel = selectedNodeModel;
 
-                if (senseModel.getObject().isParentSense()) {
-                    setSenseType(SenseType.PARENT);
-                    addChildSenseButton.setVisible(true).setEnabled(true);
+                if (senseModel.getObject() instanceof Sense) {
+                    senseModel.setObject(senseDao.refresh(senseModel.getObject()));
 
-                    if (senseDao.hasChildSenses(senseModel.getObject())) {
-                        deleteSenseButton.setVisible(true).setEnabled(false);
+                    if (senseModel.getObject().isParentSense()) {
+                        setSenseType(SenseType.PARENT);
+                        addChildSenseButton.setVisible(true).setEnabled(true);
+
+                        if (senseDao.hasChildSenses(senseModel.getObject())) {
+                            deleteSenseButton.setVisible(true).setEnabled(false);
+                        } else {
+                            deleteSenseButton.setVisible(true).setEnabled(true);
+                        }
+
+                        target.add(addChildSenseButton);
+                        target.add(deleteSenseButton);
                     } else {
+                        setSenseType(SenseType.CHILD);
+                        addChildSenseButton.setVisible(true).setEnabled(false);
                         deleteSenseButton.setVisible(true).setEnabled(true);
+                        target.add(addChildSenseButton);
+                        target.add(deleteSenseButton);
                     }
 
-                    target.add(addChildSenseButton);
-                    target.add(deleteSenseButton);
-                } else {
-                    setSenseType(SenseType.CHILD);
-                    addChildSenseButton.setVisible(true).setEnabled(false);
-                    deleteSenseButton.setVisible(true).setEnabled(true);
-                    target.add(addChildSenseButton);
-                    target.add(deleteSenseButton);
+                    meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
+                    target.add(meaningTextField);
                 }
-
-                meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
-            } else {
-                meaningTextField.setDefaultModel(new Model<String>(""));
             }
+        }
 
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void onDeselect(AjaxRequestTarget target) {
+            meaningTextField.setDefaultModel(new Model<String>(""));
             target.add(meaningTextField);
         }
 
@@ -359,7 +369,7 @@ public class SenseEditPanel extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
                 if (type.equals(SenseType.PARENT)) {
                     saveSense(target, form);
-                } else {
+                } else if (type.equals(SenseType.CHILD)) {
                     saveChildSense(target, form);
                 }
             }

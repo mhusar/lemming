@@ -41,6 +41,13 @@ public class GenericNestedTree<T> extends NestedTree<T> {
          * @param target target that produces an Ajax response
          */
         void onSelect(AjaxRequestTarget target);
+
+        /**
+         * Called when a deselect event occurs.
+         *
+         * @param target target that produces an Ajax response
+         */
+        void onDeselect(AjaxRequestTarget target);
     }
 
     /**
@@ -125,6 +132,10 @@ public class GenericNestedTree<T> extends NestedTree<T> {
         getModelObject().clear();
         selectedNodeModel.setObject(null);
         modelChanged();
+
+        if (listener instanceof GenericNestedTree.SelectListener) {
+            listener.onDeselect(target);
+        }
 
         expandAll();
         target.add(this);
