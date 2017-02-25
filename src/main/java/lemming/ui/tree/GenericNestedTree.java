@@ -116,6 +116,21 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     }
 
     /**
+     * Deselects the selected node.
+     *
+     * @param target target that produces an Ajax response
+     */
+    public void deselect(AjaxRequestTarget target) {
+        modelChanging();
+        getModelObject().clear();
+        selectedNodeModel.setObject(null);
+        modelChanged();
+
+        expandAll();
+        target.add(this);
+    }
+
+    /**
      * Returns the model of the selected node.
      *
      * @return A model of the selected node or an empty model if no node is selected.
