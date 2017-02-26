@@ -38,9 +38,9 @@ public class HomePage extends BasePage {
                 ContextImportPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
                 LemmaIndexPage.class);
-        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<Void>("senseIndexLink",
                 SenseIndexPage.class);
+        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> resourceLink = new BookmarkablePageLink<Void>("resourceLink", ResourcePage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
         UserBookmarkablePageLink characterEditPageLink = new UserBookmarkablePageLink("characterEditPageLink",
@@ -53,8 +53,8 @@ public class HomePage extends BasePage {
         add(contextIndexLink);
         add(contextImportLink);
         add(lemmaIndexLink);
-        add(posIndexLink);
         add(senseIndexLink);
+        add(posIndexLink);
         add(resourceLink);
         add(userEditLink);
         add(characterEditPageLink);

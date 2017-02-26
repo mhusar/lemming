@@ -40,8 +40,8 @@ public class HeaderPanel extends Panel {
         WebMarkupContainer lemmatizationItem = new WebMarkupContainer("lemmatizationItem");
         WebMarkupContainer contextIndexItem = new WebMarkupContainer("contextIndexItem");
         WebMarkupContainer lemmaIndexItem = new WebMarkupContainer("lemmaIndexItem");
-        WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer senseIndexItem = new WebMarkupContainer("senseIndexItem");
+        WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
         BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
         BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<Void>("lemmatizationLink",
@@ -50,9 +50,9 @@ public class HeaderPanel extends Panel {
                 ContextIndexPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
                 LemmaIndexPage.class);
-        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<Void>("senseIndexLink",
                 SenseIndexPage.class);
+        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
         Link<Void> logoutLink = new Link<Void>("logoutLink") {
             private static final long serialVersionUID = 1L;
@@ -66,16 +66,16 @@ public class HeaderPanel extends Panel {
         lemmatizationItem.add(lemmatizationLink);
         contextIndexItem.add(contextIndexLink);
         lemmaIndexItem.add(lemmaIndexLink);
-        posIndexItem.add(posIndexLink);
         senseIndexItem.add(senseIndexLink);
+        posIndexItem.add(posIndexLink);
         userEditItem.add(userEditLink);
 
         add(homePageItem);
         add(lemmatizationItem);
         add(contextIndexItem);
         add(lemmaIndexItem);
-        add(posIndexItem);
         add(senseIndexItem);
+        add(posIndexItem);
         add(userEditItem);
         add(logoutLink);
 
