@@ -5,6 +5,7 @@ import lemming.data.GenericDataProvider;
 import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -72,6 +73,15 @@ public class ContextIndexPage extends BasePage {
         add(new BatchProcessingButton("batchProcessing"));
         add(container);
         container.add(fragment);
+    }
+
+    /**
+     * Called when a context index page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("ContextIndexPage.header")));
     }
 
     /**

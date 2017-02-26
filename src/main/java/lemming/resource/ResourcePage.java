@@ -1,5 +1,6 @@
 package lemming.resource;
 
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.form.Button;
@@ -17,5 +18,14 @@ public class ResourcePage extends BasePage {
         add(new Button("downloadContextKwicIndex"));
         add(new Button("downloadLemmata"));
         add(new Button("downloadPos"));
+    }
+
+    /**
+     * Called when a resource page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("ResourcePage.header")));
     }
 }

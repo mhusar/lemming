@@ -1,5 +1,6 @@
 package lemming.ui.page;
 
+import lemming.ui.TitleLabel;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
@@ -20,6 +21,7 @@ public class PageExpiredPage extends EmptyBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        add(new TitleLabel(getString("PageExpiredPage.header")));
         add(new Label("pageExpiredHeader", getString("PageExpiredPage.header")));
         add(new Label("pageExpiredMessage", getString("PageExpiredPage.message")));
         add(new BookmarkablePageLink<Void>("pageExpiredRedirectionLink", HomePage.class));

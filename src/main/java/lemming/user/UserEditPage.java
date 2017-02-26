@@ -1,5 +1,6 @@
 package lemming.user;
 
+import lemming.ui.TitleLabel;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -48,6 +49,7 @@ public class UserEditPage extends BasePage {
         super.onInitialize();
         MarkupContainer feedbackPanel = new FeedbackPanel("feedbackPanel");
 
+        add(new TitleLabel(getString("UserEditPage.header")));
         add(new UserDeleteDeniedPanel("userDeleteDeniedPanel"));
         add(feedbackPanel);
         add(new UserEditPanel("userEditPanel", userModel));

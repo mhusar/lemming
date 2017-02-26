@@ -6,6 +6,7 @@ import lemming.data.SourceTextFilterColumn;
 import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -74,6 +75,15 @@ public class PosIndexPage extends BasePage {
         add(new BatchProcessingButton("batchProcessing"));
         add(container);
         container.add(fragment);
+    }
+
+    /**
+     * Called when a pos index page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("PosIndexPage.header")));
     }
 
     /**

@@ -169,6 +169,7 @@
     <entry key="SignInPage.userNotEnabledMessage">Dieser Benutzer ist nicht aktiviert.</entry>
     <entry key="SignInPage.username">Benutzername</entry>
     <entry key="SignInPage.userUnknownMessage">Dieser Benutzer ist nicht bekannt.</entry>
+    <entry key="TitleLabel.branding"> - Lemming</entry>
     <entry key="Type.SEGMENT">Segment</entry>
     <entry key="Type.RUBRIC">Rubrik</entry>
     <entry key="UnresolvableObjectErrorPage.details">Details</entry>

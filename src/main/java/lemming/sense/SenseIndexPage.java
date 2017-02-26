@@ -8,6 +8,7 @@ import lemming.lemma.LemmaDao;
 import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalFormPanel;
@@ -81,6 +82,15 @@ public class SenseIndexPage extends BasePage {
         add(container);
         container.add(fragment);
         add(chooseLemmaPanel);
+    }
+
+    /**
+     * Called when a sense index page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("SenseIndexPage.header")));
     }
 
     /**

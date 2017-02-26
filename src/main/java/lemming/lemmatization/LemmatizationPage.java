@@ -9,6 +9,7 @@ import lemming.context.PrecedingContextTextFilterColumn;
 import lemming.data.GenericDataProvider;
 import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
+import lemming.ui.TitleLabel;
 import lemming.ui.input.InputPanel;
 import lemming.ui.page.EmptyBasePage;
 import lemming.ui.panel.FeedbackPanel;
@@ -116,6 +117,8 @@ public class LemmatizationPage extends EmptyBasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        add(new TitleLabel(getString("LemmatizationPage.header")));
+
         InputPanel inputPanel = new InputPanel("inputPanel");
         Panel lemmatizationPanel = new LemmatizationPanel("lemmatizationPanel");
         ModalFormPanel setLemmaPanel = new SetLemmaPanel("setLemmaPanel", contextForm, dataTable);

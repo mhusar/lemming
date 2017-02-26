@@ -9,6 +9,7 @@ import lemming.lemmatization.LemmatizationPage;
 import lemming.pos.PosIndexPage;
 import lemming.resource.ResourcePage;
 import lemming.sense.SenseIndexPage;
+import lemming.ui.TitleLabel;
 import lemming.ui.UserBookmarkablePageLink;
 import lemming.ui.page.BasePage;
 import lemming.user.UserEditPage;
@@ -57,5 +58,14 @@ public class HomePage extends BasePage {
         add(resourceLink);
         add(userEditLink);
         add(characterEditPageLink);
+    }
+
+    /**
+     * Called when a home page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("HomePage.overview")));
     }
 }

@@ -1,6 +1,7 @@
 package lemming.auth;
 
 import lemming.HomePage;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.EmptyBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.user.User;
@@ -43,6 +44,15 @@ public class SignInPage extends EmptyBasePage {
         add(new FeedbackPanel("feedbackPanel"));
         add(new SignInForm("signInForm").setDefaultModel(new CompoundPropertyModel(this)));
         setStatelessHint(true);
+    }
+
+    /**
+     * Called when a sign in page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("SignInPage.header")));
     }
 
     /**

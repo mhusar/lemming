@@ -1,5 +1,6 @@
 package lemming.ui.page;
 
+import lemming.ui.TitleLabel;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.hibernate.UnresolvableObjectException;
@@ -63,11 +64,13 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
         String entityName = getEntityName();
 
         if (action == ActionType.SAVE) {
+            add(new TitleLabel(getString("UnresolvableObjectErrorPage.saveHeader")));
             add(new Label("unresolvableObjectErrorHeader",
                     getString("UnresolvableObjectErrorPage.saveHeader")));
             add(new Label("unresolvableObjectErrorMessage",
                     getString("UnresolvableObjectErrorPage.saveMessage")));
         } else if (action == ActionType.REMOVE) {
+            add(new TitleLabel(getString("UnresolvableObjectErrorPage.removeHeader")));
             add(new Label("unresolvableObjectErrorHeader",
                     getString("UnresolvableObjectErrorPage.removeHeader")));
             add(new Label("unresolvableObjectErrorMessage",

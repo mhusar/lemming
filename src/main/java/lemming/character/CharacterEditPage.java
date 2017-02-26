@@ -2,6 +2,7 @@ package lemming.character;
 
 import java.util.List;
 
+import lemming.ui.TitleLabel;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -54,10 +55,9 @@ public class CharacterEditPage extends BasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
         CharacterViewPanel characterViewPanel = new CharacterViewPanel("characterViewPanel");
 
-        add(new Label("header", getString("CharacterEditPage.header")));
+        add(new TitleLabel(getString("CharacterEditPage.header")));
         add(new FeedbackPanel("feedbackPanel").setOutputMarkupId(true));
         add(characterViewPanel);
         add(new AddCharacterButton("addCharacterButton"));

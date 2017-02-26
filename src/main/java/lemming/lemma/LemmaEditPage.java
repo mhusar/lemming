@@ -1,6 +1,7 @@
 package lemming.lemma;
 
 import lemming.data.Source;
+import lemming.ui.TitleLabel;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
@@ -97,8 +98,10 @@ public class LemmaEditPage extends BasePage {
         if (new LemmaDao().isTransient(lemmaModel.getObject())) {
             lemmaDeleteConfirmPanel.setVisible(false);
             lemmaDeleteDeniedPanel.setVisible(false);
+            add(new TitleLabel(getString("LemmaEditPage.newHeader")));
             add(new Label("header", getString("LemmaEditPage.newHeader")));
         } else {
+            add(new TitleLabel(getString("LemmaEditPage.editHeader")));
             add(new Label("header", getString("LemmaEditPage.editHeader")));
 
             if (lemmaModel.getObject().getSource().equals(Source.LemmaType.TL)) {

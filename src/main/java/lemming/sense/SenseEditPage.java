@@ -3,6 +3,7 @@ package lemming.sense;
 import lemming.auth.WebSession;
 import lemming.lemma.Lemma;
 import lemming.lemma.LemmaDao;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.Page;
@@ -70,6 +71,7 @@ public class SenseEditPage extends BasePage {
         // check if the session is expired
         WebSession.get().checkSessionExpired();
 
+        add(new TitleLabel(getString("SenseEditPage.editHeader")));
         add(new Label("header", getString("SenseEditPage.editHeader")));
         add(new FeedbackPanel("feedbackPanel"));
 

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import javax.persistence.OptimisticLockException;
 
+import lemming.ui.TitleLabel;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.hibernate.StaleObjectStateException;
@@ -72,9 +73,11 @@ public class LockingErrorPage extends EmptyBasePage {
         String entityName = getEntityName();
 
         if (action == ActionType.SAVE) {
+            add(new TitleLabel(getString("LockingErrorPage.saveHeader")));
             add(new Label("lockingErrorHeader", getString("LockingErrorPage.saveHeader")));
             add(new Label("lockingErrorMessage", getString("LockingErrorPage.saveMessage")));
         } else if (action == ActionType.REMOVE) {
+            add(new TitleLabel(getString("LockingErrorPage.removeHeader")));
             add(new Label("lockingErrorHeader", getString("LockingErrorPage.removeHeader")));
             add(new Label("lockingErrorMessage", getString("LockingErrorPage.removeMessage")));
         }

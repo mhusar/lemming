@@ -1,6 +1,7 @@
 package lemming.context;
 
 import lemming.auth.WebSession;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalMessagePanel;
@@ -89,8 +90,10 @@ public class ContextEditPage extends BasePage {
 
         if (new ContextDao().isTransient(contextModel.getObject())) {
             contextDeleteConfirmPanel.setVisible(false);
+            add(new TitleLabel(getString("ContextEditPage.newHeader")));
             add(new Label("header", getString("ContextEditPage.newHeader")));
         } else {
+            add(new TitleLabel(getString("ContextEditPage.editHeader")));
             add(new Label("header", getString("ContextEditPage.editHeader")));
         }
 

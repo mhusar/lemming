@@ -5,6 +5,7 @@ import java.util.List;
 
 import lemming.data.SourceTextFilterColumn;
 import lemming.table.FilterUpdatingBehavior;
+import lemming.ui.TitleLabel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
@@ -75,6 +76,15 @@ public class LemmaIndexPage extends BasePage {
         add(new BatchProcessingButton("batchProcessing"));
         add(container);
         container.add(fragment);
+    }
+
+    /**
+     * Called when a lemma index page is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new TitleLabel(getString("LemmaIndexPage.header")));
     }
 
     /**

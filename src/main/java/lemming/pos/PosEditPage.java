@@ -2,6 +2,7 @@ package lemming.pos;
 
 import lemming.auth.WebSession;
 import lemming.data.Source;
+import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalMessagePanel;
@@ -93,8 +94,10 @@ public class PosEditPage extends BasePage {
 
         if (new PosDao().isTransient(posModel.getObject())) {
             posDeleteConfirmPanel.setVisible(false);
+            add(new TitleLabel(getString("PosEditPage.newHeader")));
             add(new Label("header", getString("PosEditPage.newHeader")));
         } else {
+            add(new TitleLabel(getString("PosEditPage.editHeader")));
             add(new Label("header", getString("PosEditPage.editHeader")));
         }
 
