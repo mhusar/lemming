@@ -28,6 +28,12 @@ public class TitleLabel extends Label {
         this(Model.of(label));
     }
 
+    /**
+     * Processes the component tag body.
+     *
+     * @param markupStream markup stream
+     * @param openTag the open tag
+     */
     @Override
     public void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) {
         String label = getDefaultModelObjectAsString();
