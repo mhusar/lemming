@@ -5,13 +5,16 @@ import lemming.lemma.Lemma;
 import lemming.lemma.LemmaDao;
 import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
-import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptUrlReferenceHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 
 /**
  * A page for sense editing.
@@ -73,12 +76,24 @@ public class SenseEditPage extends BasePage {
 
         add(new TitleLabel(getString("SenseEditPage.editHeader")));
         add(new Label("header", getString("SenseEditPage.editHeader")));
-        add(new FeedbackPanel("feedbackPanel"));
 
         if (senseModel instanceof IModel) {
             add(new SenseEditPanel("senseEditPanel", lemmaModel, senseModel));
         } else {
             add(new SenseEditPanel("senseEditPanel", lemmaModel));
         }
+    }
+
+    /**
+     * Renders to the web response what the component wants to contribute.
+     *
+     * @param response response object
+     */
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        ResourceReference senseEditReference = new JavaScriptResourceReference(SenseEditPage.class,
+                "scripts/sense-edit.js");
+        response.render(JavaScriptUrlReferenceHeaderItem.forReference(senseEditReference));
     }
 }

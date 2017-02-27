@@ -491,5 +491,103 @@ ul.homePage li:last-child {
 }
 
 .table > tbody > tr > .following {
-  padding: 8px 8px 8px 0px;
+  padding: 8px 8px 8px 0;
+}
+
+.senses,
+.senses .left-column,
+.senses .right-column {
+  display: flex;
+}
+
+.senses .left-column,
+.senses .right-column {
+  flex-grow: 1;
+  transition: flex-basis 0.5s ease-in;
+}
+
+.senses .left-column {
+  flex-basis: 65%;
+  padding-right: 15px;
+}
+
+.senses .right-column {
+  border-left: 1px solid #eee;
+  flex-basis: 35%;
+  padding-left: 15px;
+  position: relative;
+}
+
+.edit .left-column {
+  flex-basis: 35%;
+}
+
+.edit .right-column {
+  flex-basis: 65%;
+}
+
+.senses .left-column > div,
+.senses .right-column > div {
+  width: 100%;
+}
+
+.senses .right-column .edit-tree {
+  cursor: pointer;
+  display: block;
+  font-size: 115%;
+  padding: 15px;
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  z-index: 10;
+}
+
+.row-tree {
+  margin-bottom: 0;
+  transition: margin-bottom 0s 0.5s;
+}
+
+.edit .row-tree {
+  margin-bottom: 15px;
+  transition: margin-bottom 0s;
+}
+
+.edit .edit-tree {
+  color: #66AFE9;
+  text-shadow: 0 0 2px rgba(102,175,233,.6);
+}
+
+.right-column .row-button,
+.right-column .row-input {
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease-out;
+}
+
+.edit .right-column .row-button,
+.edit .right-column .row-input {
+  opacity: 1;
+  transition: opacity 0.3s 0.2s ease-in;
+}
+
+.senses .right-column .row-button *,
+.senses .right-column .row-input * {
+  max-height: 0;
+  transition: max-height 0s 0.5s;
+}
+
+.edit .right-column .row-button *,
+.edit .right-column .row-input * {
+  max-height: 50px;
+  transition: max-height 0s;
+}
+
+.right-column .row-button .pull-right {
+  opacity: 0;
+  transition: max-height 0s 0.5s ease-out, opacity 0.2s ease-out;
+}
+
+.edit .right-column .row-button .pull-right {
+  opacity: 1;
+  transition: max-height 0s, opacity 0.3s 0.3s ease-in;
 }
