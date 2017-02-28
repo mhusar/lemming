@@ -217,9 +217,10 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             } else {
                 throw e;
             }
+
+            return null;
         } finally {
             entityManager.close();
-            return null;
         }
     }
 

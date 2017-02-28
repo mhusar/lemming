@@ -201,9 +201,10 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             } else {
                 throw e;
             }
+
+            return null;
         } finally {
             entityManager.close();
-            return null;
         }
     }
 

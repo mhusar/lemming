@@ -142,9 +142,10 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             } else {
                 throw e;
             }
+
+            return null;
         } finally {
             entityManager.close();
-            return null;
         }
     }
 

@@ -119,9 +119,10 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
             } else {
                 throw e;
             }
+
+            return null;
         } finally {
             entityManager.close();
-            return null;
         }
     }
 

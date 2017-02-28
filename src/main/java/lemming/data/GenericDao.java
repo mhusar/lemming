@@ -73,9 +73,10 @@ public abstract class GenericDao<E> implements IDao<E> {
             } else {
                 throw e;
             }
+
+            return null;
         } finally {
             entityManager.close();
-            return null;
         }
     }
 

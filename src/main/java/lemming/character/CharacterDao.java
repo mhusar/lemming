@@ -109,9 +109,10 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
             } else {
                 throw e;
             }
+
+            return null;
         } finally {
             entityManager.close();
-            return null;
         }
     }
 
