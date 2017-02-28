@@ -109,16 +109,16 @@ public class GenericNestedTree<T> extends NestedTree<T> {
     public void select(AjaxRequestTarget target, T object) {
         modelChanging();
         getModelObject().clear();
-        getModelObject().add(object);
         selectedNodeModel.setObject(object);
         modelChanged();
+
+        expandAll();
 
         if (listener instanceof GenericNestedTree.SelectListener) {
             listener.onSelect(target);
         }
 
         updateNode(object, target);
-        expandAll();
         target.add(this);
     }
 
@@ -133,11 +133,12 @@ public class GenericNestedTree<T> extends NestedTree<T> {
         selectedNodeModel.setObject(null);
         modelChanged();
 
+        expandAll();
+
         if (listener instanceof GenericNestedTree.SelectListener) {
             listener.onDeselect(target);
         }
 
-        expandAll();
         target.add(this);
     }
 
