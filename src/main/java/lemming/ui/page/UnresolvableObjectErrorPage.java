@@ -1,6 +1,7 @@
 package lemming.ui.page;
 
 import lemming.ui.TitleLabel;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.hibernate.UnresolvableObjectException;
@@ -10,6 +11,7 @@ import lemming.HomePage;
 /**
  * Displayed when an unresolvable object exception occurs.
  */
+@AuthorizeInstantiation({ "SIGNED_IN" })
 public class UnresolvableObjectErrorPage extends EmptyBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -34,6 +36,12 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
     private Exception exception;
 
     /**
+     * Empty constructor which is used when a user isn’t signed in.
+     */
+    public UnresolvableObjectErrorPage() {
+    }
+
+    /**
      * Creates an unresolvable object error page.
      * 
      * @param action
@@ -43,8 +51,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
      * @param exception
      *            exception raised due to an unresolvable object
      */
-    public UnresolvableObjectErrorPage(ActionType action, Object element,
-            Exception exception) {
+    public UnresolvableObjectErrorPage(ActionType action, Object element, Exception exception) {
         this.action = action;
         this.exception = exception;
 

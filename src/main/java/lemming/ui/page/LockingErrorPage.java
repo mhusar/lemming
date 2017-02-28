@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import javax.persistence.OptimisticLockException;
 
 import lemming.ui.TitleLabel;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.hibernate.StaleObjectStateException;
@@ -14,6 +15,7 @@ import lemming.HomePage;
 /**
  * Displayed when a locking exception occurs.
  */
+@AuthorizeInstantiation({ "SIGNED_IN" })
 public class LockingErrorPage extends EmptyBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -41,6 +43,12 @@ public class LockingErrorPage extends EmptyBasePage {
      * Exception raised due to locking.
      */
     private Exception exception;
+
+    /**
+     * Empty constructor which is used when a user isn’t signed in.
+     */
+    public LockingErrorPage() {
+    }
 
     /**
      * Creates a locking error page.

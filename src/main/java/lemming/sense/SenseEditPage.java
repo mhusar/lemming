@@ -42,6 +42,12 @@ public class SenseEditPage extends BasePage {
     private Class<? extends Page> nextPageClass;
 
     /**
+     * Empty constructor which is used when a user isn’t signed in.
+     */
+    public SenseEditPage() {
+    }
+
+    /**
      * Creates a sense edit page.
      * 
      * @param model model of the edited lemma or sense object
