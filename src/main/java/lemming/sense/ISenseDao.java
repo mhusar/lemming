@@ -34,6 +34,14 @@ public interface ISenseDao extends IDao<Sense> {
     List<Sense> findRootNodes(Lemma lemma);
 
     /**
+     * Returns the parent sense of a child sense.
+     *
+     * @param sense a sense
+     * @return A sense if a child sense was supplied, null otherwise.
+     */
+    public Sense getParent(Sense sense);
+
+    /**
      * Checks if a sense has any child senses.
      *
      * @param sense a sense

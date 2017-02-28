@@ -340,6 +340,43 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      * @throws RuntimeException
      */
     @Override
+    public Sense getParent(Sense sense) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Sense> query = entityManager
+                    .createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma LEFT JOIN FETCH s.children " +
+                            "WHERE :sense IN ELEMENTS(s.children)", Sense.class);
+            List<Sense> parentSenseList = query.setParameter("sense", sense).getResultList();
+            transaction.commit();
+
+            if (parentSenseList.isEmpty()) {
+                return null;
+            } else {
+                return parentSenseList.get(0);
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
     public Boolean hasChildSenses(Sense sense) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;

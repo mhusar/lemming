@@ -178,6 +178,8 @@ public class SenseEditPanel extends Panel {
                     }
                 } else {
                     type = SenseType.CHILD;
+                    Sense parentSense = senseDao.getParent(senseModel.getObject());
+                    parentSenseModel.setObject(parentSense);
                     addChildSenseButton.setVisible(false);
                 }
             } else {
@@ -223,6 +225,8 @@ public class SenseEditPanel extends Panel {
                         target.add(deleteSenseButton);
                     } else {
                         setSenseType(SenseType.CHILD);
+                        Sense parentSense = senseDao.getParent(senseModel.getObject());
+                        parentSenseModel.setObject(parentSense);
                         addChildSenseButton.setVisible(true).setEnabled(false);
                         deleteSenseButton.setVisible(true).setEnabled(true);
                         target.add(addChildSenseButton);
@@ -436,7 +440,7 @@ public class SenseEditPanel extends Panel {
 
                 parentSense.getChildren().add(childSense);
                 senseDao.persist(childSense);
-                senseDao.merge(parentSense);
+                parentSense = senseDao.merge(parentSense);
                 senseTree.select(target, senseDao.find(childSense.getId()));
             } else {
                 Sense mergedChildSense = senseDao.merge(childSense);
@@ -444,7 +448,7 @@ public class SenseEditPanel extends Panel {
                 senseTree.select(target, mergedChildSense);
             }
 
-            parentSenseModel.setObject(null);
+            parentSenseModel.setObject(parentSense);
         }
     }
 }
