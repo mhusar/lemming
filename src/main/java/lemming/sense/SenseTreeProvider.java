@@ -1,7 +1,7 @@
 package lemming.sense;
 
 import lemming.lemma.Lemma;
-import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
+import lemming.ui.tree.INestedTreeProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  * A tree provider for senses.
  */
-public class SenseTreeProvider implements ITreeProvider<Sense> {
+public class SenseTreeProvider implements INestedTreeProvider<Sense> {
     /**
      * Lemma of senses.
      */
@@ -61,6 +61,22 @@ public class SenseTreeProvider implements ITreeProvider<Sense> {
     public Iterator<? extends Sense> getChildren(Sense node) {
         Sense refreshedNode = new SenseDao().refresh(node);
         return refreshedNode.getChildren().iterator();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasParent(Sense node) {
+        return new SenseDao().getParent(node) != null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Sense getParent(Sense node) {
+        return new SenseDao().getParent(node);
     }
 
     /**

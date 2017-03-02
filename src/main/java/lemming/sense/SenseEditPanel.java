@@ -1,10 +1,10 @@
 package lemming.sense;
 
 import lemming.lemma.Lemma;
+import lemming.ui.tree.INestedTreeProvider;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -56,7 +56,7 @@ public class SenseEditPanel extends Panel {
     /**
      * A form for editing senses.
      */
-    private class SenseEditForm extends Form<Sense> implements SenseTree.SelectListener {
+    private class SenseEditForm extends Form<Sense> implements SenseTree.SelectListener<Sense> {
         /**
          * Determines if a deserialized file is compatible with this class.
          */
@@ -145,7 +145,7 @@ public class SenseEditPanel extends Panel {
             super.onInitialize();
             SenseDao senseDao = new SenseDao();
             List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
-            ITreeProvider<Sense> treeProvider = new SenseTreeProvider(lemmaModel.getObject());
+            INestedTreeProvider<Sense> treeProvider = new SenseTreeProvider(lemmaModel.getObject());
 
             if (!(senseModel instanceof IModel) && !rootNodes.isEmpty()) {
                 Sense firstRootNode = rootNodes.get(0);
@@ -153,14 +153,13 @@ public class SenseEditPanel extends Panel {
             }
 
             if (senseModel instanceof IModel) {
-                senseTree = new SenseTree("senses", treeProvider, new Model<Sense>(senseModel.getObject()));
+                senseTree = new SenseTree("senses", treeProvider, senseModel.getObject());
                 meaningTextField = new TextField<String>("meaning", new PropertyModel<String>(senseModel, "meaning"));
             } else {
                 senseTree = new SenseTree("senses", treeProvider);
                 meaningTextField = new TextField<String>("meaning", new Model<String>(""));
             }
 
-            senseTree.expandAll();
             senseTree.registerSelectListener(this);
             SenseEditPanel.this.add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", lemmaModel, senseTree));
 
@@ -200,10 +199,9 @@ public class SenseEditPanel extends Panel {
         /**
          * {@inheritDoc}
          */
-        @Override
-        public void onSelect(AjaxRequestTarget target) {
+        public void onSelect(AjaxRequestTarget target, Sense selectedSense) {
             SenseDao senseDao = new SenseDao();
-            IModel<Sense> selectedNodeModel = senseTree.getSelectedNodeModel();
+            IModel<Sense> selectedNodeModel = new Model<Sense>(selectedSense);
 
             if (selectedNodeModel instanceof IModel) {
                 senseModel = selectedNodeModel;
