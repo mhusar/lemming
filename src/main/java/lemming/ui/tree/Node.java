@@ -3,6 +3,7 @@ package lemming.ui.tree;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
@@ -107,6 +108,17 @@ public class Node<T> extends Panel {
         @Override
         public boolean isEnabled() {
             return tree.getProvider().hasChildren(Node.this.getModelObject());
+        }
+
+        /**
+         * Modifies Ajax request attributes.
+         *
+         * @param attributes Ajax request attributes
+         */
+        @Override
+        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+            super.updateAjaxAttributes(attributes);
+            attributes.setEventPropagation(AjaxRequestAttributes.EventPropagation.STOP);
         }
     }
 
