@@ -1,4 +1,4 @@
-package lemming.ui.tree;
+package lemming.tree;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.repeater.Item;

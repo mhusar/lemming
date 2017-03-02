@@ -1,4 +1,4 @@
-package lemming.ui.tree;
+package lemming.tree;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.repeater.tree.content.Folder;

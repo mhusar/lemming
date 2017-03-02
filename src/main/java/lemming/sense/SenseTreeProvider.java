@@ -1,7 +1,7 @@
 package lemming.sense;
 
 import lemming.lemma.Lemma;
-import lemming.ui.tree.INestedTreeProvider;
+import lemming.tree.INestedTreeProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 

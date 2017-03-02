@@ -1,8 +1,8 @@
 package lemming.sense;
 
-import lemming.ui.tree.AbstractNestedTree;
-import lemming.ui.tree.INestedTreeProvider;
-import lemming.ui.tree.NodeLabel;
+import lemming.tree.AbstractNestedTree;
+import lemming.tree.INestedTreeProvider;
+import lemming.tree.NodeLabel;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;

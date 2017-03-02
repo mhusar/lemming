@@ -1,4 +1,4 @@
-package lemming.ui.tree;
+package lemming.tree;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;

@@ -1,7 +1,7 @@
 package lemming.sense;
 
-import lemming.ui.tree.GenericFolder;
-import lemming.ui.tree.GenericNestedTree;
+import lemming.tree.GenericFolder;
+import lemming.tree.GenericNestedTree;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 
