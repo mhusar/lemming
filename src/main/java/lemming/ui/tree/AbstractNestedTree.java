@@ -121,6 +121,42 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     }
 
     /**
+     * Expands the given node. Updates the affected branch.
+     *
+     * @param target target that produces an Ajax response
+     * @param object node object to expand
+     */
+    public void expand(AjaxRequestTarget target, T object) {
+        super.expand(object);
+    }
+
+    /**
+     * Collapses the given node. Updates the affected branch.
+     *
+     * @param target target that produces an Ajax response
+     * @param object node object to collapse
+     */
+    public void collapse(AjaxRequestTarget target, T object) {
+        super.collapse(object);
+        T selectedObject = selectedObjectModel.getObject();
+        T selectedObjectAncestor = selectedObject;
+
+        if (selectedObjectAncestor != null) {
+            while (getProvider().hasParent(selectedObjectAncestor)) {
+                T parentObject = getProvider().getParent(selectedObjectAncestor);
+
+                if (parentObject.equals(object)) {
+                    deselect(target);
+                    select(target, object);
+                    break;
+                }
+
+                selectedObjectAncestor = parentObject;
+            }
+        }
+    }
+
+    /**
      * Returns the provider for the tree.
      *
      * @return A tree provider.

@@ -83,9 +83,9 @@ public class Node<T> extends Panel {
             T modelObject = Node.this.getModelObject();
 
             if (tree.getState(modelObject) == AbstractTree.State.EXPANDED) {
-                tree.collapse(modelObject);
+                tree.collapse(target, modelObject);
             } else {
-                tree.expand(modelObject);
+                tree.expand(target, modelObject);
             }
         }
 
