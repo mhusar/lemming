@@ -41,6 +41,15 @@ public class Node<T> extends Panel {
     }
 
     /**
+     * Returns the owning tree of the node.
+     *
+     * @return A tree object.
+     */
+    protected AbstractNestedTree<T> getTree() {
+        return tree;
+    }
+
+    /**
      * Returns the model of a node.
      *
      * @return A model.
@@ -123,7 +132,7 @@ public class Node<T> extends Panel {
     }
 
     /**
-     * A behavior which makes a tree nodes selectable.
+     * A behavior which makes a tree node selectable.
      */
     private class SelectBehavior extends AjaxEventBehavior {
         public SelectBehavior() {
