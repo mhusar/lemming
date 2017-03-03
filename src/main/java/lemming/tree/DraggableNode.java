@@ -29,6 +29,7 @@ public class DraggableNode<T> extends Node<T> {
         add(new DragStartBehavior());
         add(new DragEndBehavior());
         add(new DragoverBehavior());
+        add(new DragleaveBehavior());
         add(new DropBehavior());
     }
 
@@ -73,7 +74,8 @@ public class DraggableNode<T> extends Node<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String javaScript = "jQuery(document).on('dragstart', '#" + getMarkupId() + "', function (event) { " +
+            String javaScript = "jQuery(document).on('dragstart', '#" + component.getMarkupId() + "', " +
+                    "function (event) { " +
                     "event.originalEvent.dataTransfer.setData('text/plain', '" + getPageRelativePath() + "'); " +
                     "event.originalEvent.dataTransfer.dropEffect = 'move'; " +
                     "event.originalEvent.dataTransfer.effectAllowed = 'move'; });";
@@ -123,8 +125,8 @@ public class DraggableNode<T> extends Node<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String javaScript = "jQuery(document).on('dragover', '#" + getMarkupId() + "', function (event) { " +
-                    "event.preventDefault(); });";
+            String javaScript = "jQuery(document).on('dragover', '#" + component.getMarkupId() + "', " +
+                    "function (event) { event.preventDefault(); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
 
@@ -135,6 +137,44 @@ public class DraggableNode<T> extends Node<T> {
          */
         @Override
         protected void onEvent(AjaxRequestTarget target) {
+            String javaScript = "jQuery('#" + getComponent().getMarkupId() + "').addClass('node-dragover');";
+            target.appendJavaScript(javaScript);
+        }
+    }
+
+    /**
+     * A behavior which fires on drag leave.
+     */
+    private class DragleaveBehavior extends AjaxEventBehavior {
+        /**
+         * Creates a drag over behavior.
+         */
+        public DragleaveBehavior() {
+            super("dragleave");
+        }
+
+        /**
+         * Renders to the web response what the component wants to contribute.
+         *
+         * @param response response object
+         */
+        @Override
+        public void renderHead(Component component, IHeaderResponse response) {
+            super.renderHead(component, response);
+            String javaScript = "jQuery(document).on('dragleave', '#" + component.getMarkupId() + "', " +
+                    "function (event) { event.preventDefault(); });";
+            response.render(OnDomReadyHeaderItem.forScript(javaScript));
+        }
+
+        /**
+         * Called when a draggable is leaving a node.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        protected void onEvent(AjaxRequestTarget target) {
+            String javaScript = "jQuery('#" + getComponent().getMarkupId() + "').removeClass('node-dragover');";
+            target.appendJavaScript(javaScript);
         }
     }
 
@@ -157,7 +197,7 @@ public class DraggableNode<T> extends Node<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String javaScript = "jQuery(document).on('drop', '#" + getMarkupId() + "', function (event) { " +
+            String javaScript = "jQuery(document).on('drop', '#" + component.getMarkupId() + "', function (event) { " +
                     "event.preventDefault(); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
