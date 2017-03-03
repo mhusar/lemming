@@ -1,8 +1,6 @@
 package lemming.sense;
 
-import lemming.tree.AbstractNestedTree;
-import lemming.tree.INestedTreeProvider;
-import lemming.tree.NodeLabel;
+import lemming.tree.*;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -18,7 +16,12 @@ import java.util.Set;
 /**
  * A nested tree for senses.
  */
-public class SenseTree extends AbstractNestedTree<Sense> {
+public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTree {
+    /**
+     * A set of drop listeners.
+     */
+    private Set<IDropListener> dropListeners = new HashSet<IDropListener>();
+
     /**
      * Creates a sennse tree,
      *
@@ -58,6 +61,18 @@ public class SenseTree extends AbstractNestedTree<Sense> {
     }
 
     /**
+     * Creates a node component.
+     *
+     * @param id ID of the component
+     * @param model model of the node object
+     * @return A node component.
+     */
+    @Override
+    public Component newNodeComponent(String id, IModel<Sense> model) {
+        return new DraggableNode<Sense>(id, this, model);
+    }
+
+    /**
      * Defines which sense nodes are expanded.
      *
      * @param selectedNode the selected node object
@@ -86,5 +101,23 @@ public class SenseTree extends AbstractNestedTree<Sense> {
         super.renderHead(response);
         ResourceReference styleReference = new CssResourceReference(SenseTree.class, "styles/sense-tree.css");
         response.render(CssHeaderItem.forReference(styleReference));
+    }
+
+    /**
+     *
+     * @param listener
+     */
+    @Override
+    public void addDropListener(IDropListener listener) {
+        dropListeners.add(listener);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public Set<? extends IDropListener> getDropListeners() {
+        return dropListeners;
     }
 }
