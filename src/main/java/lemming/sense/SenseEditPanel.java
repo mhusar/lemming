@@ -1,6 +1,7 @@
 package lemming.sense;
 
 import lemming.lemma.Lemma;
+import lemming.tree.AbstractNestedTree;
 import lemming.tree.INestedTreeProvider;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -56,7 +57,7 @@ public class SenseEditPanel extends Panel {
     /**
      * A form for editing senses.
      */
-    private class SenseEditForm extends Form<Sense> implements SenseTree.SelectListener<Sense> {
+    private class SenseEditForm extends Form<Sense> implements AbstractNestedTree.ISelectListener<Sense> {
         /**
          * Determines if a deserialized file is compatible with this class.
          */
@@ -160,7 +161,7 @@ public class SenseEditPanel extends Panel {
                 meaningTextField = new TextField<String>("meaning", new Model<String>(""));
             }
 
-            senseTree.registerSelectListener(this);
+            senseTree.addSelectListener(this);
             SenseEditPanel.this.add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", lemmaModel, senseTree));
 
             addSenseButton = new AddSenseButton("addSenseButton");

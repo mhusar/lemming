@@ -9,6 +9,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,7 +26,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Listener for select events.
      */
-    private SelectListener<T> listener;
+    private Set<ISelectListener<T>> selectListeners = new HashSet<ISelectListener<T>>();
 
     /**
      * Creates a nested tree.
@@ -69,12 +70,12 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     protected abstract IModel<Set<T>> createExpandState(T selectedNode);
 
     /**
-     * Register a listener for select events.
+     * Adds a listener for select events.
      *
      * @param listener a listener object
      */
-    public void registerSelectListener(SelectListener<T> listener) {
-        this.listener = listener;
+    public void addSelectListener(ISelectListener<T> listener) {
+        selectListeners.add(listener);
     }
 
     /**
@@ -98,10 +99,12 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         modelChanging();
         selectedObjectModel.setObject(object);
         modelChanged();
-
         updateNode(selectedObject, target);
         updateNode(object, target);
-        listener.onSelect(target, object);
+
+        for (ISelectListener<T> selectListener : selectListeners) {
+            selectListener.onSelect(target, object);
+        }
     }
 
     /**
@@ -115,9 +118,11 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         modelChanging();
         selectedObjectModel.setObject(null);
         modelChanged();
-
         updateNode(selectedObject, target);
-        listener.onDeselect(target);
+
+        for (ISelectListener<T> selectListener : selectListeners) {
+            selectListener.onDeselect(target);
+        }
     }
 
     /**
@@ -174,9 +179,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      * @return A node component.
      */
     @Override
-    public Component newNodeComponent(String id, IModel<T> model) {
-        return new Node<T>(id, this, model);
-    }
+    public abstract Component newNodeComponent(String id, IModel<T> model);
 
     /**
      * Creates a new content component.
@@ -252,7 +255,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Interface for a select listener.
      */
-    public interface SelectListener<T> {
+    public interface ISelectListener<T> {
         /**
          * Called when a select event occurs.
          *
