@@ -8,7 +8,7 @@ import lemming.ui.page.BasePage;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptUrlReferenceHeaderItem;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -100,6 +100,6 @@ public class SenseEditPage extends BasePage {
         super.renderHead(response);
         ResourceReference senseEditReference = new JavaScriptResourceReference(SenseEditPage.class,
                 "scripts/sense-edit.js");
-        response.render(JavaScriptUrlReferenceHeaderItem.forReference(senseEditReference));
+        response.render(JavaScriptHeaderItem.forReference(senseEditReference));
     }
 }
