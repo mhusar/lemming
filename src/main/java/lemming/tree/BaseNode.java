@@ -182,7 +182,11 @@ public abstract class BaseNode<T> extends Panel {
                     styleClass = "node-collapsed";
                 }
             } else {
-                styleClass = "node-other";
+                if (tree.getProvider().hasParent(modelObject)) {
+                    styleClass = "node-leaf";
+                } else {
+                    styleClass = "node-other";
+                }
             }
 
             if (tree.getSelectedObjectModel().equals(node.getModel())) {
