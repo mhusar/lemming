@@ -16,6 +16,12 @@ import org.apache.wicket.util.string.StringValue;
 /**
  * A selectable tree node.
  *
+ * To enable behaviors of draggable nodes external JavaScript code must be enabled.
+ *
+ * Add this code to method renderHead() of the parent tree:
+ * ResourceReference reference = new JavaScriptResourceReference(DraggableNode.class, "scripts/draggable-node.js");
+ * response.render(JavaScriptHeaderItem.forReference(reference));
+ *
  * @param <T> data type
  */
 public class DraggableNode<T> extends BaseNode<T> {
@@ -57,19 +63,6 @@ public class DraggableNode<T> extends BaseNode<T> {
         add(new SelectBehavior());
         add(new StyleBehavior());
         setOutputMarkupId(true);
-    }
-
-    /**
-     * Renders to the web response what the component wants to contribute.
-     *
-     * @param response response object
-     */
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-        String javaScript = "jQuery(document).on('dragover drop', ':not(.dropzone)', function (event) { " +
-                "event.preventDefault(); });";
-        response.render(OnDomReadyHeaderItem.forScript(javaScript));
     }
 
     /**
@@ -141,14 +134,8 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String nodeMarkupId = component.getParent().getMarkupId();
-            String javaScript = "jQuery(document).on('dragenter', '#" + component.getMarkupId() + "', " +
-                    "function (event) { " +
-                    "jQuery(this).addClass('dropzone-dragover'); " +
-                    "jQuery('#" + nodeMarkupId + "').not('.node-dragging').addClass('node-dragover'); " +
-                    "var active = jQuery('#" + nodeMarkupId + "').data('active') || 0; " +
-                    "jQuery('#" + nodeMarkupId + "').data('active', active + 1); " +
-                    "event.preventDefault(); });";
+            String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId();
+            String javaScript = "DraggableNode.onDragenter('" + dropzoneId + "', '" + nodeId + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
@@ -165,10 +152,8 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String javaScript = "jQuery(document).on('dragover', '#" + component.getMarkupId() + "', " +
-                    "function (event) { " +
-                    "event.originalEvent.dataTransfer.dropEffect = 'move'; " +
-                    "event.preventDefault(); });";
+            String dropzoneId = component.getMarkupId();
+            String javaScript = "DraggableNode.onDragover('" + dropzoneId + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
@@ -185,14 +170,8 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            Component node = component.getParent();
-            String javaScript = "jQuery(document).on('dragleave', '#" + component.getMarkupId() + "', " +
-                    "function (event) { " +
-                    "jQuery(this).removeClass('dropzone-dragover'); " +
-                    "var active = jQuery('#" + node.getMarkupId() + "').data('active'); " +
-                    "jQuery('#" + node.getMarkupId() + "').data('active', active - 1); " +
-                    "if (active < 2) { jQuery('#" + node.getMarkupId() + "').removeClass('node-dragover'); } " +
-                    "event.preventDefault(); });";
+            String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId();
+            String javaScript = "DraggableNode.onDragleave('" + dropzoneId + "', '" + nodeId + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
@@ -209,13 +188,10 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            Component node = component.getParent();
-            String javaScript = "jQuery(document).on('dragstart', '#" + component.getMarkupId() + "', " +
-                    "function (event) { " +
-                    "jQuery('#" + node.getMarkupId() + "').addClass('node-dragging'); " +
-                    "event.originalEvent.dataTransfer.clearData(); " +
-                    "event.originalEvent.dataTransfer.setData('text/plain', '" + node.getPageRelativePath() + "'); " +
-                    "event.originalEvent.dataTransfer.effectAllowed = 'move'; });";
+            String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId(),
+                    nodeRelativePath = component.getParent().getPageRelativePath();
+            String javaScript = "DraggableNode.onDragstart('" + dropzoneId + "', '" + nodeId + "', '" +
+                    nodeRelativePath + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
@@ -232,13 +208,8 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            Component node = component.getParent();
-            String javaScript = "jQuery(document).on('dragend', '#" + component.getMarkupId() + "', " +
-                    "function (event) { jQuery('#" + node.getMarkupId() + "').removeClass('node-dragging'); " +
-                    "jQuery(this).closest('.tree').find('.node-dragover').data('active', 0)" +
-                    ".removeClass('node-dragover'); " +
-                    "jQuery(this).closest('.tree').find('.dropzone-dragover').removeClass('dropzone-dragover'); " +
-                    "event.preventDefault(); });";
+            String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId();
+            String javaScript = "DraggableNode.onDragend('" + dropzoneId + "', '" + nodeId + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
@@ -262,8 +233,8 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String javaScript = "jQuery(document).on('drop', '#" + component.getMarkupId() + "', function (event) { " +
-                    "event.preventDefault(); });";
+            String dropzoneId = component.getMarkupId();
+            String javaScript = "DraggableNode.onDrop('" + dropzoneId + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
 

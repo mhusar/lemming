@@ -4,9 +4,11 @@ import lemming.tree.*;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
 import java.util.HashSet;
@@ -99,7 +101,11 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
+        ResourceReference draggableNodeReference = new JavaScriptResourceReference(DraggableNode.class,
+                "scripts/draggable-node.js");
         ResourceReference styleReference = new CssResourceReference(SenseTree.class, "styles/sense-tree.css");
+
+        response.render(JavaScriptHeaderItem.forReference(draggableNodeReference));
         response.render(CssHeaderItem.forReference(styleReference));
     }
 
