@@ -4,21 +4,23 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.util.string.StringValue;
 
 /**
- * A selectable and draggable tree node.
+ * A selectable tree node.
  *
  * @param <T> data type
  */
-public class DraggableNode<T> extends Node<T> {
+public class DraggableNode<T> extends BaseNode<T> {
     /**
-     * Creates a draggable tree node.
+     * Creates a tree node.
      *
      * @param id ID of the node
      * @param tree the owning tree
@@ -26,46 +28,98 @@ public class DraggableNode<T> extends Node<T> {
      */
     public DraggableNode(String id, AbstractNestedTree<T> tree, IModel<T> model) {
         super(id, tree, model);
-        add(new DragStartBehavior());
-        add(new DragEndBehavior());
-        add(new DragoverBehavior());
-        add(new DragleaveBehavior());
-        add(new DropBehavior());
+        Dropzone bottomDropzone = new Dropzone("bottomDropzone", DropzoneType.BOTTOM);
+        Dropzone middleDropzone = new Dropzone("middleDropzone", DropzoneType.MIDDLE);
+        Dropzone topDropzone = new Dropzone("topDropzone", DropzoneType.TOP);
+
+        bottomDropzone.add(new DragenterBehavior());
+        bottomDropzone.add(new DragoverBehavior());
+        bottomDropzone.add(new DragleaveBehavior());
+        bottomDropzone.add(new DropBehavior());
+        add(bottomDropzone);
+
+        middleDropzone.add(new NodeSwitch("switch"));
+        middleDropzone.add(getTree().newContentComponent("content", getModel()));
+        middleDropzone.add(new DragenterBehavior());
+        middleDropzone.add(new DragoverBehavior());
+        middleDropzone.add(new DragleaveBehavior());
+        middleDropzone.add(new DragstartBehavior());
+        middleDropzone.add(new DragendBehavior());
+        middleDropzone.add(new DropBehavior());
+        add(middleDropzone);
+
+        topDropzone.add(new DragenterBehavior());
+        topDropzone.add(new DragoverBehavior());
+        topDropzone.add(new DragleaveBehavior());
+        topDropzone.add(new DropBehavior());
+        add(topDropzone);
+
+        add(new SelectBehavior());
+        add(new StyleBehavior());
+        setOutputMarkupId(true);
     }
 
     /**
-     * Processes the component tag.
-     *
-     * @param tag tag to modify
+     * Dropzone type.
      */
-    @Override
-    protected void onComponentTag(ComponentTag tag) {
-        super.onComponentTag(tag);
-        tag.put("draggable", "true");
+    private enum DropzoneType {
+        BOTTOM, MIDDLE, TOP
     }
 
     /**
-     * A behavior which fires on drag start.
+     * Additional dropzones for draggable nodes.
      */
-    private class DragStartBehavior extends AjaxEventBehavior {
+    private class Dropzone extends WebMarkupContainer {
         /**
-         * Creates a drag start behavior.
+         * Dropzone type.
          */
-        public DragStartBehavior() {
-            super("dragstart");
+        private DropzoneType type;
+
+        /**
+         * Creates a dropzone
+         *
+         * @param id ID of the dropzone
+         * @param type dropzone type
+         */
+        public Dropzone(String id, DropzoneType type) {
+            super(id);
+            this.type = type;
+            setOutputMarkupId(true);
         }
 
         /**
-         * Called when a node is starting to drag.
+         * Returns the dropzone type.
          *
-         * @param target target that produces an Ajax response
+         * @return A dropzone type.
+         */
+        public DropzoneType getType() {
+            return type;
+        }
+
+        /**
+         * Processes the component tag.
+         *
+         * @param tag tag to modify
          */
         @Override
-        protected void onEvent(AjaxRequestTarget target) {
-            String javaScript = "jQuery('#" + getComponent().getMarkupId() + "').addClass('dragging');";
-            target.appendJavaScript(javaScript);
-        }
+        protected void onComponentTag(ComponentTag tag) {
+            super.onComponentTag(tag);
 
+            if (type.equals(DropzoneType.BOTTOM)) {
+                tag.put("class", "dropzone dropzone-bottom");
+            } else if (type.equals(DropzoneType.MIDDLE)) {
+                tag.put("class", "dropzone dropzone-middle");
+                tag.put("draggable", "true");
+            } else if (type.equals(DropzoneType.TOP)) {
+                tag.put("class", "dropzone dropzone-top");
+            }
+        }
+    }
+
+    /**
+     * A behavior which fires on drag enter.
+     */
+    private class DragenterBehavior extends Behavior {
         /**
          * Renders to the web response what the component wants to contribute.
          *
@@ -74,49 +128,22 @@ public class DraggableNode<T> extends Node<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String javaScript = "jQuery(document).on('dragstart', '#" + component.getMarkupId() + "', " +
+            String nodeMarkupId = component.getParent().getMarkupId();
+            String javaScript = "jQuery(document).on('dragenter', '#" + component.getMarkupId() + "', " +
                     "function (event) { " +
-                    "event.originalEvent.dataTransfer.setData('text/plain', '" + getPageRelativePath() + "'); " +
-                    "event.originalEvent.dataTransfer.dropEffect = 'move'; " +
-                    "event.originalEvent.dataTransfer.effectAllowed = 'move'; });";
+                    "jQuery(this).addClass('dropzone-dragover'); " +
+                    "jQuery('#" + nodeMarkupId + "').not('.node-dragging').addClass('node-dragover'); " +
+                    "var active = jQuery('#" + nodeMarkupId + "').data('active') || 0; " +
+                    "jQuery('#" + nodeMarkupId + "').data('active', active + 1); " +
+                    "event.preventDefault(); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
-        }
-    }
-
-    /**
-     * A behavior which fires on drag end.
-     */
-    private class DragEndBehavior extends AjaxEventBehavior {
-        /**
-         * Creates a drag end behavior.
-         */
-        public DragEndBehavior() {
-            super("dragend");
-        }
-
-        /**
-         * Called on drag end.
-         *
-         * @param target target that produces an Ajax response
-         */
-        @Override
-        protected void onEvent(AjaxRequestTarget target) {
-            String javaScript = "jQuery('#" + getComponent().getMarkupId() + "').removeClass('dragging');";
-            target.appendJavaScript(javaScript);
         }
     }
 
     /**
      * A behavior which fires on drag over.
      */
-    private class DragoverBehavior extends AjaxEventBehavior {
-        /**
-         * Creates a drag over behavior.
-         */
-        public DragoverBehavior() {
-            super("dragover");
-        }
-
+    private class DragoverBehavior extends Behavior {
         /**
          * Renders to the web response what the component wants to contribute.
          *
@@ -126,33 +153,17 @@ public class DraggableNode<T> extends Node<T> {
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
             String javaScript = "jQuery(document).on('dragover', '#" + component.getMarkupId() + "', " +
-                    "function (event) { event.preventDefault(); });";
+                    "function (event) { " +
+                    "event.originalEvent.dataTransfer.dropEffect = 'move'; " +
+                    "event.preventDefault(); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
-        }
-
-        /**
-         * Called when a draggable is dragged over a node.
-         *
-         * @param target target that produces an Ajax response
-         */
-        @Override
-        protected void onEvent(AjaxRequestTarget target) {
-            String javaScript = "jQuery('#" + getComponent().getMarkupId() + "').addClass('node-dragover');";
-            target.appendJavaScript(javaScript);
         }
     }
 
     /**
      * A behavior which fires on drag leave.
      */
-    private class DragleaveBehavior extends AjaxEventBehavior {
-        /**
-         * Creates a drag over behavior.
-         */
-        public DragleaveBehavior() {
-            super("dragleave");
-        }
-
+    private class DragleaveBehavior extends Behavior {
         /**
          * Renders to the web response what the component wants to contribute.
          *
@@ -161,20 +172,59 @@ public class DraggableNode<T> extends Node<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
+            Component node = component.getParent();
             String javaScript = "jQuery(document).on('dragleave', '#" + component.getMarkupId() + "', " +
-                    "function (event) { event.preventDefault(); });";
+                    "function (event) { " +
+                    "jQuery(this).removeClass('dropzone-dragover'); " +
+                    "var active = jQuery('#" + node.getMarkupId() + "').data('active'); " +
+                    "jQuery('#" + node.getMarkupId() + "').data('active', active - 1); " +
+                    "if (active < 2) { jQuery('#" + node.getMarkupId() + "').removeClass('node-dragover'); } " +
+                    "event.preventDefault(); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
+    }
 
+    /**
+     * A behavior which fires on drag start.
+     */
+    private class DragstartBehavior extends Behavior {
         /**
-         * Called when a draggable is leaving a node.
+         * Renders to the web response what the component wants to contribute.
          *
-         * @param target target that produces an Ajax response
+         * @param response response object
          */
         @Override
-        protected void onEvent(AjaxRequestTarget target) {
-            String javaScript = "jQuery('#" + getComponent().getMarkupId() + "').removeClass('node-dragover');";
-            target.appendJavaScript(javaScript);
+        public void renderHead(Component component, IHeaderResponse response) {
+            super.renderHead(component, response);
+            Component node = component.getParent();
+            String javaScript = "jQuery(document).on('dragstart', '#" + component.getMarkupId() + "', " +
+                    "function (event) { " +
+                    "jQuery('#" + node.getMarkupId() + "').addClass('node-dragging'); " +
+                    "event.originalEvent.dataTransfer.setData('text/plain', '" + node.getPageRelativePath() + "'); " +
+                    "event.originalEvent.dataTransfer.effectAllowed = 'move'; });";
+            response.render(OnDomReadyHeaderItem.forScript(javaScript));
+        }
+    }
+
+    /**
+     * A behavior which fires on drag end.
+     */
+    private class DragendBehavior extends Behavior {
+        /**
+         * Renders to the web response what the component wants to contribute.
+         *
+         * @param response response object
+         */
+        @Override
+        public void renderHead(Component component, IHeaderResponse response) {
+            super.renderHead(component, response);
+            Component node = component.getParent();
+            String javaScript = "jQuery(document).on('dragend', '#" + component.getMarkupId() + "', " +
+                    "function (event) { jQuery('#" + node.getMarkupId() + "').removeClass('node-dragging'); " +
+                    "jQuery(this).closest('.tree').find('.node-dragover').data('active', 0)" +
+                    ".removeClass('node-dragover'); " +
+                    "jQuery(this).closest('.tree').find('.dropzone-dragover').removeClass('dropzone-dragover'); });";
+            response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
 
@@ -208,6 +258,7 @@ public class DraggableNode<T> extends Node<T> {
          * @param target target that produces an Ajax response
          */
         @Override
+        @SuppressWarnings("unchecked")
         protected void onEvent(AjaxRequestTarget target) {
             AbstractNestedTree<T> tree = getTree();
             Request request = getComponent().getRequest();
@@ -215,13 +266,21 @@ public class DraggableNode<T> extends Node<T> {
 
             if (data.toString() != null && tree instanceof IDraggableTree) {
                 String relativePath = data.toString();
-                IDraggableTree draggableTree = (IDraggableTree) tree;
+                Dropzone dropzone = (Dropzone) getComponent();
                 Component sourceComponent = getPage().get(relativePath);
-                Component targetComponent = getComponent();
+                Component targetComponent = dropzone.getParent();
 
-                if (sourceComponent != null) {
-                    for (IDropListener dropListener : draggableTree.getDropListeners()) {
-                        dropListener.onDrop(sourceComponent, targetComponent);
+                if (targetComponent.equals(sourceComponent)) {
+                    return;
+                }
+
+                for (IDropListener dropListener : ((IDraggableTree) tree).getDropListeners()) {
+                    if (dropzone.getType().equals(DropzoneType.BOTTOM)) {
+                        dropListener.onBottomDrop(sourceComponent, targetComponent);
+                    } else if (dropzone.getType().equals(DropzoneType.MIDDLE)) {
+                        dropListener.onMiddleDrop(sourceComponent, targetComponent);
+                    } else if (dropzone.getType().equals(DropzoneType.TOP)) {
+                        dropListener.onTopDrop(sourceComponent, targetComponent);
                     }
                 }
             }
