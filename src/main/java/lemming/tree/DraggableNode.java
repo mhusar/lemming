@@ -60,6 +60,19 @@ public class DraggableNode<T> extends BaseNode<T> {
     }
 
     /**
+     * Renders to the web response what the component wants to contribute.
+     *
+     * @param response response object
+     */
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        String javaScript = "jQuery(document).on('dragover drop', ':not(.dropzone)', function (event) { " +
+                "event.preventDefault(); });";
+        response.render(OnDomReadyHeaderItem.forScript(javaScript));
+    }
+
+    /**
      * Dropzone type.
      */
     private enum DropzoneType {
@@ -200,6 +213,7 @@ public class DraggableNode<T> extends BaseNode<T> {
             String javaScript = "jQuery(document).on('dragstart', '#" + component.getMarkupId() + "', " +
                     "function (event) { " +
                     "jQuery('#" + node.getMarkupId() + "').addClass('node-dragging'); " +
+                    "event.originalEvent.dataTransfer.clearData(); " +
                     "event.originalEvent.dataTransfer.setData('text/plain', '" + node.getPageRelativePath() + "'); " +
                     "event.originalEvent.dataTransfer.effectAllowed = 'move'; });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
@@ -223,7 +237,8 @@ public class DraggableNode<T> extends BaseNode<T> {
                     "function (event) { jQuery('#" + node.getMarkupId() + "').removeClass('node-dragging'); " +
                     "jQuery(this).closest('.tree').find('.node-dragover').data('active', 0)" +
                     ".removeClass('node-dragover'); " +
-                    "jQuery(this).closest('.tree').find('.dropzone-dragover').removeClass('dropzone-dragover'); });";
+                    "jQuery(this).closest('.tree').find('.dropzone-dragover').removeClass('dropzone-dragover'); " +
+                    "event.preventDefault(); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
