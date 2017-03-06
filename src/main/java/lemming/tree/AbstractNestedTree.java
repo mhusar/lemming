@@ -99,8 +99,8 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         modelChanging();
         selectedObjectModel.setObject(object);
         modelChanged();
-        updateNode(selectedObject, target);
-        updateNode(object, target);
+        updateBranch(selectedObject, target);
+        updateBranch(object, target);
 
         for (ISelectListener<T> selectListener : selectListeners) {
             selectListener.onSelect(target, object);
