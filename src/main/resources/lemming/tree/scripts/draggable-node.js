@@ -14,7 +14,7 @@ DraggableNode = (function () {
         jQuery(document).on("dragenter", "#" + dropzoneId, function (event) {
             var active, node = jQuery("#" + nodeId);
 
-            // set number of "active" dropzones
+            // increase number of "active" dropzones
             active = node.data("active") || 0;
             node.data("active", active + 1);
 
@@ -35,7 +35,7 @@ DraggableNode = (function () {
         jQuery(document).on("dragleave", "#" + dropzoneId, function (event) {
             var active, node = jQuery("#" + nodeId);
 
-            // reduce number of active dropzones
+            // decrease number of "active" dropzones
             active = node.data("active") - 1;
             node.data("active", active);
 
