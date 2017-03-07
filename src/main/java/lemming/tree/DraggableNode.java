@@ -189,9 +189,9 @@ public class DraggableNode<T> extends BaseNode<T> {
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
             String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId(),
-                    nodeRelativePath = component.getParent().getPageRelativePath();
-            String javaScript = "DraggableNode.onDragstart('" + dropzoneId + "', '" + nodeId + "', '" +
-                    nodeRelativePath + "');";
+                    treeId = getTree().getMarkupId(), nodeRelativePath = component.getParent().getPageRelativePath();
+            String javaScript = "DraggableNode.onDragstart('" + dropzoneId + "', '" + nodeId + "', '" + treeId +
+                    "', '" + nodeRelativePath + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
@@ -208,8 +208,9 @@ public class DraggableNode<T> extends BaseNode<T> {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             super.renderHead(component, response);
-            String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId();
-            String javaScript = "DraggableNode.onDragend('" + dropzoneId + "', '" + nodeId + "');";
+            String dropzoneId = component.getMarkupId(), nodeId = component.getParent().getMarkupId(),
+                    treeId = getTree().getMarkupId();
+            String javaScript = "DraggableNode.onDragend('" + dropzoneId + "', '" + nodeId + "', '" + treeId + "');";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }

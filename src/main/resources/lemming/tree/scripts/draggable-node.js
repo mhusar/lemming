@@ -48,8 +48,11 @@ DraggableNode = (function () {
         });
     };
 
-    onDragstart = function (dropzoneId, nodeId, nodeRelativePath) {
+    onDragstart = function (dropzoneId, nodeId, treeId, nodeRelativePath) {
         jQuery(document).on("dragstart", "#" + dropzoneId, function (event) {
+            var tree = jQuery(this).closest("#" + treeId);
+
+            tree.attr("data-between", "true");
             jQuery("#" + nodeId).addClass("node-dragging");
             event.originalEvent.dataTransfer.clearData();
             event.originalEvent.dataTransfer.setData("text/plain", nodeRelativePath);
@@ -57,10 +60,11 @@ DraggableNode = (function () {
         });
     };
 
-    onDragend = function (dropzoneId, nodeId) {
+    onDragend = function (dropzoneId, nodeId, treeId) {
         jQuery(document).on("dragend", "#" + dropzoneId, function (event) {
-            var tree = jQuery(this).closest(".tree");
+            var tree = jQuery(this).closest("#" + treeId);
 
+            tree.removeAttr("data-between");
             // reset dropzones and nodes
             jQuery("#" + nodeId).removeClass("node-dragging");
             tree.find(".dropzone-dragover").removeClass("dropzone-dragover");
