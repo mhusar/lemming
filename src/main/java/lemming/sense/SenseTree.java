@@ -31,7 +31,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
      * @param provider provider of tree data
      */
     public SenseTree(String id, INestedTreeProvider<Sense> provider) {
-        super(id, provider);
+        this(id, provider, null);
     }
 
     /**
@@ -42,7 +42,8 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
      * @param selectedSenseObject model of the selected sense object
      */
     public SenseTree(String id, INestedTreeProvider<Sense> provider, Sense selectedSenseObject) {
-        super(id, provider);
+        super(id, provider, selectedSenseObject);
+        setMarkupId("senses");
     }
 
     /**

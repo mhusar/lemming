@@ -59,6 +59,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         }
 
         add(new Subtree<T>("subtree", this, null));
+        setOutputMarkupId(true);
     }
 
     /**
