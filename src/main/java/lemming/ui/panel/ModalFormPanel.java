@@ -113,6 +113,15 @@ public abstract class ModalFormPanel extends Panel {
     }
 
     /**
+     * Returns the markup id of the modal window.
+     *
+     * @return A string.
+     */
+    public String getModalWindowId() {
+        return modalWindowId;
+    }
+
+    /**
      * Returns the submit form.
      *
      * @return A form.

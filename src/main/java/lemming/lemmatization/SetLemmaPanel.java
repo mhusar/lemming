@@ -7,6 +7,9 @@ import lemming.lemma.LemmaAutoCompleteTextField;
 import lemming.lemma.LemmaDao;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -41,6 +44,23 @@ class SetLemmaPanel extends ModalFormPanel {
         this.dataTable = dataTable;
         lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<Lemma>());
         addFormComponent(lemmaTextField);
+    }
+
+    /**
+     * Renders to the web response what the component wants to contribute.
+     *
+     * @param response response object
+     */
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        // ctrl + l
+        String javaScript = "jQuery(window).on('keydown', function (event) { " +
+                "var modifier = event.ctrlKey || event.metaKey; " +
+                "if (modifier && event.which === 76) { " +
+                "jQuery('#" + getModalWindowId() + "').modal('show'); " +
+                "event.preventDefault(); event.stopPropagation(); } });";
+        response.render(OnDomReadyHeaderItem.forScript(javaScript));
     }
 
     /**

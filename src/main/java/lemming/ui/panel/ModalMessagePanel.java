@@ -146,12 +146,10 @@ public abstract class ModalMessagePanel extends Panel {
         if (dialogType == DialogType.YES_NO) {
             fragment = new Fragment("fragment", "yesNoDialog", this);
             fragment.add(new CancelButton("cancelButton"));
-            fragment.add(new ConfirmButton("confirmButton")
-                    .add(new Label("modalConfirm", getConfirmationString())));
+            fragment.add(new ConfirmButton("confirmButton").add(new Label("modalConfirm", getConfirmationString())));
         } else if (dialogType == DialogType.OKAY) {
             fragment = new Fragment("fragment", "okayDialog", this);
-            fragment.add(new ConfirmButton("confirmButton")
-                    .add(new Label("modalConfirm", getConfirmationString())));
+            fragment.add(new ConfirmButton("confirmButton").add(new Label("modalConfirm", getConfirmationString())));
         }
 
         container.add(fragment);

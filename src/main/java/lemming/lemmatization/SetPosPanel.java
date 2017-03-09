@@ -7,6 +7,8 @@ import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosDao;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -41,6 +43,23 @@ class SetPosPanel extends ModalFormPanel {
         this.dataTable = dataTable;
         posTextField = new PosAutoCompleteTextField("pos", new Model<Pos>());
         addFormComponent(posTextField);
+    }
+
+    /**
+     * Renders to the web response what the component wants to contribute.
+     *
+     * @param response response object
+     */
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        // ctrl + p
+        String javaScript = "jQuery(window).on('keydown', function (event) { " +
+                "var modifier = event.ctrlKey || event.metaKey; " +
+                "if (modifier && event.which === 80) { " +
+                "jQuery('#" + getModalWindowId() + "').modal('show'); " +
+                "event.preventDefault(); } });";
+        response.render(OnDomReadyHeaderItem.forScript(javaScript));
     }
 
     /**
