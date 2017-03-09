@@ -229,7 +229,7 @@ jQuery(document).on("keydown", function (event) {
                 // prevent form submit; why does this happen?
                 event.preventDefault();
             }
-        } else if (event.ctrlKey) {
+        } else if (event.ctrlKey || event.metaKey) {
             if (event.which === 40) {
                 onCtrlDownSelect(tbody);
             } else if (event.which === 38) {
