@@ -124,6 +124,7 @@ public class ContextXmlReader implements ErrorHandler {
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     EndElement endElement = event.asEndElement();
+                    currentElement = "";
 
                     if (endElement.getName().getLocalPart().equals("item")) {
                         contexts.add(context);
