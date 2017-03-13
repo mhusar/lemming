@@ -86,11 +86,13 @@ public final class CriteriaHelper {
      */
     private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
                                                                          Root<?> root, String filter) {
-        ContextType.Type type = matchContextType(filter);
+        // deactivate filtering by context type
+        ContextType.Type type = null;
 
         if (type != null) {
             return criteriaBuilder.or(
                     criteriaBuilder.like(root.get("location"), filter + "%"),
+                    criteriaBuilder.equal(root.get("type"), type),
                     criteriaBuilder.like(root.get("preceding"), filter + "%"),
                     criteriaBuilder.like(root.get("keyword"), filter + "%"),
                     criteriaBuilder.like(root.get("following"), filter + "%"),
@@ -100,7 +102,6 @@ public final class CriteriaHelper {
         } else {
             return criteriaBuilder.or(
                     criteriaBuilder.like(root.get("location"), filter + "%"),
-                    criteriaBuilder.equal(root.get("type"), type),
                     criteriaBuilder.like(root.get("preceding"), filter + "%"),
                     criteriaBuilder.like(root.get("keyword"), filter + "%"),
                     criteriaBuilder.like(root.get("following"), filter + "%"),
