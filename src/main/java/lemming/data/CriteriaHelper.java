@@ -202,6 +202,78 @@ public final class CriteriaHelper {
     }
 
     /**
+     * Returns an automatically created list of order objects for context ordering.
+     *
+     * @param criteriaBuilder contructor for criteria queries
+     * @param root query root referencing entities
+     * @param property sort property
+     * @param isAscending sort direction
+     * @return A list of order objects.
+     */
+    private static List<Order> getContextOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
+                                             Boolean isAscending) {
+        List<Order> orderList = new ArrayList<Order>();
+
+        if (isAscending) {
+            switch (property) {
+                case "lemmaString":
+                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+                case "posString":
+                    orderList.add(criteriaBuilder.asc(root.get("posString")));
+                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
+                    break;
+                case "location":
+                    orderList.add(criteriaBuilder.asc(root.get("location")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+                case "preceding":
+                    orderList.add(criteriaBuilder.asc(root.get("preceding")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+                case "keyword":
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    orderList.add(criteriaBuilder.asc(root.get("following")));
+                    break;
+                case "following":
+                    orderList.add(criteriaBuilder.asc(root.get("following")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+            }
+        } else {
+            switch (property) {
+                case "lemmaString":
+                    orderList.add(criteriaBuilder.desc(root.get("lemmaString")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+                case "posString":
+                    orderList.add(criteriaBuilder.desc(root.get("posString")));
+                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
+                    break;
+                case "location":
+                    orderList.add(criteriaBuilder.desc(root.get("location")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+                case "preceding":
+                    orderList.add(criteriaBuilder.desc(root.get("preceding")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+                case "keyword":
+                    orderList.add(criteriaBuilder.desc(root.get("keyword")));
+                    orderList.add(criteriaBuilder.asc(root.get("following")));
+                    break;
+                case "following":
+                    orderList.add(criteriaBuilder.desc(root.get("following")));
+                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    break;
+            }
+        }
+
+        return orderList;
+    }
+
+    /**
      * Returns an automatically created list of order objects for sense ordering.
      *
      * @param criteriaBuilder contructor for criteria queries
@@ -260,7 +332,9 @@ public final class CriteriaHelper {
         String[] splitProperty = property.split("\\.");
         Expression<String> expression;
 
-        if (typeClass.equals(Sense.class)) {
+        if (typeClass.equals(Context.class)) {
+            return getContextOrder(criteriaBuilder, root, property, isAscending);
+        } else if (typeClass.equals(Sense.class)) {
             return getSenseOrder(criteriaBuilder, root, property, isAscending);
         }
 
