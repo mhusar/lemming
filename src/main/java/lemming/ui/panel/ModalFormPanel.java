@@ -108,7 +108,9 @@ public abstract class ModalFormPanel extends Panel {
                 + ".on('hidden.bs.modal', function () { "
                 + "if (jQuery('input[autofocus]').first().isInViewport()) { "
                 + "jQuery('input[autofocus]').first().focus(); "
-                + "} });";
+                + "} }); "
+                + "jQuery('#" + modalWindowId + "').on('keydown', function (event) { "
+                + "event.stopPropagation(); });";
         response.render(OnDomReadyHeaderItem.forScript(javaScript));
     }
 
