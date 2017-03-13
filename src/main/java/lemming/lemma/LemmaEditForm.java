@@ -1,10 +1,12 @@
 package lemming.lemma;
 
+import lemming.auth.WebSession;
 import lemming.context.ContextDao;
 import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosTextField;
 import lemming.sense.SenseDao;
+import lemming.user.UserTextField;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
@@ -63,6 +65,8 @@ public class LemmaEditForm extends Form<Lemma> {
                 new EnumChoiceRenderer<Source.LemmaType>(), 1);
         MarkupContainer referenceContainer = new WebMarkupContainer("referenceContainer");
         TextField<String> referenceTextField = new TextField<String>("reference");
+        MarkupContainer userContainer = new WebMarkupContainer("userContainer");
+        UserTextField userTextField = new UserTextField("user");
         DeleteButton deleteButton = new DeleteButton("deleteButton", model);
 
         add(nameTextField);
@@ -74,6 +78,9 @@ public class LemmaEditForm extends Form<Lemma> {
         add(sourceListChoice.setEnabled(false));
         add(referenceContainer);
         referenceContainer.add(referenceTextField);
+        add(userContainer);
+        userContainer.add(userTextField);
+
         add(new CancelButton("cancelButton"));
         add(deleteButton);
 
@@ -82,16 +89,32 @@ public class LemmaEditForm extends Form<Lemma> {
         }
 
         if (model.getObject().getSource().equals(Source.LemmaType.TL)) {
+            nameTextField.setEnabled(false);
             posLabel.add(AttributeModifier.replace("for", "posString"));
             posTextField.setVisible(false);
+            posStringTextField.setEnabled(false);
+            referenceTextField.setEnabled(false);
+            userContainer.setVisible(false);
             deleteButton.setVisible(false);
+
+            if (model.getObject().getReplacement() != null) {
+                if (model.getObject().getReplacement().getSource().equals(Source.LemmaType.TL)) {
+                    replacementTextField.setEnabled(false);
+                }
+            }
         } else {
             replacementContainer.setVisible(false);
             posStringTextField.setVisible(false);
             referenceContainer.setVisible(false);
+            userTextField.setEnabled(false);
         }
 
         nameTextField.add(new UniqueLemmaNameValidator(model));
+
+        // check if a replacement lemma set by a user is a user-generated lemma
+        if (replacementContainer.isVisible() && replacementTextField.isEnabled()) {
+            replacementTextField.add(new ReplacementLemmaValidator(model));
+        }
     }
 
     /**
@@ -245,6 +268,54 @@ public class LemmaEditForm extends Form<Lemma> {
             } else if (lemma instanceof Lemma) {
                 if (!(lemma.equals(lemmaModel.getObject()))) {
                     error.addKey("LemmaEditForm.lemma-is-non-unique");
+                }
+            }
+
+            if (!(error.getKeys().isEmpty())) {
+                validatable.error(error);
+            }
+        }
+    }
+
+    /**
+     * Validates a lemma’s replacement lemma.
+     */
+    private class ReplacementLemmaValidator implements IValidator<Lemma> {
+        /**
+         * Determines if a deserialized file is compatible with this class.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /**
+         * Lemma model that is edited.
+         */
+        private IModel<Lemma> lemmaModel;
+
+        /**
+         * Creates a replacement lemma validator.
+         *
+         * @param model
+         *            lemma model that is edited
+         */
+        public ReplacementLemmaValidator(IModel<Lemma> model) {
+            lemmaModel = model;
+        }
+
+        /**
+         * Validates the value of a form component.
+         *
+         * @param validatable
+         *            IValidatable instance that is validated
+         */
+        @Override
+        public void validate(IValidatable<Lemma> validatable) {
+            ValidationError error = new ValidationError();
+            LemmaDao lemmaDao = new LemmaDao();
+            Lemma lemma = validatable.getValue();
+
+            if (lemma instanceof Lemma) {
+                if (lemma.getSource().equals(Source.LemmaType.TL)) {
+                    error.addKey("LemmaEditForm.replacement-lemma-is-tl-lemma");
                 }
             }
 

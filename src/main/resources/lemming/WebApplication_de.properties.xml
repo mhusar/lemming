@@ -84,6 +84,7 @@
     <entry key="Lemma.reference">Stelle</entry>
     <entry key="Lemma.replacement">Ersatzlemma</entry>
     <entry key="Lemma.source">Herkunft</entry>
+    <entry key="Lemma.user">Benutzer</entry>
     <entry key="LemmatizationPage.header">Lemmatisierung</entry>
     <entry key="LemmatizationPanel.setLemma">Lemma festlegen</entry>
     <entry key="LemmatizationPanel.setPos">Wortart festlegen</entry>
@@ -95,6 +96,9 @@
     <entry key="LemmaDeleteDeniedPanel.message">Mindestens ein Kontext oder eine Bedeutung gehört zum Lemma {0}.</entry>
     <entry key="LemmaDeleteDeniedPanel.title">Löschen nicht möglich</entry>
     <entry key="LemmaEditForm.lemma-is-non-unique">Eine Lemma mit diesem Namen gibt es bereits.</entry>
+    <entry key="LemmaEditForm.replacement-lemma-is-tl-lemma">Ein Tobler-Lommatzsch-Lemma darf nicht als Ersatzlemma
+        genutzt werden.
+    </entry>
     <entry key="LemmaEditPage.editHeader">Lemma bearbeiten</entry>
     <entry key="LemmaEditPage.newHeader">Lemma erstellen</entry>
     <entry key="LemmaIndexPage.header">Lemmata</entry>
@@ -191,7 +195,7 @@
     <entry key="User.role">Rolle</entry>
     <entry key="User.username">Benutzername</entry>
     <entry key="UserDeleteDeniedPanel.confirm">Schließen</entry>
-    <entry key="UserDeleteDeniedPanel.message"></entry>
+    <entry key="UserDeleteDeniedPanel.message">Der Benutzer {0} besitzt mindestens ein Lemma.</entry>
     <entry key="UserDeleteDeniedPanel.title">Löschen nicht möglich</entry>
     <entry key="UserEditForm.realName-is-non-unique">Ein Benutzer mit diesem Namen existiert bereits.</entry>
     <entry key="UserEditForm.role-is-required">Bitte wählen Sie eine Rolle für den Benutzer aus.</entry>

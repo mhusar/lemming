@@ -3,6 +3,7 @@ package lemming.lemma;
 import lemming.data.IDao;
 import lemming.data.Source;
 import lemming.pos.Pos;
+import lemming.user.User;
 
 import java.util.List;
 
@@ -57,6 +58,14 @@ public interface ILemmaDao extends IDao<Lemma> {
      * @return A list of matching lemmata.
      */
     List<Lemma> findBySource(Source.LemmaType source);
+
+    /**
+     * Returns a list of matching lemmata for a given user.
+     *
+     * @param user user which created a lemma
+     * @return A list of matching lemmata.
+     */
+    List<Lemma> findByUser(User user);
 
     /**
      * Returns a list of lemmata with resolvable replacement string.

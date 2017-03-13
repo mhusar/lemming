@@ -3,6 +3,7 @@ package lemming.lemma;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.Source;
 import lemming.pos.Pos;
+import lemming.user.User;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -85,22 +86,30 @@ public class Lemma implements Serializable {
      *
      * For better performance of the lemma index table. TL lemmata don’t have a pos object because of different part
      * of speech names.
+     * Don’t use @JsonIgnore here. It will break lemma import.
      */
-    @Column(name = "pos_string")
+    @Column(name = "pos_string", length = 120)
     private String posString;
 
     /**
      * Source of a lemma.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "source", nullable = false)
+    @Column(name = "source", nullable = false, length = 30)
     private Source.LemmaType source;
 
     /**
      * Reference of a lemma.
      */
-    @Column(name = "reference")
+    @Column(name = "reference", length=60)
     private String reference;
+
+    /**
+     * User that generated a lemma.
+     */
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /**
      * Creates an instance of a lemma.
@@ -297,6 +306,24 @@ public class Lemma implements Serializable {
      */
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    /**
+     * Returns the user that generated a lemma.
+     *
+     * @return A user.
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the user that generated a lemma.
+     *
+     * @param user a user
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**

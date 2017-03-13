@@ -5,6 +5,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import lemming.lemma.LemmaDao;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -204,9 +205,11 @@ public class UserEditForm extends Form<User> {
         @Override
         public void onClick(AjaxRequestTarget target) {
             // not needed because no data is ownded by a user
-            ModalMessagePanel panel = (ModalMessagePanel) getPage().get("userDeleteDeniedPanel");
+            ModalMessagePanel userDeleteDeniedPanel = (ModalMessagePanel) getPage().get("userDeleteDeniedPanel");
 
-            if (getModelObject().equals(WebSession.get().getUser())) {
+            if (!new LemmaDao().findByUser(getModelObject()).isEmpty()) {
+                userDeleteDeniedPanel.show(target, getModel());
+            } else if (getModelObject().equals(WebSession.get().getUser())) {
                 new UserDao().remove(getModelObject());
                 WebSession.get().invalidate();
                 setResponsePage(SignInPage.class);

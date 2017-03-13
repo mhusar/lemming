@@ -6,6 +6,7 @@ import lemming.data.GenericDao;
 import lemming.data.Source;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
+import lemming.user.User;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -78,7 +79,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction.begin();
             lemma = entityManager.merge(lemma);
             TypedQuery<Lemma> query = entityManager.createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
-                    "LEFT JOIN FETCH l.pos WHERE l.id = :id", Lemma.class);
+                    "LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user WHERE l.id = :id", Lemma.class);
             Lemma refresedLemma = query.setParameter("id", lemma.getId()).getSingleResult();
             transaction.commit();
             return refresedLemma;
@@ -237,7 +238,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Lemma> query = entityManager.createQuery("SELECT l FROM Lemma l " +
-                    "LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos " +
+                    "LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user " +
                     "WHERE l.name = :name ORDER BY l.name", Lemma.class);
             List<Lemma> lemmaList = query.setParameter("name", name).getResultList();
             transaction.commit();
@@ -286,11 +287,11 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         String queryString;
 
         if (excludeReplacements) {
-            queryString = "SELECT l FROM Lemma l LEFT JOIN FETCH l.pos " +
+            queryString = "SELECT l FROM Lemma l LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user " +
                     "WHERE l.name LIKE :substring AND l.replacement IS NULL ORDER BY l.name";
         } else {
             queryString = "SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos " +
-                    "WHERE l.name LIKE :substring ORDER BY l.name";
+                    "LEFT JOIN FETCH l.user WHERE l.name LIKE :substring ORDER BY l.name";
         }
 
         try {
@@ -327,7 +328,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction.begin();
             TypedQuery<Lemma> query = entityManager
                     .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos " +
-                            "WHERE l.pos = :pos ORDER BY l.name", Lemma.class);
+                            "LEFT JOIN FETCH l.user WHERE l.pos = :pos ORDER BY l.name", Lemma.class);
             List<Lemma> lemmaList = query.setParameter("pos", pos).getResultList();
             transaction.commit();
             return lemmaList;
@@ -358,8 +359,38 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction.begin();
             TypedQuery<Lemma> query = entityManager
                     .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos " +
-                            "WHERE l.source = :source ORDER BY l.name", Lemma.class);
+                            "LEFT JOIN FETCH l.user WHERE l.source = :source ORDER BY l.name", Lemma.class);
             List<Lemma> lemmaList = query.setParameter("source", source).getResultList();
+            transaction.commit();
+            return lemmaList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public List<Lemma> findByUser(User user) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Lemma> query = entityManager
+                    .createQuery("FROM Lemma WHERE user = :user", Lemma.class);
+            List<Lemma> lemmaList = query.setParameter("user", user).getResultList();
             transaction.commit();
             return lemmaList;
         } catch (RuntimeException e) {
@@ -501,7 +532,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Lemma> query = entityManager.createQuery("SELECT l FROM Lemma l " +
-                            "LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos", Lemma.class);
+                            "LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user", Lemma.class);
             List<Lemma> lemmaList = query.getResultList();
             transaction.commit();
             return lemmaList;
