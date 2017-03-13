@@ -52,14 +52,14 @@ public class Pos implements Serializable {
     /**
      * Name of a part of speech.
      */
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 120)
     private String name;
 
     /**
      * Source of a part of speech.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "source", nullable = false)
+    @Column(name = "source", nullable = false, length = 30)
     private Source.PosType source;
 
     /**

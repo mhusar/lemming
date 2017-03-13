@@ -61,7 +61,7 @@
                             <wicket:message key="Lemma.source"></wicket:message>
                         </label>
                         <div class="col-sm-10">
-                            <select wicket:id="source" id="source" class="form-control"></select>
+                            <select wicket:id="source" id="source" class="form-control" maxlength="25"></select>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,18 @@
                         </label>
                         <div class="col-sm-10">
                             <input type="text" wicket:id="reference" id="reference" class="form-control"
-                                   required="required" maxlength="100"/>
+                                   required="required" maxlength="50"/>
+                        </div>
+                    </div>
+                </div>
+                <div wicket:id="userContainer" class="col-md-12">
+                    <div class="form-group">
+                        <label for="user" class="col-sm-2 control-label">
+                            <wicket:message key="Lemma.user"></wicket:message>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" wicket:id="user" id="user" class="form-control" required="required"
+                                   maxlength="100"/>
                         </div>
                     </div>
                 </div>

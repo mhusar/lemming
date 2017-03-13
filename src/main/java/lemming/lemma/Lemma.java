@@ -53,7 +53,7 @@ public class Lemma implements Serializable {
     /**
      * Name of a lemma.
      */
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 120, nullable = false)
     private String name;
 
     /**
@@ -68,9 +68,9 @@ public class Lemma implements Serializable {
      * Replacement of a lemma as string.
      *
      * For better performance of the lemma index table.
+     * Don’t use @JsonIgnore here. It will break lemma import.
      */
-    @Column(name = "replacement_string")
-    @JsonIgnore
+    @Column(name = "replacement_string", length = 120)
     private String replacementString;
 
     /**

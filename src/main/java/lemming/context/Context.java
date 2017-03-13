@@ -23,7 +23,7 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, type, pos_string, lemma_string")})
+        @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")})
 public class Context implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -54,20 +54,20 @@ public class Context implements Serializable {
     /**
      * Location of a context.
      */
-    @Column(name = "location", nullable = false)
+    @Column(name = "location", length = 30, nullable = false)
     private String location;
 
     /**
      * Type of a context.
      */
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", length = 30, nullable = false)
     private ContextType.Type type;
 
     /**
      * Keyword of a context.
      */
-    @Column(name = "keyword", nullable = false)
+    @Column(name = "keyword", length=120, nullable = false)
     private String keyword;
 
     /**
@@ -100,7 +100,7 @@ public class Context implements Serializable {
      *
      * For better performance of the context index table.
      */
-    @Column(name = "pos_string")
+    @Column(name = "pos_string", length = 120)
     @JsonIgnore
     private String posString;
 
@@ -116,7 +116,7 @@ public class Context implements Serializable {
      *
      * For better performance of the context index table.
      */
-    @Column(name = "lemma_string")
+    @Column(name = "lemma_string", length = 120)
     @JsonIgnore
     private String lemmaString;
 
