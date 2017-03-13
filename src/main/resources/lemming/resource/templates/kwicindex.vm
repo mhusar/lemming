@@ -8,8 +8,13 @@ ${indent}<sublist key="$sublist.getKey()">
 #set($pos = $item.getPos())
 #set($preceding = $item.getPreceding())
 #set($type = $item.getType())
+#set($punctuation = $item.getPunctuation())
 #set($indent = "    ")
+#if( "$!punctuation" == "" )
 ${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$!lemma" pos="$!pos">$keyword</item>
+#else
+${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$!lemma" pos="$!pos">$keyword<punctuation>$punctuation</punctuation></item>
+#end
 #end
 #set($indent = "  ")
 ${indent}</sublist>

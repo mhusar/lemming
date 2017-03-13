@@ -88,6 +88,7 @@ public abstract class KwicIndex {
             keyword = context.getKeyword();
             location = context.getLocation();
             preceding = context.getPreceding();
+            punctuation = context.getPunctuation();
 
             if (context.getLemma() instanceof Lemma) {
                 lemma = context.getLemma().getName();
@@ -145,6 +146,12 @@ public abstract class KwicIndex {
          */
         @XmlAttribute(required = true)
         private String type;
+
+        /**
+         * Punctuation tag of an item.
+         */
+        @XmlElement(name = "punctuation")
+        private String punctuation;
 
         /**
          * Returns the following attribute of an item.
@@ -207,6 +214,15 @@ public abstract class KwicIndex {
          */
         public String getType() {
             return type;
+        }
+
+        /**
+         * Returns the punctuation tag of an item.
+         *
+         * @return A tag as string.
+         */
+        public String getPunctuation() {
+            return punctuation;
         }
     }
 }
