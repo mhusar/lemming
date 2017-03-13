@@ -277,6 +277,10 @@ table {
   text-align: center;
 }
 
+.punctuation {
+  color: #7c2326;
+}
+
 .selectable tr {
   cursor: pointer;
   user-select: none;

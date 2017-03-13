@@ -79,15 +79,15 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
          */
         public ContextPanel(String id, String following, String punctuation) {
             super(id);
-            String label = following.trim();
+            String label = following;
             String titleString = following.trim();
 
             if (punctuation instanceof String) {
-                label = "<span class='punctuation'>" + punctuation + "</span>" + label;
+                label = "<span class='punctuation'>" + punctuation + "</span> " + label;
                 titleString = punctuation + titleString;
             }
 
-            add(new Label("contextText", label)
+            add(new Label("contextText", label.trim())
                     .add(AttributeModifier.append("title", titleString)).setEscapeModelStrings(false));
         }
     }
