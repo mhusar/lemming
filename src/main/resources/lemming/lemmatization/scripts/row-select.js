@@ -93,7 +93,10 @@ function onShiftUpSelect(tbody) {
 }
 
 function onCtrlSelect(row) {
-    var checkbox = jQuery(row).find(":checkbox").first();
+    var focusedRow = jQuery(row).closest("tbody").find(".focused").first(),
+        checkbox = jQuery(row).find(":checkbox").first();
+
+    jQuery(focusedRow).removeClass("focused");
     jQuery(row).toggleClass("selected").addClass("focused");
     jQuery(checkbox).prop("checked", !jQuery(checkbox).prop("checked"));
 }
@@ -203,7 +206,7 @@ function selectRows(allRows, minIndex, maxIndex) {
 jQuery(document).on("click", "table.selectable tbody tr", function (event) {
     if (event.shiftKey) {
         onShiftSelect(this);
-    } else if (event.ctrlKey) {
+    } else if (event.ctrlKey || event.metaKey) {
         onCtrlSelect(this);
     } else {
         onSelect(this);
@@ -219,7 +222,7 @@ jQuery(document).on("keydown", function (event) {
     var tbody = jQuery("table.selectable tbody");
 
     // 32 = space, 38 = up, 40 = down
-    if (tbody.length && event.which === 32 || event.which === 38 || event.which === 40) {
+    if (tbody.length && (event.which === 32 || event.which === 38 || event.which === 40)) {
         if (event.shiftKey) {
             if (event.which === 40) {
                 onShiftDownSelect(tbody);
@@ -263,7 +266,7 @@ jQuery(document).ready(function () {
             mutations.forEach(function (mutation) {
                 if (mutation.addedNodes.length) {
                     mutation.addedNodes.forEach(function (addedNode) {
-                        if (addedNode.tagName === "table") {
+                        if (jQuery(addedNode).is("table")) {
                             selectFirstRow();
                         }
                     });
