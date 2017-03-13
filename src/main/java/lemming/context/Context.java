@@ -83,6 +83,12 @@ public class Context implements Serializable {
     private String following;
 
     /**
+     * A punctuation following the keyword.
+     */
+    @Column(name = "punctuation", length = 30)
+    private String punctuation;
+
+    /**
      * Part of speech of a keyword in context.
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -280,6 +286,24 @@ public class Context implements Serializable {
      */
     public void setFollowing(String following) {
         this.following = following;
+    }
+
+    /**
+     * Returns the punctuation following a keyword.
+     *
+     * @return Punctuation text.
+     */
+    public String getPunctuation() {
+        return punctuation;
+    }
+
+    /**
+     * Sets the punctuation following a keyword.
+     *
+     * @param punctuation punctuation text
+     */
+    public void setPunctuation(String punctuation) {
+        this.punctuation = punctuation;
     }
 
     /**

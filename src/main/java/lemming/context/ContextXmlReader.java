@@ -8,9 +8,7 @@ import org.xml.sax.SAXParseException;
 import javax.servlet.ServletContext;
 import javax.xml.XMLConstants;
 import javax.xml.stream.*;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
+import javax.xml.stream.events.*;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -106,7 +104,8 @@ public class ContextXmlReader implements ErrorHandler {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         List<Context> contexts = new ArrayList<Context>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
-        Context context;
+        String currentElement = "";
+        Context context = null;
 
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();
@@ -116,14 +115,33 @@ public class ContextXmlReader implements ErrorHandler {
                     StartElement startElement = event.asStartElement();
 
                     if (startElement.getName().getLocalPart().equals("item")) {
+                        currentElement = "item";
                         context = getContext(startElement);
-                        context.setKeyword(reader.getElementText());
+                    } else if (startElement.getName().getLocalPart().equals("punctuation")) {
+                        currentElement = "punctuation";
+                    }
+
+                    break;
+                case XMLStreamConstants.END_ELEMENT:
+                    EndElement endElement = event.asEndElement();
+
+                    if (endElement.getName().getLocalPart().equals("item")) {
                         contexts.add(context);
                     }
 
                     break;
                 case XMLStreamConstants.END_DOCUMENT:
                     reader.close();
+                    break;
+                case XMLStreamConstants.CHARACTERS:
+                    Characters characters = event.asCharacters();
+
+                    if (currentElement.equals("item")) {
+                        context.setKeyword(characters.getData());
+                    } else if (currentElement.equals("punctuation")) {
+                        context.setPunctuation(characters.getData());
+                    }
+
                     break;
             }
         }
