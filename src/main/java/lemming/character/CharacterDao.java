@@ -129,7 +129,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
      */
     private void insertCharacter(EntityManager entityManager, Character character) throws  RuntimeException {
         TypedQuery<Character> query = entityManager
-                .createQuery("FROM Character WHERE position = :position ORDER BY position DESC", Character.class);
+                .createQuery("FROM Character WHERE position >= :position ORDER BY position DESC", Character.class);
         query.setParameter("position", character.getPosition());
         List<Character> elements = query.getResultList();
 

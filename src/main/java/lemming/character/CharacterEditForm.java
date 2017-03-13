@@ -115,13 +115,13 @@ public class CharacterEditForm extends Form<Character> {
                 characterDao.merge(character);
             }
 
-            Character reloadedCharacter = characterDao.findByCharacter(character.getCharacter());
-            IModel<Character> reloadedCharacterModel = new Model<Character>(reloadedCharacter);
+            Character refreshedCharacter = characterDao.findByCharacter(character.getCharacter());
+            IModel<Character> refreshedCharacterModel = new Model<Character>(refreshedCharacter);
             Form<Character> newEditForm = new CharacterEditForm("characterEditForm",
-                    new CompoundPropertyModel<Character>(reloadedCharacter), characterView);
+                    new CompoundPropertyModel<Character>(refreshedCharacter), characterView);
 
             this.remove();
-            characterView.setSelectedModel(reloadedCharacterModel);
+            characterView.setSelectedModel(refreshedCharacterModel);
             characterView.refresh(target);
             target.add(feedbackPanel);
             form.replaceWith(newEditForm);
