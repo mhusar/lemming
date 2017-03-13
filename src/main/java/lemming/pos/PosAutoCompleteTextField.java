@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AbstractAjaxBehavior;
@@ -27,7 +28,7 @@ public class PosAutoCompleteTextField extends PosTextField {
     /**
      * Maximum number of delivered results.
      */
-    private static final Integer MAXIMUM_RESULTS = 10;
+    private static final Integer MAXIMUM_RESULTS = 15;
 
     /**
      * Creates a part of speech auto complete text field.
@@ -91,11 +92,12 @@ public class PosAutoCompleteTextField extends PosTextField {
             List<Pos> posList = new PosDao().findByNameStart(posName);
 
             for (int i = 0; i < Math.min(posList.size(), MAXIMUM_RESULTS); i++) {
-                builder.add(posList.get(i).getName());
+                builder.add(Json.createObjectBuilder().add("label", posList.get(i).getName())
+                        .add("value", posList.get(i).getName()));
             }
 
-            requestCycle.scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json",
-                    "UTF-8", builder.build().toString()));
+            requestCycle.scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json", "UTF-8",
+                    builder.build().toString()));
         }
 
         /**
@@ -109,7 +111,11 @@ public class PosAutoCompleteTextField extends PosTextField {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             String javaScript = "jQuery('#" + textFieldId + "').autocomplete({ " +
-                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "' });";
+                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "', create: function () { " +
+                    "jQuery(this).data('ui-autocomplete')._renderItem = function (ul, item) { " +
+                    "var li = jQuery('<li></li>'); " +
+                    "li.append('<div>' + item.label + '</div>').appendTo(ul); " +
+                    "return li; }; }});";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }

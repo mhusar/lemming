@@ -12,6 +12,7 @@ import org.apache.wicket.request.handler.TextRequestHandler;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
     /**
      * Maximum number of delivered results.
      */
-    private static final Integer MAXIMUM_RESULTS = 10;
+    private static final Integer MAXIMUM_RESULTS = 15;
 
     /**
      * Creates a lemma auto complete text field.
@@ -86,15 +87,29 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
             IRequestParameters requestParameters = request.getRequestParameters();
             String lemmaName = requestParameters.getParameterValue("term").toString();
 
-            JsonArrayBuilder builder = Json.createArrayBuilder();
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
             List<Lemma> lemmaList = new LemmaDao().findByNameStart(lemmaName, true);
 
             for (int i = 0; i < Math.min(lemmaList.size(), MAXIMUM_RESULTS); i++) {
-                builder.add(lemmaList.get(i).getName());
+                Lemma lemma = lemmaList.get(i);
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+
+                if (lemma.getPosString() != null) {
+                    objectBuilder.add("label", lemma.getName()).add("value", lemma.getName())
+                            .add("pos", lemma.getPosString());
+                } else {
+                    objectBuilder.add("label", lemma.getName()).add("value", lemma.getName());
+                }
+
+                if (lemma.getUser() != null) {
+                    objectBuilder.add("userGenerated", true);
+                }
+
+                arrayBuilder.add(objectBuilder);
             }
 
-            requestCycle.scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json",
-                    "UTF-8", builder.build().toString()));
+            requestCycle.scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json", "UTF-8",
+                    arrayBuilder.build().toString()));
         }
 
         /**
@@ -108,7 +123,14 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             String javaScript = "jQuery('#" + textFieldId + "').autocomplete({ " +
-                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "' });";
+                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "', create: function () { " +
+                    "jQuery(this).data('ui-autocomplete')._renderItem = function (ul, item) { " +
+                    "var li = jQuery('<li></li>'); " +
+                    "if (item.hasOwnProperty('pos')) { " +
+                    "li.append('<div>' + item.label + '&#160;<i>' + item.pos + '</i></div>').appendTo(ul); } else { " +
+                    "li.append('<div>' + item.label + '</div>').appendTo(ul); } " +
+                    "if (item.userGenerated === true) { li.addClass('user-generated'); } " +
+                    "return li; }; }});";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
