@@ -69,6 +69,8 @@ public class EmptyBasePage extends WebPage {
         HeaderItem bootstrapScriptItem = JavaScriptUrlReferenceHeaderItem
                 .forUrl("/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js");
         JavaScriptHeaderItem globalScriptItem = JavaScriptHeaderItem.forReference(globalScript);
+        StringHeaderItem faviconItem = new StringHeaderItem("<link rel=\"icon\" type=\"image/png\" " +
+                "href=\"/favicon.png\" sizes=\"32x32\"/>");
 
         response.render(jQueryUiStyleItem);
         response.render(bootstrapStyleItem);
@@ -78,5 +80,6 @@ public class EmptyBasePage extends WebPage {
         response.render(jQueryUiScriptItem);
         response.render(bootstrapScriptItem);
         response.render(globalScriptItem);
+        response.render(faviconItem);
     }
 }
