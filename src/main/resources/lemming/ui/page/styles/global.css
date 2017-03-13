@@ -229,11 +229,61 @@ input[type="number"] {
 
 table {
   margin-top: 10px;
+  width: 100%;
+}
+
+.table > tbody > tr > td,
+.table > tfoot > tr > td,
+.table > thead > tr > th {
+  padding: 8px 8px 8px 0;
+}
+
+.table > tbody > tr > .first-child,
+.table > tbody > tr > td:first-child,
+.table > tfoot > tr > td:first-child,
+.table > thead > tr > th:first-child {
+  padding: 8px 8px 8px 4px;
+}
+
+.table > thead > tr > th .first-child {
+  padding-left: 4px;
+}
+
+.table > tbody > tr > td:last-child,
+.table > tfoot > tr > td:last-child,
+.table > thead > tr > th:last-child {
+  padding: 8px 4px 8px 0;
+}
+
+.table > tbody > tr > td > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.table > tbody > tr > .preceding,
+.table > tfoot > tr > .preceding,
+.table > thead > tr > .preceding {
+  direction: rtl;
+  text-align: right;
+}
+
+.table > tbody > tr > .keyword,
+.table > tfoot > tr > .keyword,
+.table > thead > tr > .keyword,
+.table > tbody > tr.selected > .keyword {
+  color: #7c2326;
+  text-align: center;
 }
 
 .selectable tr {
   cursor: pointer;
   user-select: none;
+}
+
+.selectable .navigation {
+  cursor: auto;
 }
 
 .table-striped > tbody > tr.selected > td {
@@ -258,54 +308,14 @@ table {
   border-top: inherit;
 }
 
-table .actionColumn {
-  white-space: nowrap;
-  width: 275px;
-}
-
-table .iconColumn {
-  width: 45px;
-}
-
 tbody .actionColumn a {
   padding: 8px;
-}
-
-.checkboxColumn label {
-  margin-bottom: 0;
-}
-
-.checkboxColumn input {
-  margin-top: 0;
-}
-
-th.checkboxColumn {
-  height: 75px;
-}
-
-th.checkboxColumn > span {
-  color: #777;
-  display: inline-block;
-  font-size: 13px;
-  line-height: 1.2;
-  transform: translate(5px, -2px) rotate(315deg);
-  width: 20px;
-  /* hacks for better readability */
-  -webkit-backface-visibility: hidden;
-  filter: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><filter id="gaussian_blur"><feGaussianBlur in="SourceGraphic" stdDeviation="0" /></filter></defs></svg>#gaussian_blur');
-}
-
-.checkboxColumn + :not(.checkboxColumn) {
-  padding-left: 38px;
-}
-
-tbody .iconColumn a {
-  padding: 8px 12px;
 }
 
 table th a {
   background-position: right;
   background-repeat: no-repeat;
+  white-space: nowrap;
 }
 
 table th.wicket_orderDown a {
@@ -542,19 +552,6 @@ ul.homePage li:first-child {
 ul.homePage li:last-child {
   border-right: none;
   padding-right: 0;
-}
-
-.table > tbody > tr > .preceding {
-  padding: 8px 4px 8px 8px;
-}
-
-.table > tbody > tr > .keyword {
-  font-style: italic;
-  padding: 8px 0;
-}
-
-.table > tbody > tr > .following {
-  padding: 8px 8px 8px 0;
 }
 
 .senses,

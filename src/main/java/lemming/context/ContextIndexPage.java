@@ -2,6 +2,7 @@ package lemming.context;
 
 import lemming.auth.WebSession;
 import lemming.data.GenericDataProvider;
+import lemming.table.AutoShrinkBehavior;
 import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
@@ -73,6 +74,8 @@ public class ContextIndexPage extends BasePage {
         add(new BatchProcessingButton("batchProcessing"));
         add(container);
         container.add(fragment);
+        // auto-shrink following and preceding text columns
+        add(new AutoShrinkBehavior());
     }
 
     /**
@@ -96,8 +99,6 @@ public class ContextIndexPage extends BasePage {
                 "lemmaString", "lemmaString"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")),
                 "posString", "posString"));
-        columns.add(new ContextTypeTextFilterColumn(Model.of(getString("Context.type")),
-                "type", "type"));
         columns.add(new TextFilterColumn<Context, Context, String>(Model.of(getString("Context.location")),
                 "location", "location"));
         columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")), "preceding",

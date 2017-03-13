@@ -2,11 +2,9 @@ package lemming.lemmatization;
 
 import lemming.auth.WebSession;
 import lemming.character.CharacterHelper;
-import lemming.context.Context;
-import lemming.context.FollowingContextTextFilterColumn;
-import lemming.context.KeywordTextFilterColumn;
-import lemming.context.PrecedingContextTextFilterColumn;
+import lemming.context.*;
 import lemming.data.GenericDataProvider;
+import lemming.table.AutoShrinkBehavior;
 import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
@@ -109,6 +107,8 @@ public class LemmatizationPage extends EmptyBasePage {
         add(filterTextField);
         add(container);
         container.add(fragment);
+        // auto-shrink following and preceding text columns
+        add(new AutoShrinkBehavior());
     }
 
     /**
@@ -142,18 +142,18 @@ public class LemmatizationPage extends EmptyBasePage {
         List<IColumn<Context, String>> columns = new ArrayList<>();
 
         columns.add(new ContextRowSelectColumn(Model.of(""), "selected"));
-        columns.add(new TextFilterColumn<>(Model.of(getString("Context.lemma")),
+        columns.add(new LemmaTextFilterColumn(Model.of(getString("Context.lemma")),
                 "lemmaString", "lemmaString"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")),
                 "posString", "posString"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")),
                 "location", "location"));
         columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")), "preceding",
-                "preceding", 35));
+                "preceding"));
         columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")), "keyword",
                 "keyword"));
         columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")), "following",
-                "following", 35));
+                "following"));
 
         return columns;
     }

@@ -9,23 +9,13 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * A TextFilteredColumn adding to display following contexts properly.
+ * A TextFilteredColumn to display following contexts properly.
  */
 public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Default maximum length of a following context.
-     */
-    private static final Integer DEFAULT_MAX_LENGTH = 25;
-
-    /**
-     * Maximum length of a following context.
-     */
-    private Integer maxLength = DEFAULT_MAX_LENGTH;
 
     /**
      * Creates a TextFilterColumn for following contexts.
@@ -44,21 +34,6 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
      *
      * @param displayModel
      *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
-     * @param maxLength
-     *            maximum length
-     */
-    public FollowingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression, Integer maxLength) {
-        super(displayModel, propertyExpression);
-        this.maxLength = maxLength;
-    }
-
-    /**
-     * Creates a TextFilterColumn for following contexts.
-     *
-     * @param displayModel
-     *            title of a column
      * @param sortProperty
      *            sort property of a column
      * @param propertyExpression
@@ -67,24 +42,6 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
     public FollowingContextTextFilterColumn(IModel<String> displayModel, String sortProperty,
                                             String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
-    }
-
-    /**
-     * Creates a TextFilterColumn for following contexts.
-     *
-     * @param displayModel
-     *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
-     * @param maxLength
-     *            maximum length
-     */
-    public FollowingContextTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression,
-                                            Integer maxLength) {
-        super(displayModel, sortProperty, propertyExpression);
-        this.maxLength = maxLength;
     }
 
     /**
@@ -97,12 +54,12 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
         Context context = rowModel.getObject();
-        item.add(new ContextPanel(componentId, context.getFollowing()))
-                .add(AttributeModifier.append("class", "following"));
+        item.add(new ContextPanel(componentId, context.getFollowing(), context.getPunctuation()))
+                .add(AttributeModifier.append("class", "following auto-shrink"));
     }
 
     /**
-     * A panel used for displaying keywords for following contexts.
+     * A panel used for displaying following text.
      */
     private class ContextPanel extends Panel {
         /**
@@ -115,15 +72,23 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
          *
          * @param id
          *            ID of the panel
-         * @param label
-         *            label to display
+         * @param following
+         *            following to display
+         * @param punctuation
+         *            punctuation of keyword
          */
-        public ContextPanel(String id, String label) {
+        public ContextPanel(String id, String following, String punctuation) {
             super(id);
-            String trimmedLabel = label.length() > maxLength ?
-                    label.substring(0, Math.min(label.length(), maxLength)).trim() + "…" : label.trim();
-            add(new Label("contextText", trimmedLabel).add(AttributeModifier.append("title",
-                    label.trim())));
+            String label = following.trim();
+            String titleString = following.trim();
+
+            if (punctuation instanceof String) {
+                label = "<span class='punctuation'>" + punctuation + "</span>" + label;
+                titleString = punctuation + titleString;
+            }
+
+            add(new Label("contextText", label)
+                    .add(AttributeModifier.append("title", titleString)).setEscapeModelStrings(false));
         }
     }
 }
