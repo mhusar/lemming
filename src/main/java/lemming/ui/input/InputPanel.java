@@ -38,7 +38,7 @@ public class InputPanel extends Panel {
     @Override
     public void renderHead(IHeaderResponse response) {
         PackageResourceReference inputPanelScript = new JavaScriptResourceReference(InputPanel.class,
-                "scripts/inputpanel.js", getLocale(), getStyle(), "") {
+                "scripts/input-panel.js", getLocale(), getStyle(), "") {
             /**
              * Determines if a deserialized file is compatible with this class.
              */
