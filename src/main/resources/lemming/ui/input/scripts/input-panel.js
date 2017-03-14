@@ -36,12 +36,13 @@ InputPanel = (function () {
     },
     adjust = function () {
         var body = jQuery("body"), inputPanel = jQuery(".inputPanel"),
-        lemmatizationPanel = jQuery(".lemmatizationPanel");
+        lemmatizationPanel = jQuery(".lemmatizationPanel"),
+        lemmatizationPanelHeight = jQuery(".lemmatizationPanel .navbar").outerHeight();
 
         if (inputPanel.outerHeight() > getPixelsAsNumber(body.css("padding-bottom"))) {
             if (lemmatizationPanel.length) {
                 body.animate({
-                    "padding-bottom" : 51 + inputPanel.outerHeight() + "px"
+                    "padding-bottom" : lemmatizationPanelHeight + inputPanel.outerHeight() + "px"
                 }, duration);
             } else {
                 body.animate({
@@ -52,7 +53,7 @@ InputPanel = (function () {
 
         if (lemmatizationPanel.length) {
             inputPanel.animate({
-                "bottom" : 51 + "px"
+                "bottom" : lemmatizationPanelHeight + "px"
             }, duration, function () {
                 scrollIntoPosition();
             });
