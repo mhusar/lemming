@@ -1,6 +1,7 @@
 package lemming.context;
 
 import lemming.WebApplication;
+import org.apache.wicket.model.StringResourceModel;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -62,7 +63,7 @@ public class ContextXmlReader implements ErrorHandler {
      * @param element start element of a tag
      * @return A context object.
      */
-    private Context getContext(StartElement element) {
+    private Context createContext(StartElement element) {
         Context context = new Context();
 
         for (Iterator<?> attributes = element.getAttributes(); attributes.hasNext();) {
@@ -105,6 +106,7 @@ public class ContextXmlReader implements ErrorHandler {
         List<Context> contexts = new ArrayList<Context>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
         String currentElement = "";
+        Boolean itemTextSeen = false;
         Context context = null;
 
         while (reader.hasNext()) {
@@ -116,7 +118,7 @@ public class ContextXmlReader implements ErrorHandler {
 
                     if (startElement.getName().getLocalPart().equals("item")) {
                         currentElement = "item";
-                        context = getContext(startElement);
+                        context = createContext(startElement);
                     } else if (startElement.getName().getLocalPart().equals("punctuation")) {
                         currentElement = "punctuation";
                     }
@@ -124,10 +126,13 @@ public class ContextXmlReader implements ErrorHandler {
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     EndElement endElement = event.asEndElement();
-                    currentElement = "";
 
                     if (endElement.getName().getLocalPart().equals("item")) {
+                        currentElement = "";
+                        itemTextSeen = false;
                         contexts.add(context);
+                    } else if (endElement.getName().getLocalPart().equals("punctuation")) {
+                        currentElement = "item";
                     }
 
                     break;
@@ -138,9 +143,22 @@ public class ContextXmlReader implements ErrorHandler {
                     Characters characters = event.asCharacters();
 
                     if (currentElement.equals("item")) {
+                        if (context.getKeyword() != null) {
+                            String message = new StringResourceModel("ContextXmlReader.punctuation-in-item-text")
+                                    .getString();
+                            throw new XmlStreamException(message, event.getLocation());
+                        }
+
+                        itemTextSeen = true;
                         context.setKeyword(characters.getData());
                     } else if (currentElement.equals("punctuation")) {
-                        context.setPunctuation(characters.getData());
+                        if (itemTextSeen) {
+                            context.setPunctuation(characters.getData());
+                        } else {
+                            String message = new StringResourceModel("ContextXmlReader.punctuation-before-item-text")
+                                    .getString();
+                            throw new XmlStreamException(message, event.getLocation());
+                        }
                     }
 
                     break;
@@ -173,5 +191,34 @@ public class ContextXmlReader implements ErrorHandler {
 
         validator.setErrorHandler(this);
         validator.validate(new StreamSource(inputStream));
+    }
+
+    /**
+     * A XMLStreamException which doesn’t mess up the message text.
+     *
+     * original code:
+     * super("ParseError at [row,col]:["+location.getLineNumber()+","+
+     * location.getColumnNumber()+"]\n"+
+     * "Message: "+msg);
+     */
+    public class XmlStreamException extends XMLStreamException {
+        /**
+         * Creates a XmlStreamException.
+         * @param message exception message
+         */
+        public XmlStreamException(String message) {
+            super(message);
+        }
+
+        /**
+         * Creates a XmlStreamException.
+         *
+         * @param message exception message
+         * @param location location of the error
+         */
+        public XmlStreamException(String message, Location location) {
+            super(message);
+            super.location = location;
+        }
     }
 }

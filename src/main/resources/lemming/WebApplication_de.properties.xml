@@ -202,4 +202,10 @@
     <entry key="UserEditForm.username-is-non-unique">Ein Benutzer mit diesem Benutzernamen existiert bereits.</entry>
     <entry key="UserEditPage.addUser">Benutzer hinzufügen</entry>
     <entry key="UserEditPage.header">Benutzerverwaltung</entry>
+    <entry key="ContextXmlReader.punctuation-before-item-text">Der Tag punctuation darf sich nicht am Anfang des Tags
+        item befinden.
+    </entry>
+    <entry key="ContextXmlReader.punctuation-in-item-text">Der Tag punctuation darf sich nicht inmitten des Textes des
+        Tags item befinden.
+    </entry>
 </properties>

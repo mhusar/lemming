@@ -169,17 +169,23 @@ public class ContextImportForm extends Form<Void> {
      * @param target target that produces an Ajax response
      * @param exception exception which occurred.
      */
-    public void onException(AjaxRequestTarget target, Exception exception) {
-        String message = exception.getMessage();
+    private void onException(AjaxRequestTarget target, Exception exception) {
+        String message = exception.getLocalizedMessage();
 
         if (exception instanceof SAXParseException) {
             SAXParseException saxParseException = (SAXParseException) exception;
 
             if (saxParseException.getLineNumber() != -1 && saxParseException.getColumnNumber() != -1) {
                 message += "<br/>" + getString("ContextImportPage.line") + ": " + saxParseException.getLineNumber();
-                message += ", " + getString("ContextImportPage.column") + ": "
-                        + saxParseException.getColumnNumber();
+                message += ", " + getString("ContextImportPage.column") + ": " +
+                        saxParseException.getColumnNumber();
             }
+        } else if (exception instanceof ContextXmlReader.XmlStreamException) {
+            ContextXmlReader.XmlStreamException xmlStreamException = (ContextXmlReader.XmlStreamException) exception;
+            message += "<br/>" + getString("ContextImportPage.line") + ": " +
+                    xmlStreamException.getLocation().getLineNumber();
+            message += ", " + getString("ContextImportPage.column") + ": " +
+                    xmlStreamException.getLocation().getColumnNumber();
         }
 
         alertPanel.setMessage(message).setType(AlertPanel.Type.ERROR).setVisible(true);
