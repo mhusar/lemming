@@ -38,10 +38,16 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="singleBlankString">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\S*(\ \S+)*\ ?"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:attributeGroup name="itemAttributes">
-        <xs:attribute type="xs:string" name="following" use="required"/>
+        <xs:attribute type="singleBlankString" name="following" use="required"/>
         <xs:attribute type="itemLocation" name="location" use="required"/>
-        <xs:attribute type="xs:string" name="preceding" use="required"/>
+        <xs:attribute type="singleBlankString" name="preceding" use="required"/>
         <xs:attribute type="itemType" name="type" use="required"/>
     </xs:attributeGroup>
 
