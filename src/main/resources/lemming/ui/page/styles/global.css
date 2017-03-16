@@ -245,7 +245,8 @@ table {
   padding: 8px 8px 8px 4px;
 }
 
-.table > thead > tr > th .first-child {
+.table > thead > tr > th .first-child,
+.table .norecords-tr .norecords-td div {
   padding-left: 4px;
 }
 
@@ -417,6 +418,7 @@ table th a span {
   left: 0;
   position: fixed;
   right: 0;
+  user-select: none;
   width: 100%;
   z-index: 100;
   visibility: hidden;
@@ -578,6 +580,7 @@ ul.homePage li:last-child {
 .senses .right-column {
   border-left: 1px solid #eee;
   flex-basis: 35%;
+  overflow: hidden;
   padding-left: 15px;
   position: relative;
 }
