@@ -73,13 +73,15 @@ public class ContextXmlReader implements ErrorHandler {
 
             switch (attribute.getName().getLocalPart()) {
                 case "following":
-                    context.setFollowing(value);
+                    // replace multiple white-space characters with a blank
+                    context.setFollowing(value.replaceAll("\\s+", " "));
                     break;
                 case "location":
                     context.setLocation(value);
                     break;
                 case "preceding":
-                    context.setPreceding(value);
+                    // replace multiple white-space characters with a blank
+                    context.setPreceding(value.replaceAll("\\s+", " "));
                     break;
                 case "type":
                     if (value.equals("rubric_item")) {

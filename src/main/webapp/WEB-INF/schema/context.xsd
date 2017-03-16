@@ -1,38 +1,44 @@
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:simpleType name="punctuationType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="init"/>
-            <xs:enumeration value="end"/>
+    <xs:simpleType name="punctuation">
+        <xs:restriction base="xs:token">
+            <xs:pattern value="\p{P}"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="nonEmptyString">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
+    <xs:simpleType name="punctuationType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="init"/>
+            <xs:enumeration value="end"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:element name="punctuation">
         <xs:complexType>
             <xs:simpleContent>
-                <xs:extension base="nonEmptyString">
+                <xs:extension base="punctuation">
                     <xs:attribute type="punctuationType" name="type" use="required"/>
                 </xs:extension>
             </xs:simpleContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="string" type="nonEmptyString"/>
-
-    <xs:simpleType name="locationType">
+    <xs:simpleType name="string">
         <xs:restriction base="xs:string">
-            <xs:pattern value="edfr[0-9]{5}_[0-9]{5}(_[0-9]{2})?"/>
+            <xs:pattern value="\S|\S[\s\S]*\S"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="string" type="string"/>
+
+    <xs:simpleType name="itemLocation">
+        <xs:restriction base="xs:token">
+            <xs:pattern value="edfr\d{5}_\d{5}(_\d{2})?"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:simpleType name="itemType">
-        <xs:restriction base="xs:string">
+        <xs:restriction base="xs:token">
             <xs:enumeration value="seg_item"/>
             <xs:enumeration value="rubric_item"/>
         </xs:restriction>
@@ -40,7 +46,7 @@
 
     <xs:attributeGroup name="itemAttributes">
         <xs:attribute type="xs:string" name="following" use="required"/>
-        <xs:attribute type="locationType" name="location" use="required"/>
+        <xs:attribute type="itemLocation" name="location" use="required"/>
         <xs:attribute type="xs:string" name="preceding" use="required"/>
         <xs:attribute type="itemType" name="type" use="required"/>
     </xs:attributeGroup>
@@ -60,7 +66,7 @@
             <xs:sequence>
                 <xs:element ref="item" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="xs:string" name="key" use="required"/>
+            <xs:attribute type="string" name="key" use="required"/>
         </xs:complexType>
     </xs:element>
 
