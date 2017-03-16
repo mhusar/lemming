@@ -59,8 +59,7 @@ public class SenseTreeProvider implements INestedTreeProvider<Sense> {
      */
     @Override
     public Iterator<? extends Sense> getChildren(Sense node) {
-        Sense refreshedNode = new SenseDao().refresh(node);
-        return refreshedNode.getChildren().iterator();
+        return new SenseDao().getChildren(node).iterator();
     }
 
     /**

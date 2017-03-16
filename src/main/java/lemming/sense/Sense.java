@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -93,7 +92,6 @@ public class Sense implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "sense_children", indexes = { @Index(columnList = "parent_id, child_id", unique = true) }, joinColumns = { @JoinColumn(name = "parent_id") }, inverseJoinColumns = { @JoinColumn(name = "child_id") })
-    @OrderBy("child_position")
     private List<Sense> children;
 
     /**
