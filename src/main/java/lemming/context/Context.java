@@ -83,10 +83,16 @@ public class Context implements Serializable {
     private String following;
 
     /**
+     * A punctuation preceding the keyword.
+     */
+    @Column(name = "punctuation_init", length = 30)
+    private String initPunctuation;
+
+    /**
      * A punctuation following the keyword.
      */
-    @Column(name = "punctuation", length = 30)
-    private String punctuation;
+    @Column(name = "punctuation_end", length = 30)
+    private String endPunctuation;
 
     /**
      * Part of speech of a keyword in context.
@@ -289,21 +295,39 @@ public class Context implements Serializable {
     }
 
     /**
+     * Returns the punctuation preceding a keyword.
+     *
+     * @return Punctuation text.
+     */
+    public String getInitPunctuation() {
+        return initPunctuation;
+    }
+
+    /**
+     * Sets the punctuation preceding a keyword.
+     *
+     * @param initPunctuation punctuation text
+     */
+    public void setInitPunctuation(String initPunctuation) {
+        this.initPunctuation = initPunctuation;
+    }
+
+    /**
      * Returns the punctuation following a keyword.
      *
      * @return Punctuation text.
      */
-    public String getPunctuation() {
-        return punctuation;
+    public String getEndPunctuation() {
+        return endPunctuation;
     }
 
     /**
      * Sets the punctuation following a keyword.
      *
-     * @param punctuation punctuation text
+     * @param endPunctuation punctuation text
      */
-    public void setPunctuation(String punctuation) {
-        this.punctuation = punctuation;
+    public void setEndPunctuation(String endPunctuation) {
+        this.endPunctuation = endPunctuation;
     }
 
     /**

@@ -54,7 +54,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
         Context context = rowModel.getObject();
-        item.add(new ContextPanel(componentId, context.getPreceding()))
+        item.add(new ContextPanel(componentId, context.getPreceding(), context.getInitPunctuation()))
                 .add(AttributeModifier.append("class", "preceding auto-shrink"));
     }
 
@@ -72,12 +72,24 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
          *
          * @param id
          *            ID of the panel
-         * @param label
-         *            label to display
+         * @param preceding
+         *            preceding text to display
+         * @param punctuation
+         *            preceding punctuation of keyword
          */
-        public ContextPanel(String id, String label) {
+        public ContextPanel(String id, String preceding, String punctuation) {
             super(id);
-            add(new Label("contextText", label.trim()).add(AttributeModifier.append("title", label.trim())));
+            //add(new Label("contextText", preceding.trim()).add(AttributeModifier.append("title", preceding.trim())));
+            String label = preceding;
+            String titleString = preceding.trim();
+
+            if (punctuation instanceof String) {
+                label = label + " <span class='punctuation'>" + punctuation + "</span>";
+                titleString = titleString + " " + punctuation;
+            }
+
+            add(new Label("contextText", label.trim())
+                    .add(AttributeModifier.append("title", titleString)).setEscapeModelStrings(false));
         }
     }
 }

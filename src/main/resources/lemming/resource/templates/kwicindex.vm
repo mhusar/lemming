@@ -2,19 +2,36 @@
 ${indent}<sublist key="$sublist.getKey()">
 #foreach ($item in $sublist.getItems())
 #set($following = $item.getFollowing())
-#set($keyword = $item.getKeyword())
+#set($keyword = $item.getKeyword().getValue())
 #set($lemma = $item.getLemma())
 #set($location = $item.getLocation())
 #set($pos = $item.getPos())
 #set($preceding = $item.getPreceding())
 #set($type = $item.getType())
-#set($punctuation = $item.getPunctuation())
+#set($initPunctuation = $item.getInitPunctuationString())
+#set($endPunctuation = $item.getEndPunctuationString())
 #set($indent = "    ")
-#if( "$!punctuation" == "" )
-${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$!lemma" pos="$!pos">$keyword</item>
-#else
-${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$!lemma" pos="$!pos">$keyword<punctuation>$punctuation</punctuation></item>
+#if( ! $lemma && ! $pos )
+${indent}<item type="$type" location="$location" preceding="$preceding" following="$following">
+#elseif ( $lemma && ! $pos )
+${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$lemma">
+#elseif ( ! $lemma && $pos)
+${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" pos="$pos">
+#elseif ( $lemma && $pos)
+${indent}<item type="$type" location="$location" preceding="$preceding" following="$following" lemma="$lemma" pos="$pos">
 #end
+#set($indent = "      ")
+#if( ! $initPunctuation && ! $endPunctuation )
+${indent}<string>$keyword</string>
+#elseif( $initPunctuation && ! $endPunctuation )
+${indent}<punctuation type="init">$initPunctuation</punctuation><string>$keyword</string>
+#elseif( ! $initPunctuation && $endPunctuation )
+${indent}<string>$keyword</string><punctuation type="end">$endPunctuation</punctuation>
+#elseif( $initPunctuation && $endPunctuation )
+${indent}<punctuation type="init">$initPunctuation</punctuation><string>$keyword</string><punctuation type="end">$endPunctuation</punctuation>
+#end
+#set($indent = "    ")
+${indent}</item>
 #end
 #set($indent = "  ")
 ${indent}</sublist>

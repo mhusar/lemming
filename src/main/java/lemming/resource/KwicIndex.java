@@ -31,7 +31,7 @@ public abstract class KwicIndex {
         private List<Item> items;
 
         /**
-         * Creates a sublist. Needed for JAXB.
+         * Creates a sublist object. Needed for JAXB.
          */
         public SubList() {}
 
@@ -79,43 +79,10 @@ public abstract class KwicIndex {
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Item {
         /**
-         * Creates an item.
-         *
-         * @param context a context
-         */
-        public Item(Context context) {
-            following = context.getFollowing();
-            keyword = context.getKeyword();
-            location = context.getLocation();
-            preceding = context.getPreceding();
-            punctuation = context.getPunctuation();
-
-            if (context.getLemma() instanceof Lemma) {
-                lemma = context.getLemma().getName();
-            }
-
-            if (context.getPos() instanceof Pos) {
-                pos = context.getPos().getName();
-            }
-
-            if (context.getType().equals(ContextType.Type.RUBRIC)) {
-                type = "rubric_item";
-            } else if (context.getType().equals(ContextType.Type.SEGMENT)) {
-                type = "seg_item";
-            }
-        }
-
-        /**
          * Following attribute of an item.
          */
         @XmlAttribute(required = true)
         private String following;
-
-        /**
-         * Keyword value of an item.
-         */
-        @XmlValue
-        private String keyword;
 
         /**
          * Lemma attribute of an item.
@@ -148,10 +115,70 @@ public abstract class KwicIndex {
         private String type;
 
         /**
-         * Punctuation tag of an item.
+         * End punctuation tag of an item.
          */
         @XmlElement(name = "punctuation")
-        private String punctuation;
+        private Punctuation initPunctuation;
+
+        /**
+         * End punctuation tag of an item as string.
+         */
+        @XmlTransient
+        private String initPunctuationString;
+
+        /**
+         * Keyword value of an item.
+         */
+        @XmlElement(name = "string")
+        private Keyword keyword;
+
+        /**
+         * End punctuation tag of an item.
+         */
+        @XmlElement(name = "punctuation")
+        private Punctuation endPunctuation;
+
+        /**
+         * End punctuation tag of an item as string.
+         */
+        @XmlTransient
+        private String endPunctuationString;
+
+        /**
+         * Creates an item object.
+         *
+         * @param context a context
+         */
+        public Item(Context context) {
+            following = context.getFollowing();
+            keyword = new Keyword(context.getKeyword());
+            location = context.getLocation();
+            preceding = context.getPreceding();
+
+            if (context.getInitPunctuation() != null) {
+                initPunctuation = new Punctuation(context.getInitPunctuation(), "init");
+                initPunctuationString = context.getInitPunctuation();
+            }
+
+            if (context.getEndPunctuation() != null) {
+                endPunctuation = new Punctuation(context.getEndPunctuation(), "end");
+                endPunctuationString = context.getEndPunctuation();
+            }
+
+            if (context.getLemma() instanceof Lemma) {
+                lemma = context.getLemma().getName();
+            }
+
+            if (context.getPos() instanceof Pos) {
+                pos = context.getPos().getName();
+            }
+
+            if (context.getType().equals(ContextType.Type.RUBRIC)) {
+                type = "rubric_item";
+            } else if (context.getType().equals(ContextType.Type.SEGMENT)) {
+                type = "seg_item";
+            }
+        }
 
         /**
          * Returns the following attribute of an item.
@@ -160,15 +187,6 @@ public abstract class KwicIndex {
          */
         public String getFollowing() {
             return following;
-        }
-
-        /**
-         * Returns the keyword attribute of an item.
-         *
-         * @return An attribute as string.
-         */
-        public String getKeyword() {
-            return keyword;
         }
 
         /**
@@ -217,12 +235,123 @@ public abstract class KwicIndex {
         }
 
         /**
-         * Returns the punctuation tag of an item.
+         * Returns the init punctuation tag of an item.
          *
-         * @return A tag as string.
+         * @return A punctuation object.
          */
-        public String getPunctuation() {
-            return punctuation;
+        public Punctuation getInitPunctuation() {
+            return initPunctuation;
+        }
+
+        /**
+         * Returns the init punctuation tag of an item as string.
+         *
+         * @return A string object.
+         */
+        public String getInitPunctuationString() {
+            return initPunctuationString;
+        }
+
+        /**
+         * Returns the keyword attribute of an item.
+         *
+         * @return A keyword object.
+         */
+        public Keyword getKeyword() {
+            return keyword;
+        }
+
+        /**
+         * Returns the end punctuation tag of an item.
+         *
+         * @return A punctuation object.
+         */
+        public Punctuation getEndPunctuation() {
+            return endPunctuation;
+        }
+
+        /**
+         * Returns the end punctuation tag of an item as string.
+         *
+         * @return A string object.
+         */
+        public String getEndPunctuationString() {
+            return endPunctuationString;
+        }
+    }
+
+    /**
+     * Keyword of a context item.
+     */
+    public static class Keyword {
+        /**
+         * Value of a keyword.
+         */
+        @XmlValue
+        private String value;
+
+        /**
+         * Creates a keyword object.
+         *
+         * @param value value of a keyword
+         */
+        public Keyword(String value) {
+            this.value = value;
+        }
+
+        /***
+         * Returns the value of a keyword.
+         *
+         * @return A value as string.
+         */
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * Punctuation of a context item.
+     */
+    public static class Punctuation {
+        /**
+         * Type of punctuation.
+         */
+        @XmlAttribute(required = true)
+        private String type;
+
+        /**
+         * Value of a punctuation item.
+         */
+        @XmlValue
+        private String value;
+
+        /**
+         * Creates a punctuation object.
+         *
+         * @param value value of a punctuation
+         * @param type type of punctuation
+         */
+        public Punctuation(String value, String type) {
+            this.type = type;
+            this.value = value;
+        }
+
+        /**
+         * Returns the type of a punctuation.
+         *
+         * @return An attribute as string.
+         */
+        public String getType() {
+            return type;
+        }
+
+        /***
+         * Returns the value of a punctuation.
+         *
+         * @return A value as string.
+         */
+        public String getValue() {
+            return value;
         }
     }
 }

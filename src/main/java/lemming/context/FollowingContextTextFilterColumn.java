@@ -54,7 +54,7 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
         Context context = rowModel.getObject();
-        item.add(new ContextPanel(componentId, context.getFollowing(), context.getPunctuation()))
+        item.add(new ContextPanel(componentId, context.getFollowing(), context.getEndPunctuation()))
                 .add(AttributeModifier.append("class", "following auto-shrink"));
     }
 
@@ -73,9 +73,9 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
          * @param id
          *            ID of the panel
          * @param following
-         *            following to display
+         *            following text to display
          * @param punctuation
-         *            punctuation of keyword
+         *            following punctuation of keyword
          */
         public ContextPanel(String id, String following, String punctuation) {
             super(id);
@@ -84,7 +84,7 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
 
             if (punctuation instanceof String) {
                 label = "<span class='punctuation'>" + punctuation + "</span> " + label;
-                titleString = punctuation + titleString;
+                titleString = punctuation + " " + titleString;
             }
 
             add(new Label("contextText", label.trim())

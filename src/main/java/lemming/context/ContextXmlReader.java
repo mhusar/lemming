@@ -8,6 +8,7 @@ import org.xml.sax.SAXParseException;
 
 import javax.servlet.ServletContext;
 import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
 import javax.xml.stream.*;
 import javax.xml.stream.events.*;
 import javax.xml.transform.stream.StreamSource;
@@ -68,23 +69,22 @@ public class ContextXmlReader implements ErrorHandler {
 
         for (Iterator<?> attributes = element.getAttributes(); attributes.hasNext();) {
             Attribute attribute = (Attribute) attributes.next();
+            String value = (attribute.getValue() != null) ? attribute.getValue() : "";
 
             switch (attribute.getName().getLocalPart()) {
                 case "following":
-                    context.setFollowing(attribute.getValue());
+                    context.setFollowing(value);
                     break;
                 case "location":
-                    context.setLocation(attribute.getValue());
+                    context.setLocation(value);
                     break;
                 case "preceding":
-                    context.setPreceding(attribute.getValue());
+                    context.setPreceding(value);
                     break;
                 case "type":
-                    String attributeValue = attribute.getValue();
-
-                    if (attributeValue.equals("rubric_item")) {
+                    if (value.equals("rubric_item")) {
                         context.setType(ContextType.Type.RUBRIC);
-                    } else if (attributeValue.equals("seg_item")) {
+                    } else if (value.equals("seg_item")) {
                         context.setType(ContextType.Type.SEGMENT);
                     }
 
@@ -93,6 +93,33 @@ public class ContextXmlReader implements ErrorHandler {
         }
 
         return context;
+    }
+
+    /**
+     * Validates the order of punctuation tags in a context item.
+     *
+     * @param context current context object
+     * @param location location of the event
+     * @param lastPunctuationType punctuation type last seen
+     * @param currentPunctuationType current punctuation type
+     */
+    private void validatePunctuation(Context context, Location location, String lastPunctuationType,
+                                     String currentPunctuationType) throws XmlStreamException {
+        String message = null;
+
+        if (lastPunctuationType.equals(currentPunctuationType)) {
+            message = new StringResourceModel("ContextXmlReader.duplicate-punctuation-type").getString();
+        } else if (lastPunctuationType.equals("end") && currentPunctuationType.equals("init")) {
+            message = new StringResourceModel("ContextXmlReader.punctuation-type-incorrect-order").getString();
+        } else if (context.getKeyword() != null && currentPunctuationType.equals("init")) {
+            message = new StringResourceModel("ContextXmlReader.init-punctuation-after-keyword").getString();
+        } else if (context.getKeyword() == null && currentPunctuationType.equals("end")) {
+            message = new StringResourceModel("ContextXmlReader.end-punctuation-before-keyword").getString();
+        }
+
+        if (message != null) {
+            throw new XmlStreamException(message, location);
+        }
     }
 
     /**
@@ -105,8 +132,8 @@ public class ContextXmlReader implements ErrorHandler {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         List<Context> contexts = new ArrayList<Context>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
-        String currentElement = "";
-        Boolean itemTextSeen = false;
+        String currentElementName = "";
+        String punctuationType = "";
         Context context = null;
 
         while (reader.hasNext()) {
@@ -117,22 +144,26 @@ public class ContextXmlReader implements ErrorHandler {
                     StartElement startElement = event.asStartElement();
 
                     if (startElement.getName().getLocalPart().equals("item")) {
-                        currentElement = "item";
+                        currentElementName = "item";
                         context = createContext(startElement);
                     } else if (startElement.getName().getLocalPart().equals("punctuation")) {
-                        currentElement = "punctuation";
+                        currentElementName = "punctuation";
+                        String currentPunctuationType = startElement.getAttributeByName(new QName("type")).getValue();
+                        // validates the order of punctuation tags in a context item
+                        validatePunctuation(context, event.getLocation(), punctuationType, currentPunctuationType);
+                        punctuationType = currentPunctuationType;
+                    } else if (startElement.getName().getLocalPart().equals("string")) {
+                        currentElementName = "string";
                     }
 
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     EndElement endElement = event.asEndElement();
+                    currentElementName = "";
 
                     if (endElement.getName().getLocalPart().equals("item")) {
-                        currentElement = "";
-                        itemTextSeen = false;
                         contexts.add(context);
-                    } else if (endElement.getName().getLocalPart().equals("punctuation")) {
-                        currentElement = "item";
+                        punctuationType = "";
                     }
 
                     break;
@@ -141,24 +172,16 @@ public class ContextXmlReader implements ErrorHandler {
                     break;
                 case XMLStreamConstants.CHARACTERS:
                     Characters characters = event.asCharacters();
+                    assert context != null;
 
-                    if (currentElement.equals("item")) {
-                        if (context.getKeyword() != null) {
-                            String message = new StringResourceModel("ContextXmlReader.punctuation-in-item-text")
-                                    .getString();
-                            throw new XmlStreamException(message, event.getLocation());
+                    if (currentElementName.equals("punctuation")) {
+                        if (punctuationType.equals("init")) {
+                            context.setInitPunctuation(characters.getData());
+                        } else if (punctuationType.equals("end")) {
+                            context.setEndPunctuation(characters.getData());
                         }
-
-                        itemTextSeen = true;
+                    } else if (currentElementName.equals("string")) {
                         context.setKeyword(characters.getData());
-                    } else if (currentElement.equals("punctuation")) {
-                        if (itemTextSeen) {
-                            context.setPunctuation(characters.getData());
-                        } else {
-                            String message = new StringResourceModel("ContextXmlReader.punctuation-before-item-text")
-                                    .getString();
-                            throw new XmlStreamException(message, event.getLocation());
-                        }
                     }
 
                     break;

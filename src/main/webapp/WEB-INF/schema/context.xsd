@@ -1,16 +1,57 @@
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="punctuation" type="xs:string"/>
+    <xs:simpleType name="punctuationType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="init"/>
+            <xs:enumeration value="end"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="nonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="punctuation">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="nonEmptyString">
+                    <xs:attribute type="punctuationType" name="type" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="string" type="nonEmptyString"/>
+
+    <xs:simpleType name="locationType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="edfr[0-9]{5}_[0-9]{5}(_[0-9]{2})?"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="itemType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="seg_item"/>
+            <xs:enumeration value="rubric_item"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:attributeGroup name="itemAttributes">
+        <xs:attribute type="xs:string" name="following" use="required"/>
+        <xs:attribute type="locationType" name="location" use="required"/>
+        <xs:attribute type="xs:string" name="preceding" use="required"/>
+        <xs:attribute type="itemType" name="type" use="required"/>
+    </xs:attributeGroup>
 
     <xs:element name="item">
-        <xs:complexType mixed="true">
-            <xs:sequence>
-                <xs:element ref="punctuation" maxOccurs="1" minOccurs="0"/>
-            </xs:sequence>
-            <xs:attribute type="xs:string" name="type" use="required"/>
-            <xs:attribute type="xs:string" name="location" use="required"/>
-            <xs:attribute type="xs:string" name="preceding" use="required"/>
-            <xs:attribute type="xs:string" name="following" use="required"/>
+        <xs:complexType>
+            <xs:choice maxOccurs="3" minOccurs="1">
+                <xs:element ref="punctuation" maxOccurs="2" minOccurs="0"/>
+                <xs:element ref="string"/>
+            </xs:choice>
+            <xs:attributeGroup ref="itemAttributes"/>
         </xs:complexType>
     </xs:element>
 

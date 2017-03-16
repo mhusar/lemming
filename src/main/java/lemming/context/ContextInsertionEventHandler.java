@@ -20,7 +20,7 @@ public class ContextInsertionEventHandler implements ReferenceInsertionEventHand
             return null;
         }
 
-        if (reference.equals("keyword") || reference.equals("punctuation")) {
+        if (reference.equals("keyword") || reference.equals("initPunctuation") || reference.equals("endPunctuation")) {
             return XmlEscapers.xmlContentEscaper().escape(value.toString());
         } else {
             return XmlEscapers.xmlAttributeEscaper().escape(value.toString()).replace("&apos;", "'");

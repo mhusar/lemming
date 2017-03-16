@@ -202,10 +202,15 @@
     <entry key="UserEditForm.username-is-non-unique">Ein Benutzer mit diesem Benutzernamen existiert bereits.</entry>
     <entry key="UserEditPage.addUser">Benutzer hinzufügen</entry>
     <entry key="UserEditPage.header">Benutzerverwaltung</entry>
-    <entry key="ContextXmlReader.punctuation-before-item-text">Der Tag punctuation darf sich nicht am Anfang des Tags
-        item befinden.
+    <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
+        dürfen nicht den selben Wert für das Attribut Type haben.
     </entry>
-    <entry key="ContextXmlReader.punctuation-in-item-text">Der Tag punctuation darf sich nicht inmitten des Textes des
-        Tags item befinden.
+    <entry key="ContextXmlReader.end-punctuation-before-keyword">Das Punctuation-Element des Typs "end" sollte hinter
+        dem String-Element stehen. Möglicherweise gibt es eine tieferliegendes Problem.
     </entry>
+    <entry key="ContextXmlReader.init-punctuation-after-keyword">Das Punctuation-Element des Typs "init" sollte vor dem
+        String-Element stehen. Möglicherweise gibt es eine tieferliegendes Problem.
+    </entry>
+    <entry key="ContextXmlReader.punctuation-type-incorrect-order">Punctuation-Elemente sollten anhand des Attributs
+        Type sinnvoll geordnet werden ("init" vor "end"). Möglicherweise gibt es eine tieferliegendes Problem.</entry>
 </properties>
