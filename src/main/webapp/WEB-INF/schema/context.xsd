@@ -23,13 +23,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:simpleType name="string">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="\S|\S[\s\S]*\S"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:element name="string" type="string"/>
+    <xs:element name="string" type="trimmedString"/>
 
     <xs:simpleType name="itemLocation">
         <xs:restriction base="xs:token">
@@ -61,12 +55,18 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:simpleType name="trimmedString">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\S+(\ \S+)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:element name="sublist">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="item" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
-            <xs:attribute type="string" name="key" use="required"/>
+            <xs:attribute type="trimmedString" name="key" use="required"/>
         </xs:complexType>
     </xs:element>
 
