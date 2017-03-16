@@ -263,11 +263,11 @@ public class DraggableNode<T> extends BaseNode<T> {
 
                 for (IDropListener dropListener : ((IDraggableTree) tree).getDropListeners()) {
                     if (dropzone.getType().equals(DropzoneType.BOTTOM)) {
-                        dropListener.onBottomDrop(sourceComponent, targetComponent);
+                        dropListener.onBottomDrop(target, sourceComponent, targetComponent);
                     } else if (dropzone.getType().equals(DropzoneType.MIDDLE)) {
-                        dropListener.onMiddleDrop(sourceComponent, targetComponent);
+                        dropListener.onMiddleDrop(target, sourceComponent, targetComponent);
                     } else if (dropzone.getType().equals(DropzoneType.TOP)) {
-                        dropListener.onTopDrop(sourceComponent, targetComponent);
+                        dropListener.onTopDrop(target, sourceComponent, targetComponent);
                     }
                 }
             }

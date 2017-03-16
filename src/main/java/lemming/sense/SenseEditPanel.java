@@ -2,7 +2,10 @@ package lemming.sense;
 
 import lemming.lemma.Lemma;
 import lemming.tree.AbstractNestedTree;
+import lemming.tree.DraggableNode;
+import lemming.tree.IDropListener;
 import lemming.tree.INestedTreeProvider;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -57,7 +60,8 @@ public class SenseEditPanel extends Panel {
     /**
      * A form for editing senses.
      */
-    private class SenseEditForm extends Form<Sense> implements AbstractNestedTree.ISelectListener<Sense> {
+    private class SenseEditForm extends Form<Sense> implements AbstractNestedTree.ISelectListener<Sense>,
+            IDropListener {
         /**
          * Determines if a deserialized file is compatible with this class.
          */
@@ -162,6 +166,7 @@ public class SenseEditPanel extends Panel {
             }
 
             senseTree.addSelectListener(this);
+            senseTree.addDropListener(this);
             SenseEditPanel.this.add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", lemmaModel, senseTree));
 
             addSenseButton = new AddSenseButton("addSenseButton");
@@ -245,6 +250,60 @@ public class SenseEditPanel extends Panel {
         public void onDeselect(AjaxRequestTarget target) {
             meaningTextField.setDefaultModel(new Model<String>(""));
             target.add(meaningTextField);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        @SuppressWarnings("unchecked")
+        public void onBottomDrop(AjaxRequestTarget target, Component sourceComponent, Component targetComponent) {
+            DraggableNode<Sense> sourceNode;
+            DraggableNode<Sense> targetNode = (DraggableNode<Sense>) targetComponent;
+
+            if (sourceComponent instanceof DraggableNode) {
+                sourceNode = (DraggableNode<Sense>) sourceComponent;
+
+                if (sourceNode.equals(targetNode) || sourceNode.equals(targetNode.getParent()) ||
+                        (senseTree.getProvider().hasParent(targetNode.getModelObject()) &&
+                                senseTree.getProvider().hasChildren(sourceNode.getModelObject()))) {
+                    return;
+                }
+
+                new SenseDao().moveAfter(sourceNode.getModelObject(), targetNode.getModelObject());
+                target.add(senseTree);
+            }
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void onMiddleDrop(AjaxRequestTarget target, Component sourceComponent, Component targetComponent) {
+            // ignore components dropped on the middle dropzone
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        @SuppressWarnings("unchecked")
+        public void onTopDrop(AjaxRequestTarget target, Component sourceComponent, Component targetComponent) {
+            DraggableNode<Sense> sourceNode;
+            DraggableNode<Sense> targetNode = (DraggableNode<Sense>) targetComponent;
+
+            if (sourceComponent instanceof DraggableNode) {
+                sourceNode = (DraggableNode<Sense>) sourceComponent;
+
+                if (sourceNode.equals(targetNode) || sourceNode.equals(targetNode.getParent()) ||
+                        (senseTree.getProvider().hasParent(targetNode.getModelObject()) &&
+                                senseTree.getProvider().hasChildren(sourceNode.getModelObject()))) {
+                    return;
+                }
+
+                new SenseDao().moveBefore(sourceNode.getModelObject(), targetNode.getModelObject());
+                target.add(senseTree);
+            }
         }
 
         /**
