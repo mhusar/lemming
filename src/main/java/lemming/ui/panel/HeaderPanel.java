@@ -66,7 +66,7 @@ public class HeaderPanel extends Panel {
         lemmatizationItem.add(lemmatizationLink);
         contextIndexItem.add(contextIndexLink);
         lemmaIndexItem.add(lemmaIndexLink);
-        senseIndexItem.add(senseIndexLink);
+        senseIndexItem.add(senseIndexLink.setEnabled(false));
         posIndexItem.add(posIndexLink);
         userEditItem.add(userEditLink);
 

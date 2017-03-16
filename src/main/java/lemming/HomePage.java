@@ -53,7 +53,7 @@ public class HomePage extends BasePage {
         add(contextIndexLink);
         add(contextImportLink);
         add(lemmaIndexLink);
-        add(senseIndexLink);
+        add(senseIndexLink.setEnabled(false));
         add(posIndexLink);
         add(resourceLink);
         add(userEditLink);
