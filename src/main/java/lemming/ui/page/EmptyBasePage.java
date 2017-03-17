@@ -41,7 +41,7 @@ public class EmptyBasePage extends WebPage {
      */
     @Override
     protected void configureResponse(WebResponse response) {
-        response.setContentType("application/xhtml+xml");
+        response.setContentType("text/html");
     }
 
     /**
