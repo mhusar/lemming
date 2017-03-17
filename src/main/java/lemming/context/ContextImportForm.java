@@ -111,7 +111,7 @@ public class ContextImportForm extends Form<Void> {
     }
 
     /**
-     * Called on submit of the dropzone panel.
+     * Called on submit of the content import form.
      *
      * @param target target that produces an Ajax response
      * @param fileItem object representing a file for a form item
