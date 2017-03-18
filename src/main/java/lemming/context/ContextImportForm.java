@@ -1,7 +1,12 @@
 package lemming.context;
 
 import lemming.HomePage;
+import lemming.auth.SignInPage;
+import lemming.auth.WebSession;
+import lemming.context.inbound.InboundContext;
+import lemming.context.inbound.InboundContextDao;
 import lemming.ui.panel.AlertPanel;
+import lemming.user.User;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.wicket.AttributeModifier;
@@ -31,6 +36,7 @@ import org.xml.sax.SAXParseException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -118,7 +124,7 @@ public class ContextImportForm extends Form<Void> {
      */
     public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
         ContextXmlReader xmlReader = new ContextXmlReader();
-        List<Context> contexts = null;
+        List<InboundContext> contexts = null;
 
         try {
             xmlReader.validateXml(fileItem.getInputStream());
@@ -137,14 +143,28 @@ public class ContextImportForm extends Form<Void> {
         }
 
         if (contexts instanceof List) {
-            String message;
+            String message, realName = null;
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            User user = WebSession.get().getUser();
+
+            if (user != null) {
+                realName = user.getRealName();
+            } else {
+                setResponsePage(SignInPage.class);
+            }
 
             if (contexts.size() > 0) {
+                // set user string and timestamp for inbound context
+                for (InboundContext context : contexts) {
+                    context.setTimestamp(timestamp);
+                    context.setUserString(realName);
+                }
+
                 StringResourceModel messageModel = new StringResourceModel("ContextImportPage.successMessage", this)
                         .setParameters(String.valueOf(contexts.size()));
                 message = messageModel.getString();
                 alertPanel.setMessage(message).setType(AlertPanel.Type.SUCCESS).setVisible(true);
-                new ContextDao().batchPersist(contexts);
+                new InboundContextDao().batchPersist(contexts);
             } else {
                 message = getString("ContextImportPage.noContextsMessage");
                 alertPanel.setMessage(message).setType(AlertPanel.Type.INFO).setVisible(true);
