@@ -213,7 +213,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      *
      * @throws RuntimeException
      */
-    public Context findByKeyword(String keyword) throws RuntimeException {
+    public List<Context> findByKeyword(String keyword) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -224,12 +224,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                     "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.keyword = :keyword", Context.class);
             List<Context> contextList = query.setParameter("keyword", keyword).getResultList();
             transaction.commit();
-
-            if (contextList.isEmpty()) {
-                return null;
-            } else {
-                return contextList.get(0);
-            }
+            return contextList;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -257,6 +252,68 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction.begin();
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
                     "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.keyword LIKE :substring", Context.class);
+            List<Context> contextList = query.setParameter("substring", substring + "%").getResultList();
+            transaction.commit();
+            return contextList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Context> findByLocation(String location) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.location = :location", Context.class);
+            List<Context> contextList = query.setParameter("location", location).getResultList();
+            transaction.commit();
+            return contextList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Context> findByLocationStart(String substring) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.location LIKE :substring", Context.class);
             List<Context> contextList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return contextList;
