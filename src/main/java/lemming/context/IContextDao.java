@@ -19,12 +19,12 @@ public interface IContextDao extends IDao<Context> {
     void batchPersist(List<Context> contexts);
 
     /**
-     * Returns a matching context for a given keyword.
+     * Returns a list of matching contexts for a given keyword.
      *
      * @param keyword keyword of a context
-     * @return A matching context, or null.
+     * @return A list of matching contexts.
      */
-    Context findByKeyword(String keyword);
+    List<Context> findByKeyword(String keyword);
 
     /**
      * Returns a list of matching contexts for a given keyword substring.
@@ -33,6 +33,22 @@ public interface IContextDao extends IDao<Context> {
      * @return A list of matching contexts.
      */
     List<Context> findByKeywordStart(String substring);
+
+    /**
+     * Returns a list of matching contexts for a given location.
+     *
+     * @param location location of a context
+     * @return A list of matching contexts.
+     */
+    List<Context> findByLocation(String location);
+
+    /**
+     * Returns a list of matching contexts for a given location substring.
+     *
+     * @param substring substring of a context location
+     * @return A list of matching contexts.
+     */
+    List<Context> findByLocationStart(String substring);
 
     /**
      * Returns a list of matching contexts for a given lemma.
