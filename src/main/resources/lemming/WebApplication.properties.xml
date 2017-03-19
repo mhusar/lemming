@@ -90,7 +90,7 @@
     <entry key="HomePage.senses">Senses</entry>
     <entry key="HomePage.users">User management</entry>
     <entry key="InboundContextSummaryPanel.placeholder">No records found</entry>
-    <entry key="InboundContextSummaryView.label">{0} Contexts imported by {1} at {2}, {3}</entry>
+    <entry key="InboundContextSummaryView.label">{0} contexts imported by {1} at {2}, {3}</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
