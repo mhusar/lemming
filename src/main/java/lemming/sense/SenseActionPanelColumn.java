@@ -79,22 +79,37 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
                 }
             });
             add(new AjaxLink<Void>("deleteLink") {
+                /**
+                 * Determines if a deserialized file is compatible with
+                 * this class.
+                 */
+                private static final long serialVersionUID = 1L;
+
+                /**
+                 * Called when an AjaxLink is configured.
+                 */
+                @Override
+                protected void onConfigure() {
+                    super.onConfigure();
+                    Sense sense = model.getObject();
+
+                    if (sense.isParentSense() && new SenseDao().hasChildSenses(sense)) {
+                        setVisible(false);
+                    } else {
+                        setVisible(true);
+                    }
+                }
+
+                /**
+                 * Called on click.
+                 *
+                 * @param target target that produces an Ajax response
+                 */
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     ModalMessagePanel senseDeleteConfirmPanel = (ModalMessagePanel) getPage()
                             .get("senseDeleteConfirmPanel");
                     senseDeleteConfirmPanel.show(target, new Model<Sense>(model.getObject()));
-                }
-
-                @Override
-                public boolean isVisible() {
-                    Sense sense = model.getObject();
-
-                    if (sense.isParentSense() && new SenseDao().hasChildSenses(sense)) {
-                        return false;
-                    }
-
-                    return true;
                 }
             });
         }
