@@ -52,6 +52,7 @@
     <entry key="ContextImportPage.open">Open…</entry>
     <entry key="ContextImportPage.selectFile">Select file</entry>
     <entry key="ContextImportPage.successMessage">{0} contexts were successfully imported.</entry>
+    <entry key="ContextImportPage.uncommitedImports">Uncommited imports</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Multiple punctuation elements with the same type are not
@@ -88,6 +89,8 @@
     <entry key="HomePage.resources">Data resources</entry>
     <entry key="HomePage.senses">Senses</entry>
     <entry key="HomePage.users">User management</entry>
+    <entry key="InboundContextSummaryPanel.placeholder">No records found</entry>
+    <entry key="InboundContextSummaryView.label">{0} Contexts imported by {1} at {2}, {3}</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>

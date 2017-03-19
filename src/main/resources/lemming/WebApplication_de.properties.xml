@@ -52,6 +52,7 @@
     <entry key="ContextImportPage.open">Öffnen…</entry>
     <entry key="ContextImportPage.selectFile">Datei auswählen</entry>
     <entry key="ContextImportPage.successMessage">{0} Kontexte wurden erfolgreich importiert.</entry>
+    <entry key="ContextImportPage.uncommitedImports">Unbestätige Importe</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
@@ -88,6 +89,8 @@
     <entry key="HomePage.resources">Datenbestand</entry>
     <entry key="HomePage.senses">Bedeutungen</entry>
     <entry key="HomePage.users">Benutzer</entry>
+    <entry key="InboundContextSummaryPanel.placeholder">Kein Eintrag vorhanden</entry>
+    <entry key="InboundContextSummaryView.label">{0} Kontexte importiert von {1} am {3} um {2}</entry>
     <entry key="InputPanel.insertTag">Tag einfügen</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attribute für Tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>

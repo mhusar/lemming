@@ -5,6 +5,7 @@ import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
 import lemming.context.inbound.InboundContext;
 import lemming.context.inbound.InboundContextDao;
+import lemming.context.inbound.InboundContextSummaryPanel;
 import lemming.ui.panel.AlertPanel;
 import lemming.user.User;
 import org.apache.commons.fileupload.FileItem;
@@ -88,6 +89,11 @@ public class ContextImportForm extends Form<Void> {
     private AlertPanel alertPanel;
 
     /**
+     * A panel which lists summaries about groups of inbound context data.
+     */
+    private InboundContextSummaryPanel summaryPanel;
+
+    /**
      * Called when a context import form is initialized.
      */
     @Override
@@ -100,6 +106,7 @@ public class ContextImportForm extends Form<Void> {
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel("alertPanel");
         SubmitButton submitButton = new SubmitButton("submitButton", this);
+        summaryPanel = new InboundContextSummaryPanel("inboundContextSummaryPanel");
 
         fileInput.add(new FileInputChangeBehavior())
                 .add(AttributeModifier.append("style", "position: absolute; left: -9999px;"));
@@ -110,6 +117,7 @@ public class ContextImportForm extends Form<Void> {
         getPage().add(alertPanel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
         getPage().add(new ToHomePageButton("toHomePageButton"));
         getPage().add(submitButton);
+        getPage().add(summaryPanel.setOutputMarkupId(true));
     }
 
     private void logException(Exception exception) {
@@ -171,6 +179,7 @@ public class ContextImportForm extends Form<Void> {
             }
 
             target.add(alertPanel);
+            target.add(summaryPanel);
         }
     }
 
