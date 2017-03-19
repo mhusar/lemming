@@ -46,4 +46,11 @@ public interface IInboundContextDao extends IDao<InboundContext> {
      * @return A list of matching contexts.
      */
     List<InboundContext> findByLocationStart(String substring);
+
+    /**
+     * Returns a list of inbound context summaries which hold data about groups of inbound contexts.
+     *
+     * @return A list of inbound context summaries.
+     */
+    List<InboundContextSummary> getSummaries();
 }

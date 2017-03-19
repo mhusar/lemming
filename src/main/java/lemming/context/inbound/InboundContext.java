@@ -65,9 +65,9 @@ public class InboundContext extends BaseContext {
     /**
      * Sets the user string of a context.
      *
-     * @param user a user string
+     * @param user a string
      */
-    public void setUserString(String user) {
+    public void setUser(String user) {
         this.user = user;
     }
 }

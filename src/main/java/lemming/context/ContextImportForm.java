@@ -157,7 +157,7 @@ public class ContextImportForm extends Form<Void> {
                 // set user string and timestamp for inbound context
                 for (InboundContext context : contexts) {
                     context.setTimestamp(timestamp);
-                    context.setUserString(realName);
+                    context.setUser(realName);
                 }
 
                 StringResourceModel messageModel = new StringResourceModel("ContextImportPage.successMessage", this)

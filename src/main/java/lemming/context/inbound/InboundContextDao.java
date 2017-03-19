@@ -8,6 +8,8 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -229,7 +231,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM Context i " +
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
                     "WHERE i.location = :location", InboundContext.class);
             List<InboundContext> contextList = query.setParameter("location", location).getResultList();
             transaction.commit();
@@ -260,11 +262,54 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM Context i " +
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
                     "WHERE i.location LIKE :substring", InboundContext.class);
             List<InboundContext> contextList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return contextList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<InboundContextSummary> getSummaries() {
+        List<InboundContextSummary> summaryList = new ArrayList<InboundContextSummary>();
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Object[]> query = entityManager.createQuery("SELECT COUNT(i), i.timestamp, i.user " +
+                    "FROM InboundContext i GROUP BY i.timestamp, i.user " +
+                    "ORDER BY i.timestamp DESC, i.user ASC", Object[].class);
+            List<Object[]> resultList = query.getResultList();
+            transaction.commit();
+
+            for (Object[] result : resultList) {
+                Long numberOfContexts = (Long) result[0];
+                Timestamp timestamp = (Timestamp) result[1];
+                String userString = (String) result[2];
+                InboundContextSummary summary = new InboundContextSummary(numberOfContexts, timestamp, userString);
+
+                summaryList.add(summary);
+            }
+
+            return summaryList;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
