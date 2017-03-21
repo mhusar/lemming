@@ -304,7 +304,16 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
                 Long numberOfContexts = (Long) result[0];
                 Timestamp timestamp = (Timestamp) result[1];
                 String userString = (String) result[2];
-                InboundContextSummary summary = new InboundContextSummary(numberOfContexts, timestamp, userString);
+
+                TypedQuery<Object[]> locationQuery = entityManager.createQuery("SELECT " +
+                        "SUBSTRING(MIN(i.location), 1, 15), SUBSTRING(MAX(i.location), 1, 15) FROM InboundContext i " +
+                        "WHERE i.timestamp = :timestamp AND i.user = :user", Object[].class);
+                List<Object[]> locationList = locationQuery.setParameter("timestamp", timestamp)
+                        .setParameter("user", userString).setMaxResults(1).getResultList();
+                String beginLocation = (String) locationList.get(0)[0];
+                String endLocation = (String) locationList.get(0)[1];
+                InboundContextSummary summary = new InboundContextSummary(numberOfContexts, timestamp, userString,
+                        beginLocation, endLocation);
 
                 summaryList.add(summary);
             }

@@ -23,6 +23,16 @@ public class InboundContextSummary implements Serializable {
     private String userString;
 
     /**
+     * Location where contexts are beginning.
+     */
+    private String beginLocation;
+
+    /**
+     * Location where contexts are ending.
+     */
+    private String endLocation;
+
+    /**
      * Private default constructor.
      */
     private InboundContextSummary() {
@@ -35,11 +45,16 @@ public class InboundContextSummary implements Serializable {
      * @param numberOfContexts number of inbound contexts
      * @param timestamp timestamp of contexts
      * @param userString user string of contexts
+     * @param beginLocation begin location
+     * @param endLocation end location
      */
-    public InboundContextSummary(Long numberOfContexts, Timestamp timestamp, String userString) {
+    public InboundContextSummary(Long numberOfContexts, Timestamp timestamp, String userString,
+                                 String beginLocation, String endLocation) {
         this.numberOfContexts = numberOfContexts;
         this.timestamp = timestamp;
         this.userString = userString;
+        this.beginLocation = beginLocation;
+        this.endLocation = endLocation;
     }
 
     /**
@@ -94,5 +109,41 @@ public class InboundContextSummary implements Serializable {
      */
     public void setUserString(String user) {
         this.userString = user;
+    }
+
+    /**
+     * Returns the location where contexts are beginning.
+     *
+     * @return Begin location string.
+     */
+    public String getBeginLocation() {
+        return beginLocation;
+    }
+
+    /**
+     * Sets the location where contexts are beginning.
+     *
+     * @param beginLocation begin location
+     */
+    public void setBeginLocation(String beginLocation) {
+        this.beginLocation = beginLocation;
+    }
+
+    /**
+     * Returns the location where contexts are ending.
+     *
+     * @return End location string.
+     */
+    public String getEndLocation() {
+        return endLocation;
+    }
+
+    /**
+     * Sets the location where contexts are ending.
+     *
+     * @param endLocation end location
+     */
+    public void setEndLocation(String endLocation) {
+        this.endLocation = endLocation;
     }
 }
