@@ -147,7 +147,6 @@ a {
   height: 450px;
   overflow-y: auto;
   padding-bottom: 0;
-  overflow-y: auto;
 }
 
 .well-sm.scroll .list-group {
