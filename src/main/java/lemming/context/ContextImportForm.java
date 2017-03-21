@@ -173,13 +173,13 @@ public class ContextImportForm extends Form<Void> {
                 message = messageModel.getString();
                 alertPanel.setMessage(message).setType(AlertPanel.Type.SUCCESS).setVisible(true);
                 new InboundContextDao().batchPersist(contexts);
+                target.add(summaryPanel);
             } else {
                 message = getString("ContextImportPage.noContextsMessage");
                 alertPanel.setMessage(message).setType(AlertPanel.Type.INFO).setVisible(true);
             }
 
             target.add(alertPanel);
-            target.add(summaryPanel);
         }
     }
 
