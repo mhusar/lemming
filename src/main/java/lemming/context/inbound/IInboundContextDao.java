@@ -53,4 +53,11 @@ public interface IInboundContextDao extends IDao<InboundContext> {
      * @return A list of inbound context summaries.
      */
     List<InboundContextSummary> getSummaries();
+
+    /**
+     * Removes inbound contexts matching an inbound context summary.
+     *
+     * @param summary inbound context summary
+     */
+    void removeBySummary(InboundContextSummary summary);
 }

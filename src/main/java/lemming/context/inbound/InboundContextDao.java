@@ -322,4 +322,35 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             entityManager.close();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public void removeBySummary(InboundContextSummary summary) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.createQuery("DELETE FROM InboundContext i " +
+                    "WHERE i.timestamp = :timestamp AND i.user = :user")
+                    .setParameter("timestamp", summary.getTimestamp()).setParameter("user", summary.getUserString())
+                    .executeUpdate();
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
 }
