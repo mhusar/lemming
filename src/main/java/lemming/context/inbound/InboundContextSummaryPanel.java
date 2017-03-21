@@ -135,7 +135,7 @@ public class InboundContextSummaryPanel extends Panel {
                     .setParameters(numberOfContexts, locationString).getString();
             String popoverContent = new StringResourceModel("InboundContextSummaryView.popoverContent", this)
                     .setParameters("<dl class='dl-horizontal'><dt>", "</dt><dd>" + userString + "</dd><dt>",
-                            "</dt><dd>" + localizedDate + "</dd><dt>", "</dt><dd>" + localizedTime + "</dd><dt>")
+                            "</dt><dd>" + localizedDate + "</dd><dt>", "</dt><dd>" + localizedTime + "</dd></dl>")
                     .getString();
 
             item.add(new Label("itemLabel", itemLabel));
