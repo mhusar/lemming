@@ -143,6 +143,27 @@ a {
   margin-bottom: 0;
 }
 
+.popover {
+  max-width: 400px;
+}
+
+.popover dl {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.popover dt {
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 80px;
+}
+
+.popover dd {
+  margin-left: 90px;
+}
+
 .well-sm.scroll {
   overflow-y: auto;
   padding-bottom: 0;
@@ -167,6 +188,18 @@ a {
 
 .scroll .list-group-item {
   cursor: pointer;
+}
+
+.list-group.inbound-context-summary .list-group-item {
+  cursor: default;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-group.inbound-context-summary .list-group-item .item-label {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .scroll .dummy {

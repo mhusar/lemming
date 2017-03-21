@@ -4,12 +4,14 @@
     <entry key="AccessDeniedPage.header">Zugriff verweigert</entry>
     <entry key="AccessDeniedPage.message">Der Zugriff auf die angeforderte Seite wurde verweigert.</entry>
     <entry key="AccessDeniedPage.redirection">Übersicht</entry>
+    <entry key="Action.approve">Bestätigen</entry>
     <entry key="Action.batchProcessing">Stapelverarbeitung</entry>
     <entry key="Action.cancel">Abbrechen</entry>
     <entry key="Action.continue">Weiter</entry>
     <entry key="Action.correct">Korrigieren</entry>
     <entry key="Action.correction">Korrektur</entry>
     <entry key="Action.delete">Löschen</entry>
+    <entry key="Action.discard">Verwerfen</entry>
     <entry key="Action.done">Fertig</entry>
     <entry key="Action.edit">Bearbeiten</entry>
     <entry key="Action.filter">Filtern</entry>
@@ -90,7 +92,11 @@
     <entry key="HomePage.senses">Bedeutungen</entry>
     <entry key="HomePage.users">Benutzer</entry>
     <entry key="InboundContextSummaryPanel.placeholder">Kein Eintrag vorhanden</entry>
-    <entry key="InboundContextSummaryView.label">{0} Kontexte importiert von {1} am {3} um {2}</entry>
+    <entry key="InboundContextSummaryView.details">Details</entry>
+    <entry key="InboundContextSummaryView.itemLabel">{0} Kontexte aus {1}</entry>
+    <entry key="InboundContextSummaryView.location1">{0} {1}–{2}</entry>
+    <entry key="InboundContextSummaryView.location2">{0} {1} – {2} {3}</entry>
+    <entry key="InboundContextSummaryView.popoverContent">{0}Benutzer{1}Datum{2}Uhrzeit{3}</entry>
     <entry key="InputPanel.insertTag">Tag einfügen</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attribute für Tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>

@@ -5,11 +5,13 @@
     <entry key="AccessDeniedPage.message">Access to the requested page was denied.</entry>
     <entry key="AccessDeniedPage.redirection">Dashboard</entry>
     <entry key="Action.batchProcessing">Batch processing</entry>
+    <entry key="Action.approve">Approve</entry>
     <entry key="Action.cancel">Cancel</entry>
     <entry key="Action.continue">Continue</entry>
     <entry key="Action.correct">Correct</entry>
     <entry key="Action.correction">Correction</entry>
     <entry key="Action.delete">Delete</entry>
+    <entry key="Action.discard">Discard</entry>
     <entry key="Action.done">Done</entry>
     <entry key="Action.edit">Edit</entry>
     <entry key="Action.filter">Filter</entry>
@@ -90,7 +92,11 @@
     <entry key="HomePage.senses">Senses</entry>
     <entry key="HomePage.users">User management</entry>
     <entry key="InboundContextSummaryPanel.placeholder">No records found</entry>
-    <entry key="InboundContextSummaryView.label">{0} contexts imported by {1} at {2}, {3}</entry>
+    <entry key="InboundContextSummaryView.details">Details</entry>
+    <entry key="InboundContextSummaryView.itemLabel">{0} contexts from {1}</entry>
+    <entry key="InboundContextSummaryView.location1">{0} {1}–{2}</entry>
+    <entry key="InboundContextSummaryView.location2">{0} {1}–{2} {3}</entry>
+    <entry key="InboundContextSummaryView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
