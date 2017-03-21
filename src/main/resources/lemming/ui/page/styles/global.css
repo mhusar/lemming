@@ -174,10 +174,6 @@ a {
   height: 450px;
 }
 
-.well-sm.short {
-  max-height: 150px;
-}
-
 .well-sm.scroll .list-group {
   margin-bottom: 9px;
 }

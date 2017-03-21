@@ -6,25 +6,23 @@
 </head>
 <body>
 <wicket:panel>
-    <div class="well well-sm scroll short">
-        <div class="list-group inbound-context-summary">
-            <div wicket:id="placeholder" class="list-group-item">
-                <wicket:message key="InboundContextSummaryPanel.placeholder"></wicket:message>
-            </div>
-            <div wicket:id="inboundContextSummaryView" class="list-group-item">
-                <span wicket:id="itemLabel" class="item-label"></span>
-                <div>
-                    <a wicket:id="detailsButton" class="btn btn-default" type="button" data-placement="bottom"
-                       data-toggle="popover" data-trigger="manual" role="button" tabindex="1">
-                        <i class="glyphicon glyphicon-option-vertical"></i>
-                    </a>
-                    <a wicket:id="approveButton" class="btn btn-primary" type="button" role="button">
-                        <wicket:message key="Action.approve"></wicket:message>
-                    </a>
-                    <button wicket:id="discardButton" class="btn btn-danger" role="button">
-                        <wicket:message key="Action.discard"></wicket:message>
-                    </button>
-                </div>
+    <div class="list-group inbound-context-summary">
+        <div wicket:id="placeholder" class="list-group-item">
+            <wicket:message key="InboundContextSummaryPanel.placeholder"></wicket:message>
+        </div>
+        <div wicket:id="inboundContextSummaryView" class="list-group-item">
+            <span wicket:id="itemLabel" class="item-label"></span>
+            <div>
+                <a wicket:id="detailsButton" class="btn btn-default" type="button" data-placement="bottom"
+                   data-toggle="popover" data-trigger="manual" role="button" tabindex="1">
+                    <i class="glyphicon glyphicon-option-vertical"></i>
+                </a>
+                <a wicket:id="approveButton" class="btn btn-primary" type="button" role="button">
+                    <wicket:message key="Action.approve"></wicket:message>
+                </a>
+                <button wicket:id="discardButton" class="btn btn-danger" role="button">
+                    <wicket:message key="Action.discard"></wicket:message>
+                </button>
             </div>
         </div>
     </div>
