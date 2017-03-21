@@ -54,7 +54,7 @@
     <entry key="ContextImportPage.open">Öffnen…</entry>
     <entry key="ContextImportPage.selectFile">Datei auswählen</entry>
     <entry key="ContextImportPage.successMessage">{0} Kontexte wurden erfolgreich importiert.</entry>
-    <entry key="ContextImportPage.uncommitedImports">Unbestätige Importe</entry>
+    <entry key="ContextImportPage.unapprovedImports">Unbestätigte Importe</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements

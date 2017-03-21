@@ -29,10 +29,12 @@
                                 <input wicket:id="fileInput" id="fileInput" type="file"/>
                                 <div class="input-group-btn">
                                     <button wicket:id="removeButton" type="button" class="btn btn-default">
-                                        <i class="glyphicon glyphicon-trash"></i> <span><wicket:message key="Action.remove"></wicket:message></span>
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        <span><wicket:message key="Action.remove"></wicket:message></span>
                                     </button>
                                     <button wicket:id="browseButton" type="button" class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-folder-open"></i>&#160; <span><wicket:message key="ContextImportPage.open"></wicket:message></span>
+                                        <i class="glyphicon glyphicon-folder-open"></i>&#160;
+                                        <span><wicket:message key="ContextImportPage.open"></wicket:message></span>
                                     </button>
                                 </div>
                             </div>
@@ -60,7 +62,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2><wicket:message key="ContextImportPage.uncommitedImports"></wicket:message></h2>
+                <h2><wicket:message key="ContextImportPage.unapprovedImports"></wicket:message></h2>
                 <div wicket:id="inboundContextSummaryPanel"></div>
             </div>
         </div>
