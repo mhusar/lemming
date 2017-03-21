@@ -165,13 +165,9 @@ a {
 }
 
 .well-sm.scroll {
+  height: 450px;
   overflow-y: auto;
   padding-bottom: 0;
-  overflow-y: auto;
-}
-
-.well-sm.long {
-  height: 450px;
 }
 
 .well-sm.scroll .list-group {
