@@ -54,7 +54,7 @@
     <entry key="ContextImportPage.open">Open…</entry>
     <entry key="ContextImportPage.selectFile">Select file</entry>
     <entry key="ContextImportPage.successMessage">{0} contexts were successfully imported.</entry>
-    <entry key="ContextImportPage.unverifiedContexts">Unverified contexts</entry>
+    <entry key="ContextImportPage.unverifiedImports">Unverified imports</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Multiple punctuation elements with the same type are not
