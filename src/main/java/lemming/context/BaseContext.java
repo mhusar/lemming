@@ -26,7 +26,7 @@ public abstract class BaseContext implements Serializable {
     /**
      * A UUID used to distinguish contexts.
      */
-    @Column(name = "uuid")
+    @Column(name = "uuid", nullable = false)
     @JsonIgnore
     private String uuid;
 

@@ -34,7 +34,7 @@ public class Pos extends DatedEntity implements Serializable {
     /**
      * A UUID used to distinguish parts of speech.
      */
-    @Column(name = "uuid")
+    @Column(name = "uuid", nullable = false)
     @JsonIgnore
     private String uuid;
 

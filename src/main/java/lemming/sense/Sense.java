@@ -36,7 +36,7 @@ public class Sense extends DatedEntity implements Serializable {
     /**
      * A UUID used to distinguish senses.
      */
-    @Column(name = "uuid")
+    @Column(name = "uuid", nullable = false)
     @JsonIgnore
     private String uuid;
 

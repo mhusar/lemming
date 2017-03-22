@@ -47,7 +47,7 @@ public class User extends DatedEntity implements Principal, Serializable {
     /**
      * A UUID used to distinguish users.
      */
-    @Column(name = "uuid")
+    @Column(name = "uuid", nullable = false)
     private String uuid;
 
     /**

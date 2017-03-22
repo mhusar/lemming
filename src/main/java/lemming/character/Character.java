@@ -42,7 +42,7 @@ public class Character extends DatedEntity implements Serializable {
     /**
      * A UUID used to distinguish characters.
      */
-    @Column(name = "uuid")
+    @Column(name = "uuid", nullable = false)
     private String uuid;
 
     /**

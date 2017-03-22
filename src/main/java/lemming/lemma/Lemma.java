@@ -36,7 +36,7 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * A UUID used to distinguish lemmata.
      */
-    @Column(name = "uuid")
+    @Column(name = "uuid", nullable = false)
     @JsonIgnore
     private String uuid;
 
