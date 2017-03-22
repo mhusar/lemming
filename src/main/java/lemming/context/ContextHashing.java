@@ -16,9 +16,13 @@ public class ContextHashing {
      * @return A string of arbitrary length.
      */
     private static String getString(BaseContext context) {
-        return context.getPreceding() + Optional.ofNullable(context.getInitPunctuation()).orElse("") +
-                context.getKeyword() +  Optional.ofNullable(context.getEndPunctuation()).orElse("") +
-                context.getFollowing();
+        return String.join("\u001F\u001F", new String[] {
+                context.getPreceding(),
+                Optional.ofNullable(context.getInitPunctuation()).orElse(""),
+                context.getKeyword(),
+                Optional.ofNullable(context.getEndPunctuation()).orElse(""),
+                context.getFollowing()
+        });
     }
 
     /**
