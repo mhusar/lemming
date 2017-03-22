@@ -6,19 +6,19 @@
 </head>
 <body>
 <wicket:panel>
-    <div class="list-group inbound-context-summary">
+    <div class="list-group unverified-context-overview">
         <div wicket:id="placeholder" class="list-group-item">
-            <wicket:message key="InboundContextSummaryPanel.placeholder"></wicket:message>
+            <wicket:message key="UnverifiedContextOverviewPanel.placeholder"></wicket:message>
         </div>
-        <div wicket:id="inboundContextSummaryView" class="list-group-item">
+        <div wicket:id="overviewView" class="list-group-item">
             <span wicket:id="itemLabel" class="item-label"></span>
             <div>
                 <a wicket:id="detailsButton" class="btn btn-default" type="button" data-placement="bottom"
                    data-toggle="popover" data-trigger="manual" role="button" tabindex="1">
                     <i class="glyphicon glyphicon-option-vertical"></i>
                 </a>
-                <a wicket:id="approveButton" class="btn btn-primary" type="button" role="button">
-                    <wicket:message key="Action.approve"></wicket:message>
+                <a wicket:id="verifyButton" class="btn btn-primary" type="button" role="button">
+                    <wicket:message key="Action.verify"></wicket:message>
                 </a>
                 <button wicket:id="discardButton" class="btn btn-danger" role="button">
                     <wicket:message key="Action.discard"></wicket:message>

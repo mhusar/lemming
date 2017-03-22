@@ -1,4 +1,4 @@
-package lemming.context.inbound;
+package lemming.context.verfication;
 
 import lemming.context.ContextHashing;
 import lemming.data.EntityManagerListener;
@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Represents a Data Access Object providing data operations for inbound contexts.
+ * Represents a Data Access Object providing data operations for unverified contexts.
  */
-public class InboundContextDao extends GenericDao<InboundContext> implements IInboundContextDao {
+public class UnverifiedContextDao extends GenericDao<UnverifiedContext> implements IUnverifiedContextDao {
     /**
-     * Creates an instance of an InboundContextDao.
+     * Creates an instance of an UnverifiedContextDao.
      */
-    public InboundContextDao() {
+    public UnverifiedContextDao() {
         super();
     }
 
@@ -29,7 +29,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      * {@inheritDoc}
      */
     @Override
-    public Boolean isTransient(InboundContext context) {
+    public Boolean isTransient(UnverifiedContext context) {
         return !(context.getId() instanceof Integer);
     }
 
@@ -38,7 +38,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      *
      * @throws RuntimeException
      */
-    public void persist(InboundContext context) throws RuntimeException {
+    public void persist(UnverifiedContext context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -78,10 +78,10 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      *
      * @throws RuntimeException
      */
-    public void batchPersist(List<InboundContext> contexts) throws RuntimeException {
+    public void batchPersist(List<UnverifiedContext> contexts) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-        InboundContext currentContext = null;
+        UnverifiedContext currentContext = null;
         Integer batchSize = 50;
         Integer counter = 0;
 
@@ -89,7 +89,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             transaction = entityManager.getTransaction();
             transaction.begin();
 
-            for (InboundContext context : contexts) {
+            for (UnverifiedContext context : contexts) {
                 currentContext = context;
 
                 if (!(context.getUuid() instanceof String)) {
@@ -132,7 +132,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      *
      * @throws RuntimeException
      */
-    public InboundContext merge(InboundContext context) throws RuntimeException {
+    public UnverifiedContext merge(UnverifiedContext context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -142,7 +142,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            InboundContext mergedContext = entityManager.merge(context);
+            UnverifiedContext mergedContext = entityManager.merge(context);
             mergedContext = entityManager.merge(mergedContext);
             transaction.commit();
             return mergedContext;
@@ -172,16 +172,16 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      *
      * @throws RuntimeException
      */
-    public List<InboundContext> findByKeyword(String keyword) throws RuntimeException {
+    public List<UnverifiedContext> findByKeyword(String keyword) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
-                    "WHERE i.keyword = :keyword", InboundContext.class);
-            List<InboundContext> contextList = query.setParameter("keyword", keyword).getResultList();
+            TypedQuery<UnverifiedContext> query = entityManager.createQuery("SELECT i FROM UnverifiedContext i " +
+                    "WHERE i.keyword = :keyword", UnverifiedContext.class);
+            List<UnverifiedContext> contextList = query.setParameter("keyword", keyword).getResultList();
             transaction.commit();
             return contextList;
         } catch (RuntimeException e) {
@@ -202,47 +202,16 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      *
      * @throws RuntimeException
      */
-    public List<InboundContext> findByKeywordStart(String substring) throws RuntimeException {
+    public List<UnverifiedContext> findByKeywordStart(String substring) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
-                    "WHERE i.keyword LIKE :substring", InboundContext.class);
-            List<InboundContext> contextList = query.setParameter("substring", substring + "%").getResultList();
-            transaction.commit();
-            return contextList;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-
-            throw e;
-        } finally {
-            entityManager.close();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws RuntimeException
-     */
-    @Override
-    public List<InboundContext> findByLocation(String location) {
-        EntityManager entityManager = EntityManagerListener.createEntityManager();
-        EntityTransaction transaction = null;
-
-        try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
-                    "WHERE i.location = :location", InboundContext.class);
-            List<InboundContext> contextList = query.setParameter("location", location).getResultList();
+            TypedQuery<UnverifiedContext> query = entityManager.createQuery("SELECT i FROM UnverifiedContext i " +
+                    "WHERE i.keyword LIKE :substring", UnverifiedContext.class);
+            List<UnverifiedContext> contextList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return contextList;
         } catch (RuntimeException e) {
@@ -264,16 +233,16 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      * @throws RuntimeException
      */
     @Override
-    public List<InboundContext> findByLocationStart(String substring) {
+    public List<UnverifiedContext> findByLocation(String location) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
-                    "WHERE i.location LIKE :substring", InboundContext.class);
-            List<InboundContext> contextList = query.setParameter("substring", substring + "%").getResultList();
+            TypedQuery<UnverifiedContext> query = entityManager.createQuery("SELECT i FROM UnverifiedContext i " +
+                    "WHERE i.location = :location", UnverifiedContext.class);
+            List<UnverifiedContext> contextList = query.setParameter("location", location).getResultList();
             transaction.commit();
             return contextList;
         } catch (RuntimeException e) {
@@ -295,8 +264,39 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      * @throws RuntimeException
      */
     @Override
-    public List<InboundContextSummary> getSummaries() {
-        List<InboundContextSummary> summaryList = new ArrayList<InboundContextSummary>();
+    public List<UnverifiedContext> findByLocationStart(String substring) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<UnverifiedContext> query = entityManager.createQuery("SELECT i FROM UnverifiedContext i " +
+                    "WHERE i.location LIKE :substring", UnverifiedContext.class);
+            List<UnverifiedContext> contextList = query.setParameter("substring", substring + "%").getResultList();
+            transaction.commit();
+            return contextList;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<UnverifiedContextOverview> getOverviews() {
+        List<UnverifiedContextOverview> overviewList = new ArrayList<UnverifiedContextOverview>();
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -304,7 +304,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Object[]> query = entityManager.createQuery("SELECT COUNT(i), i.timestamp, i.user " +
-                    "FROM InboundContext i GROUP BY i.timestamp, i.user " +
+                    "FROM UnverifiedContext i GROUP BY i.timestamp, i.user " +
                     "ORDER BY i.timestamp DESC, i.user ASC", Object[].class);
             List<Object[]> resultList = query.getResultList();
             transaction.commit();
@@ -315,19 +315,19 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
                 String userString = (String) result[2];
 
                 TypedQuery<Object[]> locationQuery = entityManager.createQuery("SELECT " +
-                        "SUBSTRING(MIN(i.location), 1, 15), SUBSTRING(MAX(i.location), 1, 15) FROM InboundContext i " +
+                        "SUBSTRING(MIN(i.location), 1, 15), SUBSTRING(MAX(i.location), 1, 15) FROM UnverifiedContext i " +
                         "WHERE i.timestamp = :timestamp AND i.user = :user", Object[].class);
                 List<Object[]> locationList = locationQuery.setParameter("timestamp", timestamp)
                         .setParameter("user", userString).setMaxResults(1).getResultList();
                 String beginLocation = (String) locationList.get(0)[0];
                 String endLocation = (String) locationList.get(0)[1];
-                InboundContextSummary summary = new InboundContextSummary(numberOfContexts, timestamp, userString,
+                UnverifiedContextOverview overview = new UnverifiedContextOverview(numberOfContexts, timestamp, userString,
                         beginLocation, endLocation);
 
-                summaryList.add(summary);
+                overviewList.add(overview);
             }
 
-            return summaryList;
+            return overviewList;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -347,16 +347,16 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      * @throws RuntimeException
      */
     @Override
-    public void removeBySummary(InboundContextSummary summary) {
+    public void removeByOverview(UnverifiedContextOverview overview) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.createQuery("DELETE FROM InboundContext i " +
+            entityManager.createQuery("DELETE FROM UnverifiedContext i " +
                     "WHERE i.timestamp = :timestamp AND i.user = :user")
-                    .setParameter("timestamp", summary.getTimestamp()).setParameter("user", summary.getUserString())
+                    .setParameter("timestamp", overview.getTimestamp()).setParameter("user", overview.getUserString())
                     .executeUpdate();
             transaction.commit();
         } catch (RuntimeException e) {

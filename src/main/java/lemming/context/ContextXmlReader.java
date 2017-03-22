@@ -1,7 +1,7 @@
 package lemming.context;
 
 import lemming.WebApplication;
-import lemming.context.inbound.InboundContext;
+import lemming.context.verfication.UnverifiedContext;
 import org.apache.wicket.model.StringResourceModel;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -65,8 +65,8 @@ public class ContextXmlReader implements ErrorHandler {
      * @param element start element of a tag
      * @return A context object.
      */
-    private InboundContext createContext(StartElement element) {
-        InboundContext context = new InboundContext();
+    private UnverifiedContext createContext(StartElement element) {
+        UnverifiedContext context = new UnverifiedContext();
 
         for (Iterator<?> attributes = element.getAttributes(); attributes.hasNext();) {
             Attribute attribute = (Attribute) attributes.next();
@@ -104,7 +104,7 @@ public class ContextXmlReader implements ErrorHandler {
      * @param lastPunctuationType punctuation type last seen
      * @param currentPunctuationType current punctuation type
      */
-    private void validatePunctuation(InboundContext context, Location location, String lastPunctuationType,
+    private void validatePunctuation(UnverifiedContext context, Location location, String lastPunctuationType,
                                      String currentPunctuationType) throws XmlStreamException {
         String message = null;
 
@@ -129,13 +129,13 @@ public class ContextXmlReader implements ErrorHandler {
      * @param inputStream input stream
      * @return A list of contexts or null.
      */
-    public List<InboundContext> readXml(InputStream inputStream) throws XMLStreamException {
+    public List<UnverifiedContext> readXml(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        List<InboundContext> contexts = new ArrayList<InboundContext>();
+        List<UnverifiedContext> contexts = new ArrayList<UnverifiedContext>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
         String currentElementName = "";
         String punctuationType = "";
-        InboundContext context = null;
+        UnverifiedContext context = null;
 
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();

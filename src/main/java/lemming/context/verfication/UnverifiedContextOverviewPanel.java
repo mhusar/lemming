@@ -1,4 +1,4 @@
-package lemming.context.inbound;
+package lemming.context.verfication;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
@@ -26,51 +26,51 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A panel which lists summaries about groups of inbound context data.
+ * A panel which lists overview data of unverified contexts.
  */
-public class InboundContextSummaryPanel extends Panel {
+public class UnverifiedContextOverviewPanel extends Panel {
     /**
-     * A placeholder that is displayed when the summary view is empty.
+     * A placeholder that is displayed when the overview view is empty.
      */
     private MarkupContainer placeholder;
 
     /**
-     * A RefreshingView for entities of class InboundContextSummary.
+     * A RefreshingView for entities of class UnverifiedContextOverview.
      */
-    private InboundContextSummaryView summaryView;
+    private UnverifiedContextOverviewView overviewView;
 
     /**
-     * Creates an InboundContextSummaryPanel.
+     * Creates an UnverifiedContextOverviewPanel.
      *
      * @param id ID of the panel
      */
-    public InboundContextSummaryPanel(String id) {
+    public UnverifiedContextOverviewPanel(String id) {
         super(id);
         placeholder = new WebMarkupContainer("placeholder");
-        summaryView = new InboundContextSummaryView("inboundContextSummaryView");
+        overviewView = new UnverifiedContextOverviewView("overviewView");
         add(placeholder);
-        add(summaryView);
+        add(overviewView);
     }
 
     /**
-     * Called when a InboundContextSummaryPanel is configured.
+     * Called when a UnverifiedContextOverviewPanel is configured.
      */
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        placeholder.setVisible(!summaryView.getItemModels().hasNext());
+        placeholder.setVisible(!overviewView.getItemModels().hasNext());
     }
 
     /**
-     * A RefreshingView for entities of class InboundContextSummary.
+     * A RefreshingView for entities of class UnverifiedContextOverview.
      */
-    private class InboundContextSummaryView extends RefreshingView<InboundContextSummary> {
+    private class UnverifiedContextOverviewView extends RefreshingView<UnverifiedContextOverview> {
         /**
-         * Create an InboundContextSummaryView.
+         * Create an UnverifiedContextOverviewView.
          *
          * @param id ID of the view
          */
-        public InboundContextSummaryView(String id) {
+        public UnverifiedContextOverviewView(String id) {
             super(id);
         }
 
@@ -80,14 +80,14 @@ public class InboundContextSummaryPanel extends Panel {
          * @return An iterator over models.
          */
         @Override
-        protected Iterator<IModel<InboundContextSummary>> getItemModels() {
-            List<IModel<InboundContextSummary>> summaryModelList = new ArrayList<IModel<InboundContextSummary>>();
+        protected Iterator<IModel<UnverifiedContextOverview>> getItemModels() {
+            List<IModel<UnverifiedContextOverview>> overviewModelList = new ArrayList<IModel<UnverifiedContextOverview>>();
 
-            for (InboundContextSummary summary : new InboundContextDao().getSummaries()) {
-                summaryModelList.add(new Model<InboundContextSummary>(summary));
+            for (UnverifiedContextOverview overview : new UnverifiedContextDao().getOverviews()) {
+                overviewModelList.add(new Model<UnverifiedContextOverview>(overview));
             }
 
-            return summaryModelList.iterator();
+            return overviewModelList.iterator();
         }
 
         /**
@@ -104,10 +104,10 @@ public class InboundContextSummaryPanel extends Panel {
                     endRubric = endStrings[1].replaceFirst("^0+", "");
 
             if (beginDocument.equals(endDocument)) {
-                return new StringResourceModel("InboundContextSummaryView.location1", this)
+                return new StringResourceModel("UnverifiedContextOverviewView.location1", this)
                         .setParameters(beginDocument, beginRubric, endRubric).getString();
             } else {
-                return new StringResourceModel("InboundContextSummaryView.location2", this)
+                return new StringResourceModel("UnverifiedContextOverviewView.location2", this)
                         .setParameters(beginDocument, beginRubric, endDocument, endRubric).getString();
             }
         }
@@ -118,22 +118,22 @@ public class InboundContextSummaryPanel extends Panel {
          * @param item item which is populated
          */
         @Override
-        protected void populateItem(Item<InboundContextSummary> item) {
-            InboundContextSummary summary = item.getModel().getObject();
-            Instant instant = summary.getTimestamp().toInstant();
+        protected void populateItem(Item<UnverifiedContextOverview> item) {
+            UnverifiedContextOverview overview = item.getModel().getObject();
+            Instant instant = overview.getTimestamp().toInstant();
             ZonedDateTime dateTime = ZonedDateTime.ofInstant(instant, ZoneId.of("Europe/London"));
 
-            String numberOfContexts = String.valueOf(summary.getNumberOfContexts()),
-                    locationString = createLocationString(summary.getBeginLocation(), summary.getEndLocation()),
-                    userString = summary.getUserString(),
+            String numberOfContexts = String.valueOf(overview.getNumberOfContexts()),
+                    locationString = createLocationString(overview.getBeginLocation(), overview.getEndLocation()),
+                    userString = overview.getUserString(),
                     localizedDate = dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
                             .withLocale(getLocale())),
                     localizedTime = dateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                             .withLocale(getLocale()));
 
-            String itemLabel = new StringResourceModel("InboundContextSummaryView.itemLabel", this)
+            String itemLabel = new StringResourceModel("UnverifiedContextOverviewView.itemLabel", this)
                     .setParameters(numberOfContexts, locationString).getString();
-            String popoverContent = new StringResourceModel("InboundContextSummaryView.popoverContent", this)
+            String popoverContent = new StringResourceModel("UnverifiedContextOverviewView.popoverContent", this)
                     .setParameters("<dl class='dl-horizontal'><dt>", "</dt><dd>" + userString + "</dd><dt>",
                             "</dt><dd>" + localizedDate + "</dd><dt>", "</dt><dd>" + localizedTime + "</dd></dl>")
                     .getString();
@@ -141,7 +141,7 @@ public class InboundContextSummaryPanel extends Panel {
             item.add(new Label("itemLabel", itemLabel));
             item.add(new WebMarkupContainer("detailsButton").add(AttributeModifier.append("data-content",
                     popoverContent)));
-            item.add(new ApproveButton("approveButton", item.getModel()));
+            item.add(new VerifyButton("verifyButton", item.getModel()));
             item.add(new DiscardButton("discardButton", item.getModel()));
         }
 
@@ -163,13 +163,13 @@ public class InboundContextSummaryPanel extends Panel {
     }
 
     /**
-     * A button which sends the user to a page where contexts are approved.
+     * A button which sends the user to a page where contexts are verified.
      */
-    private class ApproveButton extends Link<InboundContextSummary> {
+    private class VerifyButton extends Link<UnverifiedContextOverview> {
         /**
-         * Creates an approve button.
+         * Creates a verify button.
          */
-        public ApproveButton(String id, IModel<InboundContextSummary> model) {
+        public VerifyButton(String id, IModel<UnverifiedContextOverview> model) {
             super(id, model);
         }
 
@@ -182,16 +182,16 @@ public class InboundContextSummaryPanel extends Panel {
     }
 
     /**
-     * A but which discards inbound contexts matching inbound context summary.
+     * A button which discards unverified contexts matching an UnverifiedContextOverview object.
      */
-    private class DiscardButton extends AjaxLink<InboundContextSummary> {
+    private class DiscardButton extends AjaxLink<UnverifiedContextOverview> {
         /**
          * Creates a discard button.
          *
          * @param id ID of the button
          * @param model model of the button
          */
-        public DiscardButton(String id, IModel<InboundContextSummary> model) {
+        public DiscardButton(String id, IModel<UnverifiedContextOverview> model) {
             super(id, model);
         }
 
@@ -202,8 +202,8 @@ public class InboundContextSummaryPanel extends Panel {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            new InboundContextDao().removeBySummary(getModelObject());
-            target.add(InboundContextSummaryPanel.this);
+            new UnverifiedContextDao().removeByOverview(getModelObject());
+            target.add(UnverifiedContextOverviewPanel.this);
         }
     }
 }

@@ -3,9 +3,9 @@ package lemming.context;
 import lemming.HomePage;
 import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
-import lemming.context.inbound.InboundContext;
-import lemming.context.inbound.InboundContextDao;
-import lemming.context.inbound.InboundContextSummaryPanel;
+import lemming.context.verfication.UnverifiedContextOverviewPanel;
+import lemming.context.verfication.UnverifiedContext;
+import lemming.context.verfication.UnverifiedContextDao;
 import lemming.ui.panel.AlertPanel;
 import lemming.user.User;
 import org.apache.commons.fileupload.FileItem;
@@ -89,9 +89,9 @@ public class ContextImportForm extends Form<Void> {
     private AlertPanel alertPanel;
 
     /**
-     * A panel which lists summaries about groups of inbound context data.
+     * A panel which lists overviews about unverified context data.
      */
-    private InboundContextSummaryPanel summaryPanel;
+    private UnverifiedContextOverviewPanel overviewPanel;
 
     /**
      * Called when a context import form is initialized.
@@ -106,7 +106,7 @@ public class ContextImportForm extends Form<Void> {
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel("alertPanel");
         SubmitButton submitButton = new SubmitButton("submitButton", this);
-        summaryPanel = new InboundContextSummaryPanel("inboundContextSummaryPanel");
+        overviewPanel = new UnverifiedContextOverviewPanel("overviewPanel");
 
         fileInput.add(new FileInputChangeBehavior())
                 .add(AttributeModifier.append("style", "position: absolute; left: -9999px;"));
@@ -117,7 +117,7 @@ public class ContextImportForm extends Form<Void> {
         getPage().add(alertPanel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
         getPage().add(new ToHomePageButton("toHomePageButton"));
         getPage().add(submitButton);
-        getPage().add(summaryPanel.setOutputMarkupId(true));
+        getPage().add(overviewPanel.setOutputMarkupId(true));
     }
 
     private void logException(Exception exception) {
@@ -162,8 +162,8 @@ public class ContextImportForm extends Form<Void> {
             }
 
             if (contexts.size() > 0) {
-                // set user string and timestamp for inbound context
-                for (InboundContext context : contexts) {
+                // set user string and timestamp for unverified context
+                for (UnverifiedContext context : contexts) {
                     context.setTimestamp(timestamp);
                     context.setUser(realName);
                 }
@@ -172,8 +172,8 @@ public class ContextImportForm extends Form<Void> {
                         .setParameters(String.valueOf(contexts.size()));
                 message = messageModel.getString();
                 alertPanel.setMessage(message).setType(AlertPanel.Type.SUCCESS).setVisible(true);
-                new InboundContextDao().batchPersist(contexts);
-                target.add(summaryPanel);
+                new UnverifiedContextDao().batchPersist(contexts);
+                target.add(overviewPanel);
             } else {
                 message = getString("ContextImportPage.noContextsMessage");
                 alertPanel.setMessage(message).setType(AlertPanel.Type.INFO).setVisible(true);

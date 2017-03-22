@@ -1,24 +1,24 @@
-package lemming.context.inbound;
+package lemming.context.verfication;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * A helper class which holds data about groups of inbound contexts.
+ * A helper class which holds overview data of unverified contexts.
  */
-public class InboundContextSummary implements Serializable {
+public class UnverifiedContextOverview implements Serializable {
     /**
      * Number of contexts.
      */
     private Long numberOfContexts;
 
     /**
-     * Timestamp of inbound contexts.
+     * Timestamp of unverified contexts.
      */
     private Timestamp timestamp;
 
     /**
-     * User string of inbound contexts.
+     * User string of unverified contexts.
      */
     private String userString;
 
@@ -35,21 +35,21 @@ public class InboundContextSummary implements Serializable {
     /**
      * Private default constructor.
      */
-    private InboundContextSummary() {
+    private UnverifiedContextOverview() {
         // does nothing
     }
 
     /**
-     * Creates an InboundContextSummary object.
+     * Creates an UnverifiedContextOverview object.
      *
-     * @param numberOfContexts number of inbound contexts
+     * @param numberOfContexts number of unverified contexts
      * @param timestamp timestamp of contexts
      * @param userString user string of contexts
      * @param beginLocation begin location
      * @param endLocation end location
      */
-    public InboundContextSummary(Long numberOfContexts, Timestamp timestamp, String userString,
-                                 String beginLocation, String endLocation) {
+    public UnverifiedContextOverview(Long numberOfContexts, Timestamp timestamp, String userString,
+                                     String beginLocation, String endLocation) {
         this.numberOfContexts = numberOfContexts;
         this.timestamp = timestamp;
         this.userString = userString;
@@ -58,7 +58,7 @@ public class InboundContextSummary implements Serializable {
     }
 
     /**
-     * Returns the number of inbound contexts.
+     * Returns the number of unverified contexts.
      *
      * @return An integer.
      */
@@ -67,9 +67,9 @@ public class InboundContextSummary implements Serializable {
     }
 
     /**
-     * Sets the number of inbound contexts.
+     * Sets the number of unverified contexts.
      *
-     * @param numberOfContexts number of inbound contexts
+     * @param numberOfContexts number of unverified contexts
      */
     public void setNumberOfContexts(Long numberOfContexts) {
         this.numberOfContexts = numberOfContexts;

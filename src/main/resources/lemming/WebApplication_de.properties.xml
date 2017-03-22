@@ -4,7 +4,6 @@
     <entry key="AccessDeniedPage.header">Zugriff verweigert</entry>
     <entry key="AccessDeniedPage.message">Der Zugriff auf die angeforderte Seite wurde verweigert.</entry>
     <entry key="AccessDeniedPage.redirection">Übersicht</entry>
-    <entry key="Action.approve">Bestätigen</entry>
     <entry key="Action.batchProcessing">Stapelverarbeitung</entry>
     <entry key="Action.cancel">Abbrechen</entry>
     <entry key="Action.continue">Weiter</entry>
@@ -23,6 +22,7 @@
     <entry key="Action.submit">Absenden</entry>
     <entry key="Action.toHomePage">Zur Übersicht</entry>
     <entry key="Action.toIndex">Zum Index</entry>
+    <entry key="Action.verify">Überprüfen</entry>
     <entry key="Action.view">Ansehen</entry>
     <entry key="AlertPanel.error">Fehler</entry>
     <entry key="AlertPanel.warning">Warnung</entry>
@@ -54,7 +54,7 @@
     <entry key="ContextImportPage.open">Öffnen…</entry>
     <entry key="ContextImportPage.selectFile">Datei auswählen</entry>
     <entry key="ContextImportPage.successMessage">{0} Kontexte wurden erfolgreich importiert.</entry>
-    <entry key="ContextImportPage.unapprovedImports">Unbestätigte Importe</entry>
+    <entry key="ContextImportPage.unverifiedContexts">Ungeprüfte Kontexte</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
@@ -91,12 +91,6 @@
     <entry key="HomePage.resources">Datenbestand</entry>
     <entry key="HomePage.senses">Bedeutungen</entry>
     <entry key="HomePage.users">Benutzer</entry>
-    <entry key="InboundContextSummaryPanel.placeholder">Kein Eintrag vorhanden</entry>
-    <entry key="InboundContextSummaryView.details">Details</entry>
-    <entry key="InboundContextSummaryView.itemLabel">{0} Kontexte aus {1}</entry>
-    <entry key="InboundContextSummaryView.location1">{0} {1}–{2}</entry>
-    <entry key="InboundContextSummaryView.location2">{0} {1} – {2} {3}</entry>
-    <entry key="InboundContextSummaryView.popoverContent">{0}Benutzer{1}Datum{2}Uhrzeit{3}</entry>
     <entry key="InputPanel.insertTag">Tag einfügen</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attribute für Tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
@@ -211,6 +205,11 @@
     </entry>
     <entry key="UnresolvableObjectErrorPage.removeHeader">Löschen nicht möglich</entry>
     <entry key="UnresolvableObjectErrorPage.saveHeader">Speichern nicht möglich</entry>
+    <entry key="UnverifiedContextOverviewPanel.placeholder">Kein Eintrag vorhanden</entry>
+    <entry key="UnverifiedContextOverviewView.itemLabel">{0} Kontexte aus {1}</entry>
+    <entry key="UnverifiedContextOverviewView.location1">{0} {1}–{2}</entry>
+    <entry key="UnverifiedContextOverviewView.location2">{0} {1} – {2} {3}</entry>
+    <entry key="UnverifiedContextOverviewView.popoverContent">{0}Benutzer{1}Datum{2}Uhrzeit{3}</entry>
     <entry key="User.enabled">Aktiviert</entry>
     <entry key="User.password">Kennwort</entry>
     <entry key="User.realName">Klarname</entry>

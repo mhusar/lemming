@@ -1,4 +1,4 @@
-package lemming.context.inbound;
+package lemming.context.verfication;
 
 import lemming.context.BaseContext;
 import org.hibernate.annotations.*;
@@ -17,12 +17,12 @@ import java.sql.Timestamp;
 @Entity
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
-@Table(name = "inbound_context", indexes = {
+@Table(name = "unverified_context", indexes = {
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "checksum"),
         @Index(columnList = "keyword, location"),
         @Index(columnList = "user, timestamp")})
-public class InboundContext extends BaseContext {
+public class UnverifiedContext extends BaseContext {
     /**
      * A timestamp to save the import time of a KWIC index file.
      *

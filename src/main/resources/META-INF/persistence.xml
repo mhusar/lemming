@@ -7,7 +7,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>lemming.character.Character</class>
         <class>lemming.context.Context</class>
-        <class>lemming.context.inbound.InboundContext</class>
+        <class>lemming.context.verfication.UnverifiedContext</class>
         <class>lemming.lemma.Lemma</class>
         <class>lemming.pos.Pos</class>
         <class>lemming.sense.Sense</class>

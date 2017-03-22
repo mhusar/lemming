@@ -5,7 +5,6 @@
     <entry key="AccessDeniedPage.message">Access to the requested page was denied.</entry>
     <entry key="AccessDeniedPage.redirection">Dashboard</entry>
     <entry key="Action.batchProcessing">Batch processing</entry>
-    <entry key="Action.approve">Approve</entry>
     <entry key="Action.cancel">Cancel</entry>
     <entry key="Action.continue">Continue</entry>
     <entry key="Action.correct">Correct</entry>
@@ -23,6 +22,7 @@
     <entry key="Action.submit">Submit</entry>
     <entry key="Action.toHomePage">Back to dashboard</entry>
     <entry key="Action.toIndex">To Index</entry>
+    <entry key="Action.verify">Verify</entry>
     <entry key="Action.view">View</entry>
     <entry key="AlertPanel.error">Error</entry>
     <entry key="AlertPanel.warning">Warning</entry>
@@ -54,7 +54,7 @@
     <entry key="ContextImportPage.open">Open…</entry>
     <entry key="ContextImportPage.selectFile">Select file</entry>
     <entry key="ContextImportPage.successMessage">{0} contexts were successfully imported.</entry>
-    <entry key="ContextImportPage.unapprovedImports">Unapproved imports</entry>
+    <entry key="ContextImportPage.unverifiedContexts">Unverified contexts</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Multiple punctuation elements with the same type are not
@@ -91,12 +91,6 @@
     <entry key="HomePage.resources">Data resources</entry>
     <entry key="HomePage.senses">Senses</entry>
     <entry key="HomePage.users">User management</entry>
-    <entry key="InboundContextSummaryPanel.placeholder">No records found</entry>
-    <entry key="InboundContextSummaryView.details">Details</entry>
-    <entry key="InboundContextSummaryView.itemLabel">{0} contexts from {1}</entry>
-    <entry key="InboundContextSummaryView.location1">{0} {1}–{2}</entry>
-    <entry key="InboundContextSummaryView.location2">{0} {1}–{2} {3}</entry>
-    <entry key="InboundContextSummaryView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
@@ -210,6 +204,11 @@
     </entry>
     <entry key="UnresolvableObjectErrorPage.removeHeader">Deletion not possible</entry>
     <entry key="UnresolvableObjectErrorPage.saveHeader">Saving not possible</entry>
+    <entry key="UnverifiedContextOverviewPanel.placeholder">No records found</entry>
+    <entry key="UnverifiedContextOverviewView.itemLabel">{0} contexts from {1}</entry>
+    <entry key="UnverifiedContextOverviewView.location1">{0} {1}–{2}</entry>
+    <entry key="UnverifiedContextOverviewView.location2">{0} {1}–{2} {3}</entry>
+    <entry key="UnverifiedContextOverviewView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="User.enabled">Activated</entry>
     <entry key="User.password">Password</entry>
     <entry key="User.realName">Real name</entry>
