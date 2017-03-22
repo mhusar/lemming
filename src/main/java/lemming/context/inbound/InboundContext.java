@@ -18,8 +18,8 @@ import java.sql.Timestamp;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "inbound_context", indexes = {
-        @Index(columnList = "checksum", unique = true),
         @Index(columnList = "uuid", unique = true),
+        @Index(columnList = "checksum"),
         @Index(columnList = "keyword, location"),
         @Index(columnList = "user, timestamp")})
 public class InboundContext extends BaseContext {
