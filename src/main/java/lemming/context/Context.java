@@ -22,6 +22,7 @@ import java.io.Serializable;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
+        @Index(columnList = "checksum", unique = true),
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")})
 public class Context extends BaseContext implements Serializable {

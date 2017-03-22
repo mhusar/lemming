@@ -92,6 +92,9 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             context.setUuid(UUID.randomUUID().toString());
         }
 
+        // set checksum for context
+        context.setChecksum(ContextHashing.getSha512(context));
+
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
@@ -140,6 +143,8 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                     context.setUuid(UUID.randomUUID().toString());
                 }
 
+                // set checksum for context
+                context.setChecksum(ContextHashing.getSha512(context));
                 refreshForeignKeyStrings(context);
                 entityManager.persist(context);
                 counter++;
@@ -178,6 +183,9 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
     public Context merge(Context context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
+
+        // set checksum for context
+        context.setChecksum(ContextHashing.getSha512(context));
 
         try {
             transaction = entityManager.getTransaction();

@@ -1,5 +1,6 @@
 package lemming.context.inbound;
 
+import lemming.context.ContextHashing;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import org.hibernate.StaleObjectStateException;
@@ -44,6 +45,9 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
         if (!(context.getUuid() instanceof String)) {
             context.setUuid(UUID.randomUUID().toString());
         }
+
+        // set checksum for context
+        context.setChecksum(ContextHashing.getSha512(context));
 
         try {
             transaction = entityManager.getTransaction();
@@ -92,6 +96,8 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
                     context.setUuid(UUID.randomUUID().toString());
                 }
 
+                // set checksum for context
+                context.setChecksum(ContextHashing.getSha512(context));
                 entityManager.persist(context);
                 counter++;
 
@@ -129,6 +135,9 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
     public InboundContext merge(InboundContext context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
+
+        // set checksum for context
+        context.setChecksum(ContextHashing.getSha512(context));
 
         try {
             transaction = entityManager.getTransaction();

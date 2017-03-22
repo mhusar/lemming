@@ -31,6 +31,15 @@ public abstract class BaseContext implements Serializable {
     private String uuid;
 
     /**
+     * A SHA512 hash of concatenated text elements from the original context.
+     *
+     * @see ContextHashing#getSha512(BaseContext)
+     */
+    @Column(name = "checksum", length = 130, nullable = false)
+    @JsonIgnore
+    private String checksum;
+
+    /**
      * Version number field used for optimistic locking.
      */
     @Column(name = "version")
@@ -121,6 +130,24 @@ public abstract class BaseContext implements Serializable {
      */
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    /**
+     * Returns the checksum of a base context.
+     *
+     * @return A string.
+     */
+    public String getChecksum() {
+        return checksum;
+    }
+
+    /**
+     * Sets the checksum of a context.
+     *
+     * @param checksum checksum string
+     */
+    public void setChecksum(String checksum) {
+        this.checksum = checksum;
     }
 
     /**

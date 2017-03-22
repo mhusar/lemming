@@ -5,6 +5,8 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
 /**
@@ -15,10 +17,11 @@ import java.sql.Timestamp;
 @Entity
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
-@javax.persistence.Table(name = "inbound_context", indexes = {
-        @javax.persistence.Index(columnList = "uuid", unique = true),
-        @javax.persistence.Index(columnList = "keyword, location"),
-        @javax.persistence.Index(columnList = "user, timestamp")})
+@Table(name = "inbound_context", indexes = {
+        @Index(columnList = "checksum", unique = true),
+        @Index(columnList = "uuid", unique = true),
+        @Index(columnList = "keyword, location"),
+        @Index(columnList = "user, timestamp")})
 public class InboundContext extends BaseContext {
     /**
      * A timestamp to save the import time of a KWIC index file.
