@@ -1,6 +1,8 @@
 package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.data.ChecksumEntityListener;
+import lemming.data.UuidEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.util.UUID;
 /**
  * Base class representing a context with a minimum of fields.
  */
+@EntityListeners({ ChecksumEntityListener.class, UuidEntityListener.class })
 @MappedSuperclass
 public abstract class BaseContext implements Serializable {
     /**
@@ -120,34 +123,38 @@ public abstract class BaseContext implements Serializable {
      * @return UUID of a context.
      */
     public String getUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+
         return uuid;
     }
 
     /**
      * Sets the UUID of a context.
-     *
-     * @param uuid the UUID of a context
      */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUuid() {
+        getUuid();
     }
 
     /**
      * Returns the checksum of a base context.
      *
-     * @return A string.
+     * @return A hash string.
      */
     public String getChecksum() {
+        if (checksum == null) {
+            checksum = ContextHashing.getSha512(this);
+        }
+
         return checksum;
     }
 
     /**
      * Sets the checksum of a context.
-     *
-     * @param checksum checksum string
      */
-    public void setChecksum(String checksum) {
-        this.checksum = checksum;
+    public void setChecksum() {
+        checksum = ContextHashing.getSha512(this);
     }
 
     /**
@@ -299,24 +306,16 @@ public abstract class BaseContext implements Serializable {
     /**
      * Indicates if some other object is equal to this one.
      *
-     * @param object the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     * otherwise.
+     * @param other the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || !(object instanceof BaseContext))
-            return false;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof BaseContext)) return false;
 
-        BaseContext context = (BaseContext) object;
-
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.equals(context.getUuid());
+        BaseContext context = (BaseContext) other;
+        return getUuid().equals(context.getUuid());
     }
 
     /**
@@ -326,10 +325,6 @@ public abstract class BaseContext implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.hashCode();
+        return getUuid().hashCode();
     }
 }

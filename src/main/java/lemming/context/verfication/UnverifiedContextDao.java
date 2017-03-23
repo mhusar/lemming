@@ -1,6 +1,5 @@
 package lemming.context.verfication;
 
-import lemming.context.ContextHashing;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import org.hibernate.StaleObjectStateException;
@@ -12,7 +11,6 @@ import javax.persistence.TypedQuery;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for unverified contexts.
@@ -41,13 +39,6 @@ public class UnverifiedContextDao extends GenericDao<UnverifiedContext> implemen
     public void persist(UnverifiedContext context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-
-        if (!(context.getUuid() instanceof String)) {
-            context.setUuid(UUID.randomUUID().toString());
-        }
-
-        // set checksum for context
-        context.setChecksum(ContextHashing.getSha512(context));
 
         try {
             transaction = entityManager.getTransaction();
@@ -91,13 +82,6 @@ public class UnverifiedContextDao extends GenericDao<UnverifiedContext> implemen
 
             for (UnverifiedContext context : contexts) {
                 currentContext = context;
-
-                if (!(context.getUuid() instanceof String)) {
-                    context.setUuid(UUID.randomUUID().toString());
-                }
-
-                // set checksum for context
-                context.setChecksum(ContextHashing.getSha512(context));
                 entityManager.persist(context);
                 counter++;
 
@@ -135,9 +119,6 @@ public class UnverifiedContextDao extends GenericDao<UnverifiedContext> implemen
     public UnverifiedContext merge(UnverifiedContext context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-
-        // set checksum for context
-        context.setChecksum(ContextHashing.getSha512(context));
 
         try {
             transaction = entityManager.getTransaction();

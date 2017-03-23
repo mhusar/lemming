@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for contexts.
@@ -88,13 +87,6 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(context.getUuid() instanceof String)) {
-            context.setUuid(UUID.randomUUID().toString());
-        }
-
-        // set checksum for context
-        context.setChecksum(ContextHashing.getSha512(context));
-
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
@@ -138,13 +130,6 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
 
             for (Context context : contexts) {
                 currentContext = context;
-
-                if (!(context.getUuid() instanceof String)) {
-                    context.setUuid(UUID.randomUUID().toString());
-                }
-
-                // set checksum for context
-                context.setChecksum(ContextHashing.getSha512(context));
                 refreshForeignKeyStrings(context);
                 entityManager.persist(context);
                 counter++;
@@ -183,9 +168,6 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
     public Context merge(Context context) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-
-        // set checksum for context
-        context.setChecksum(ContextHashing.getSha512(context));
 
         try {
             transaction = entityManager.getTransaction();
