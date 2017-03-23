@@ -38,7 +38,7 @@ public class ChecksumEntityListener {
      * @param input input string
      * @return A string representation of a SHA512 hash.
      */
-    private static String getSha512(String input) {
+    private String getSha512(String input) {
         return Hashing.sha512().hashString(input, StandardCharsets.UTF_8).toString();
     }
 
@@ -48,7 +48,7 @@ public class ChecksumEntityListener {
      * @param context a base context
      * @return A string of arbitrary length.
      */
-    private static String getString(BaseContext context) {
+    private String getString(BaseContext context) {
         return String.join("\u001F\u001F", new String[] {
                 context.getPreceding(),
                 Optional.ofNullable(context.getInitPunctuation()).orElse(""),
@@ -63,7 +63,7 @@ public class ChecksumEntityListener {
      *
      * @param object an object
      */
-    public static void setChecksum(Object object) {
+    private void setChecksum(Object object) {
         if (object instanceof BaseContext) {
             BaseContext context = (BaseContext) object;
             context.setChecksum(getSha512(getString(context)));

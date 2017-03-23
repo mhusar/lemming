@@ -114,10 +114,6 @@ public abstract class BaseContext implements Serializable {
      * @return A hash string.
      */
     public String getChecksum() {
-        if (checksum == null) {
-            ChecksumEntityListener.setChecksum(this);
-        }
-
         return checksum;
     }
 
