@@ -270,7 +270,7 @@ public class Sense extends DatedEntity implements Serializable {
     @Override
     public int hashCode() {
         if (getId() == null) {
-            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+            throw new IllegalStateException("Can’t create a hash code for a non-persistent object");
         }
 
         return getId();

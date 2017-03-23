@@ -68,7 +68,7 @@ public class ChecksumEntityListener {
             BaseContext context = (BaseContext) object;
             context.setChecksum(getSha512(getString(context)));
         } else {
-            throw new IllegalStateException("Can’t set a checksum to an unknown class");
+            throw new IllegalStateException("Unknown entity: " + object.getClass().getCanonicalName());
         }
     }
 }
