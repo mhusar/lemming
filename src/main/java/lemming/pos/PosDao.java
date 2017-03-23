@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for parts of speech.
@@ -60,10 +59,6 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
     public void persist(Pos pos) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-
-        if (!(pos.getUuid() instanceof String)) {
-            pos.setUuid(UUID.randomUUID().toString());
-        }
 
         try {
             transaction = entityManager.getTransaction();

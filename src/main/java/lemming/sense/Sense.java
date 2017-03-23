@@ -2,6 +2,7 @@ package lemming.sense;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
+import lemming.data.UuidEntityListener;
 import lemming.lemma.Lemma;
 import org.hibernate.annotations.*;
 
@@ -20,6 +21,7 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
+@EntityListeners({ UuidEntityListener.class })
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "sense", indexes = {
@@ -108,7 +110,7 @@ public class Sense extends DatedEntity implements Serializable {
     /**
      * Sets the ID of a sense.
      *
-     * @param id the ID of a sense
+     * @param id ID of a sense
      */
     @SuppressWarnings("unused")
     private void setId(Integer id) {
@@ -121,16 +123,18 @@ public class Sense extends DatedEntity implements Serializable {
      * @return UUID of a sense.
      */
     public String getUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+
         return uuid;
     }
 
     /**
      * Sets the UUID of a sense.
-     *
-     * @param uuid the UUID of a sense
      */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUuid() {
+        getUuid();
     }
 
     /**
@@ -276,24 +280,16 @@ public class Sense extends DatedEntity implements Serializable {
     /**
      * Indicates if some other object is equal to this one.
      *
-     * @param object the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     * otherwise.
+     * @param other the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || !(object instanceof Sense))
-            return false;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof Sense)) return false;
 
-        Sense sense = (Sense) object;
-
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.equals(sense.getUuid());
+        Sense sense = (Sense) other;
+        return getUuid().equals(sense.getUuid());
     }
 
     /**
@@ -303,10 +299,6 @@ public class Sense extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.hashCode();
+        return getUuid().hashCode();
     }
 }

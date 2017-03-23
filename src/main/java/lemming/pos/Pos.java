@@ -3,6 +3,7 @@ package lemming.pos;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
 import lemming.data.Source;
+import lemming.data.UuidEntityListener;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
+@EntityListeners({ UuidEntityListener.class })
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "pos", indexes = {
@@ -89,16 +91,18 @@ public class Pos extends DatedEntity implements Serializable {
      * @return UUID of a part of speech.
      */
     public String getUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+
         return uuid;
     }
 
     /**
      * Sets the UUID of a part of speech.
-     *
-     * @param uuid the UUID of a part of speech
      */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUuid() {
+        getUuid();
     }
 
     /**
@@ -160,24 +164,16 @@ public class Pos extends DatedEntity implements Serializable {
     /**
      * Indicates if some other object is equal to this one.
      *
-     * @param object the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     * otherwise.
+     * @param other the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || !(object instanceof Pos))
-            return false;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof Pos)) return false;
 
-        Pos pos = (Pos) object;
-
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.equals(pos.getUuid());
+        Pos pos = (Pos) other;
+        return getUuid().equals(pos.getUuid());
     }
 
     /**
@@ -187,10 +183,6 @@ public class Pos extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.hashCode();
+        return getUuid().hashCode();
     }
 }

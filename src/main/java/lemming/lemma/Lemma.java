@@ -3,6 +3,7 @@ package lemming.lemma;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
 import lemming.data.Source;
+import lemming.data.UuidEntityListener;
 import lemming.pos.Pos;
 import lemming.user.User;
 import org.hibernate.annotations.*;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
+@EntityListeners({ UuidEntityListener.class })
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
@@ -138,16 +140,18 @@ public class Lemma extends DatedEntity implements Serializable {
      * @return UUID of a lemma.
      */
     public String getUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+
         return uuid;
     }
 
     /**
      * Sets the UUID of a lemma.
-     *
-     * @param uuid the UUID of a lemma
      */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUuid() {
+        getUuid();
     }
 
     /**
@@ -325,24 +329,16 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Indicates if some other object is equal to this one.
      *
-     * @param object the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     * otherwise.
+     * @param other the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || !(object instanceof Lemma))
-            return false;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof Lemma)) return false;
 
-        Lemma lemma = (Lemma) object;
-
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.equals(lemma.getUuid());
+        Lemma lemma = (Lemma) other;
+        return getUuid().equals(lemma.getUuid());
     }
 
     /**
@@ -352,10 +348,6 @@ public class Lemma extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.hashCode();
+        return getUuid().hashCode();
     }
 }

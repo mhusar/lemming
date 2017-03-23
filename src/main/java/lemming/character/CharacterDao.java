@@ -7,14 +7,12 @@ import org.hibernate.UnresolvableObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for special
@@ -45,10 +43,6 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
     public void persist(Character character) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-
-        if (!(character.getUuid() instanceof String)) {
-            character.setUuid(UUID.randomUUID().toString());
-        }
 
         try {
             transaction = entityManager.getTransaction();

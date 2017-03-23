@@ -1,29 +1,18 @@
 package lemming.user;
 
+import lemming.auth.UserRoles;
+import lemming.data.DatedEntity;
+import lemming.data.UuidEntityListener;
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Version;
-
-import lemming.data.DatedEntity;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.OptimisticLockType;
-import org.hibernate.annotations.OptimisticLocking;
-import org.hibernate.annotations.SelectBeforeUpdate;
-
-import lemming.auth.UserRoles;
 
 /**
  * Represents a user with one role.
@@ -31,6 +20,7 @@ import lemming.auth.UserRoles;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
+@EntityListeners({ UuidEntityListener.class })
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @SelectBeforeUpdate
 @Table(name = "user", indexes = { @Index(columnList = "uuid", unique = true),
@@ -127,21 +117,22 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the UUID of a user.
-     * 
+     *
      * @return UUID of a user.
      */
     public String getUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+
         return uuid;
     }
 
     /**
      * Sets the UUID of a user.
-     * 
-     * @param uuid
-     *            the UUID of a user
      */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUuid() {
+        getUuid();
     }
 
     /**
@@ -294,39 +285,26 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Indicates if some other object is equal to this one.
-     * 
-     * @param object
-     *            the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     *         otherwise.
+     *
+     * @param other the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || !(object instanceof User))
-            return false;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof User)) return false;
 
-        User user = (User) object;
-
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.equals(user.getUuid());
+        User user = (User) other;
+        return getUuid().equals(user.getUuid());
     }
 
     /**
      * Returns a hash code value for a user.
-     * 
+     *
      * @return A hash code value for a user.
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid.hashCode();
+        return getUuid().hashCode();
     }
 }

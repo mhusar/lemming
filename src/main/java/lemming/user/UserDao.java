@@ -22,7 +22,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for users.
@@ -70,10 +69,6 @@ public class UserDao extends GenericDao<User> implements IUserDao {
     public void persist(User user) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
-
-        if (!(user.getUuid() instanceof String)) {
-            user.setUuid(UUID.randomUUID().toString());
-        }
 
         try {
             transaction = entityManager.getTransaction();

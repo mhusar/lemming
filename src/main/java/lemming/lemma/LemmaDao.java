@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Represents a Data Access Object providing data operations for lemmata.
@@ -105,10 +104,6 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(lemma.getUuid() instanceof String)) {
-            lemma.setUuid(UUID.randomUUID().toString());
-        }
-
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
@@ -152,11 +147,6 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
 
             for (Lemma lemma : lemmas) {
                 currentLemma = lemma;
-
-                if (!(lemma.getUuid() instanceof String)) {
-                    lemma.setUuid(UUID.randomUUID().toString());
-                }
-
                 refreshForeignKeyStrings(entityManager, lemma);
                 entityManager.persist(lemma);
                 counter++;
