@@ -27,7 +27,7 @@ public abstract class BaseContext implements Serializable {
     /**
      * A SHA512 hash of concatenated text elements from the original context.
      *
-     * @see ContextHashing#getSha512(BaseContext)
+     * @see ChecksumEntityListener
      */
     @Column(name = "checksum", length = 130, nullable = false)
     @JsonIgnore
@@ -115,7 +115,7 @@ public abstract class BaseContext implements Serializable {
      */
     public String getChecksum() {
         if (checksum == null) {
-            checksum = ContextHashing.getSha512(this);
+            ChecksumEntityListener.setChecksum(this);
         }
 
         return checksum;
@@ -124,8 +124,8 @@ public abstract class BaseContext implements Serializable {
     /**
      * Sets the checksum of a context.
      */
-    public void setChecksum() {
-        checksum = ContextHashing.getSha512(this);
+    public void setChecksum(String checksum) {
+        this.checksum = checksum;
     }
 
     /**
