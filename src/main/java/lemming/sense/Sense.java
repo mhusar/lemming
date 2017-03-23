@@ -2,7 +2,6 @@ package lemming.sense;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
-import lemming.data.UuidEntityListener;
 import lemming.lemma.Lemma;
 import org.hibernate.annotations.*;
 
@@ -13,7 +12,6 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Class representing a sense.
@@ -21,12 +19,11 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
-@EntityListeners({ UuidEntityListener.class })
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "sense", indexes = {
-        @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "meaning, parent_position, child_position, lemma_string")})
+        @Index(columnList = "meaning, parent_position, child_position, lemma_string")
+})
 public class Sense extends DatedEntity implements Serializable {
     /**
      * ID associated with a sense.
@@ -34,13 +31,6 @@ public class Sense extends DatedEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * A UUID used to distinguish senses.
-     */
-    @Column(name = "uuid", nullable = false)
-    @JsonIgnore
-    private String uuid;
 
     /**
      * Version number field used for optimistic locking.
@@ -115,26 +105,6 @@ public class Sense extends DatedEntity implements Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returns the UUID of a sense.
-     *
-     * @return UUID of a sense.
-     */
-    public String getUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of a sense.
-     */
-    public void setUuid() {
-        getUuid();
     }
 
     /**
@@ -289,7 +259,7 @@ public class Sense extends DatedEntity implements Serializable {
         if (other == null || !(other instanceof Sense)) return false;
 
         Sense sense = (Sense) other;
-        return getUuid().equals(sense.getUuid());
+        return getId() != null && getId().equals(sense.getId());
     }
 
     /**
@@ -299,6 +269,10 @@ public class Sense extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        return getUuid().hashCode();
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+        }
+
+        return getId();
     }
 }

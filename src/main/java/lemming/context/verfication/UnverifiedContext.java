@@ -18,7 +18,6 @@ import java.sql.Timestamp;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "unverified_context", indexes = {
-        @Index(columnList = "uuid", unique = true),
         @Index(columnList = "checksum"),
         @Index(columnList = "keyword, location"),
         @Index(columnList = "user, timestamp")})

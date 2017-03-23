@@ -1,16 +1,13 @@
 package lemming.character;
 
 import lemming.data.DatedEntity;
-import lemming.data.UuidEntityListener;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Represents a special character.
@@ -18,13 +15,12 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
-@EntityListeners({ UuidEntityListener.class })
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @SelectBeforeUpdate
 @Table(name = "\"character\"", indexes = {
         @Index(columnList = "`character`", unique = true),
-        @Index(columnList = "position", unique = true),
-        @Index(columnList = "uuid", unique = true) })
+        @Index(columnList = "position", unique = true)
+})
 public class Character extends DatedEntity implements Serializable {
     /**
      * ID associated with a special character.
@@ -32,12 +28,6 @@ public class Character extends DatedEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * A UUID used to distinguish characters.
-     */
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
 
     /**
      * Version number field used for optimistic locking.
@@ -82,26 +72,6 @@ public class Character extends DatedEntity implements Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returns the UUID of a character.
-     *
-     * @return UUID of a character.
-     */
-    public String getUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of a character.
-     */
-    public void setUuid() {
-        getUuid();
     }
 
     /**
@@ -175,7 +145,7 @@ public class Character extends DatedEntity implements Serializable {
         if (other == null || !(other instanceof Character)) return false;
 
         Character character = (Character) other;
-        return getUuid().equals(character.getUuid());
+        return getId() != null && getId().equals(character.getId());
     }
 
     /**
@@ -185,6 +155,10 @@ public class Character extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        return getUuid().hashCode();
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+        }
+
+        return getId();
     }
 }

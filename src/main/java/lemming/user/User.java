@@ -2,17 +2,14 @@ package lemming.user;
 
 import lemming.auth.UserRoles;
 import lemming.data.DatedEntity;
-import lemming.data.UuidEntityListener;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.security.Principal;
-import java.util.UUID;
 
 /**
  * Represents a user with one role.
@@ -20,12 +17,12 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
-@EntityListeners({ UuidEntityListener.class })
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @SelectBeforeUpdate
-@Table(name = "user", indexes = { @Index(columnList = "uuid", unique = true),
+@Table(name = "user", indexes = {
         @Index(columnList = "username", unique = true),
-        @Index(columnList = "real_name", unique = true) })
+        @Index(columnList = "real_name", unique = true)
+})
 public class User extends DatedEntity implements Principal, Serializable {
     /**
      * ID associated with a user.
@@ -33,12 +30,6 @@ public class User extends DatedEntity implements Principal, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * A UUID used to distinguish users.
-     */
-    @Column(name = "uuid", nullable = false)
-    private String uuid;
 
     /**
      * Version number field used for optimistic locking.
@@ -113,26 +104,6 @@ public class User extends DatedEntity implements Principal, Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returns the UUID of a user.
-     *
-     * @return UUID of a user.
-     */
-    public String getUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of a user.
-     */
-    public void setUuid() {
-        getUuid();
     }
 
     /**
@@ -295,7 +266,7 @@ public class User extends DatedEntity implements Principal, Serializable {
         if (other == null || !(other instanceof User)) return false;
 
         User user = (User) other;
-        return getUuid().equals(user.getUuid());
+        return getId() != null && getId().equals(user.getId());
     }
 
     /**
@@ -305,6 +276,10 @@ public class User extends DatedEntity implements Principal, Serializable {
      */
     @Override
     public int hashCode() {
-        return getUuid().hashCode();
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+        }
+
+        return getId();
     }
 }

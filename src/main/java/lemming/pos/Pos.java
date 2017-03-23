@@ -1,9 +1,7 @@
 package lemming.pos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
 import lemming.data.Source;
-import lemming.data.UuidEntityListener;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -11,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Class representing a part of speech.
@@ -19,12 +16,11 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
-@EntityListeners({ UuidEntityListener.class })
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "pos", indexes = {
-        @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "name, source")})
+        @Index(columnList = "name, source")
+})
 public class Pos extends DatedEntity implements Serializable {
     /**
      * ID associated with a part of speech.
@@ -32,13 +28,6 @@ public class Pos extends DatedEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * A UUID used to distinguish parts of speech.
-     */
-    @Column(name = "uuid", nullable = false)
-    @JsonIgnore
-    private String uuid;
 
     /**
      * Version number field used for optimistic locking.
@@ -83,26 +72,6 @@ public class Pos extends DatedEntity implements Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returns the UUID of a part of speech.
-     *
-     * @return UUID of a part of speech.
-     */
-    public String getUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of a part of speech.
-     */
-    public void setUuid() {
-        getUuid();
     }
 
     /**
@@ -173,7 +142,7 @@ public class Pos extends DatedEntity implements Serializable {
         if (other == null || !(other instanceof Pos)) return false;
 
         Pos pos = (Pos) other;
-        return getUuid().equals(pos.getUuid());
+        return getId() != null && getId().equals(pos.getId());
     }
 
     /**
@@ -183,6 +152,10 @@ public class Pos extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        return getUuid().hashCode();
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+        }
+
+        return getId();
     }
 }

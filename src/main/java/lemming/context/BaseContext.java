@@ -2,16 +2,14 @@ package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.ChecksumEntityListener;
-import lemming.data.UuidEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Base class representing a context with a minimum of fields.
  */
-@EntityListeners({ ChecksumEntityListener.class, UuidEntityListener.class })
+@EntityListeners({ ChecksumEntityListener.class })
 @MappedSuperclass
 public abstract class BaseContext implements Serializable {
     /**
@@ -25,13 +23,6 @@ public abstract class BaseContext implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * A UUID used to distinguish contexts.
-     */
-    @Column(name = "uuid", nullable = false)
-    @JsonIgnore
-    private String uuid;
 
     /**
      * A SHA512 hash of concatenated text elements from the original context.
@@ -115,26 +106,6 @@ public abstract class BaseContext implements Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returns the UUID of a context.
-     *
-     * @return UUID of a context.
-     */
-    public String getUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of a context.
-     */
-    public void setUuid() {
-        getUuid();
     }
 
     /**
@@ -315,7 +286,7 @@ public abstract class BaseContext implements Serializable {
         if (other == null || !(other instanceof BaseContext)) return false;
 
         BaseContext context = (BaseContext) other;
-        return getUuid().equals(context.getUuid());
+        return getId() != null && getId().equals(context.getId());
     }
 
     /**
@@ -325,6 +296,10 @@ public abstract class BaseContext implements Serializable {
      */
     @Override
     public int hashCode() {
-        return getUuid().hashCode();
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+        }
+
+        return getId();
     }
 }

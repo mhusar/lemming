@@ -3,7 +3,6 @@ package lemming.lemma;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
 import lemming.data.Source;
-import lemming.data.UuidEntityListener;
 import lemming.pos.Pos;
 import lemming.user.User;
 import org.hibernate.annotations.*;
@@ -13,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Class representing a lemma.
@@ -21,12 +19,11 @@ import java.util.UUID;
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
-@EntityListeners({ UuidEntityListener.class })
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
-        @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "name, replacement_string, pos_string, source, reference")})
+	@Index(columnList = "name, replacement_string, pos_string, source, reference")
+})
 public class Lemma extends DatedEntity implements Serializable {
     /**
      * ID associated with a lemma.
@@ -34,13 +31,6 @@ public class Lemma extends DatedEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    /**
-     * A UUID used to distinguish lemmata.
-     */
-    @Column(name = "uuid", nullable = false)
-    @JsonIgnore
-    private String uuid;
 
     /**
      * Version number field used for optimistic locking.
@@ -132,26 +122,6 @@ public class Lemma extends DatedEntity implements Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
-    }
-
-    /**
-     * Returns the UUID of a lemma.
-     *
-     * @return UUID of a lemma.
-     */
-    public String getUuid() {
-        if (uuid == null) {
-            uuid = UUID.randomUUID().toString();
-        }
-
-        return uuid;
-    }
-
-    /**
-     * Sets the UUID of a lemma.
-     */
-    public void setUuid() {
-        getUuid();
     }
 
     /**
@@ -338,7 +308,7 @@ public class Lemma extends DatedEntity implements Serializable {
         if (other == null || !(other instanceof Lemma)) return false;
 
         Lemma lemma = (Lemma) other;
-        return getUuid().equals(lemma.getUuid());
+        return getId() != null && getId().equals(lemma.getId());
     }
 
     /**
@@ -348,6 +318,10 @@ public class Lemma extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        return getUuid().hashCode();
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code from a non-persistent object");
+        }
+
+        return getId();
     }
 }
