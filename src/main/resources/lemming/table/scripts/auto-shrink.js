@@ -2,7 +2,7 @@ function autoShrink(table) {
     var tableWidth = jQuery(table).innerWidth(), parentWidth = jQuery(table).parent().innerWidth();
 
     if (tableWidth > parentWidth) {
-        var columnWidthSum = 0, columnWidths = [], tableWidthDifference = tableWidth - parentWidth, newColumnWidth;
+        var columnWidthSum = 0, columnWidths = [], excessWidth = tableWidth - parentWidth;
 
         jQuery(table).find("tbody tr").first().find("td.auto-shrink").each(function (index, column) {
             var width = jQuery(column).innerWidth();
@@ -10,17 +10,23 @@ function autoShrink(table) {
             columnWidths.push(width);
         });
 
-        if (columnWidths.length === 0 || tableWidthDifference >= columnWidthSum) {
+        if (columnWidths.length === 0 || excessWidth >= columnWidthSum) {
             return;
+        } else if (columnWidths.length == 1) {
+            columnWidths[0] = columnWidths[0] - excessWidth;
+        } else {
+            while (excessWidth > 0) {
+                var maxValueIndex = columnWidths.indexOf(Math.max.apply(null, columnWidths));
+                columnWidths[maxValueIndex] -= 10;
+                excessWidth -= 10;
+            }
         }
-
-        newColumnWidth = (columnWidthSum - tableWidthDifference) / columnWidths.length;
 
         jQuery(table).find("tbody tr").each(function (index, row) {
             jQuery(row).find("td.auto-shrink").each(function (index, column) {
                 var width = jQuery("span", column).width();
 
-                while (width > newColumnWidth) {
+                while (width > columnWidths[index]) {
                     var text = jQuery("span.string", column).text();
 
                     if (jQuery(column).hasClass("auto-shrink-left")) {
