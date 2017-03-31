@@ -24,8 +24,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
@@ -156,21 +154,6 @@ public class LemmatizationPage extends EmptyBasePage {
                 "following"));
 
         return columns;
-    }
-
-    /**
-     * Renders to the web response what the component wants to contribute.
-     *
-     * @param response response object
-     */
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-        // focus autofocus input when it becomes visible
-        String javaScript = "jQuery(window).on('resize scroll', jQuery.debounce(250, function() { " +
-                "var autofocusInput = jQuery('input[autofocus]').first(); " +
-                "if (autofocusInput.length && autofocusInput.isInViewport()) { " +
-                "jQuery('input[autofocus]').first().focus(); } }));";
-        response.render(OnDomReadyHeaderItem.forScript(javaScript));
     }
 
     /**
@@ -334,5 +317,4 @@ public class LemmatizationPage extends EmptyBasePage {
             setPosPanel.show(target);
         }
     }
-
 }
