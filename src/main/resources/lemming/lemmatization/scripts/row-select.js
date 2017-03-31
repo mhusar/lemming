@@ -203,17 +203,18 @@ function selectRows(allRows, minIndex, maxIndex) {
     });
 }
 
-jQuery(document).on("click", "table.selectable tbody tr", function (event) {
-    if (event.shiftKey) {
-        onShiftSelect(this);
-    } else if (event.ctrlKey || event.metaKey) {
-        onCtrlSelect(this);
-    } else {
-        onSelect(this);
-    }
+jQuery(document)
+    .on("click", "table.selectable tbody tr", function (event) {
+        if (event.shiftKey) {
+            onShiftSelect(this);
+        } else if (event.ctrlKey || event.metaKey) {
+            onCtrlSelect(this);
+        } else {
+            onSelect(this);
+        }
 
-    event.stopPropagation();
-}).on("mousedown", function (event) {
+        event.stopPropagation();
+    }).on("mousedown", "table.selectable tbody td", function (event) {
     // disable native table cell selection in firefox
     event.preventDefault();
 });
