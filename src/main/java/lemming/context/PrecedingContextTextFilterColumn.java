@@ -55,7 +55,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
         Context context = rowModel.getObject();
         item.add(new ContextPanel(componentId, context.getPreceding(), context.getInitPunctuation()))
-                .add(AttributeModifier.append("class", "preceding auto-shrink"));
+                .add(AttributeModifier.append("class", "preceding auto-shrink auto-shrink-left"));
     }
 
     /**
@@ -79,8 +79,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
          */
         public ContextPanel(String id, String preceding, String punctuation) {
             super(id);
-            //add(new Label("contextText", preceding.trim()).add(AttributeModifier.append("title", preceding.trim())));
-            String label = preceding;
+            String label = "<span class='string'>" + preceding + "</span>";
             String titleString = preceding.trim();
 
             if (punctuation instanceof String) {

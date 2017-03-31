@@ -79,7 +79,7 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
          */
         public ContextPanel(String id, String following, String punctuation) {
             super(id);
-            String label = following;
+            String label = "<span class='string'>" + following  + "</span>";
             String titleString = following.trim();
 
             if (punctuation instanceof String) {

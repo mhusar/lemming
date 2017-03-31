@@ -18,7 +18,20 @@ function autoShrink(table) {
 
         jQuery(table).find("tbody tr").each(function (index, row) {
             jQuery(row).find("td.auto-shrink").each(function (index, column) {
-                jQuery(column).addClass("overflow").css("max-width", newColumnWidth + "px");
+                var width = jQuery("span", column).width();
+
+                while (width > newColumnWidth) {
+                    var text = jQuery("span.string", column).text();
+
+                    if (jQuery(column).hasClass("auto-shrink-left")) {
+                        text = "…" + text.replace(/^…/, "").substring(1).replace(/^\s+/, "");
+                    } else {
+                        text = text.replace(/\…$/, "").slice(0, -1).replace(/\s+$/, "") + "…";
+                    }
+
+                    jQuery("span.string", column).text(text);
+                    width = jQuery("span", column).width();
+                }
             });
         });
     }

@@ -263,10 +263,18 @@ table {
   width: 100%;
 }
 
+.table > tbody > tr > td.auto-shrink > div {
+  overflow: visible;
+  text-overflow: initial;
+}
+
+.table > tbody > tr > td.auto-shrink > div > span {
+  display: inline-block;
+}
+
 .table > tbody > tr > .preceding,
 .table > tfoot > tr > .preceding,
 .table > thead > tr > .preceding {
-  direction: rtl;
   text-align: right;
 }
 
