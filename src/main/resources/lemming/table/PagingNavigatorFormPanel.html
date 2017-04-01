@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:panel>
+    <form wicket:id="navigatorForm">
+        <div class="input-group">
+            <input wicket:id="page" type="text" class="form-control"
+                   wicket:message="placeholder:PagingNavigatorFormPanel.Page" autocomplete="off"/>
+            <span class="input-group-btn">
+                <button wicket:id="gotoButton" class="btn btn-default" type="submit">
+                    <wicket:message key="Action.go"></wicket:message>
+                </button>
+            </span>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

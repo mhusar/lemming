@@ -13,6 +13,7 @@
     <entry key="Action.done">Done</entry>
     <entry key="Action.edit">Edit</entry>
     <entry key="Action.filter">Filter</entry>
+    <entry key="Action.go">Go</entry>
     <entry key="Action.intermediateStorage">Intermediate storage</entry>
     <entry key="Action.open">Open</entry>
     <entry key="Action.remove">Remove</entry>
@@ -125,6 +126,7 @@
     <entry key="PagingNavigator.prevItem">Previous</entry>
     <entry key="PagingNavigator.nextItem">Next</entry>
     <entry key="PagingNavigator.lastItem">End</entry>
+    <entry key="PagingNavigatorFormPanel.Page">Page</entry>
     <entry key="Pos.name">Part of speech</entry>
     <entry key="Pos.source">Source</entry>
     <entry key="PosDeleteConfirmPanel.confirm">Delete part of speech</entry>

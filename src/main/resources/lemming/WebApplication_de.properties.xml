@@ -13,6 +13,7 @@
     <entry key="Action.done">Fertig</entry>
     <entry key="Action.edit">Bearbeiten</entry>
     <entry key="Action.filter">Filtern</entry>
+    <entry key="Action.go">Los</entry>
     <entry key="Action.intermediateStorage">Zwischenspeichern</entry>
     <entry key="Action.open">Öffnen</entry>
     <entry key="Action.remove">Entfernen</entry>
@@ -125,6 +126,7 @@
     <entry key="PagingNavigator.prevItem">Zurück</entry>
     <entry key="PagingNavigator.nextItem">Weiter</entry>
     <entry key="PagingNavigator.lastItem">Ende</entry>
+    <entry key="PagingNavigatorFormPanel.Page">Seite</entry>
     <entry key="Pos.name">Wortart</entry>
     <entry key="Pos.source">Herkunft</entry>
     <entry key="PosDeleteConfirmPanel.confirm">Wortart löschen</entry>
