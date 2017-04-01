@@ -13,13 +13,13 @@
     <entry key="Action.done">Done</entry>
     <entry key="Action.edit">Edit</entry>
     <entry key="Action.filter">Filter</entry>
-    <entry key="Action.toHomePage">Back to dashboard</entry>
-    <entry key="Action.toIndex">To Index</entry>
     <entry key="Action.intermediateStorage">Intermediate storage</entry>
     <entry key="Action.open">Open</entry>
     <entry key="Action.remove">Remove</entry>
     <entry key="Action.save">Save</entry>
     <entry key="Action.submit">Submit</entry>
+    <entry key="Action.toHomePage">Back to dashboard</entry>
+    <entry key="Action.toIndex">To Index</entry>
     <entry key="Action.view">View</entry>
     <entry key="AlertPanel.error">Error</entry>
     <entry key="AlertPanel.warning">Warning</entry>
