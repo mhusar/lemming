@@ -1,5 +1,6 @@
 package lemming.pos;
 
+import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
 import lemming.context.ContextDao;
 import lemming.lemma.LemmaDao;
@@ -9,6 +10,7 @@ import lemming.user.User;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
@@ -76,44 +78,45 @@ public class PosActionPanelColumn extends FilterPanelColumn<Pos> {
          */
         public ActionPanel(String id, final IModel<Pos> model) {
             super(id, model);
-            User sessionUser = WebSession.get().getUser();
 
-            if (sessionUser instanceof User) {
-                add(new AjaxLink<Void>("editLink") {
-                    /**
-                     * Determines if a deserialized file is compatible with
-                     * this class.
-                     */
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        setResponsePage(new PosEditPage(model, getPage().getPageClass()));
-                    }
-                });
-                add(new AjaxLink<Void>("deleteLink") {
-                    /**
-                     * Determines if a deserialized file is compatible with
-                     * this class.
-                     */
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        ModalMessagePanel posDeleteConfirmPanel = (ModalMessagePanel) getPage()
-                                .get("posDeleteConfirmPanel");
-                        ModalMessagePanel posDeleteDeniedPanel = (ModalMessagePanel) getPage()
-                                .get("posDeleteDeniedPanel");
-
-                        if (new ContextDao().findByPos(model.getObject()).isEmpty() &&
-                                new LemmaDao().findByPos(model.getObject()).isEmpty()) {
-                            posDeleteConfirmPanel.show(target, model);
-                        } else {
-                            posDeleteDeniedPanel.show(target, model);
-                        }
-                    }
-                });
+            if (WebSession.get().getUser() == null) {
+                setResponsePage(SignInPage.class);
             }
+
+            add(new Link<Void>("editLink") {
+                /**
+                 * Determines if a deserialized file is compatible with
+                 * this class.
+                 */
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onClick() {
+                    setResponsePage(new PosEditPage(model, getPage().getPageClass()));
+                }
+            });
+            add(new AjaxLink<Void>("deleteLink") {
+                /**
+                 * Determines if a deserialized file is compatible with
+                 * this class.
+                 */
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    ModalMessagePanel posDeleteConfirmPanel = (ModalMessagePanel) getPage()
+                            .get("posDeleteConfirmPanel");
+                    ModalMessagePanel posDeleteDeniedPanel = (ModalMessagePanel) getPage()
+                            .get("posDeleteDeniedPanel");
+
+                    if (new ContextDao().findByPos(model.getObject()).isEmpty() &&
+                            new LemmaDao().findByPos(model.getObject()).isEmpty()) {
+                        posDeleteConfirmPanel.show(target, model);
+                    } else {
+                        posDeleteDeniedPanel.show(target, model);
+                    }
+                }
+            });
         }
     }
 }

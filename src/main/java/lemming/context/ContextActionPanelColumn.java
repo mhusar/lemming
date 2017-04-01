@@ -1,5 +1,6 @@
 package lemming.context;
 
+import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
 import lemming.table.FilterPanelColumn;
 import lemming.ui.panel.ModalMessagePanel;
@@ -7,6 +8,7 @@ import lemming.user.User;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
@@ -74,37 +76,38 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
          */
         public ActionPanel(String id, final IModel<Context> model) {
             super(id, model);
-            User sessionUser = WebSession.get().getUser();
 
-            if (sessionUser instanceof User) {
-                add(new AjaxLink<Void>("editLink") {
-                    /**
-                     * Determines if a deserialized file is compatible with
-                     * this class.
-                     */
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        setResponsePage(new ContextEditPage(model, getPage().getPageClass()));
-                    }
-                });
-                add(new AjaxLink<Void>("deleteLink") {
-                    /**
-                     * Determines if a deserialized file is compatible with
-                     * this class.
-                     */
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        ModalMessagePanel contextDeleteConfirmPanel = (ModalMessagePanel) getPage()
-                                .get("contextDeleteConfirmPanel");
-
-                        contextDeleteConfirmPanel.show(target, model);
-                    }
-                });
+            if (WebSession.get().getUser() == null) {
+                setResponsePage(SignInPage.class);
             }
+
+            add(new Link<Void>("editLink") {
+                /**
+                 * Determines if a deserialized file is compatible with
+                 * this class.
+                 */
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onClick() {
+                    setResponsePage(new ContextEditPage(model, getPage().getPageClass()));
+                }
+            });
+            add(new AjaxLink<Void>("deleteLink") {
+                /**
+                 * Determines if a deserialized file is compatible with
+                 * this class.
+                 */
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void onClick(AjaxRequestTarget target) {
+                    ModalMessagePanel contextDeleteConfirmPanel = (ModalMessagePanel) getPage()
+                            .get("contextDeleteConfirmPanel");
+
+                    contextDeleteConfirmPanel.show(target, model);
+                }
+            });
         }
     }
 }
