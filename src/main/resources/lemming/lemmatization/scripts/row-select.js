@@ -251,6 +251,10 @@ jQuery(document).on("keydown", function (event) {
     }
 });
 
+function getSelectedRows() {
+    return jQuery("table.selectable tbody").find(".selected");
+}
+
 function selectFirstRow() {
     var firstRow = jQuery("table.selectable tbody tr").first();
 
@@ -268,7 +272,9 @@ jQuery(document).ready(function () {
                 if (mutation.addedNodes.length) {
                     mutation.addedNodes.forEach(function (addedNode) {
                         if (jQuery(addedNode).is("table")) {
-                            selectFirstRow();
+                            if (getSelectedRows().length === 0) {
+                                selectFirstRow();
+                            }
                         }
                     });
                 }
