@@ -58,7 +58,7 @@ class SetPosPanel extends ModalFormPanel {
                 "var modifier = event.ctrlKey || event.metaKey; " +
                 "if (modifier && event.which === 80) { " +
                 "jQuery('#" + getModalWindowId() + "').modal('show'); " +
-                "event.preventDefault(); } });";
+                "event.preventDefault(); event.stopPropagation(); } });";
         response.render(OnDomReadyHeaderItem.forScript(javaScript));
     }
 

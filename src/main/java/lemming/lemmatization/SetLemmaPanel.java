@@ -7,7 +7,6 @@ import lemming.lemma.LemmaAutoCompleteTextField;
 import lemming.lemma.LemmaDao;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Form;
