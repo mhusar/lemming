@@ -54,6 +54,17 @@
     <entry key="ContextImportPage.successMessage">{0} Kontexte wurden erfolgreich importiert.</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
+    <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
+        dürfen nicht den selben Wert für das Attribut Type haben.
+    </entry>
+    <entry key="ContextXmlReader.end-punctuation-before-keyword">Das Punctuation-Element des Typs "end" sollte hinter
+        dem String-Element stehen. Möglicherweise gibt es eine tieferliegendes Problem.
+    </entry>
+    <entry key="ContextXmlReader.init-punctuation-after-keyword">Das Punctuation-Element des Typs "init" sollte vor dem
+        String-Element stehen. Möglicherweise gibt es eine tieferliegendes Problem.
+    </entry>
+    <entry key="ContextXmlReader.punctuation-type-incorrect-order">Punctuation-Elemente sollten anhand des Attributs
+        Type sinnvoll geordnet werden ("init" vor "end"). Möglicherweise gibt es eine tieferliegendes Problem.</entry>
     <entry key="FilterPanelColumn.clear">Aufheben</entry>
     <entry key="FilterPanelColumn.go">Filtern</entry>
     <entry key="HeaderPanel.contexts">Kontexte</entry>
@@ -204,15 +215,4 @@
     <entry key="UserEditForm.username-is-non-unique">Ein Benutzer mit diesem Benutzernamen existiert bereits.</entry>
     <entry key="UserEditPage.addUser">Benutzer hinzufügen</entry>
     <entry key="UserEditPage.header">Benutzerverwaltung</entry>
-    <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
-        dürfen nicht den selben Wert für das Attribut Type haben.
-    </entry>
-    <entry key="ContextXmlReader.end-punctuation-before-keyword">Das Punctuation-Element des Typs "end" sollte hinter
-        dem String-Element stehen. Möglicherweise gibt es eine tieferliegendes Problem.
-    </entry>
-    <entry key="ContextXmlReader.init-punctuation-after-keyword">Das Punctuation-Element des Typs "init" sollte vor dem
-        String-Element stehen. Möglicherweise gibt es eine tieferliegendes Problem.
-    </entry>
-    <entry key="ContextXmlReader.punctuation-type-incorrect-order">Punctuation-Elemente sollten anhand des Attributs
-        Type sinnvoll geordnet werden ("init" vor "end"). Möglicherweise gibt es eine tieferliegendes Problem.</entry>
 </properties>
