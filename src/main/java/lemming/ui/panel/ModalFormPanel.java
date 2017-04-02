@@ -4,9 +4,6 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
-import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.behavior.Behavior;
@@ -33,11 +30,6 @@ public abstract class ModalFormPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Parent form a modal form panel is attached to.
-     */
-    private Form<?> parentForm;
-
-    /**
      * Form of a modal form panel.
      */
     private Form<?> form;
@@ -62,25 +54,25 @@ public abstract class ModalFormPanel extends Panel {
      *
      * @param id ID of the panel
      */
-    public ModalFormPanel(String id, Form<?> parentForm) {
+    public ModalFormPanel(String id) {
         super(id);
-        this.parentForm = parentForm;
-        form = new Form("form");
         modalWindowId = id + "-window";
+        form = new Form("form");
 
         container = new WebMarkupContainer("modalWindow");
-        Form<?> submitForm = getSubmitForm();
+        confirmButton = new ConfirmButton("confirmButton", form);
+        CancelButton cancelButton = new CancelButton("cancelButton");
 
+        // submit form on enter
+        form.add(new EnterFormSubmitBehavior());
         // bring autocomplete ui to front
         container.add(AttributeModifier.append("class", "ui-front"));
         container.setMarkupId(modalWindowId);
         container.add(form);
-        container.add(new CancelButton("cancelButton"));
-
-        confirmButton = new ConfirmButton("confirmButton", submitForm);
-        container.add(confirmButton);
+        form.add(cancelButton);
+        form.add(confirmButton.setOutputMarkupId(true));
+        form.setDefaultButton(confirmButton);
         add(container);
-        submitForm.add(new EnterAjaxFormSubmitBehavior());
     }
 
     /**
@@ -121,19 +113,6 @@ public abstract class ModalFormPanel extends Panel {
     }
 
     /**
-     * Returns the submit form.
-     *
-     * @return A form.
-     */
-    private Form<?> getSubmitForm() {
-        if (parentForm instanceof Form) {
-            return parentForm;
-        } else {
-            return form;
-        }
-    }
-
-    /**
      * Shows a modal window panel.
      *
      * @param target target that produces an Ajax response
@@ -163,7 +142,6 @@ public abstract class ModalFormPanel extends Panel {
      * @param component component which is added
      */
     public void addFormComponent(Component component) {
-        component.add(new PreventEnterFormSubmitBehavior());
         form.add(component);
     }
 
@@ -198,45 +176,10 @@ public abstract class ModalFormPanel extends Panel {
     }
 
     /**
-     * Defines a behavior for when the enter key is pressed.
+     * Submits the parent form when enter is pressed by triggering a click event on the confirm button.
+     * This solves problems with multiple nested forms.
      */
-    private class EnterAjaxFormSubmitBehavior extends AjaxFormSubmitBehavior {
-        public EnterAjaxFormSubmitBehavior() {
-            super(getSubmitForm(), "keydown");
-        }
-
-        /**
-         * Called on submit.
-         *
-         * @param target target that produces an Ajax response
-         */
-        @Override
-        protected void onSubmit(AjaxRequestTarget target) {
-            onConfirm(target, getSubmitForm());
-            hide(target);
-        }
-
-        /**
-         * Updates Ajax attributes.
-         *
-         * @param attributes attributes of the Ajax request
-         */
-        @Override
-        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-            super.updateAjaxAttributes(attributes);
-            attributes.getAjaxCallListeners().add(new AjaxCallListener() {
-                public CharSequence getPrecondition(Component component) {
-                    return "if (Wicket.Event.keyCode(attrs.event) === 13) { return true; } else { return false; }";
-                }
-            });
-        }
-    }
-
-    /**
-     * Prevents form components to submit a form when enter is pressed.
-     */
-    private class PreventEnterFormSubmitBehavior extends Behavior {
-
+    private class EnterFormSubmitBehavior extends Behavior {
         /**
          * Renders to the web response what the panel wants to contribute.
          *
@@ -246,7 +189,9 @@ public abstract class ModalFormPanel extends Panel {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             String javaScript = "jQuery('#" + component.getMarkupId() + "').keydown("
-                    + "function (event) { if (event.which === 13) { event.preventDefault(); } });";
+                    + "function (event) { if (event.which === 13) { " +
+                    "event.stopPropagation(); jQuery('#" + confirmButton.getMarkupId() + "').trigger('click'); " +
+                    "} });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }

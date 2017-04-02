@@ -159,7 +159,7 @@ public class SenseIndexPage extends BasePage {
          * @param id ID of the panel
          */
         public ChooseLemmaPanel(String id) {
-            super(id, null);
+            super(id);
             lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<Lemma>());
             addFormComponent(lemmaTextField);
         }

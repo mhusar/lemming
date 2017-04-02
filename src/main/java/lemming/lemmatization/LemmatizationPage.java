@@ -119,8 +119,8 @@ public class LemmatizationPage extends EmptyBasePage {
 
         InputPanel inputPanel = new InputPanel("inputPanel");
         Panel lemmatizationPanel = new LemmatizationPanel("lemmatizationPanel");
-        ModalFormPanel setLemmaPanel = new SetLemmaPanel("setLemmaPanel", contextForm, dataTable);
-        ModalFormPanel setPosPanel = new SetPosPanel("setPosPanel", contextForm, dataTable);
+        ModalFormPanel setLemmaPanel = new SetLemmaPanel("setLemmaPanel", dataTable);
+        ModalFormPanel setPosPanel = new SetPosPanel("setPosPanel", dataTable);
 
         contextForm.add(setLemmaPanel);
         contextForm.add(setPosPanel);

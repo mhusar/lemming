@@ -35,11 +35,10 @@ class SetLemmaPanel extends ModalFormPanel {
      * Creates a set lemma panel.
      *
      * @param id ID of the panel
-     * @param parentForm a parent form
      * @param dataTable a data table which delivers row models
      */
-    public SetLemmaPanel(String id, Form<Context> parentForm, LemmatizationDataTable dataTable) {
-        super(id, parentForm);
+    public SetLemmaPanel(String id, LemmatizationDataTable dataTable) {
+        super(id);
         this.dataTable = dataTable;
         lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<Lemma>());
         addFormComponent(lemmaTextField);
