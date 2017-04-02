@@ -1,5 +1,7 @@
 package lemming.table;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -70,7 +72,13 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
          */
         public CheckboxPanel(String id, IModel<T> model) {
             super(id, model);
-            add(new CheckBox("selected", new PropertyModel<Boolean>(model, getPropertyExpression())));
+            CheckBox checkBox = new CheckBox("selected", new PropertyModel<Boolean>(model, getPropertyExpression()));
+            checkBox.add(new AjaxFormComponentUpdatingBehavior("change") {
+                @Override
+                protected void onUpdate(AjaxRequestTarget target) {
+                }
+            });
+            add(checkBox);
         }
     }
 }
