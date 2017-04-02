@@ -123,7 +123,9 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
             String javaScript = "jQuery('#" + textFieldId + "').autocomplete({ " +
-                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "', create: function () { " +
+                    "autoFocus: true, delay: 0, source: '" + getCallbackUrl() + "', " +
+                    "select: function (event, ui) { event.stopPropagation(); }, " +
+                    "create: function () { " +
                     "jQuery(this).data('ui-autocomplete')._renderItem = function (ul, item) { " +
                     "var li = jQuery('<li></li>'); " +
                     "if (item.hasOwnProperty('pos')) { " +
