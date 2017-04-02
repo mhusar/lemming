@@ -42,20 +42,20 @@ function onShiftDownSelect(tbody) {
         if (focusedRow.is(lastSelectedRow)) {
             if (nextRow.length) {
                 focusedRow.removeClass("focused");
-                nextRow.find(":checkbox").first().prop("checked", true);
+                nextRow.find(":checkbox").first().prop("checked", true).trigger("change");
                 nextRow.addClass("selected focused");
             }
         } else {
             if (nextRow.length) {
                 focusedRow.removeClass("selected focused");
-                focusedRow.find(":checkbox").first().prop("checked", false);
-                nextRow.find(":checkbox").first().prop("checked", true);
+                focusedRow.find(":checkbox").first().prop("checked", false).trigger("change");
+                nextRow.find(":checkbox").first().prop("checked", true).trigger("change");
                 nextRow.addClass("selected focused");
             }
         }
     } else if (lastSelectedRow.length) {
         var nextRow = jQuery(lastSelectedRow).next();
-        nextRow.find(":checkbox").first().prop("checked", true);
+        nextRow.find(":checkbox").first().prop("checked", true).trigger("change");
         nextRow.addClass("selected focused");
     }
 
@@ -72,20 +72,20 @@ function onShiftUpSelect(tbody) {
         if (focusedRow.is(firstSelectedRow)) {
             if (previousRow.length) {
                 focusedRow.removeClass("focused");
-                previousRow.find(":checkbox").first().prop("checked", true);
+                previousRow.find(":checkbox").first().prop("checked", true).trigger("change");
                 previousRow.addClass("selected focused");
             }
         } else {
             if (previousRow.length) {
                 focusedRow.removeClass("selected focused");
-                focusedRow.find(":checkbox").first().prop("checked", false);
-                previousRow.find(":checkbox").first().prop("checked", true);
+                focusedRow.find(":checkbox").first().prop("checked", false).trigger("change");
+                previousRow.find(":checkbox").first().prop("checked", true).trigger("change");
                 previousRow.addClass("selected focused");
             }
         }
     } else if (firstSelectedRow.length) {
          var previousRow = jQuery(firstSelectedRow).prev();
-         previousRow.find(":checkbox").first().prop("checked", true);
+         previousRow.find(":checkbox").first().prop("checked", true).trigger("change");
          previousRow.addClass("selected focused");
     }
 
@@ -142,9 +142,9 @@ function onCtrlSpaceSelect(tbody) {
 }
 
 function onSelect(row) {
-    jQuery(row).find(":checkbox").first().prop("checked", true);
+    jQuery(row).find(":checkbox").first().prop("checked", true).trigger("change");
     jQuery(row).addClass("selected").siblings(".selected,.focused").each(function (index, row) {
-        jQuery(row).find(":checkbox").first().prop("checked", false);
+        jQuery(row).find(":checkbox").first().prop("checked", false).trigger("change");
         jQuery(row).removeClass("selected focused");
     });
 }
@@ -156,9 +156,9 @@ function onDownSelect(tbody) {
         var nextRow = jQuery(lastSelectedRow).next();
 
         if (nextRow.length) {
-            nextRow.find(":checkbox").first().prop("checked", true);
+            nextRow.find(":checkbox").first().prop("checked", true).trigger("change");
             nextRow.addClass("selected focused").siblings(".selected,.focused").each(function (index, row) {
-                jQuery(row).find(":checkbox").first().prop("checked", false);
+                jQuery(row).find(":checkbox").first().prop("checked", false).trigger("change");
                 jQuery(row).removeClass("selected focused");
             });
 
@@ -176,9 +176,9 @@ function onUpSelect(tbody) {
         var previousRow = jQuery(firstSelectedRow).prev();
 
         if (previousRow.length) {
-            previousRow.find(":checkbox").first().prop("checked", true);
+            previousRow.find(":checkbox").first().prop("checked", true).trigger("change");
             previousRow.addClass("selected focused").siblings(".selected,.focused").each(function (index, row) {
-                jQuery(row).find(":checkbox").first().prop("checked", false);
+                jQuery(row).find(":checkbox").first().prop("checked", false).trigger("change");
                 jQuery(row).removeClass("selected focused");
             });
 
@@ -192,11 +192,11 @@ function onUpSelect(tbody) {
 function selectRows(allRows, minIndex, maxIndex) {
     jQuery(allRows).each(function (index, row) {
         if (index >= minIndex && index <= maxIndex) {
-            jQuery(row).find(":checkbox").first().prop("checked", true);
+            jQuery(row).find(":checkbox").first().prop("checked", true).trigger("change");
             jQuery(row).addClass("selected");
         } else {
             jQuery(row).filter(".selected,.focused").each(function (index, row) {
-                jQuery(row).find(":checkbox").first().prop("checked", false);
+                jQuery(row).find(":checkbox").first().prop("checked", false).trigger("change");
                 jQuery(row).removeClass("selected focused");
             });
         }
@@ -259,7 +259,7 @@ function selectFirstRow() {
     var firstRow = jQuery("table.selectable tbody tr").first();
 
     if (firstRow.length) {
-        jQuery(firstRow).find(":checkbox").first().prop("checked", true);
+        jQuery(firstRow).find(":checkbox").first().prop("checked", true).trigger("change");
         jQuery(firstRow).addClass("selected");
     }
 }
