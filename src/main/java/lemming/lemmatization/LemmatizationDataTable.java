@@ -43,6 +43,7 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
 
     /**
      * IDs of selected contexts.
+     * This is needed because the selected property of contexts is transient.
      */
     private CollectionModel<Integer> selectedContextIds;
 
@@ -98,9 +99,25 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
         if (filterForm instanceof FilterForm) {
             addTopToolbar(new FilterToolbar(this, filterForm));
         }
+    }
 
+    /**
+     * Called when a data table is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
         rowModels = new HashMap<Integer, IModel<Context>>(new Long(DEFAULT_ROWS_PER_PAGE).intValue());
         selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+    }
+
+    /**
+     * Called after a data table is rendered.
+     */
+    @Override
+    protected void onAfterRender() {
+        super.onAfterRender();
+        selectedContextIds.setObject(new ArrayList<Integer>());
     }
 
     /**
@@ -136,6 +153,7 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
 
     /**
      * Updates the IDs of selected contexts.
+     * This is needed because the selected property of contexts is transient.
      *
      * @param selectedContextIds a collection of context IDs
      */
