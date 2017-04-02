@@ -51,6 +51,5 @@ public class BasePage extends EmptyBasePage {
         add(bodyContainer);
         add(new HeaderPanel("headerPanel", getPage().getClass()));
         add(new InputPanel("inputPanel"));
-        super.onBeforeRender();
     }
 }
