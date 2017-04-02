@@ -81,17 +81,18 @@ public class PagingNavigatorFormPanel<T> extends Panel {
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
             String pageString = pageTextField.getModelObject();
-            Long page = null;
+            Long pageCount = table.getPageCount();
+            Long currentPage = null;
 
             if (pageString != null && pageString.matches("\\d+")) {
                 // data table pages are 0-based
-                page = Long.valueOf(pageString) - 1L;
-                page = (page < 0L) ? 0L : page;
-                page = (page >= table.getPageCount()) ? table.getPageCount() - 1L : page;
+                currentPage = Long.valueOf(pageString) - 1L;
+                currentPage = (currentPage < 0L) ? 0L : currentPage;
+                currentPage = (currentPage >= pageCount) ? pageCount - 1L : currentPage;
             }
 
-            if (page != null) {
-                table.setCurrentPage(page);
+            if (currentPage != null && pageCount > 0) {
+                table.setCurrentPage(currentPage);
                 target.add(table);
             }
 
