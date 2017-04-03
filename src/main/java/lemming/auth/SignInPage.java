@@ -18,11 +18,6 @@ import org.slf4j.LoggerFactory;
  */
 public class SignInPage extends EmptyBasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Username string.
      */
     private String username;
@@ -77,11 +72,6 @@ public class SignInPage extends EmptyBasePage {
      * A stateless form which authenticates a user.
      */
     private class SignInForm extends StatelessForm {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a sign-in form.
          * 

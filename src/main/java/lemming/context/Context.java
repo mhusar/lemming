@@ -26,11 +26,6 @@ import java.util.UUID;
         @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")})
 public class Context implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a context.
      */
     @Id

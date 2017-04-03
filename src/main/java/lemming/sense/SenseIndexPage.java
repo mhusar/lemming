@@ -33,11 +33,6 @@ import java.util.List;
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class SenseIndexPage extends IndexBasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * True if the filter form shall be enabled.
      */
     private static final Boolean FILTER_FORM_ENABLED = false;
@@ -112,11 +107,6 @@ public class SenseIndexPage extends IndexBasePage {
      * A button which asks to choose a lemma.
      */
     private class NewButton extends AjaxLink<Void> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * A panel used to choose a lemma for sense editing.
          */

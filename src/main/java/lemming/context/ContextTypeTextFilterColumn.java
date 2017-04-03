@@ -13,11 +13,6 @@ import org.apache.wicket.model.StringResourceModel;
  */
 public class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a TextFilterColumn for context type enums.
      *
      * @param displayModel
@@ -62,11 +57,6 @@ public class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Contex
      * A panel used for displaying text for context type enumns.
      */
     private class ContextTypePanel extends Panel {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a panel.
          *

@@ -32,11 +32,6 @@ import org.hibernate.annotations.SelectBeforeUpdate;
         @Index(columnList = "uuid", unique = true) })
 public class Character implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a special character.
      */
     @Id

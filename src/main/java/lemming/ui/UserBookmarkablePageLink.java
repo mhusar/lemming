@@ -11,11 +11,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 @AuthorizeAction(action = Action.RENDER, roles = { "USER", "ADMIN" })
 public class UserBookmarkablePageLink extends BookmarkablePageLink<Void> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a page link.
      * 
      * @param id

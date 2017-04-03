@@ -25,11 +25,6 @@ import java.util.Arrays;
  */
 public class PosEditForm extends Form<Pos> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Class of the next page.
      */
     private Class<? extends Page> nextPageClass;
@@ -99,11 +94,6 @@ public class PosEditForm extends Form<Pos> {
      */
     private final class CancelButton extends AjaxLink<Pos> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a cancel button.
          * 
          * @param id
@@ -133,11 +123,6 @@ public class PosEditForm extends Form<Pos> {
      * A button which deletes a part of speech.
      */
     private final class DeleteButton extends AjaxLink<Pos> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a delete button.
          * 
@@ -174,11 +159,6 @@ public class PosEditForm extends Form<Pos> {
      * Validates a part of speech’s name against other existent parts of speech.
      */
     private class UniquePosNameValidator implements IValidator<String> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Pos model that is edited.
          */

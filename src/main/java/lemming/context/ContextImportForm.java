@@ -40,11 +40,6 @@ import java.util.List;
  */
 public class ContextImportForm extends Form<Void> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * A logger named corresponding to this class.
      */
     public static final Logger logger = LoggerFactory.getLogger(ContextImportForm.class);
@@ -216,11 +211,6 @@ public class ContextImportForm extends Form<Void> {
      */
     private class BrowseButtonBehavior extends Behavior {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Renders to the web response what the component wants to contribute.
          *
          * @param component component object
@@ -238,11 +228,6 @@ public class ContextImportForm extends Form<Void> {
      * A button which clears all form components.
      */
     private class RemoveButton extends AjaxLink<Void> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a remove button.
          *
@@ -270,11 +255,6 @@ public class ContextImportForm extends Form<Void> {
      * A button which redirects to the home page.
      */
     private final class ToHomePageButton extends AjaxLink<Void> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a redirect button.
          *

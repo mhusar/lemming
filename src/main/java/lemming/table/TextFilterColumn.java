@@ -21,11 +21,6 @@ import org.apache.wicket.model.IModel;
  */
 public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, S> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a TextFilterColumn.
      * 
      * @param displayModel

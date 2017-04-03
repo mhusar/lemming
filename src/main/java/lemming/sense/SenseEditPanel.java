@@ -23,11 +23,6 @@ import java.util.List;
  */
 public class SenseEditPanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Type of a sense.
      */
     public enum SenseType {
@@ -62,11 +57,6 @@ public class SenseEditPanel extends Panel {
      */
     private class SenseEditForm extends Form<Sense> implements AbstractNestedTree.ISelectListener<Sense>,
             IDropListener {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Model of the parent lemma.
          */

@@ -22,11 +22,6 @@ import lemming.user.User;
  */
 public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a column.
      * 
      * @param displayModel
@@ -66,11 +61,6 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
      */
     private class ActionPanel extends Panel {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a action panel.
          * 
          * @param id
@@ -86,24 +76,12 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
             }
 
             Link<Void> editLink = new Link<Void>("editLink") {
-                /**
-                 * Determines if a deserialized file is compatible with
-                 * this class.
-                 */
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onClick() {
                     setResponsePage(new LemmaEditPage(model, getPage().getPageClass()));
                 }
             };
             AjaxLink<Void> deleteLink = new AjaxLink<Void>("deleteLink") {
-                /**
-                 * Determines if a deserialized file is compatible with
-                 * this class.
-                 */
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     ModalMessagePanel lemmaDeleteConfirmPanel = (ModalMessagePanel) getPage()

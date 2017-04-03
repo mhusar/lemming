@@ -22,11 +22,6 @@ import org.apache.wicket.request.resource.ResourceReference;
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class SenseEditPage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Model of the parent lemma.
      */
     private IModel<Lemma> lemmaModel;

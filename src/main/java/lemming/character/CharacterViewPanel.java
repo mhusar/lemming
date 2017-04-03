@@ -16,11 +16,6 @@ import lemming.ui.AjaxView;
  */
 public class CharacterViewPanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * A view displaying special characters.
      */
     private CharacterAjaxView characterView;

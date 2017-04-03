@@ -14,11 +14,6 @@ import org.apache.wicket.util.time.Duration;
  */
 public class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * The text field used as filter component.
      */
     TextField<String> textField;

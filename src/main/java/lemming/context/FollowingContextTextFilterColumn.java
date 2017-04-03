@@ -13,11 +13,6 @@ import org.apache.wicket.model.IModel;
  */
 public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a TextFilterColumn for following contexts.
      *
      * @param displayModel
@@ -62,11 +57,6 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
      * A panel used for displaying following text.
      */
     private class ContextPanel extends Panel {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a panel.
          *

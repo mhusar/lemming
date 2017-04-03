@@ -12,11 +12,6 @@ import java.util.Locale;
  */
 public class UserTextField extends TextField<User> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a user text field.
      *
      * @param id ID of the text field
@@ -44,11 +39,6 @@ public class UserTextField extends TextField<User> {
     @Override
     public <C> IConverter<C> getConverter(Class<C> type) {
         return new IConverter<C>() {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Converts an name string to a user object.
              * 

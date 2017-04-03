@@ -28,11 +28,6 @@ import lemming.ui.panel.FeedbackPanel;
 @AuthorizeAction(action = "RENDER", roles = { UserRoles.ADMIN })
 public class UserViewPanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a user list panel.
      * 
      * @param id
@@ -50,11 +45,6 @@ public class UserViewPanel extends Panel {
      * A view displaying users.
      */
     public static class UserView extends RefreshingView<User> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Model of the selected user.
          */
@@ -144,11 +134,6 @@ public class UserViewPanel extends Panel {
          * An Ajax link that sets the selected user.
          */
         private final class UserLink extends AjaxLink<User> {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Creates a user link.
              * 

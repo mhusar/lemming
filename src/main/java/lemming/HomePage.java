@@ -22,11 +22,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 @AuthorizeInstantiation("SIGNED_IN")
 public class HomePage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Initializes a home page.
      */
     public HomePage() {

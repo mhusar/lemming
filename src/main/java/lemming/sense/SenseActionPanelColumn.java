@@ -19,11 +19,6 @@ import org.apache.wicket.model.Model;
  */
 public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a column.
      * 
      * @param displayModel
@@ -63,11 +58,6 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
      */
     private class ActionPanel extends Panel {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a action panel.
          * 
          * @param id
@@ -83,24 +73,12 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
             }
 
             add(new Link<Void>("editLink") {
-                /**
-                 * Determines if a deserialized file is compatible with
-                 * this class.
-                 */
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onClick() {
                     setResponsePage(new SenseEditPage(model, getPage().getPageClass()));
                 }
             });
             add(new AjaxLink<Void>("deleteLink") {
-                /**
-                 * Determines if a deserialized file is compatible with
-                 * this class.
-                 */
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     ModalMessagePanel senseDeleteConfirmPanel = (ModalMessagePanel) getPage()

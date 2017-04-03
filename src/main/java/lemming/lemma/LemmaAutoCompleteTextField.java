@@ -20,11 +20,6 @@ import java.util.List;
  */
 public class LemmaAutoCompleteTextField extends LemmaTextField {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Maximum number of delivered results.
      */
     private static final Integer MAXIMUM_RESULTS = 15;
@@ -57,11 +52,6 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
      * Implementation of an auto complete behavior.
      */
     private class LemmaAutoCompleteBehavior extends AbstractAjaxBehavior {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * ID of the auto complete text field.
          */

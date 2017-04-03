@@ -10,11 +10,6 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
  */
 public class FeedbackPanel extends org.apache.wicket.markup.html.panel.FeedbackPanel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a feedback panel.
      * 
      * @param id ID of a feedback panel

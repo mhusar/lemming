@@ -21,11 +21,6 @@ import java.util.Arrays;
  */
 public class ContextEditForm extends Form<Context> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Class of the next page.
      */
     private Class<? extends Page> nextPageClass;
@@ -103,11 +98,6 @@ public class ContextEditForm extends Form<Context> {
      */
     private final class CancelButton extends AjaxLink<Context> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a cancel button.
          *
          * @param id
@@ -137,11 +127,6 @@ public class ContextEditForm extends Form<Context> {
      * A button which deletes a context.
      */
     private final class DeleteButton extends AjaxLink<Context> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a delete button.
          *

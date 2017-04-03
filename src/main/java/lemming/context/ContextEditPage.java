@@ -17,11 +17,6 @@ import org.apache.wicket.model.IModel;
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class ContextEditPage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Model of the edited context object.
      */
     private CompoundPropertyModel<Context> contextModel;

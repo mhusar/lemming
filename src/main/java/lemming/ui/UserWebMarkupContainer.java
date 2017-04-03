@@ -10,11 +10,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 @AuthorizeAction(action = Action.RENDER, roles = { "USER", "ADMIN" })
 public class UserWebMarkupContainer extends WebMarkupContainer {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a markup container.
      * 
      * @param id

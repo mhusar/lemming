@@ -27,11 +27,6 @@ import java.util.Map;
  */
 public final class GenericDataProvider<T> extends SortableDataProvider<T, String> implements IFilterStateLocator<T> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * The data type that is provided.
      */
     protected Class<T> typeClass;
@@ -127,11 +122,6 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     @Override
     public IModel<T> model(T object) {
         return new AbstractReadOnlyModel<T>() {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Returns the model object.
              *

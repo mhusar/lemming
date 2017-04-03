@@ -24,11 +24,6 @@ import java.util.UUID;
         @Index(columnList = "name, source")})
 public class Pos implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a part of speech.
      */
     @Id

@@ -24,11 +24,6 @@ import lemming.ui.panel.FeedbackPanel;
 @AuthorizeInstantiation({ "USER", "ADMIN" })
 public class CharacterEditPage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Model of the edited character object.
      */
     private CompoundPropertyModel<Character> characterModel;
@@ -68,11 +63,6 @@ public class CharacterEditPage extends BasePage {
      * A button which starts the creation of a new siglum variant.
      */
     private final class AddCharacterButton extends AjaxLink<Character> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a button.
          * 

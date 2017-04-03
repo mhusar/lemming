@@ -8,11 +8,6 @@ import org.apache.wicket.ajax.IAjaxIndicatorAware;
  */
 public class OverlayBasePage extends BasePage implements IAjaxIndicatorAware {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates an overlay base page.
      */
     public OverlayBasePage() {

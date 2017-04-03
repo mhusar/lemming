@@ -21,11 +21,6 @@ import org.apache.wicket.model.IModel;
  */
 class PagingNavigator extends AjaxPagingNavigator {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Fixed view size.
      */
     private static final int VIEW_SIZE = 5;
@@ -56,11 +51,6 @@ class PagingNavigator extends AjaxPagingNavigator {
     @Override
     protected PagingNavigation newNavigation(String id, IPageable pageable, IPagingLabelProvider labelProvider) {
         PagingNavigation navigation = new AjaxPagingNavigation(id, pageable, labelProvider) {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * @param iteration
              * @return A loop item.
@@ -98,11 +88,6 @@ class PagingNavigator extends AjaxPagingNavigator {
                 pageable.getCurrentPage() + increment)));
         container.add(new AjaxPagingNavigationIncrementLink(id, pageable, increment) {
             /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
-            /**
              * Always generate a href attribute.
              *
              * @param tag
@@ -135,11 +120,6 @@ class PagingNavigator extends AjaxPagingNavigator {
                 new PagingLinkModel(pageable, pageable.getCurrentPage() + pageNumber, "disabled")));
         container.add(new AjaxPagingNavigationLink(id, pageable, pageNumber) {
             /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
-            /**
              * Always generate a href attribute.
              *
              * @param tag
@@ -158,11 +138,6 @@ class PagingNavigator extends AjaxPagingNavigator {
      * A model representing label and style of a paging link.
      */
     private class PagingLinkModel implements IModel<String>, Serializable {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Page number of a link.
          */
@@ -259,11 +234,6 @@ class PagingNavigator extends AjaxPagingNavigator {
      * A model representing label and style of a increment paging link.
      */
     private class PagingLinkIncrementModel implements IModel<String>, Serializable {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Data table or data view to be paged.
          */

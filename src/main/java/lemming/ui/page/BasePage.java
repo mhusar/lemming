@@ -16,11 +16,6 @@ import lemming.ui.panel.HeaderPanel;
  */
 public class BasePage extends EmptyBasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a base page.
      */
     public BasePage() {

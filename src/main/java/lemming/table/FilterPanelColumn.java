@@ -27,11 +27,6 @@ import lemming.data.GenericDataProvider;
  */
 public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * The class type that is filtered.
      */
     Class<T> typeClass;
@@ -96,11 +91,6 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
      */
     private class GenericFilterPanel extends Panel {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a go and clear panel.
          * 
          * @param id
@@ -123,11 +113,6 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
      * A generic go and clear filter.
      */
     private class GenericGoAndClearFilter extends GoAndClearFilter {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Original state of the filter.
          */

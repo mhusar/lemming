@@ -38,11 +38,6 @@ import java.util.List;
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class LemmatizationPage extends LemmatizationBasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * True if the filter form shall be enabled.
      */
     private static final Boolean FILTER_FORM_ENABLED = false;
@@ -164,11 +159,6 @@ public class LemmatizationPage extends LemmatizationBasePage {
      */
     private class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * The text field used as filter component.
          */
         TextField<String> textField;
@@ -231,11 +221,6 @@ public class LemmatizationPage extends LemmatizationBasePage {
      */
     private final class SetLemmaLink extends AjaxLink<Context> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Modal form panel which is shown on click.
          */
         private ModalFormPanel setLemmaPanel;
@@ -265,11 +250,6 @@ public class LemmatizationPage extends LemmatizationBasePage {
      * A link which opens a set part of speech dialog.
      */
     private final class SetPosLink extends AjaxLink<Context> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Modal form panel which is shown on click.
          */

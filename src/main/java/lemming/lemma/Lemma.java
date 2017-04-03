@@ -26,11 +26,6 @@ import java.util.UUID;
         @Index(columnList = "name, replacement_string, pos_string, source, reference")})
 public class Lemma implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a lemma.
      */
     @Id

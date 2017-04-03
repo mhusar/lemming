@@ -24,11 +24,6 @@ import java.util.List;
  */
 public abstract class ModalFormPanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Form of a modal form panel.
      */
     private Form<?> form;
@@ -178,11 +173,6 @@ public abstract class ModalFormPanel extends Panel {
      */
     private class CancelButton extends AjaxLink<Void> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a button.
          *
          * @param id ID of button
@@ -207,11 +197,6 @@ public abstract class ModalFormPanel extends Panel {
      * Confirms the dialog when clicked.
      */
     private class ConfirmButton extends AjaxButton {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a button.
          *

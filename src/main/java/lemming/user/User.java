@@ -37,11 +37,6 @@ import lemming.auth.UserRoles;
         @Index(columnList = "real_name", unique = true) })
 public class User implements Principal, Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a user.
      */
     @Id

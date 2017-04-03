@@ -19,11 +19,6 @@ import lemming.ui.panel.ModalMessagePanel;
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class LemmaEditPage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Model of the edited lemma object.
      */
     private CompoundPropertyModel<Lemma> lemmaModel;

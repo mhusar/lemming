@@ -20,11 +20,6 @@ import org.apache.wicket.request.handler.TextRequestHandler;
  */
 public class PosAutoCompleteTextField extends PosTextField {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Maximum number of delivered results.
      */
     private static final Integer MAXIMUM_RESULTS = 15;
@@ -57,11 +52,6 @@ public class PosAutoCompleteTextField extends PosTextField {
      * Implementation of an auto complete behavior.
      */
     private class PosAutoCompleteBehavior extends AbstractAjaxBehavior {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * ID of the auto complete text field.
          */

@@ -18,11 +18,6 @@ import lemming.ui.AjaxView;
  */
 public class CharacterAjaxView extends AjaxView<Character> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates an Ajax view for special characters.
      *
      * @param id ID of the view

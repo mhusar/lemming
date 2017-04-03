@@ -28,11 +28,6 @@ import java.util.List;
 @AuthorizeInstantiation({ "SIGNED_IN" })
 public class ContextIndexPage extends IndexBasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * True if the filter form shall be enabled.
      */
     private static final Boolean FILTER_FORM_ENABLED = false;
@@ -117,11 +112,6 @@ public class ContextIndexPage extends IndexBasePage {
      */
     private class NewButton extends Link<Void> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a button.
          *
          * @param id
@@ -144,11 +134,6 @@ public class ContextIndexPage extends IndexBasePage {
      * A button which runs a context edit form to create new contexts.
      */
     private class BatchProcessingButton extends Link<Void> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a batch processing button.
          * 

@@ -16,11 +16,6 @@ import org.slf4j.LoggerFactory;
  */
 public class WebSession extends AuthenticatedWebSession {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * A logger named corresponding to this class.
      */
     private static final Logger logger = LoggerFactory.getLogger(WebSession.class);

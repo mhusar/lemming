@@ -19,11 +19,6 @@ import lemming.table.GenericDataTable;
  */
 public abstract class ModalMessagePanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Available dialog types.
      */
     public enum DialogType {
@@ -236,11 +231,6 @@ public abstract class ModalMessagePanel extends Panel {
      */
     private class CancelButton extends AjaxLink<Void> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a button.
          * 
          * @param id
@@ -267,11 +257,6 @@ public abstract class ModalMessagePanel extends Panel {
      * Confirms the dialog when clicked.
      */
     private class ConfirmButton extends AjaxLink<Void> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a button.
          * 

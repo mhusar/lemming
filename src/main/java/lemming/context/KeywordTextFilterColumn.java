@@ -13,11 +13,6 @@ import org.apache.wicket.model.IModel;
  */
 public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a TextFilterColumn for contexts.
      *
      * @param displayModel
@@ -61,11 +56,6 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
      * A panel used for displaying keywords for contexts.
      */
     private class KeywordPanel extends Panel {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a panel.
          *

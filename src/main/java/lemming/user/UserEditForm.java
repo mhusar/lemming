@@ -34,11 +34,6 @@ import lemming.ui.panel.ModalMessagePanel;
  */
 public class UserEditForm extends Form<User> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a user edit form.
      * 
      * @param id
@@ -145,11 +140,6 @@ public class UserEditForm extends Form<User> {
      */
     private final class CancelButton extends AjaxLink<User> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a cancel button.
          * 
          * @param id
@@ -179,11 +169,6 @@ public class UserEditForm extends Form<User> {
      * A button which deletes a user.
      */
     private final class DeleteButton extends AjaxLink<User> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a delete button.
          * 
@@ -226,11 +211,6 @@ public class UserEditForm extends Form<User> {
     private class RequiredRoleValidator implements
             INullAcceptingValidator<UserRoles.Role> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Validates value of a form component.
          * 
          * @param validatable
@@ -254,12 +234,7 @@ public class UserEditForm extends Form<User> {
      * Validates a users’s realName against other existent users.
      */
     private class UniqueRealNameValidator implements IValidator<String> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
+         /**
          * User model that is edited.
          */
         private IModel<User> userModel;
@@ -306,11 +281,6 @@ public class UserEditForm extends Form<User> {
      * Validates a users’s username against other existent users.
      */
     private class UniqueUsernameValidator implements IValidator<String> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * User model that is edited.
          */

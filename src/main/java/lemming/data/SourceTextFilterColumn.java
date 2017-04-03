@@ -22,11 +22,6 @@ import org.apache.wicket.model.StringResourceModel;
  */
 public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a TextFilterColumn for source enums.
      *
      * @param displayModel
@@ -76,11 +71,6 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      * A panel used for displaying text for source enums.
      */
     private class SourcePanel extends Panel {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a panel.
          *

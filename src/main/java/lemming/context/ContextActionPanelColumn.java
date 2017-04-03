@@ -18,11 +18,6 @@ import org.apache.wicket.model.IModel;
  */
 public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a column.
      * 
      * @param displayModel
@@ -62,11 +57,6 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
      */
     private class ActionPanel extends Panel {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a action panel.
          * 
          * @param id
@@ -82,24 +72,12 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
             }
 
             add(new Link<Void>("editLink") {
-                /**
-                 * Determines if a deserialized file is compatible with
-                 * this class.
-                 */
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onClick() {
                     setResponsePage(new ContextEditPage(model, getPage().getPageClass()));
                 }
             });
             add(new AjaxLink<Void>("deleteLink") {
-                /**
-                 * Determines if a deserialized file is compatible with
-                 * this class.
-                 */
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public void onClick(AjaxRequestTarget target) {
                     ModalMessagePanel contextDeleteConfirmPanel = (ModalMessagePanel) getPage()

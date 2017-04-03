@@ -12,11 +12,6 @@ import org.apache.wicket.util.visit.IVisitor;
  */
 public class IndexBasePage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates an index base page.
      */
     public IndexBasePage() {

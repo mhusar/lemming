@@ -27,11 +27,6 @@ import java.util.*;
  */
 public class LemmatizationDataTable extends DataTable<Context, String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Default rows per page.
      */
     private static final long DEFAULT_ROWS_PER_PAGE = 100;

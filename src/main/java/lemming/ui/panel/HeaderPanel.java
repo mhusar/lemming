@@ -21,11 +21,6 @@ import lemming.user.UserEditPage;
  */
 public class HeaderPanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a header panel.
      * 
      * @param id
@@ -55,8 +50,6 @@ public class HeaderPanel extends Panel {
         BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
         Link<Void> logoutLink = new Link<Void>("logoutLink") {
-            private static final long serialVersionUID = 1L;
-
             public void onClick() {
                 new UserDao().logout();
             }

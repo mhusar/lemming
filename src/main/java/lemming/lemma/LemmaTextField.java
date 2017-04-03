@@ -12,11 +12,6 @@ import java.util.Locale;
  */
 public class LemmaTextField extends TextField<Lemma> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a lemma text field.
      * 
      * @param id
@@ -48,11 +43,6 @@ public class LemmaTextField extends TextField<Lemma> {
     @Override
     public <C> IConverter<C> getConverter(Class<C> type) {
         return new IConverter<C>() {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Converts an name string to a lemma object.
              * 

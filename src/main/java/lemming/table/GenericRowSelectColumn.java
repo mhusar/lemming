@@ -18,11 +18,6 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a row selection column.
      *
      * @param displayModel title of a column
@@ -59,11 +54,6 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      * A panel used to display a checkbox.
      */
     private class CheckboxPanel<T> extends Panel {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a panel.
          *

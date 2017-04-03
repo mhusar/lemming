@@ -17,11 +17,6 @@ import org.w3c.dom.Attr;
  */
 public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a TextFilterColumn for contexts.
      *
      * @param displayModel
@@ -78,11 +73,6 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,Stri
      * A panel used for displaying the lemma of a context.
      */
     private class ContextPanel extends Panel {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a panel.
          *

@@ -21,11 +21,6 @@ import lemming.ui.panel.FeedbackPanel;
 @AuthorizeInstantiation("SIGNED_IN")
 public class UserEditPage extends BasePage {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Model of the edited user object.
      */
     private CompoundPropertyModel<User> userModel;
@@ -83,11 +78,6 @@ public class UserEditPage extends BasePage {
      */
     @AuthorizeAction(action = "RENDER", roles = { UserRoles.ADMIN })
     private final class AddUserButton extends AjaxLink<Void> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a add user button.
          * 

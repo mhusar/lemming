@@ -13,11 +13,6 @@ import org.hibernate.LazyInitializationException;
  */
 public class PosTextField extends TextField<Pos> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a part of speech text field.
      * 
      * @param id
@@ -49,11 +44,6 @@ public class PosTextField extends TextField<Pos> {
     @Override
     public <C> IConverter<C> getConverter(Class<C> type) {
         return new IConverter<C>() {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Converts an name string to a part of speech object.
              * 

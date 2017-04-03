@@ -18,11 +18,6 @@ import java.util.List;
 @AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
 public class SenseDeleteConfirmPanel extends ModalMessagePanel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * A tree of senses.
      */
     private SenseTree senseTree;

@@ -30,11 +30,6 @@ import java.util.Arrays;
  */
 public class LemmaEditForm extends Form<Lemma> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Class of the next page.
      */
     private Class<? extends Page> nextPageClass;
@@ -154,11 +149,6 @@ public class LemmaEditForm extends Form<Lemma> {
      */
     private final class CancelButton extends AjaxLink<Lemma> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a cancel button.
          * 
          * @param id
@@ -188,11 +178,6 @@ public class LemmaEditForm extends Form<Lemma> {
      * A button which deletes a lemma.
      */
     private final class DeleteButton extends AjaxLink<Lemma> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a delete button.
          * 
@@ -229,11 +214,6 @@ public class LemmaEditForm extends Form<Lemma> {
      * Validates a lemma’s name against other existent lemmata.
      */
     private class UniqueLemmaNameValidator implements IValidator<String> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Lemma model that is edited.
          */
@@ -281,11 +261,6 @@ public class LemmaEditForm extends Form<Lemma> {
      * Validates a lemma’s replacement lemma.
      */
     private class ReplacementLemmaValidator implements IValidator<Lemma> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Lemma model that is edited.
          */

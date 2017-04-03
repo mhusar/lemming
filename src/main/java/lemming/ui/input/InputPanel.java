@@ -17,11 +17,6 @@ import lemming.WebApplication;
  */
 public class InputPanel extends Panel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates an input panel.
      * 
      * @param id ID of the input panel
@@ -39,11 +34,6 @@ public class InputPanel extends Panel {
     public void renderHead(IHeaderResponse response) {
         PackageResourceReference inputPanelScript = new JavaScriptResourceReference(InputPanel.class,
                 "scripts/input-panel.js", getLocale(), getStyle(), "") {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Returns a list of dependent references.
              * 

@@ -17,11 +17,6 @@ import java.util.Iterator;
  */
 public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * A navigation form with a go to page field.
      */
     private Panel navigatorFormPanel;

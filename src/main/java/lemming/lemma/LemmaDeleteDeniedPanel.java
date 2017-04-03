@@ -16,11 +16,6 @@ import lemming.ui.panel.ModalMessagePanel;
 @AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
 public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a panel.
      * 
      * @param id

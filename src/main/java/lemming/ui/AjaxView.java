@@ -18,11 +18,6 @@ import org.apache.wicket.model.IModel;
  */
 public abstract class AjaxView<T> extends RepeatingView {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Model of selected data.
      */
     private IModel<T> selectedModel;
@@ -250,11 +245,6 @@ public abstract class AjaxView<T> extends RepeatingView {
      */
     private void addOnClickBehavior(final Item<T> item) {
         item.add(new AjaxEventBehavior("click") {
-            /**
-             * Determines if a deserialized file is compatible with this class.
-             */
-            private static final long serialVersionUID = 1L;
-
             /**
              * Listener for an Ajax event.
              * 

@@ -20,11 +20,6 @@ import lemming.data.GenericDataProvider;
  */
 public class GenericDataTable<T> extends DataTable<T, String> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Default rows per page.
      */
     private static final long DEFAULT_ROWS_PER_PAGE = 12;

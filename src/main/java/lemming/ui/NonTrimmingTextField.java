@@ -6,7 +6,6 @@ import org.apache.wicket.markup.html.form.TextField;
  * A non-trimming text field.
  */
 public class NonTrimmingTextField extends TextField<String> {
-
     /**
      * Creates a non-trimming text field.
      *

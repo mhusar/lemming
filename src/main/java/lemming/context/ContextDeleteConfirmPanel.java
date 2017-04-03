@@ -15,11 +15,6 @@ import org.apache.wicket.model.StringResourceModel;
 @AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
 public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a panel.
      * 
      * @param id

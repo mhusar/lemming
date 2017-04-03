@@ -12,11 +12,6 @@ import org.apache.wicket.markup.html.panel.Panel;
  */
 public class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * The page loaded after submit.
      */
     private Page responsePage;

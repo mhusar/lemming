@@ -26,11 +26,6 @@ import java.util.UUID;
         @Index(columnList = "meaning, parent_position, child_position, lemma_string")})
 public class Sense implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a sense.
      */
     @Id

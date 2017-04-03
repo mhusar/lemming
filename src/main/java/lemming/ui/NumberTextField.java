@@ -7,11 +7,6 @@ import org.apache.wicket.markup.html.form.TextField;
  */
 public class NumberTextField extends TextField<Integer> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Creates a number text field.
      * 
      * @param id

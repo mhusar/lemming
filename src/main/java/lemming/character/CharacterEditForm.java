@@ -28,11 +28,6 @@ import lemming.ui.NumberTextField;
  */
 public class CharacterEditForm extends Form<Character> {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * A character view displaying special characters.
      */
     private AjaxView<Character> characterView;
@@ -82,11 +77,6 @@ public class CharacterEditForm extends Form<Character> {
      * A button which saves form contents.
      */
     private final class SaveButton extends AjaxButton {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a save button.
          *
@@ -149,11 +139,6 @@ public class CharacterEditForm extends Form<Character> {
      */
     private final class CancelButton extends AjaxLink<Void> {
         /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
-        /**
          * Creates a cancel button.
          *
          * @param id ID of the button
@@ -205,11 +190,6 @@ public class CharacterEditForm extends Form<Character> {
      * A button which deletes a siglum variant.
      */
     private final class DeleteButton extends AjaxLink<Character> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Creates a delete button.
          *
@@ -272,11 +252,6 @@ public class CharacterEditForm extends Form<Character> {
      * Validates a character against other existent characters.
      */
     private class UniqueCharacterValidator implements IValidator<String> {
-        /**
-         * Determines if a deserialized file is compatible with this class.
-         */
-        private static final long serialVersionUID = 1L;
-
         /**
          * Character model that is edited.
          */
