@@ -1,7 +1,6 @@
 package lemming.lemmatization;
 
 import lemming.auth.WebSession;
-import lemming.character.CharacterHelper;
 import lemming.context.*;
 import lemming.data.GenericDataProvider;
 import lemming.table.AutoShrinkBehavior;
@@ -9,11 +8,9 @@ import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
 import lemming.ui.input.InputPanel;
-import lemming.ui.page.EmptyBasePage;
+import lemming.ui.page.IndexBasePage;
 import lemming.ui.panel.FeedbackPanel;
-import lemming.ui.panel.HeaderPanel;
 import lemming.ui.panel.ModalFormPanel;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -24,9 +21,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
-import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -34,7 +29,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.time.Duration;
 
-import javax.json.JsonArray;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +36,7 @@ import java.util.List;
  * An index page that lists all available contexts in a data table for lemmatization.
  */
 @AuthorizeInstantiation({ "SIGNED_IN" })
-public class LemmatizationPage extends EmptyBasePage {
+public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -52,11 +46,6 @@ public class LemmatizationPage extends EmptyBasePage {
      * True if the filter form shall be enabled.
      */
     private static final Boolean FILTER_FORM_ENABLED = false;
-
-    /**
-     * A form for contexts of a data table.
-     */
-    private Form<Context> contextForm;
 
     /**
      * A data table for contexts.
@@ -70,9 +59,7 @@ public class LemmatizationPage extends EmptyBasePage {
         GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
                 new SortParam<String>("keyword", true));
         FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
-        contextForm = new Form<Context>("contextForm");
         TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
-        WebMarkupContainer bodyContainer = new TransparentWebMarkupContainer("body");
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 
@@ -80,28 +67,22 @@ public class LemmatizationPage extends EmptyBasePage {
         WebSession.get().checkSessionExpired();
 
         if (FILTER_FORM_ENABLED) {
-            fragment = new Fragment("fragment", "withFilterForm", bodyContainer);
+            fragment = new Fragment("fragment", "withFilterForm", this);
             dataTable = new LemmatizationDataTable("lemmatizationDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
-            contextForm.add(dataTable);
-            filterForm.add(contextForm);
+            filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
-            fragment = new Fragment("fragment", "withoutFilterForm", bodyContainer);
+            fragment = new Fragment("fragment", "withoutFilterForm", this);
             dataTable = new LemmatizationDataTable("lemmatizationDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
-            contextForm.add(dataTable);
-            fragment.add(contextForm);
-
-            JsonArray characterData = CharacterHelper.getCharacterData();
-            String characterDataString = characterData.toString();
-            bodyContainer.add(AttributeModifier.append("data-characters", characterDataString));
+            fragment.add(dataTable);
         }
 
-        add(bodyContainer);
         add(new FeedbackPanel("feedbackPanel"));
+        add(new InputPanel("inputPanel"));
         add(filterTextField);
         add(container);
         container.add(fragment);
@@ -116,18 +97,15 @@ public class LemmatizationPage extends EmptyBasePage {
     protected void onInitialize() {
         super.onInitialize();
         add(new TitleLabel(getString("LemmatizationPage.header")));
-
-        InputPanel inputPanel = new InputPanel("inputPanel");
         Panel lemmatizationPanel = new LemmatizationPanel("lemmatizationPanel");
         ModalFormPanel setLemmaPanel = new SetLemmaPanel("setLemmaPanel", dataTable);
         ModalFormPanel setPosPanel = new SetPosPanel("setPosPanel", dataTable);
 
-        contextForm.add(setLemmaPanel);
-        contextForm.add(setPosPanel);
         lemmatizationPanel.add(new SetLemmaLink("setLemmaLink", setLemmaPanel));
         lemmatizationPanel.add(new SetPosLink("setPosLink", setPosPanel));
-        add(new HeaderPanel("headerPanel", LemmatizationPage.class));
-        add(inputPanel);
+
+        add(setLemmaPanel);
+        add(setPosPanel);
         add(lemmatizationPanel);
     }
 

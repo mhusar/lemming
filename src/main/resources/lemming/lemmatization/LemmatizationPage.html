@@ -1,54 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <head>
     <title wicket:id="title"></title>
     <meta charset="utf-8"/>
 </head>
-<body wicket:id="body" class="basePage lemmatizationPage">
-<header wicket:id="headerPanel"></header>
-<main>
-    <div class="container">
-        <div class="page-header">
-            <h1>
-                <wicket:message key="LemmatizationPage.header"></wicket:message>
-            </h1>
-        </div>
-    </div>
-    <div class="container">
-        <div wicket:id="feedbackPanel"></div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <input wicket:id="filterTextField" class="form-control" autofocus="autofocus"
-                       wicket:message="placeholder:Action.filter"/>
-            </div>
-            <div class="col-md-9">
+<body>
+<wicket:extend>
+    <div wicket:id="setLemmaPanel"></div>
+    <div wicket:id="setPosPanel"></div>
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    <wicket:message key="LemmatizationPage.header"></wicket:message>
+                </h1>
             </div>
         </div>
-    </div>
-    <div wicket:id="container" class="container">
-        <div wicket:id="fragment"></div>
-    </div>
-</main>
-<footer wicket:id="inputPanel" class="inputPanel"></footer>
-<footer wicket:id="lemmatizationPanel" class="lemmatizationPanel"></footer>
-<wicket:fragment wicket:id="withoutFilterForm">
-    <form wicket:id="contextForm" class="form-horizontal" role="form">
+        <div class="container">
+            <div wicket:id="feedbackPanel"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <input wicket:id="filterTextField" class="form-control" autofocus="autofocus"
+                           wicket:message="placeholder:Action.filter"/>
+                </div>
+                <div class="col-md-9">
+                </div>
+            </div>
+        </div>
+        <div wicket:id="container" class="container">
+            <div wicket:id="fragment"></div>
+        </div>
+    </main>
+    <footer wicket:id="inputPanel" class="inputPanel"></footer>
+    <footer wicket:id="lemmatizationPanel" class="lemmatizationPanel"></footer>
+    <wicket:fragment wicket:id="withoutFilterForm">
         <table wicket:id="lemmatizationDataTable"></table>
-        <div wicket:id="setLemmaPanel"></div>
-        <div wicket:id="setPosPanel"></div>
-    </form>
-</wicket:fragment>
-<wicket:fragment wicket:id="withFilterForm">
-    <form wicket:id="filterForm" role="form">
-        <form wicket:id="contextForm" class="form-horizontal" role="form">
+    </wicket:fragment>
+    <wicket:fragment wicket:id="withFilterForm">
+        <form wicket:id="filterForm" role="form">
             <table wicket:id="lemmatizationDataTable"></table>
-            <div wicket:id="setLemmaPanel"></div>
-            <div wicket:id="setPosPanel"></div>
         </form>
-    </form>
-</wicket:fragment>
+    </wicket:fragment>
+</wicket:extend>
 </body>
 </html>
