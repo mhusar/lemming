@@ -19,19 +19,19 @@
                         <span wicket:id="modalTitle"></span>
                     </h4>
                 </div>
-                <form wicket:id="form" class="form-horizontal">
-                    <div class="modal-body">
-                        <wicket:child />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" wicket:id="cancelButton" class="btn btn-default">
-                            <wicket:message key="Action.cancel"></wicket:message>
-                        </button>
-                        <button type="submit" wicket:id="confirmButton" class="btn btn-primary">
-                            <span wicket:id="modalConfirm"></span>
-                        </button>
-                    </div>
-                </form>
+                <div class="modal-body">
+                    <form wicket:id="form" class="form-horizontal">
+                        <wicket:child/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" wicket:id="cancelButton" class="btn btn-default">
+                        <wicket:message key="Action.cancel"></wicket:message>
+                    </button>
+                    <button type="submit" wicket:id="confirmButton" class="btn btn-primary">
+                        <span wicket:id="modalConfirm"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

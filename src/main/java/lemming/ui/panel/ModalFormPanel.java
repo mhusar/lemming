@@ -6,7 +6,6 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -63,14 +62,12 @@ public abstract class ModalFormPanel extends Panel {
         confirmButton = new ConfirmButton("confirmButton", form);
         CancelButton cancelButton = new CancelButton("cancelButton");
 
-        // submit form on enter
-        form.add(new EnterFormSubmitBehavior());
         // bring autocomplete ui to front
         container.add(AttributeModifier.append("class", "ui-front"));
         container.setMarkupId(modalWindowId);
         container.add(form);
-        form.add(cancelButton);
-        form.add(confirmButton.setOutputMarkupId(true));
+        container.add(cancelButton);
+        container.add(confirmButton.setOutputMarkupId(true));
         form.setDefaultButton(confirmButton);
         add(container);
     }
@@ -95,7 +92,7 @@ public abstract class ModalFormPanel extends Panel {
         // stop bootstrap from blocking focus on text fields and focus first text field
         String javaScript = "jQuery('#" + modalWindowId + "')"
                 + ".on('shown.bs.modal', function () { "
-                + "jQuery(this).find('input:text:visible').first().focus(); })"
+                + "jQuery(this).find('.form-control:text:visible').first().focus(); })"
                 + ".on('hidden.bs.modal', function () { "
                 + "jQuery('input[autofocus]').first().focus(); }); "
                 + "jQuery('#" + modalWindowId + "').on('keydown', function (event) { "
@@ -173,27 +170,6 @@ public abstract class ModalFormPanel extends Panel {
      * Called when the modal dialog is canceled.
      */
     public void onCancel() {
-    }
-
-    /**
-     * Submits the parent form when enter is pressed by triggering a click event on the confirm button.
-     * This solves problems with multiple nested forms.
-     */
-    private class EnterFormSubmitBehavior extends Behavior {
-        /**
-         * Renders to the web response what the panel wants to contribute.
-         *
-         * @param component component object
-         * @param response response object
-         */
-        @Override
-        public void renderHead(Component component, IHeaderResponse response) {
-            String javaScript = "jQuery('#" + component.getMarkupId() + "').keydown("
-                    + "function (event) { if (event.which === 13) { " +
-                    "event.stopPropagation(); jQuery('#" + confirmButton.getMarkupId() + "').trigger('click'); " +
-                    "} });";
-            response.render(OnDomReadyHeaderItem.forScript(javaScript));
-        }
     }
 
     /**
