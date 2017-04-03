@@ -153,6 +153,7 @@ public abstract class ModalMessagePanel extends Panel {
         }
 
         container.add(fragment);
+        setRenderBodyOnly(true);
     }
 
     /**

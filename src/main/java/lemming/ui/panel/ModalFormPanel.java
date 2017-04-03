@@ -80,6 +80,7 @@ public abstract class ModalFormPanel extends Panel {
         super.onInitialize();
         container.add(new Label("modalTitle", getTitleString()));
         confirmButton.add(new Label("modalConfirm", getConfirmationString()));
+        setRenderBodyOnly(true);
     }
 
     /**
