@@ -266,7 +266,7 @@ function selectFirstRow() {
 
 // select the first table row when a selectable table is added
 jQuery(document).ready(function () {
-    var target = jQuery("table.selectable").closest("form")[0],
+    var target = jQuery("table.selectable").closest("div")[0],
         observer = new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {
                 if (mutation.addedNodes.length) {
@@ -281,6 +281,10 @@ jQuery(document).ready(function () {
             });
         });
 
-    observer.observe(target, { attributes: false, characterData: false, childList: true, subtree: false });
-    selectFirstRow();
+    observer.observe(target, { attributes: false, characterData: false, childList: true, subtree: true });
+    // select first row after document ready
+    // see https://stackoverflow.com/questions/3008696
+    jQuery(window).load(function () {
+        selectFirstRow();
+    });
 });
