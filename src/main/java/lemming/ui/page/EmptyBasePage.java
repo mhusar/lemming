@@ -1,17 +1,12 @@
 package lemming.ui.page;
 
-import lemming.ui.panel.ModalFormPanel;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.http.WebResponse;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
-import org.apache.wicket.util.visit.IVisit;
-import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * An empty base page without any panel.
@@ -32,31 +27,10 @@ public class EmptyBasePage extends WebPage {
     /**
      * Creates a base page.
      * 
-     * @param model
-     *            the web page’s model
+     * @param model the page model
      */
     public EmptyBasePage(IModel<?> model) {
         super(model);
-    }
-
-    /**
-     * Called when a base page is configured.
-     */
-    @Override
-    protected void onConfigure() {
-        super.onConfigure();
-        visitChildren(TextField.class, new IVisitor<TextField<?>, Void>() {
-            private Integer tabIndex = 1;
-
-            @Override
-            public void component(TextField<?> textField, IVisit<Void> visit) {
-                if (textField.findParent(ModalFormPanel.class) != null) {
-                    return;
-                }
-
-                textField.add(AttributeModifier.replace("tabindex", String.valueOf(tabIndex++)));
-            }
-        });
     }
 
     /**

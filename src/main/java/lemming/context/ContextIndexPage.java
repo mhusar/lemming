@@ -7,7 +7,7 @@ import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
-import lemming.ui.page.BasePage;
+import lemming.ui.page.IndexBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -26,7 +26,7 @@ import java.util.List;
  * An index page that lists all available contexts in a data table.
  */
 @AuthorizeInstantiation({ "SIGNED_IN" })
-public class ContextIndexPage extends BasePage {
+public class ContextIndexPage extends IndexBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
      */

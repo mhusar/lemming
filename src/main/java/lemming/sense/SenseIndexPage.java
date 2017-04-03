@@ -9,7 +9,7 @@ import lemming.table.FilterUpdatingBehavior;
 import lemming.table.GenericDataTable;
 import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
-import lemming.ui.page.BasePage;
+import lemming.ui.page.IndexBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -31,7 +31,7 @@ import java.util.List;
  * An index page that lists all available senses in a data table.
  */
 @AuthorizeInstantiation({ "SIGNED_IN" })
-public class SenseIndexPage extends BasePage {
+public class SenseIndexPage extends IndexBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
      */

@@ -1,11 +1,14 @@
 package lemming.lemma;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import lemming.auth.WebSession;
+import lemming.data.GenericDataProvider;
 import lemming.data.SourceTextFilterColumn;
 import lemming.table.FilterUpdatingBehavior;
+import lemming.table.GenericDataTable;
+import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
+import lemming.ui.page.IndexBasePage;
+import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
@@ -16,18 +19,14 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.Model;
 
-import lemming.auth.WebSession;
-import lemming.data.GenericDataProvider;
-import lemming.table.GenericDataTable;
-import lemming.table.TextFilterColumn;
-import lemming.ui.page.BasePage;
-import lemming.ui.panel.FeedbackPanel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An index page that lists all available lemmata in a data table.
  */
 @AuthorizeInstantiation({ "SIGNED_IN" })
-public class LemmaIndexPage extends BasePage {
+public class LemmaIndexPage extends IndexBasePage {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
