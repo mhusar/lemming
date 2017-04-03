@@ -9,9 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
- * Sets a checksum for an entity if its class is recognized.
+ * Sets a hash for an entity if its class is recognized.
  */
-public class ChecksumEntityListener {
+public class HashEntityListener {
     /**
      * Called on pre-persist.
      *
@@ -19,7 +19,7 @@ public class ChecksumEntityListener {
      */
     @PrePersist
     public void onPrePersist(Object object) {
-        setChecksum(object);
+        setHash(object);
     }
 
     /**
@@ -29,7 +29,7 @@ public class ChecksumEntityListener {
      */
     @PreUpdate
     public void onPreUpdate(Object object) {
-        setChecksum(object);
+        setHash(object);
     }
 
     /**
@@ -59,14 +59,14 @@ public class ChecksumEntityListener {
     }
 
     /**
-     * Sets a checksum for an entity if its class is recognized.
+     * Sets a hash for an entity if its class is recognized.
      *
      * @param object an object
      */
-    private void setChecksum(Object object) {
+    private void setHash(Object object) {
         if (object instanceof BaseContext) {
             BaseContext context = (BaseContext) object;
-            context.setChecksum(getSha512(getString(context)));
+            context.setHash(getSha512(getString(context)));
         } else {
             throw new IllegalStateException("Unknown entity: " + object.getClass().getCanonicalName());
         }

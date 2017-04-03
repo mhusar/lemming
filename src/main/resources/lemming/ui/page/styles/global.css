@@ -182,13 +182,13 @@ a {
   cursor: pointer;
 }
 
-.list-group.unverified-context-overview .list-group-item {
+.list-group.inbound-context-group .list-group-item {
   cursor: default;
   display: flex;
   justify-content: space-between;
 }
 
-.list-group.unverified-context-overview .list-group-item .item-label {
+.list-group.inbound-context-group .list-group-item .item-label {
   display: flex;
   justify-content: center;
   flex-direction: column;

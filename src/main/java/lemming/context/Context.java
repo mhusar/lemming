@@ -21,8 +21,9 @@ import java.io.Serializable;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
-        @Index(columnList = "checksum"),
-        @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")})
+        @Index(columnList = "hash"),
+        @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")
+})
 public class Context extends BaseContext implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -80,6 +81,23 @@ public class Context extends BaseContext implements Serializable {
      * Creates an instance of a context.
      */
     public Context() {
+        super();
+    }
+
+    /**
+     * Creates an instance of a context.
+     *
+     * @param location location of a context
+     * @param type type of a context
+     * @param keyword keyword of a context
+     * @param preceding preceding text of a context
+     * @param following following text of a context
+     * @param initPunctuation punctuation preceding the keyword
+     * @param endPunctuation punctuation following the keyword
+     */
+    public Context(String location, ContextType.Type type, String keyword, String preceding, String following,
+                   String initPunctuation, String endPunctuation) {
+        super(location, type, keyword, preceding, following, initPunctuation, endPunctuation);
     }
 
     /**

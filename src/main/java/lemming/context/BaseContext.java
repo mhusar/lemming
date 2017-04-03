@@ -1,7 +1,7 @@
 package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lemming.data.ChecksumEntityListener;
+import lemming.data.HashEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Base class representing a context with a minimum of fields.
  */
-@EntityListeners({ ChecksumEntityListener.class })
+@EntityListeners({ HashEntityListener.class })
 @MappedSuperclass
 public abstract class BaseContext implements Serializable {
     /**
@@ -27,11 +27,11 @@ public abstract class BaseContext implements Serializable {
     /**
      * A SHA512 hash of concatenated text elements from the original context.
      *
-     * @see ChecksumEntityListener
+     * @see HashEntityListener
      */
-    @Column(name = "checksum", length = 130, nullable = false)
+    @Column(name = "hash", length = 130, nullable = false)
     @JsonIgnore
-    private String checksum;
+    private String hash;
 
     /**
      * Version number field used for optimistic locking.
@@ -72,21 +72,43 @@ public abstract class BaseContext implements Serializable {
     private String following;
 
     /**
-     * A punctuation preceding the keyword.
+     * Punctuation preceding the keyword.
      */
-    @Column(name = "punctuation_init", length = 30)
+    @Column(name = "init_punctuation", length = 30)
     private String initPunctuation;
 
     /**
-     * A punctuation following the keyword.
+     * Punctuation following the keyword.
      */
-    @Column(name = "punctuation_end", length = 30)
+    @Column(name = "end_punctuation", length = 30)
     private String endPunctuation;
 
     /**
      * Creates an instance of a context.
      */
     public BaseContext() {
+    }
+
+    /**
+     * Creates an instance of a context.
+     *
+     * @param location location of a context
+     * @param type type of a context
+     * @param keyword keyword of a context
+     * @param preceding preceding text of a context
+     * @param following following text of a context
+     * @param initPunctuation punctuation preceding the keyword
+     * @param endPunctuation punctuation following the keyword
+     */
+    public BaseContext(String location, ContextType.Type type, String keyword, String preceding, String following,
+                       String initPunctuation, String endPunctuation) {
+        this.location = location;
+        this.type = type;
+        this.keyword = keyword;
+        this.preceding = preceding;
+        this.following = following;
+        this.initPunctuation = initPunctuation;
+        this.endPunctuation = endPunctuation;
     }
 
     /**
@@ -109,19 +131,19 @@ public abstract class BaseContext implements Serializable {
     }
 
     /**
-     * Returns the checksum of a base context.
+     * Returns the hash of a base context.
      *
      * @return A hash string.
      */
-    public String getChecksum() {
-        return checksum;
+    public String getHash() {
+        return hash;
     }
 
     /**
-     * Sets the checksum of a context.
+     * Sets the hash of a context.
      */
-    public void setChecksum(String checksum) {
-        this.checksum = checksum;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     /**

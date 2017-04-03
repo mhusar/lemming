@@ -91,6 +91,11 @@
     <entry key="HomePage.resources">Data resources</entry>
     <entry key="HomePage.senses">Senses</entry>
     <entry key="HomePage.users">User management</entry>
+    <entry key="InboundContextGroupPanel.placeholder">No records found</entry>
+    <entry key="InboundContextGroupView.itemLabel">{0} contexts from {1}</entry>
+    <entry key="InboundContextGroupView.location1">{0} {1}–{2}</entry>
+    <entry key="InboundContextGroupView.location2">{0} {1}–{2} {3}</entry>
+    <entry key="InboundContextGroupView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
@@ -204,11 +209,6 @@
     </entry>
     <entry key="UnresolvableObjectErrorPage.removeHeader">Deletion not possible</entry>
     <entry key="UnresolvableObjectErrorPage.saveHeader">Saving not possible</entry>
-    <entry key="UnverifiedContextOverviewPanel.placeholder">No records found</entry>
-    <entry key="UnverifiedContextOverviewView.itemLabel">{0} contexts from {1}</entry>
-    <entry key="UnverifiedContextOverviewView.location1">{0} {1}–{2}</entry>
-    <entry key="UnverifiedContextOverviewView.location2">{0} {1}–{2} {3}</entry>
-    <entry key="UnverifiedContextOverviewView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="User.enabled">Activated</entry>
     <entry key="User.password">Password</entry>
     <entry key="User.realName">Real name</entry>

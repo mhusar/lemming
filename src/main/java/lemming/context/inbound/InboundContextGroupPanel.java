@@ -1,5 +1,6 @@
-package lemming.context.verfication;
+package lemming.context.inbound;
 
+import lemming.context.ContextVerificationPage;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -26,51 +27,51 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * A panel which lists overview data of unverified contexts.
+ * A panel which lists groups of inbound contexts.
  */
-public class UnverifiedContextOverviewPanel extends Panel {
+public class InboundContextGroupPanel extends Panel {
     /**
-     * A placeholder that is displayed when the overview view is empty.
+     * A placeholder that is displayed when the context group view is empty.
      */
     private MarkupContainer placeholder;
 
     /**
-     * A RefreshingView for entities of class UnverifiedContextOverview.
+     * A RefreshingView for entities of class InboundContextGroup.
      */
-    private UnverifiedContextOverviewView overviewView;
+    private InboundContextGroupView contextGroupView;
 
     /**
-     * Creates an UnverifiedContextOverviewPanel.
+     * Creates an InboundContextGroupPanel.
      *
      * @param id ID of the panel
      */
-    public UnverifiedContextOverviewPanel(String id) {
+    public InboundContextGroupPanel(String id) {
         super(id);
         placeholder = new WebMarkupContainer("placeholder");
-        overviewView = new UnverifiedContextOverviewView("overviewView");
+        contextGroupView = new InboundContextGroupView("contextGroupView");
         add(placeholder);
-        add(overviewView);
+        add(contextGroupView);
     }
 
     /**
-     * Called when a UnverifiedContextOverviewPanel is configured.
+     * Called when a InboundContextGroupPanel is configured.
      */
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        placeholder.setVisible(!overviewView.getItemModels().hasNext());
+        placeholder.setVisible(!contextGroupView.getItemModels().hasNext());
     }
 
     /**
-     * A RefreshingView for entities of class UnverifiedContextOverview.
+     * A RefreshingView for entities of class InboundContextGroup.
      */
-    private class UnverifiedContextOverviewView extends RefreshingView<UnverifiedContextOverview> {
+    private class InboundContextGroupView extends RefreshingView<InboundContextGroup> {
         /**
-         * Create an UnverifiedContextOverviewView.
+         * Create an InboundContextGroupView.
          *
          * @param id ID of the view
          */
-        public UnverifiedContextOverviewView(String id) {
+        public InboundContextGroupView(String id) {
             super(id);
         }
 
@@ -80,34 +81,36 @@ public class UnverifiedContextOverviewPanel extends Panel {
          * @return An iterator over models.
          */
         @Override
-        protected Iterator<IModel<UnverifiedContextOverview>> getItemModels() {
-            List<IModel<UnverifiedContextOverview>> overviewModelList = new ArrayList<IModel<UnverifiedContextOverview>>();
+        protected Iterator<IModel<InboundContextGroup>> getItemModels() {
+            List<IModel<InboundContextGroup>> itemModels = new ArrayList<IModel<InboundContextGroup>>();
 
-            for (UnverifiedContextOverview overview : new UnverifiedContextDao().getOverviews()) {
-                overviewModelList.add(new Model<UnverifiedContextOverview>(overview));
+            for (InboundContextGroup contextGroup : new InboundContextGroupDao().getAll()) {
+                itemModels.add(new Model<InboundContextGroup>(contextGroup));
             }
 
-            return overviewModelList.iterator();
+            return itemModels.iterator();
         }
 
         /**
          * Creates a location string based on begin and end location.
          *
-         * @param beginLocation begin location
-         * @param endLocation end location
+         * @param contextGroupDao Data Access Object for inbound context groups
+         * @param contextGroup group of inbound contexts
          * @return A location string.
          */
-        private String createLocationString(String beginLocation, String endLocation) {
+        private String createLocationString(InboundContextGroupDao contextGroupDao, InboundContextGroup contextGroup) {
+            String beginLocation = contextGroupDao.getBeginLocation(contextGroup);
+            String endLocation = contextGroupDao.getEndLocation(contextGroup);
             String[] beginStrings = beginLocation.split("_"), endStrings = endLocation.split("_");
             String beginDocument = beginStrings[0], endDocument = endStrings[0],
                     beginRubric = beginStrings[1].replaceFirst("^0+", ""),
                     endRubric = endStrings[1].replaceFirst("^0+", "");
 
             if (beginDocument.equals(endDocument)) {
-                return new StringResourceModel("UnverifiedContextOverviewView.location1", this)
+                return new StringResourceModel("InboundContextGroupView.location1", this)
                         .setParameters(beginDocument, beginRubric, endRubric).getString();
             } else {
-                return new StringResourceModel("UnverifiedContextOverviewView.location2", this)
+                return new StringResourceModel("InboundContextGroupView.location2", this)
                         .setParameters(beginDocument, beginRubric, endDocument, endRubric).getString();
             }
         }
@@ -118,23 +121,24 @@ public class UnverifiedContextOverviewPanel extends Panel {
          * @param item item which is populated
          */
         @Override
-        protected void populateItem(Item<UnverifiedContextOverview> item) {
-            UnverifiedContextOverview overview = item.getModel().getObject();
-            Instant instant = overview.getTimestamp().toInstant();
+        protected void populateItem(Item<InboundContextGroup> item) {
+            InboundContextGroupDao contextGroupDao = new InboundContextGroupDao();
+            InboundContextGroup contextGroup = item.getModel().getObject();
+            Instant instant = contextGroup.getTimestamp().toInstant();
             ZonedDateTime dateTime = ZonedDateTime.ofInstant(instant, ZoneId.of("Europe/London"));
 
-            String numberOfContexts = String.valueOf(overview.getNumberOfContexts()),
-                    locationString = createLocationString(overview.getBeginLocation(), overview.getEndLocation()),
-                    userString = overview.getUserString(),
+            String contextCount = String.valueOf(contextGroupDao.getContexts(contextGroup).size()),
+                    location = createLocationString(contextGroupDao, contextGroup),
+                    user = contextGroup.getUser().getRealName(),
                     localizedDate = dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
                             .withLocale(getLocale())),
                     localizedTime = dateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
                             .withLocale(getLocale()));
 
-            String itemLabel = new StringResourceModel("UnverifiedContextOverviewView.itemLabel", this)
-                    .setParameters(numberOfContexts, locationString).getString();
-            String popoverContent = new StringResourceModel("UnverifiedContextOverviewView.popoverContent", this)
-                    .setParameters("<dl class='dl-horizontal'><dt>", "</dt><dd>" + userString + "</dd><dt>",
+            String itemLabel = new StringResourceModel("InboundContextGroupView.itemLabel", this)
+                    .setParameters(contextCount, location).getString();
+            String popoverContent = new StringResourceModel("InboundContextGroupView.popoverContent", this)
+                    .setParameters("<dl class='dl-horizontal'><dt>", "</dt><dd>" + user + "</dd><dt>",
                             "</dt><dd>" + localizedDate + "</dd><dt>", "</dt><dd>" + localizedTime + "</dd></dl>")
                     .getString();
 
@@ -163,13 +167,13 @@ public class UnverifiedContextOverviewPanel extends Panel {
     }
 
     /**
-     * A button which sends the user to a page where contexts are verified.
+     * A button which sends the user to a page where inbound contexts are verified.
      */
-    private class VerifyButton extends Link<UnverifiedContextOverview> {
+    private class VerifyButton extends Link<InboundContextGroup> {
         /**
          * Creates a verify button.
          */
-        public VerifyButton(String id, IModel<UnverifiedContextOverview> model) {
+        public VerifyButton(String id, IModel<InboundContextGroup> model) {
             super(id, model);
         }
 
@@ -178,20 +182,21 @@ public class UnverifiedContextOverviewPanel extends Panel {
          */
         @Override
         public void onClick() {
+            setResponsePage(new ContextVerificationPage(getModel()));
         }
     }
 
     /**
-     * A button which discards unverified contexts matching an UnverifiedContextOverview object.
+     * A button which discards inbound contexts matching an InboundContextGroup object.
      */
-    private class DiscardButton extends AjaxLink<UnverifiedContextOverview> {
+    private class DiscardButton extends AjaxLink<InboundContextGroup> {
         /**
          * Creates a discard button.
          *
          * @param id ID of the button
          * @param model model of the button
          */
-        public DiscardButton(String id, IModel<UnverifiedContextOverview> model) {
+        public DiscardButton(String id, IModel<InboundContextGroup> model) {
             super(id, model);
         }
 
@@ -202,8 +207,8 @@ public class UnverifiedContextOverviewPanel extends Panel {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            new UnverifiedContextDao().removeByOverview(getModelObject());
-            target.add(UnverifiedContextOverviewPanel.this);
+            new InboundContextGroupDao().remove(getModelObject());
+            target.add(InboundContextGroupPanel.this);
         }
     }
 }

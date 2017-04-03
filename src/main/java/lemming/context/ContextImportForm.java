@@ -3,9 +3,10 @@ package lemming.context;
 import lemming.HomePage;
 import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
-import lemming.context.verfication.UnverifiedContextOverviewPanel;
-import lemming.context.verfication.UnverifiedContext;
-import lemming.context.verfication.UnverifiedContextDao;
+import lemming.context.inbound.InboundContext;
+import lemming.context.inbound.InboundContextGroup;
+import lemming.context.inbound.InboundContextGroupDao;
+import lemming.context.inbound.InboundContextGroupPanel;
 import lemming.ui.panel.AlertPanel;
 import lemming.user.User;
 import org.apache.commons.fileupload.FileItem;
@@ -89,9 +90,9 @@ public class ContextImportForm extends Form<Void> {
     private AlertPanel alertPanel;
 
     /**
-     * A panel which lists overviews about unverified context data.
+     * A panel which lists groups of inbound contexts.
      */
-    private UnverifiedContextOverviewPanel overviewPanel;
+    private InboundContextGroupPanel contextGroupPanel;
 
     /**
      * Called when a context import form is initialized.
@@ -106,7 +107,7 @@ public class ContextImportForm extends Form<Void> {
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel("alertPanel");
         SubmitButton submitButton = new SubmitButton("submitButton", this);
-        overviewPanel = new UnverifiedContextOverviewPanel("overviewPanel");
+        contextGroupPanel = new InboundContextGroupPanel("contextGroupPanel");
 
         fileInput.add(new FileInputChangeBehavior())
                 .add(AttributeModifier.append("style", "position: absolute; left: -9999px;"));
@@ -117,7 +118,7 @@ public class ContextImportForm extends Form<Void> {
         getPage().add(alertPanel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
         getPage().add(new ToHomePageButton("toHomePageButton"));
         getPage().add(submitButton);
-        getPage().add(overviewPanel.setOutputMarkupId(true));
+        getPage().add(contextGroupPanel.setOutputMarkupId(true));
     }
 
     private void logException(Exception exception) {
@@ -151,31 +152,28 @@ public class ContextImportForm extends Form<Void> {
         }
 
         if (contexts instanceof List) {
-            String message, realName = null;
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             User user = WebSession.get().getUser();
 
-            if (user != null) {
-                realName = user.getRealName();
-            } else {
+            if (user == null) {
                 setResponsePage(SignInPage.class);
             }
 
             if (contexts.size() > 0) {
-                // set user string and timestamp for unverified context
-                for (UnverifiedContext context : contexts) {
-                    context.setTimestamp(timestamp);
-                    context.setUser(realName);
+                InboundContextGroup contextGroup = new InboundContextGroup(timestamp, user);
+
+                for (InboundContext context : contexts) {
+                    context.setGroup(contextGroup);
+                    contextGroup.addContext(context);
                 }
 
                 StringResourceModel messageModel = new StringResourceModel("ContextImportPage.successMessage", this)
                         .setParameters(String.valueOf(contexts.size()));
-                message = messageModel.getString();
-                alertPanel.setMessage(message).setType(AlertPanel.Type.SUCCESS).setVisible(true);
-                new UnverifiedContextDao().batchPersist(contexts);
-                target.add(overviewPanel);
+                alertPanel.setMessage(messageModel.getString()).setType(AlertPanel.Type.SUCCESS).setVisible(true);
+                new InboundContextGroupDao().persist(contextGroup);
+                target.add(contextGroupPanel);
             } else {
-                message = getString("ContextImportPage.noContextsMessage");
+                String message = getString("ContextImportPage.noContextsMessage");
                 alertPanel.setMessage(message).setType(AlertPanel.Type.INFO).setVisible(true);
             }
 
