@@ -12,7 +12,7 @@ import lemming.ui.input.InputPanel;
 import lemming.ui.panel.HeaderPanel;
 
 /**
- * A base page with a header panel.
+ * A base page with header and input panels.
  */
 public class BasePage extends EmptyBasePage {
     /**
@@ -30,8 +30,7 @@ public class BasePage extends EmptyBasePage {
     /**
      * Creates a base page.
      * 
-     * @param model
-     *            the web page’s model
+     * @param model the page model
      */
     public BasePage(IModel<?> model) {
         super(model);
