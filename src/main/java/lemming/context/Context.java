@@ -26,11 +26,6 @@ import java.io.Serializable;
 })
 public class Context extends BaseContext implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Part of speech of a keyword in context.
      */
     @ManyToOne(fetch = FetchType.LAZY)

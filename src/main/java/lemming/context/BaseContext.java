@@ -13,11 +13,6 @@ import java.io.Serializable;
 @MappedSuperclass
 public abstract class BaseContext implements Serializable {
     /**
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * ID associated with a context.
      */
     @Id

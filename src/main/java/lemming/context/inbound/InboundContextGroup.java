@@ -25,11 +25,6 @@ import java.util.List;
         @Index(columnList = "timestamp, user_id")
 })
 public class InboundContextGroup implements Serializable {
-    /**l
-     * Determines if a deserialized file is compatible with this class.
-     */
-    private static final long serialVersionUID = 1L;
-
     /**
      * ID associated with a context.
      */
