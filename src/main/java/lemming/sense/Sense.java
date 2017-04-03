@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,7 +81,7 @@ public class Sense extends DatedEntity implements Serializable {
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "sense_children", indexes = { @Index(columnList = "parent_id, child_id", unique = true) }, joinColumns = { @JoinColumn(name = "parent_id") }, inverseJoinColumns = { @JoinColumn(name = "child_id") })
-    private List<Sense> children;
+    private List<Sense> children = new ArrayList<Sense>();
 
     /**
      * Creates an instance of a sense.
