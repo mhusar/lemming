@@ -129,7 +129,7 @@
         <profile>
             <id>development-nostrip</id>
             <properties>
-                <environment>development</environment>
+                <environment>development-nostrip</environment>
                 <wicket.configuration>development</wicket.configuration>
                 <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>false</wicket.stripWicketTags>
