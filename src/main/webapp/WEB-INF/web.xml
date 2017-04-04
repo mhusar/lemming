@@ -19,10 +19,6 @@
             <param-name>wicket.stripWicketTags</param-name>
             <param-value>${wicket.stripWicketTags}</param-value>
         </init-param>
-        <init-param>
-            <param-name>session-timeout</param-name>
-            <param-value>180</param-value>
-        </init-param>
         <load-on-startup>1</load-on-startup>
         <multipart-config>
             <max-file-size>10485760</max-file-size>
@@ -48,10 +44,6 @@
         <init-param>
             <param-name>wicket.stripWicketTags</param-name>
             <param-value>${wicket.stripWicketTags}</param-value>
-        </init-param>
-        <init-param>
-            <param-name>session-timeout</param-name>
-            <param-value>180</param-value>
         </init-param>
         <init-param>
             <param-name>ignorePaths</param-name>
@@ -89,4 +81,11 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 </web-app>
