@@ -209,27 +209,29 @@ public class CharacterEditForm extends Form<Character> {
         @SuppressWarnings("unchecked")
         public void onClick(AjaxRequestTarget target) {
             Iterator<Component> iterator = characterView.iterator();
-            Integer index = 0;
             IModel<Character> selectedCharacterModel = null;
+            Item<Character> lastItem = null;
 
             while (iterator.hasNext()) {
                 Item<Character> item = (Item<Character>) iterator.next();
 
                 if (getModelObject().equals(item.getModelObject())) {
-                    index = item.getIndex();
+                    if (lastItem != null) {
+                        selectedCharacterModel = lastItem.getModel();
+                    } else if (iterator.hasNext()) {
+                        selectedCharacterModel = ((Item<Character>) iterator.next()).getModel();
+                        break;
+                    }
                 }
+
+                lastItem = item;
             }
 
-            if (index > 0) {
-                selectedCharacterModel = ((Item<Character>) characterView.get(index - 1)).getModel();
-            } else if (characterView.size() > 1) {
-                selectedCharacterModel = ((Item<Character>) characterView.get(1)).getModel();
-            } else {
+            if (selectedCharacterModel == null) {
                 selectedCharacterModel = new Model<Character>(new Character());
             }
 
             new CharacterDao().remove(getModelObject());
-
             Form<Character> editForm = findParent(CharacterEditForm.class);
             Form<Character> newEditForm = new CharacterEditForm("characterEditForm",
                     new CompoundPropertyModel<Character>(selectedCharacterModel), characterView);

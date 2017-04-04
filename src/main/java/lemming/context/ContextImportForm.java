@@ -89,7 +89,7 @@ public class ContextImportForm extends Form<Void> {
         super.onInitialize();
         setMarkupId(getId());
         fileInput = new FileUploadField("fileInput", new Model<ArrayList<FileUpload>>(new ArrayList<FileUpload>()));
-        textInput = new TextField("textInput", Model.of(""));
+        textInput = new TextField<String>("textInput", Model.of(""));
         removeButton = new RemoveButton("removeButton");
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel("alertPanel");
@@ -119,25 +119,21 @@ public class ContextImportForm extends Form<Void> {
     public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
         ContextXmlReader xmlReader = new ContextXmlReader();
         List<Context> contexts = null;
-        Boolean isXmlValid = false;
 
         try {
             xmlReader.validateXml(fileItem.getInputStream());
-            isXmlValid = true;
         } catch (IOException | SAXException e) {
             onException(target, e);
             logException(e);
             return;
         }
 
-        if (isXmlValid) {
-            try {
-                contexts = xmlReader.readXml(fileItem.getInputStream());
-            } catch (IOException | XMLStreamException e) {
-                onException(target, e);
-                logException(e);
-                return;
-            }
+        try {
+            contexts = xmlReader.readXml(fileItem.getInputStream());
+        } catch (IOException | XMLStreamException e) {
+            onException(target, e);
+            logException(e);
+            return;
         }
 
         if (contexts instanceof List) {
