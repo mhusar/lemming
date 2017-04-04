@@ -17,7 +17,10 @@ import lemming.ui.page.AccessDeniedPage;
 import lemming.ui.page.PageExpiredPage;
 import lemming.user.User;
 import lemming.user.UserEditPage;
-import org.apache.wicket.*;
+import org.apache.wicket.Component;
+import org.apache.wicket.Page;
+import org.apache.wicket.RestartResponseAtInterceptPageException;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authorization.IUnauthorizedComponentInstantiationListener;
 import org.apache.wicket.authorization.UnauthorizedInstantiationException;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
@@ -69,7 +72,9 @@ public class WebApplication extends AuthenticatedWebApplication {
         if (AuthenticatedWebApplication.get().getConfigurationType().equals(RuntimeConfigurationType.DEPLOYMENT)) {
             // don’t show an exception page when an unexpected exception is thrown
             getExceptionSettings().setUnexpectedExceptionDisplay(ExceptionSettings.SHOW_NO_EXCEPTION_PAGE);
-            // strip wicket tags
+        }
+
+        if (getInitParameter("wicket.stripWicketTags").equals("true")) {
             getMarkupSettings().setStripWicketTags(true);
         }
 

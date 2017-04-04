@@ -88,6 +88,7 @@
             <properties>
                 <environment>deployment</environment>
                 <wicket.configuration>deployment</wicket.configuration>
+                <wicket.stripWicketTags>true</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
                 <db.password></db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
@@ -108,6 +109,7 @@
             <properties>
                 <environment>development</environment>
                 <wicket.configuration>development</wicket.configuration>
+                <wicket.stripWicketTags>true</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
                 <db.password></db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
@@ -119,6 +121,26 @@
                 <property>
                     <name>environment</name>
                     <value>development</value>
+                </property>
+            </activation>
+        </profile>
+        <profile>
+            <id>development-nostrip</id>
+            <properties>
+                <environment>development</environment>
+                <wicket.configuration>development</wicket.configuration>
+                <wicket.stripWicketTags>false</wicket.stripWicketTags>
+                <db.username>lemming</db.username>
+                <db.password></db.password>
+                <db.url>jdbc:mysql://localhost/lemming</db.url>
+                <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
+                <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
+                <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+            </properties>
+            <activation>
+                <property>
+                    <name>environment</name>
+                    <value>development-nostrip</value>
                 </property>
             </activation>
         </profile>
