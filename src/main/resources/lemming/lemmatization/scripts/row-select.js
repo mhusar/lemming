@@ -98,7 +98,7 @@ function onCtrlSelect(row) {
 
     jQuery(focusedRow).removeClass("focused");
     jQuery(row).toggleClass("selected").addClass("focused");
-    jQuery(checkbox).prop("checked", !jQuery(checkbox).prop("checked"));
+    jQuery(checkbox).prop("checked", !jQuery(checkbox).prop("checked")).trigger("change");
 }
 
 function onCtrlDownSelect(tbody) {
@@ -136,7 +136,7 @@ function onCtrlSpaceSelect(tbody) {
         if (focusedRow.isInViewport(100)) {
             var checkbox = jQuery(focusedRow).find(":checkbox").first();
             jQuery(focusedRow).toggleClass("selected");
-            jQuery(checkbox).prop("checked", !jQuery(checkbox).prop("checked"));
+            jQuery(checkbox).prop("checked", !jQuery(checkbox).prop("checked")).trigger("change");
         }
     }
 }
