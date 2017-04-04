@@ -16,6 +16,10 @@
             <param-value>${wicket.configuration}</param-value>
         </init-param>
         <init-param>
+            <param-name>wicket.contentType</param-name>
+            <param-value>${wicket.contentType}</param-value>
+        </init-param>
+        <init-param>
             <param-name>wicket.stripWicketTags</param-name>
             <param-value>${wicket.stripWicketTags}</param-value>
         </init-param>
@@ -40,6 +44,10 @@
         <init-param>
             <param-name>wicket.configuration</param-name>
             <param-value>${wicket.configuration}</param-value>
+        </init-param>
+        <init-param>
+            <param-name>wicket.contentType</param-name>
+            <param-value>${wicket.contentType}</param-value>
         </init-param>
         <init-param>
             <param-name>wicket.stripWicketTags</param-name>

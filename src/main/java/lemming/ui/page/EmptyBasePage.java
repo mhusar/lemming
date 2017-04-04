@@ -1,5 +1,7 @@
 package lemming.ui.page;
 
+import org.apache.wicket.RuntimeConfigurationType;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.IModel;
@@ -35,7 +37,11 @@ public class EmptyBasePage extends WebPage {
      */
     @Override
     protected void configureResponse(WebResponse response) {
-        response.setContentType("text/html");
+        String contentType = AuthenticatedWebApplication.get().getInitParameter("wicket.contentType");
+
+        if (contentType != null) {
+            response.setContentType(contentType);
+        }
     }
 
     /**

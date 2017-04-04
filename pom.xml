@@ -88,6 +88,7 @@
             <properties>
                 <environment>deployment</environment>
                 <wicket.configuration>deployment</wicket.configuration>
+                <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>true</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
                 <db.password></db.password>
@@ -109,6 +110,7 @@
             <properties>
                 <environment>development</environment>
                 <wicket.configuration>development</wicket.configuration>
+                <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>true</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
                 <db.password></db.password>
@@ -129,6 +131,7 @@
             <properties>
                 <environment>development</environment>
                 <wicket.configuration>development</wicket.configuration>
+                <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>false</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
                 <db.password></db.password>
