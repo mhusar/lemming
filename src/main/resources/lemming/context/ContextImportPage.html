@@ -20,14 +20,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="textInput" class="col-sm-2 control-label"><wicket:message key="ContextImportPage.selectFile"></wicket:message></label>
+                        <label for="textInput" class="col-sm-2 control-label">
+                            <wicket:message key="ContextImportPage.selectFile"></wicket:message>
+                        </label>
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <input wicket:id="textInput" id="textInput" class="form-control" type="text"/>
                                 <input wicket:id="fileInput" id="fileInput" type="file"/>
                                 <div class="input-group-btn">
-                                    <button wicket:id="removeButton" type="button" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i> <span><wicket:message key="Action.remove"></wicket:message></span></button>
-                                    <button wicket:id="browseButton" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-folder-open"></i>&#160; <span><wicket:message key="ContextImportPage.open"></wicket:message></span></button>
+                                    <button wicket:id="removeButton" type="button" class="btn btn-default">
+                                        <i class="glyphicon glyphicon-trash"></i> <span><wicket:message key="Action.remove"></wicket:message></span>
+                                    </button>
+                                    <button wicket:id="browseButton" type="button" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-folder-open"></i>&#160; <span><wicket:message key="ContextImportPage.open"></wicket:message></span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
