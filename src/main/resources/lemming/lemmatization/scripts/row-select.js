@@ -207,6 +207,9 @@ jQuery(document)
     .on("click", "table.selectable tbody tr", function (event) {
         if (event.shiftKey) {
             onShiftSelect(this);
+
+            // prevent text selection
+            event.preventDefault();
         } else if (event.ctrlKey || event.metaKey) {
             onCtrlSelect(this);
         } else {
@@ -229,10 +232,10 @@ jQuery(document).on("keydown", function (event) {
                 onShiftDownSelect(tbody);
             } else if (event.which === 38) {
                 onShiftUpSelect(tbody);
-            } else if (event.which === 32) {
-                // prevent form submit; why does this happen?
-                event.preventDefault();
             }
+
+            // prevent text selection
+            event.preventDefault();
         } else if (event.ctrlKey || event.metaKey) {
             if (event.which === 40) {
                 onCtrlDownSelect(tbody);
