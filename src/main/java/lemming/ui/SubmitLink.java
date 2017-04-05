@@ -42,28 +42,21 @@ public class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
     /**
      * Called on form submit.
      * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param form
-     *            the form that is submitted
+     * @param target target that produces an Ajax response
      */
     @Override
-    protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+    protected void onSubmit(AjaxRequestTarget target) {
         setResponsePage(responsePage);
     }
 
     /**
      * Called when form submit fails.
      * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param form
-     *            the form that is submitted
+     * @param target target that produces an Ajax response
      */
     @Override
-    protected void onError(AjaxRequestTarget target, Form<?> form) {
-        Panel feedbackPanel = (Panel) form.get("feedbackPanel");
-
+    protected void onError(AjaxRequestTarget target) {
+        Panel feedbackPanel = (Panel) getForm().get("feedbackPanel");
         target.add(feedbackPanel);
         target.appendJavaScript("setupFeedbackPanel(\"#" + feedbackPanel.getMarkupId() + "\")");
     }

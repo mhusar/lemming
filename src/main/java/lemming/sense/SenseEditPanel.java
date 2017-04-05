@@ -415,14 +415,13 @@ public class SenseEditPanel extends Panel {
              * Called on form submit.
              *
              * @param target target that produces an Ajax response
-             * @param form form that is submitted
              */
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            protected void onSubmit(AjaxRequestTarget target) {
                 if (type.equals(SenseType.PARENT)) {
-                    saveSense(target, form);
+                    saveSense(target, getForm());
                 } else if (type.equals(SenseType.CHILD)) {
-                    saveChildSense(target, form);
+                    saveChildSense(target, getForm());
                 }
             }
         }

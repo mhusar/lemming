@@ -91,13 +91,12 @@ public class CharacterEditForm extends Form<Character> {
          * Called on form submit.
          *
          * @param target target that produces an Ajax response
-         * @param form the submitted form
          */
         @Override
-        protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-            Panel feedbackPanel = (Panel) form.getPage().get("feedbackPanel");
+        protected void onSubmit(AjaxRequestTarget target) {
+            Panel feedbackPanel = (Panel) getForm().getPage().get("feedbackPanel");
             CharacterDao characterDao = new CharacterDao();
-            Character character = (Character) form.getModelObject();
+            Character character = (Character) getForm().getModelObject();
 
             if (characterDao.isTransient(character)) {
                 characterDao.persist(character);
@@ -114,7 +113,7 @@ public class CharacterEditForm extends Form<Character> {
             characterView.setSelectedModel(refreshedCharacterModel);
             characterView.refresh(target);
             target.add(feedbackPanel);
-            form.replaceWith(newEditForm);
+            getForm().replaceWith(newEditForm);
             target.add(newEditForm);
             target.focusComponent(newEditForm.get("character"));
         }
@@ -123,11 +122,10 @@ public class CharacterEditForm extends Form<Character> {
          * Called when form submit fails.
          *
          * @param target target that produces an Ajax response
-         * @param form   the submitted form
          */
         @Override
-        protected void onError(AjaxRequestTarget target, Form<?> form) {
-            Panel feedbackPanel = (Panel) form.getPage().get("feedbackPanel");
+        protected void onError(AjaxRequestTarget target) {
+            Panel feedbackPanel = (Panel) getForm().getPage().get("feedbackPanel");
 
             target.add(feedbackPanel);
             target.appendJavaScript("setupFeedbackPanel(\"#" + feedbackPanel.getMarkupId() + "\")");

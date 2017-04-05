@@ -76,10 +76,9 @@ public class PagingNavigatorFormPanel<T> extends Panel {
          * Called on form submit.
          *
          * @param target target that produces an Ajax response
-         * @param form the parent form
          */
         @Override
-        protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+        protected void onSubmit(AjaxRequestTarget target) {
             String pageString = pageTextField.getModelObject();
             Long pageCount = table.getPageCount();
             Long currentPage = null;

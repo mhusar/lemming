@@ -289,10 +289,9 @@ public class ContextImportForm extends Form<Void> {
          * Submits a form.
          *
          * @param target target target that produces an Ajax response
-         * @param form form that is submitted
          */
         @Override
-        protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+        protected void onSubmit(AjaxRequestTarget target) {
             ServletWebRequest request = (ServletWebRequest) RequestCycle.get().getRequest();
 
             try {

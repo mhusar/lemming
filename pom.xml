@@ -26,7 +26,7 @@
         <mysql.version>6.0.5</mysql.version>
         <slf4j.version>1.7.21</slf4j.version>
         <velocity.version>1.7</velocity.version>
-        <wicket.version>7.6.0</wicket.version>
+        <wicket.version>8.0.0-M5</wicket.version>
     </properties>
 
     <repositories>

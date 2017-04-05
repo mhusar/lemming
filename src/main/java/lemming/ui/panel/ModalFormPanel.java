@@ -213,8 +213,8 @@ public abstract class ModalFormPanel extends Panel {
          * @param target target that produces an Ajax response
          */
         @Override
-        public void onSubmit(AjaxRequestTarget target, Form<?> form) {
-            onConfirm(target, form);
+        public void onSubmit(AjaxRequestTarget target) {
+            onConfirm(target, getForm());
             hide(target);
         }
     }
