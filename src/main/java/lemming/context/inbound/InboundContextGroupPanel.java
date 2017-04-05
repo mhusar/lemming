@@ -18,10 +18,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -125,25 +121,19 @@ public class InboundContextGroupPanel extends Panel {
             InboundContextGroupDao contextGroupDao = new InboundContextGroupDao();
             InboundContextGroup contextGroup = item.getModel().getObject();
             Instant instant = contextGroup.getTimestamp().toInstant();
-            ZonedDateTime dateTime = ZonedDateTime.ofInstant(instant, ZoneId.of("Europe/London"));
-
             String contextCount = String.valueOf(contextGroupDao.getContexts(contextGroup).size()),
                     location = createLocationString(contextGroupDao, contextGroup),
-                    user = contextGroup.getUser().getRealName(),
-                    localizedDate = dateTime.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
-                            .withLocale(getLocale())),
-                    localizedTime = dateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-                            .withLocale(getLocale()));
-
+                    user = contextGroup.getUser().getRealName();
             String itemLabel = new StringResourceModel("InboundContextGroupView.itemLabel", this)
                     .setParameters(contextCount, location).getString();
             String popoverContent = new StringResourceModel("InboundContextGroupView.popoverContent", this)
-                    .setParameters("<dl class='dl-horizontal'><dt>", "</dt><dd>" + user + "</dd><dt>",
-                            "</dt><dd>" + localizedDate + "</dd><dt>", "</dt><dd>" + localizedTime + "</dd></dl>")
-                    .getString();
+                    .setParameters("<dl class='dl-horizontal' data-date='" + instant.toString() + "' data-locale='" +
+                                    getString("InboundContextGroupView.popoverLocale") + "'><dt>",
+                            "</dt><dd>" + user + "</dd><dt>", "</dt><dd class='date'></dd><dt>",
+                            "</dt><dd class='time'></dd></dl>").getString();
 
             item.add(new Label("itemLabel", itemLabel));
-            item.add(new WebMarkupContainer("detailsButton").add(AttributeModifier.append("data-content",
+            item.add(new WebMarkupContainer("detailsButton").add(AttributeModifier.append("data-html",
                     popoverContent)));
             item.add(new VerifyButton("verifyButton", item.getModel()));
             item.add(new DiscardButton("discardButton", item.getModel()));
@@ -159,7 +149,16 @@ public class InboundContextGroupPanel extends Panel {
             super.renderHead(response);
             // initialize popovers
             String javaScript = "jQuery(\"[data-toggle='popover']\").popover(" +
-                    "{ container: 'body', html: true, trigger: 'manual' })" +
+                    "{ container: 'body', html: true, trigger: 'manual', " +
+                    "content: function () { " +
+                    "var content = jQuery(jQuery(this).data('html')); " +
+                    "var dateString = jQuery(content).data('date'); " +
+                    "var locale = jQuery(content).data('locale'); " +
+                    "jQuery('.date', content).text(new Date(dateString).toLocaleDateString(locale, " +
+                    "{ day: 'numeric', month: 'long', year: 'numeric' })); " +
+                    "jQuery('.time', content).text(new Date(dateString).toLocaleTimeString(locale, " +
+                    "{ hour: '2-digit', minute: '2-digit', hour12: false })); return content; " +
+                    "} })" +
                     ".click(function () { jQuery(this).popover('toggle'); })" +
                     ".blur(function () { jQuery(this).popover('hide'); });";
             response.render(OnDomReadyHeaderItem.forScript(javaScript));

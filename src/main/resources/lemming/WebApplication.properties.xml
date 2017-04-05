@@ -97,6 +97,7 @@
     <entry key="InboundContextGroupView.location1">{0} {1}–{2}</entry>
     <entry key="InboundContextGroupView.location2">{0} {1}–{2} {3}</entry>
     <entry key="InboundContextGroupView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
+    <entry key="InboundContextGroupView.popoverLocale">en-GB</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
