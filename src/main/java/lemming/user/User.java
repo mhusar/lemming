@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lemming.data.DatedEntity;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
@@ -35,7 +36,7 @@ import lemming.auth.UserRoles;
 @Table(name = "user", indexes = { @Index(columnList = "uuid", unique = true),
         @Index(columnList = "username", unique = true),
         @Index(columnList = "real_name", unique = true) })
-public class User implements Principal, Serializable {
+public class User extends DatedEntity implements Principal, Serializable {
     /**
      * ID associated with a user.
      */

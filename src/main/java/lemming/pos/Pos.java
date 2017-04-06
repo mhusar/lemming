@@ -1,6 +1,7 @@
 package lemming.pos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.data.DatedEntity;
 import lemming.data.Source;
 import org.hibernate.annotations.*;
 
@@ -22,7 +23,7 @@ import java.util.UUID;
 @Table(name = "pos", indexes = {
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "name, source")})
-public class Pos implements Serializable {
+public class Pos extends DatedEntity implements Serializable {
     /**
      * ID associated with a part of speech.
      */

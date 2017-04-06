@@ -1,6 +1,7 @@
 package lemming.lemma;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.data.DatedEntity;
 import lemming.data.Source;
 import lemming.pos.Pos;
 import lemming.user.User;
@@ -24,7 +25,7 @@ import java.util.UUID;
 @Table(name = "lemma", indexes = {
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "name, replacement_string, pos_string, source, reference")})
-public class Lemma implements Serializable {
+public class Lemma extends DatedEntity implements Serializable {
     /**
      * ID associated with a lemma.
      */

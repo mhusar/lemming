@@ -12,6 +12,7 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import lemming.data.DatedEntity;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
@@ -30,7 +31,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
         @Index(columnList = "`character`", unique = true),
         @Index(columnList = "position", unique = true),
         @Index(columnList = "uuid", unique = true) })
-public class Character implements Serializable {
+public class Character extends DatedEntity implements Serializable {
     /**
      * ID associated with a special character.
      */

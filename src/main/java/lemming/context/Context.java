@@ -1,6 +1,7 @@
 package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.data.DatedEntity;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
@@ -24,7 +25,7 @@ import java.util.UUID;
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")})
-public class Context implements Serializable {
+public class Context extends DatedEntity implements Serializable {
     /**
      * ID associated with a context.
      */

@@ -1,6 +1,7 @@
 package lemming.sense;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.data.DatedEntity;
 import lemming.lemma.Lemma;
 import org.hibernate.annotations.*;
 
@@ -24,7 +25,7 @@ import java.util.UUID;
 @Table(name = "sense", indexes = {
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "meaning, parent_position, child_position, lemma_string")})
-public class Sense implements Serializable {
+public class Sense extends DatedEntity implements Serializable {
     /**
      * ID associated with a sense.
      */
