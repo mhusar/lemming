@@ -26,13 +26,10 @@ public class GenericDataTable<T> extends DataTable<T, String> {
 
     /**
      * Creates a data table with toolbars.
-     * 
-     * @param id
-     *            ID of a data table
-     * @param columns
-     *            list of columns
-     * @param dataProvider
-     *            provides data for a table
+     *
+     * @param id           ID of a data table
+     * @param columns      list of columns
+     * @param dataProvider provides data for a table
      */
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider) {
         super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
@@ -42,14 +39,10 @@ public class GenericDataTable<T> extends DataTable<T, String> {
     /**
      * Creates a data table with toolbars.
      *
-     * @param id
-     *            ID of a data table
-     * @param columns
-     *            list of columns
-     * @param dataProvider
-     *            provides data for a table
-     * @param rowsPerPage
-     *            rows per page
+     * @param id           ID of a data table
+     * @param columns      list of columns
+     * @param dataProvider provides data for a table
+     * @param rowsPerPage  rows per page
      */
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
                             Long rowsPerPage) {
@@ -59,15 +52,11 @@ public class GenericDataTable<T> extends DataTable<T, String> {
 
     /**
      * Creates a data table with toolbars.
-     * 
-     * @param id
-     *            ID of a data table
-     * @param columns
-     *            list of columns
-     * @param dataProvider
-     *            provides data for a table
-     * @param filterForm
-     *            form that filters data of a table
+     *
+     * @param id           ID of a data table
+     * @param columns      list of columns
+     * @param dataProvider provides data for a table
+     * @param filterForm   form that filters data of a table
      */
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
                             FilterForm<T> filterForm) {
@@ -78,16 +67,11 @@ public class GenericDataTable<T> extends DataTable<T, String> {
     /**
      * Creates a data table with toolbars.
      *
-     * @param id
-     *            ID of a data table
-     * @param columns
-     *            list of columns
-     * @param dataProvider
-     *            provides data for a table
-     * @param filterForm
-     *            form that filters data of a table
-     * @param rowsPerPage
-     *            rows per page
+     * @param id           ID of a data table
+     * @param columns      list of columns
+     * @param dataProvider provides data for a table
+     * @param filterForm   form that filters data of a table
+     * @param rowsPerPage  rows per page
      */
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
                             FilterForm<T> filterForm, Long rowsPerPage) {
@@ -98,10 +82,8 @@ public class GenericDataTable<T> extends DataTable<T, String> {
     /**
      * Builds a new data table with toolbars.
      *
-     * @param dataProvider
-     *            provides data for a table
-     * @param filterForm
-     *            form that filters data of a table
+     * @param dataProvider provides data for a table
+     * @param filterForm   form that filters data of a table
      */
     private void createTable(GenericDataProvider<T> dataProvider, FilterForm<T> filterForm) {
         setOutputMarkupId(true);
