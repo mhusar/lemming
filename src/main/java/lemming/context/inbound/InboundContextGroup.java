@@ -227,4 +227,33 @@ public class InboundContextGroup extends DatedEntity implements Serializable {
     public void addContext(InboundContext context) {
         contexts.add(context);
     }
+
+    /**
+     * Indicates if some other object is equal to this one.
+     *
+     * @param other the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || !(other instanceof InboundContextGroup)) return false;
+
+        InboundContextGroup contextGroup = (InboundContextGroup) other;
+        return getId() != null && getId().equals(contextGroup.getId());
+    }
+
+    /**
+     * Returns a hash code value for a context group.
+     *
+     * @return A hash code value for a context group.
+     */
+    @Override
+    public int hashCode() {
+        if (getId() == null) {
+            throw new IllegalStateException("Can’t create a hash code for a non-persistent object");
+        }
+
+        return getId();
+    }
 }
