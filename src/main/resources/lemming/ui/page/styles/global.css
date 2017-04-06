@@ -92,6 +92,10 @@ h1, h2, h3, h4, h5, h6, h7 {
   font-weight: 500;
 }
 
+a {
+  outline: 0;
+}
+
 .basePage {
   padding-top: 51px;
   transition: background-color 0.5s ease-in-out;
@@ -152,10 +156,6 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 .form-group.last {
     margin-bottom: 0;
-}
-
-.list-group a {
-  outline: 0;
 }
 
 .scroll .list-group-item {
@@ -220,10 +220,6 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 .pagination {
   margin: 0 !important;
-}
-
-.pager a, .pagination a {
-  outline: 0;
 }
 
 .filers-tr td, .headers th {
