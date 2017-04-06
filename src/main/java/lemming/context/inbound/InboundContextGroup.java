@@ -1,5 +1,6 @@
 package lemming.context.inbound;
 
+import lemming.data.DatedEntity;
 import lemming.user.User;
 import org.hibernate.annotations.*;
 
@@ -24,7 +25,7 @@ import java.util.List;
 @Table(name = "inbound_context_group", indexes = {
         @Index(columnList = "timestamp, user_id")
 })
-public class InboundContextGroup implements Serializable {
+public class InboundContextGroup extends DatedEntity implements Serializable {
     /**
      * ID associated with a context.
      */

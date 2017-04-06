@@ -1,6 +1,7 @@
 package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.data.DatedEntity;
 import lemming.data.HashEntityListener;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.io.Serializable;
  */
 @EntityListeners({ HashEntityListener.class })
 @MappedSuperclass
-public abstract class BaseContext implements Serializable {
+public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * ID associated with a context.
      */
