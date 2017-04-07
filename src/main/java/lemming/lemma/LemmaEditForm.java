@@ -102,7 +102,7 @@ class LemmaEditForm extends Form<Lemma> {
 
         // check if a replacement lemma set by a user is a user-generated lemma
         if (replacementContainer.isVisible() && replacementTextField.isEnabled()) {
-            replacementTextField.add(new ReplacementLemmaValidator(model));
+            replacementTextField.add(new ReplacementLemmaValidator());
         }
     }
 
