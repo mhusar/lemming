@@ -314,9 +314,6 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     protected List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String,Join<?,?>> joins) {
         String property = getSort().getProperty();
-        List<Order> orderList = CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending(),
-                typeClass);
-
-        return orderList;
+        return CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending(), typeClass);
     }
 }

@@ -65,15 +65,13 @@ public class CharacterAjaxView extends AjaxView<Character> {
     protected String getRefreshNoItemContainerJavaScript(String id, String parentId, Boolean isVisible) {
         if (isVisible()) {
             String cssClass = "list-group-item";
-            String javaScript = String.format("jQuery(\"#%s\").remove(); "
+            return String.format("jQuery(\"#%s\").remove(); "
                             + "var item = jQuery(\"<div></div>\"); "
                             + "item.attr(\"id\", \"%s\").attr(\"class\", \"%s\"); "
                             + "jQuery(\"#%s .list-group\").prepend(item);", id, id,
                     cssClass, parentId);
-            return javaScript;
         } else {
-            String javaScript = String.format("jQuery(\"#%s\").remove();", id);
-            return javaScript;
+            return String.format("jQuery(\"#%s\").remove();", id);
         }
     }
 
@@ -101,15 +99,13 @@ public class CharacterAjaxView extends AjaxView<Character> {
     protected String getAppendItemJavaScript(String id, String parentId, int index, IModel<Character> model,
                                              Boolean isSelected) {
         String cssClass = (isSelected) ? "list-group-item active" : "list-group-item";
-        String javaScript = String.format(
+        return String.format(
                 "var item = jQuery(\"<div></div>\"); "
                         + "item.attr(\"id\", \"%s\").addClass(\"%s\"); "
                         + "item.append("
                         + "jQuery(\"<span></span>\").text(\"%s\")); "
                         + "jQuery(\"#%s .list-group\").append(item);", id,
                 cssClass, model.getObject().getCharacter(), parentId);
-
-        return javaScript;
     }
 
     /**
@@ -117,8 +113,7 @@ public class CharacterAjaxView extends AjaxView<Character> {
      */
     @Override
     protected String getRemoveItemJavaScript(String id) {
-        String javaScript = String.format("var item = jQuery(\"#%s\"); item.remove();", id);
-        return javaScript;
+        return String.format("var item = jQuery(\"#%s\"); item.remove();", id);
     }
 
     /**
