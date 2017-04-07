@@ -29,7 +29,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     private final Class<T> typeClass;
 
     /**
-     * Defindes the default sort order.
+     * Defines the default sort order.
      */
     private final SortParam<String> defaultSortParam;
 
@@ -200,7 +200,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * Returns automatically created restrictions for a filter state.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
@@ -247,7 +247,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * Returns automatically created restrictions for a filter string.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
@@ -283,7 +283,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * Returns filter string or filter state restrictions.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
@@ -304,7 +304,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * Returns a list of orders matching sort properties.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param joins map of joins
      * @return A list of order objects.

@@ -11,7 +11,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  */
 public abstract class NodeLabel<T> extends Panel {
     /**
-     * Createa node label
+     * Creates a node label.
      *
      * @param id ID of the label
      */

@@ -79,9 +79,9 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             lemma = entityManager.merge(lemma);
             TypedQuery<Lemma> query = entityManager.createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
                     "LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user WHERE l.id = :id", Lemma.class);
-            Lemma refresedLemma = query.setParameter("id", lemma.getId()).getSingleResult();
+            Lemma refreshedLemma = query.setParameter("id", lemma.getId()).getSingleResult();
             transaction.commit();
-            return refresedLemma;
+            return refreshedLemma;
         } catch (RuntimeException e) {
             e.printStackTrace();
 

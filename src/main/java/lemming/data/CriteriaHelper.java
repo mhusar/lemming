@@ -59,7 +59,7 @@ final class CriteriaHelper {
     /**
      * Returns automatically created context restrictions for a string filter.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param filter string filter
      * @return An expression of type boolean, or null.
@@ -79,7 +79,7 @@ final class CriteriaHelper {
     /**
      * Returns automatically created lemma restrictions for a string filter.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param filter string filter
      * @return An expression of type boolean, or null.
@@ -107,7 +107,7 @@ final class CriteriaHelper {
     /**
      * Returns automatically created pos restrictions for a string filter.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param filter string filter
      * @return An expression of type boolean, or null.
@@ -128,7 +128,7 @@ final class CriteriaHelper {
     /**
      * Returns automatically created sense restrictions for a string filter.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param filter string filter
      * @return An expression of type boolean, or null.
@@ -143,7 +143,7 @@ final class CriteriaHelper {
     /**
      * Returns automatically created restrictions for a string filter.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param joins map of joins
      * @param filter string filter
@@ -169,7 +169,7 @@ final class CriteriaHelper {
     /**
      * Returns an automatically created list of order objects for context ordering.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param property sort property
      * @param isAscending sort direction
@@ -241,7 +241,7 @@ final class CriteriaHelper {
     /**
      * Returns an automatically created list of order objects for sense ordering.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param property sort property
      * @param isAscending sort direction
@@ -283,7 +283,7 @@ final class CriteriaHelper {
     /**
      * Returns an automatically created list of order objects for a property string.
      *
-     * @param criteriaBuilder contructor for criteria queries
+     * @param criteriaBuilder constructor for criteria queries
      * @param root query root referencing entities
      * @param joins map of joins
      * @param property sort property

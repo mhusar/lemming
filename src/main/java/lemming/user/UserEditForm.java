@@ -182,7 +182,7 @@ class UserEditForm extends Form<User> {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            // not needed because no data is ownded by a user
+            // not needed because no data is owned by a user
             ModalMessagePanel userDeleteDeniedPanel = (ModalMessagePanel) getPage().get("userDeleteDeniedPanel");
 
             if (!new LemmaDao().findByUser(getModelObject()).isEmpty()) {

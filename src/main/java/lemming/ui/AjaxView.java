@@ -131,7 +131,7 @@ public abstract class AjaxView<T> extends RepeatingView {
     protected abstract String getAppendItemJavaScript(String id, String parentId, IModel<T> model, Boolean isSelected);
 
     /**
-     * Creates a JavaScript string whiche removes an item if evaluated.
+     * Creates a JavaScript string which removes an item if evaluated.
      * 
      * @param id
      *            ID of the item

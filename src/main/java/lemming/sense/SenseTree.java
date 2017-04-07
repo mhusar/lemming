@@ -25,7 +25,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     private final Set<IDropListener> dropListeners = new HashSet<>();
 
     /**
-     * Creates a sennse tree,
+     * Creates a sense tree.
      *
      * @param id ID of a tree
      * @param provider provider of tree data
@@ -36,7 +36,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     }
 
     /**
-     * Creates a sennse tree,
+     * Creates a sense tree.
      *
      * @param id ID of a tree
      * @param provider provider of tree data

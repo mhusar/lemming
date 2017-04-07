@@ -75,7 +75,7 @@ public class Subtree<T> extends Panel {
     }
 
     /**
-     * Returns wether a subtree is visible.
+     * Returns whether a subtree is visible.
      *
      * @return True if a node is a root node or its state is set to expanded.
      */

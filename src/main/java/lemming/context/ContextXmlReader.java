@@ -221,7 +221,7 @@ class ContextXmlReader implements ErrorHandler {
     }
 
     /**
-     * A XMLStreamException which doesn’t mess up the message text.
+     * A XMLStreamException which doesn't mess up the message text.
      *
      * original code:
      * super("ParseError at [row,col]:["+location.getLineNumber()+","+

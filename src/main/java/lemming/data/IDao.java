@@ -40,7 +40,7 @@ public interface IDao<E> {
     void remove(E entity);
 
     /**
-     * Removes the entinty instance found by primary key, if any.
+     * Removes the entity instance found by primary key, if any.
      *
      * @param primaryKey primary key
      */

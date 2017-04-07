@@ -27,7 +27,7 @@ class SetLemmaPanel extends ModalFormPanel {
     private final LemmatizationDataTable dataTable;
 
     /**
-     * A auto-complete textfield for lemmata.
+     * A auto-complete text field for lemmata.
      */
     private final LemmaAutoCompleteTextField lemmaTextField;
 

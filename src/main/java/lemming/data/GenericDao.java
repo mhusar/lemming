@@ -227,7 +227,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      * @throws RestartResponseException
      */
     public void panicOnSaveLockingError(Object element, RuntimeException exception) {
-        logger.error("A locking error occured. Redirect user to error page.");
+        logger.error("A locking error occurred. Redirect user to error page.");
 
         if (RequestCycle.get() != null) {
             Page lockingErrorPage = new LockingErrorPage(LockingErrorPage.ActionType.SAVE, element, exception);
@@ -243,7 +243,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      * @throws RestartResponseException
      */
     public void panicOnRemoveLockingError(Object element, RuntimeException exception) {
-        logger.error("A locking error occured. Redirect user to failure page.");
+        logger.error("A locking error occurred. Redirect user to failure page.");
 
         if (RequestCycle.get() != null) {
             Page lockingErrorPage = new LockingErrorPage(LockingErrorPage.ActionType.REMOVE, element, exception);

@@ -106,7 +106,7 @@ public abstract class BaseNode<T> extends Panel {
         }
 
         /**
-         * Returns wether a switch is enabled.
+         * Returns whether a switch is enabled.
          *
          * @return True if the model object has children.
          */

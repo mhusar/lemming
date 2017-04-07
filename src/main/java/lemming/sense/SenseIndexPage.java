@@ -138,7 +138,7 @@ public class SenseIndexPage extends IndexBasePage {
      */
     private class ChooseLemmaPanel extends ModalFormPanel {
         /**
-         * A auto-complete textfield for lemmata.
+         * A auto-complete text field for lemmata.
          */
         private final LemmaAutoCompleteTextField lemmaTextField;
 
