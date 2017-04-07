@@ -70,24 +70,21 @@ public class ContextResource {
             Query query = session.createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream outputStream) throws IOException, WebApplicationException {
-                    JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
-                            .enable(SerializationFeature.INDENT_OUTPUT)
-                            .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
-                    jsonGenerator.writeStartArray();
+            StreamingOutput streamingOutput = outputStream -> {
+                JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
+                        .enable(SerializationFeature.INDENT_OUTPUT)
+                        .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
+                jsonGenerator.writeStartArray();
 
-                    while (results.next()) {
-                        writeJsonResult(jsonGenerator, results.getString(0));
-                    }
-
-                    jsonGenerator.writeEndArray();
-                    jsonGenerator.flush();
-                    jsonGenerator.close();
-                    results.close();
-                    session.getTransaction().commit();
+                while (results.next()) {
+                    writeJsonResult(jsonGenerator, results.getString(0));
                 }
+
+                jsonGenerator.writeEndArray();
+                jsonGenerator.flush();
+                jsonGenerator.close();
+                results.close();
+                session.getTransaction().commit();
             };
 
             return Response.ok(streamingOutput).type("text/json")
@@ -161,30 +158,27 @@ public class ContextResource {
                     .createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword")
                     .setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE)
                     .scroll(ScrollMode.FORWARD_ONLY);
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream outputStream) throws IOException {
-                    Properties properties = new Properties();
-                    properties.load(context.getResourceAsStream("/WEB-INF/classes/velocity.properties"));
-                    VelocityEngine velocityEngine = new VelocityEngine(properties);
-                    VelocityWriter velocityWriter = new VelocityWriter(new OutputStreamWriter(outputStream));
-                    Template template = velocityEngine.getTemplate("lemming/resource/templates/kwicindex.vm");
+            StreamingOutput streamingOutput = outputStream -> {
+                Properties properties = new Properties();
+                properties.load(context.getResourceAsStream("/WEB-INF/classes/velocity.properties"));
+                VelocityEngine velocityEngine = new VelocityEngine(properties);
+                VelocityWriter velocityWriter = new VelocityWriter(new OutputStreamWriter(outputStream));
+                Template template = velocityEngine.getTemplate("lemming/resource/templates/kwicindex.vm");
 
-                    velocityEngine.init();
-                    velocityWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-                    velocityWriter.write("<kwiclist>\n");
+                velocityEngine.init();
+                velocityWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+                velocityWriter.write("<kwiclist>\n");
 
-                    while (results.next()) {
-                        VelocityContext velocityContext = writeXmlResult(results.getString(0));
-                        template.merge(velocityContext, velocityWriter);
-                        velocityWriter.flush();
-                    }
-
-                    velocityWriter.write("</kwiclist>\n");
+                while (results.next()) {
+                    VelocityContext velocityContext = writeXmlResult(results.getString(0));
+                    template.merge(velocityContext, velocityWriter);
                     velocityWriter.flush();
-                    results.close();
-                    session.getTransaction().commit();
                 }
+
+                velocityWriter.write("</kwiclist>\n");
+                velocityWriter.flush();
+                results.close();
+                session.getTransaction().commit();
             };
 
             return Response.ok(streamingOutput).type(MediaType.TEXT_XML)
@@ -261,49 +255,46 @@ public class ContextResource {
                     .createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword")
                     .setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE)
                     .scroll(ScrollMode.FORWARD_ONLY);
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream outputStream) throws IOException, RuntimeException {
-                    try {
-                        Marshaller marshaller = JAXBContext.newInstance(KwicIndex.SubList.class).createMarshaller();
-                        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-                        XMLStreamWriter streamWriter = XMLOutputFactory.newInstance()
-                                .createXMLStreamWriter(outputStream);
-                        IndentingXMLStreamWriter indentingStreamWriter = new IndentingXMLStreamWriter(streamWriter);
+            StreamingOutput streamingOutput = outputStream -> {
+                try {
+                    Marshaller marshaller = JAXBContext.newInstance(KwicIndex.SubList.class).createMarshaller();
+                    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+                    XMLStreamWriter streamWriter = XMLOutputFactory.newInstance()
+                            .createXMLStreamWriter(outputStream);
+                    IndentingXMLStreamWriter indentingStreamWriter = new IndentingXMLStreamWriter(streamWriter);
 
-                        streamWriter.writeStartDocument("UTF-8", "1.0");
-                        streamWriter.writeCharacters("\n");
-                        streamWriter.writeStartElement("kwiclist");
-                        streamWriter.writeCharacters("\n");
+                    streamWriter.writeStartDocument("UTF-8", "1.0");
+                    streamWriter.writeCharacters("\n");
+                    streamWriter.writeStartElement("kwiclist");
+                    streamWriter.writeCharacters("\n");
 
-                        while (results.next()) {
-                            String keyword = results.getString(0);
-                            EntityManager entityManager2 = EntityManagerListener.createEntityManager();
-                            Iterator<Context> iterator = entityManager2.createQuery("SELECT c FROM Context c " +
-                                            "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
-                                            "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
-                                    .setParameter("keyword", keyword).getResultList().iterator();
-                            KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
+                    while (results.next()) {
+                        String keyword = results.getString(0);
+                        EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+                        Iterator<Context> iterator = entityManager2.createQuery("SELECT c FROM Context c " +
+                                        "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
+                                        "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
+                                .setParameter("keyword", keyword).getResultList().iterator();
+                        KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 
-                            while (iterator.hasNext()) {
-                                subList.addContext(iterator.next());
-                            }
-
-                            marshaller.marshal(subList, indentingStreamWriter);
-                            indentingStreamWriter.flush();
-                            entityManager2.close();
+                        while (iterator.hasNext()) {
+                            subList.addContext(iterator.next());
                         }
 
-                        streamWriter.writeCharacters("\n");
-                        indentingStreamWriter.writeEndDocument();
-                        streamWriter.writeCharacters("\n");
+                        marshaller.marshal(subList, indentingStreamWriter);
                         indentingStreamWriter.flush();
-                        results.close();
-                        session.getTransaction().commit();
-                    } catch (JAXBException | XMLStreamException e) {
-                        e.printStackTrace();
-                        throw new RuntimeException(e);
+                        entityManager2.close();
                     }
+
+                    streamWriter.writeCharacters("\n");
+                    indentingStreamWriter.writeEndDocument();
+                    streamWriter.writeCharacters("\n");
+                    indentingStreamWriter.flush();
+                    results.close();
+                    session.getTransaction().commit();
+                } catch (JAXBException | XMLStreamException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             };
 

@@ -49,19 +49,16 @@ public class WebApplication extends AuthenticatedWebApplication {
         getSecuritySettings().setAuthorizationStrategy(
                 new AnnotationsRoleAuthorizationStrategy(this));
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(
-                new IUnauthorizedComponentInstantiationListener() {
-                    @Override
-                    public void onUnauthorizedInstantiation(Component component) {
-                        if (component instanceof Page) {
-                            if (WebSession.get().getUser() instanceof User) {
-                                throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
+                component -> {
+                    if (component instanceof Page) {
+                        if (WebSession.get().getUser() instanceof User) {
+                            throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
+                        } else {
+                            if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||
+                                    component instanceof PosEditPage || component instanceof SenseEditPage) {
+                                component.setResponsePage(SignInPage.class);
                             } else {
-                                if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||
-                                        component instanceof PosEditPage || component instanceof SenseEditPage) {
-                                    component.setResponsePage(SignInPage.class);
-                                } else {
-                                    throw new RestartResponseAtInterceptPageException(SignInPage.class);
-                                }
+                                throw new RestartResponseAtInterceptPageException(SignInPage.class);
                             }
                         }
                     }

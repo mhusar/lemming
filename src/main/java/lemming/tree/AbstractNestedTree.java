@@ -214,16 +214,13 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         if (handler != null) {
             final IModel<T> model = getProvider().model(object);
 
-            visitChildren(Node.class, new IVisitor<Node<T>, Void>() {
-                @Override
-                public void component(Node<T> node, IVisit<Void> visit) {
-                    if (model.equals(node.getModel())) {
-                        handler.add(node);
-                        visit.stop();
-                    }
-
-                    visit.dontGoDeeper();
+            visitChildren(Node.class, (IVisitor<Node<T>, Void>) (node, visit) -> {
+                if (model.equals(node.getModel())) {
+                    handler.add(node);
+                    visit.stop();
                 }
+
+                visit.dontGoDeeper();
             });
             model.detach();
         }
@@ -240,13 +237,10 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         if (handler != null) {
             final IModel<T> model = getProvider().model(object);
 
-            visitChildren(Branch.class, new IVisitor<Branch<T>, Void>() {
-                @Override
-                public void component(Branch<T> branch, IVisit<Void> visit) {
-                    if (model.equals(branch.getModel())) {
-                        handler.add(branch);
-                        visit.stop();
-                    }
+            visitChildren(Branch.class, (IVisitor<Branch<T>, Void>) (branch, visit) -> {
+                if (model.equals(branch.getModel())) {
+                    handler.add(branch);
+                    visit.stop();
                 }
             });
             model.detach();

@@ -48,25 +48,22 @@ public class PosResource {
             Query query = session.createQuery("FROM Pos ORDER BY name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream outputStream) throws IOException, WebApplicationException {
-                    JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
-                            .enable(SerializationFeature.INDENT_OUTPUT)
-                            .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
-                    jsonGenerator.writeStartArray();
+            StreamingOutput streamingOutput = outputStream -> {
+                JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
+                        .enable(SerializationFeature.INDENT_OUTPUT)
+                        .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
+                jsonGenerator.writeStartArray();
 
-                    while (results.next()) {
-                        jsonGenerator.writeObject((Pos) results.get(0));
-                        jsonGenerator.flush();
-                    }
-
-                    jsonGenerator.writeEndArray();
+                while (results.next()) {
+                    jsonGenerator.writeObject((Pos) results.get(0));
                     jsonGenerator.flush();
-                    jsonGenerator.close();
-                    results.close();
-                    session.getTransaction().commit();
                 }
+
+                jsonGenerator.writeEndArray();
+                jsonGenerator.flush();
+                jsonGenerator.close();
+                results.close();
+                session.getTransaction().commit();
             };
 
             return Response.ok(streamingOutput).type(MediaType.APPLICATION_JSON)
