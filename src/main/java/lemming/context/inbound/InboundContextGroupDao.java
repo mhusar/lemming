@@ -2,7 +2,6 @@ package lemming.context.inbound;
 
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
-import org.hibernate.Hibernate;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 

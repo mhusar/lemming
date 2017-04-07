@@ -8,7 +8,6 @@ import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
 import lemming.ui.input.InputPanel;
-import lemming.ui.page.IndexBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.ajax.AjaxChannel;

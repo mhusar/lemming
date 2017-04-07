@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
-import org.w3c.dom.Attr;
 
 /**
  * A TextFilteredColumn to display keywords of contexts properly.

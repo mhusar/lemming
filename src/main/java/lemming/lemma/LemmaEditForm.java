@@ -1,6 +1,5 @@
 package lemming.lemma;
 
-import lemming.auth.WebSession;
 import lemming.context.ContextDao;
 import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
