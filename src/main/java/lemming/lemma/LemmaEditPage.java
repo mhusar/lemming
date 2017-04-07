@@ -83,12 +83,12 @@ public class LemmaEditPage extends BasePage {
         // check if the session is expired
         WebSession.get().checkSessionExpired();
         ModalMessagePanel lemmaDeleteConfirmPanel;
-        ModalMessagePanel lemmaDeleteDeniedPanel = new LemmaDeleteDeniedPanel("lemmaDeleteDeniedPanel");
+        ModalMessagePanel lemmaDeleteDeniedPanel = new LemmaDeleteDeniedPanel();
 
         if (nextPageClass != null) {
-            lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel("lemmaDeleteConfirmPanel", nextPageClass);
+            lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel(nextPageClass);
         } else {
-            lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel("lemmaDeleteConfirmPanel", LemmaIndexPage.class);
+            lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel(LemmaIndexPage.class);
         }
 
         add(lemmaDeleteConfirmPanel);
@@ -109,7 +109,7 @@ public class LemmaEditPage extends BasePage {
             }
         }
 
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new LemmaEditForm("lemmaEditForm", lemmaModel, nextPageClass));
+        add(new FeedbackPanel());
+        add(new LemmaEditForm(lemmaModel, nextPageClass));
     }
 }

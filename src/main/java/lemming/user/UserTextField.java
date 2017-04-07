@@ -16,6 +16,7 @@ public class UserTextField extends TextField<User> {
      *
      * @param id ID of the text field
      */
+    @SuppressWarnings("SameParameterValue")
     public UserTextField(String id) {
         super(id);
     }

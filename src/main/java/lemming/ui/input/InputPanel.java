@@ -18,11 +18,9 @@ import lemming.WebApplication;
 public class InputPanel extends Panel {
     /**
      * Creates an input panel.
-     * 
-     * @param id ID of the input panel
      */
-    public InputPanel(String id) {
-        super(id);
+    public InputPanel() {
+        super("inputPanel");
     }
 
     /**

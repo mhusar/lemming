@@ -49,13 +49,13 @@ public class CharacterEditPage extends BasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        CharacterViewPanel characterViewPanel = new CharacterViewPanel("characterViewPanel");
+        CharacterViewPanel characterViewPanel = new CharacterViewPanel();
 
         add(new TitleLabel(getString("CharacterEditPage.header")));
-        add(new FeedbackPanel("feedbackPanel").setOutputMarkupId(true));
+        add(new FeedbackPanel().setOutputMarkupId(true));
         add(characterViewPanel);
-        add(new AddCharacterButton("addCharacterButton"));
-        add(new CharacterEditForm("characterEditForm", characterModel, characterViewPanel.getCharacterView()));
+        add(new AddCharacterButton());
+        add(new CharacterEditForm(characterModel, characterViewPanel.getCharacterView()));
     }
 
     /**
@@ -64,12 +64,9 @@ public class CharacterEditPage extends BasePage {
     private final class AddCharacterButton extends AjaxLink<Character> {
         /**
          * Creates a button.
-         * 
-         * @param id
-         *            ID of a button
          */
-        private AddCharacterButton(String id) {
-            super(id);
+        private AddCharacterButton() {
+            super("addCharacterButton");
         }
 
         /**
@@ -85,7 +82,7 @@ public class CharacterEditPage extends BasePage {
             Panel characterViewPanel = (CharacterViewPanel) characterEditPage.get("characterViewPanel");
             AjaxView<Character> characterView = (AjaxView<Character>) characterViewPanel.get("characterView");
             Component characterEditForm = characterEditPage.get("characterEditForm");
-            Component newCharacterEditForm = new CharacterEditForm("characterEditForm",
+            Component newCharacterEditForm = new CharacterEditForm(
                     new CompoundPropertyModel<>(new Character()), characterView);
 
             characterView.setSelectedModel(new Model<>(new Character()));

@@ -62,12 +62,12 @@ public class PosIndexPage extends IndexBasePage {
             fragment.add(dataTable);
         }
 
-        add(new PosDeleteConfirmPanel("posDeleteConfirmPanel", dataTable));
-        add(new PosDeleteDeniedPanel("posDeleteDeniedPanel", dataTable));
-        add(new FeedbackPanel("feedbackPanel"));
+        add(new PosDeleteConfirmPanel(dataTable));
+        add(new PosDeleteDeniedPanel(dataTable));
+        add(new FeedbackPanel());
         add(filterTextField);
-        add(new NewButton("new"));
-        add(new BatchProcessingButton("batchProcessing"));
+        add(new NewButton());
+        add(new BatchProcessingButton());
         add(container);
         container.add(fragment);
     }
@@ -104,12 +104,9 @@ public class PosIndexPage extends IndexBasePage {
     private class NewButton extends Link<Void> {
         /**
          * Creates a button.
-         *
-         * @param id
-         *            ID of the button
          */
-        public NewButton(String id) {
-            super(id);
+        public NewButton() {
+            super("new");
         }
 
         /**
@@ -127,12 +124,9 @@ public class PosIndexPage extends IndexBasePage {
     private class BatchProcessingButton extends Link<Void> {
         /**
          * Creates a batch processing button.
-         * 
-         * @param id
-         *            ID of the button
          */
-        public BatchProcessingButton(String id) {
-            super(id);
+        public BatchProcessingButton() {
+            super("batchProcessing");
         }
 
         /**

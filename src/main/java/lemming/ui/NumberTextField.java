@@ -12,6 +12,7 @@ public class NumberTextField extends TextField<Integer> {
      * @param id
      *            ID of a number text field.
      */
+    @SuppressWarnings("SameParameterValue")
     public NumberTextField(String id) {
         super(id);
     }

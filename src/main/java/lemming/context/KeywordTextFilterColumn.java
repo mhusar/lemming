@@ -20,6 +20,7 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
      * @param propertyExpression
      *            property expression of a column
      */
+    @SuppressWarnings("SameParameterValue")
     public KeywordTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }
@@ -34,6 +35,7 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
      * @param propertyExpression
      *            property expression of a column
      */
+    @SuppressWarnings("SameParameterValue")
     public KeywordTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
     }

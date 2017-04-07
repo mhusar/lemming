@@ -62,21 +62,21 @@ public class LemmatizationPage extends LemmatizationBasePage {
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new LemmatizationDataTable("lemmatizationDataTable", getColumns(), dataProvider, filterForm);
+            dataTable = new LemmatizationDataTable(getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new LemmatizationDataTable("lemmatizationDataTable", getColumns(), dataProvider);
+            dataTable = new LemmatizationDataTable(getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             fragment.add(dataTable);
         }
 
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new InputPanel("inputPanel"));
+        add(new FeedbackPanel());
+        add(new InputPanel());
         add(filterTextField);
         add(container);
         container.add(fragment);
@@ -91,12 +91,12 @@ public class LemmatizationPage extends LemmatizationBasePage {
     protected void onInitialize() {
         super.onInitialize();
         add(new TitleLabel(getString("LemmatizationPage.header")));
-        Panel lemmatizationPanel = new LemmatizationPanel("lemmatizationPanel");
-        ModalFormPanel setLemmaPanel = new SetLemmaPanel("setLemmaPanel", dataTable);
-        ModalFormPanel setPosPanel = new SetPosPanel("setPosPanel", dataTable);
+        Panel lemmatizationPanel = new LemmatizationPanel();
+        ModalFormPanel setLemmaPanel = new SetLemmaPanel(dataTable);
+        ModalFormPanel setPosPanel = new SetPosPanel(dataTable);
 
-        lemmatizationPanel.add(new SetLemmaLink("setLemmaLink", setLemmaPanel));
-        lemmatizationPanel.add(new SetPosLink("setPosLink", setPosPanel));
+        lemmatizationPanel.add(new SetLemmaLink(setLemmaPanel));
+        lemmatizationPanel.add(new SetPosLink(setPosPanel));
 
         add(setLemmaPanel);
         add(setPosPanel);
@@ -138,6 +138,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
          * @param displayModel title of a column
          * @param propertyExpression property expression of a column
          */
+        @SuppressWarnings("SameParameterValue")
         public ContextRowSelectColumn(IModel<String> displayModel, String propertyExpression) {
             super(displayModel, propertyExpression);
         }
@@ -226,11 +227,9 @@ public class LemmatizationPage extends LemmatizationBasePage {
 
         /**
          * Creates a set lemma link.
-         *
-         * @param id ID of the link
          */
-        public SetLemmaLink(String id, ModalFormPanel setLemmaPanel) {
-            super(id);
+        public SetLemmaLink(ModalFormPanel setLemmaPanel) {
+            super("setLemmaLink");
             this.setLemmaPanel = setLemmaPanel;
         }
 
@@ -256,11 +255,9 @@ public class LemmatizationPage extends LemmatizationBasePage {
 
         /**
          * Creates a set part of speech link.
-         *
-         * @param id ID of the link
          */
-        public SetPosLink(String id, ModalFormPanel setPosPanel) {
-            super(id);
+        public SetPosLink(ModalFormPanel setPosPanel) {
+            super("setPosLink");
             this.setPosPanel = setPosPanel;
         }
 

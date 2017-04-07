@@ -11,11 +11,10 @@ public class ContextVerificationForm extends Form<InboundContextGroup> {
     /**
      * Creates a context verify form.
      *
-     * @param id ID of the form
      * @param model model of a group of inbound contexts
      */
-    public ContextVerificationForm(String id, IModel<InboundContextGroup> model) {
-        super(id, model);
+    public ContextVerificationForm(IModel<InboundContextGroup> model) {
+        super("ContextVerificationForm", model);
     }
 
     @Override

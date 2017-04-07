@@ -38,6 +38,7 @@ public class AlertPanel extends Panel {
      *
      * @param id ID of the panel
      */
+    @SuppressWarnings("SameParameterValue")
     public AlertPanel(String id) {
         super(id);
         colonLabel = new Label("colonLabel");
@@ -49,7 +50,7 @@ public class AlertPanel extends Panel {
                 .setOutputMarkupPlaceholderTag(true));
         add(messageLabel.setOutputMarkupId(true).setEscapeModelStrings(false));
         add(statusLabel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true));
-        add(new CloseButton("closeButton"));
+        add(new CloseButton());
     }
 
     /**
@@ -105,11 +106,9 @@ public class AlertPanel extends Panel {
     private class CloseButton extends AjaxLink<Void> {
         /**
          * Creates a close button.
-         *
-         * @param id ID of the button
          */
-        public CloseButton(String id) {
-            super(id);
+        public CloseButton() {
+            super("closeButton");
         }
 
         /**

@@ -57,6 +57,7 @@ public interface ILemmaDao extends IDao<Lemma> {
      * @param source source of data
      * @return A list of matching lemmata.
      */
+    @SuppressWarnings("SameParameterValue")
     List<Lemma> findBySource(Source.LemmaType source);
 
     /**

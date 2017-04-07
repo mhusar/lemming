@@ -35,14 +35,12 @@ import lemming.ui.panel.ModalMessagePanel;
 public class UserEditForm extends Form<User> {
     /**
      * Creates a user edit form.
-     * 
-     * @param id
-     *            ID of a user edit form
+     *
      * @param model
      *            edited user model
      */
-    public UserEditForm(String id, IModel<User> model) {
-        super(id, model);
+    public UserEditForm(IModel<User> model) {
+        super("userEditForm", model);
     }
 
     /**
@@ -62,14 +60,14 @@ public class UserEditForm extends Form<User> {
         add(realNameTextField.setOutputMarkupId(true));
         add(usernameTextField);
         add(new PasswordTextField("password").setResetPassword(false).setRequired(true));
-        add(new CancelButton("cancelButton"));
+        add(new CancelButton());
 
         if (WebSession.get().getUser().getRole().equals(UserRoles.Role.ADMIN)) {
             CheckBox enabledCheckBox = new CheckBox("enabled");
 
             add(roleListChoice);
             add(enabledCheckBox);
-            add(new DeleteButton("deleteButton", getModel()).setVisible(!(isUserTransient(getModelObject()))));
+            add(new DeleteButton(getModel()).setVisible(!(isUserTransient(getModelObject()))));
 
             if (isUserTransient(getModelObject())) {
                 enabledCheckBox.add(AttributeModifier.append("checked","checked"));
@@ -141,12 +139,9 @@ public class UserEditForm extends Form<User> {
     private final class CancelButton extends AjaxLink<User> {
         /**
          * Creates a cancel button.
-         * 
-         * @param id
-         *            ID of the button
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -171,14 +166,12 @@ public class UserEditForm extends Form<User> {
     private final class DeleteButton extends AjaxLink<User> {
         /**
          * Creates a delete button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          * @param model
          *            model which is deleted by the button
          */
-        private DeleteButton(String id, IModel<User> model) {
-            super(id, model);
+        private DeleteButton(IModel<User> model) {
+            super("deleteButton", model);
         }
 
         /**

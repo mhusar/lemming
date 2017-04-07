@@ -34,11 +34,10 @@ class SetPosPanel extends ModalFormPanel {
     /**
      * Creates a set part of speech panel.
      *
-     * @param id ID of the panel
      * @param dataTable a data table which delivers row models
      */
-    public SetPosPanel(String id, LemmatizationDataTable dataTable) {
-        super(id);
+    public SetPosPanel(LemmatizationDataTable dataTable) {
+        super("setPosPanel");
         this.dataTable = dataTable;
         posTextField = new PosAutoCompleteTextField("pos", new Model<>());
         addFormComponent(posTextField);

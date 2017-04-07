@@ -105,7 +105,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
         public GenericFilterPanel(final String id, final IModel<String> goModel, final IModel<String> clearModel,
                 final Object originalState) {
             super(id);
-            add(new GenericGoAndClearFilter("goAndClear", goModel, clearModel, originalState));
+            add(new GenericGoAndClearFilter(goModel, clearModel, originalState));
         }
     }
 
@@ -124,19 +124,14 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
         private Boolean configured = false;
 
         /**
-         * @param id
-         *            ID of the filter
-         * @param goModel
-         *            label of the go button
-         * @param clearModel
-         *            label of the clear button
-         * @param originalState
-         *            original state of th
+         * @param goModel label of the go button
+         * @param clearModel label of the clear button
+         * @param originalState the original state
          */
         @SuppressWarnings("unchecked")
-        public GenericGoAndClearFilter(final String id, final IModel<String> goModel, final IModel<String> clearModel,
-                Object originalState) {
-            super(id, goModel, clearModel, originalState);
+        public GenericGoAndClearFilter(final IModel<String> goModel, final IModel<String> clearModel,
+                                       Object originalState) {
+            super("goAndClear", goModel, clearModel, originalState);
             this.originalState = (T) originalState;
         }
 

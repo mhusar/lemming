@@ -15,38 +15,32 @@ import org.apache.wicket.model.StringResourceModel;
 public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param responsePage
      *            page loaded on confirmation
      */
-    public ContextDeleteConfirmPanel(String id, Page responsePage) {
-        super(id, DialogType.YES_NO, responsePage);
+    public ContextDeleteConfirmPanel(Page responsePage) {
+        super("contextDeleteConfirmPanel", DialogType.YES_NO, responsePage);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param responsePageClass
      *            class of page loaded on confirmation
      */
-    public ContextDeleteConfirmPanel(String id, Class<? extends Page> responsePageClass) {
-        super(id, DialogType.YES_NO, responsePageClass);
+    public ContextDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
+        super("contextDeleteConfirmPanel", DialogType.YES_NO, responsePageClass);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param dataTable
      *            data table that is refreshed
      */
-    public ContextDeleteConfirmPanel(String id, GenericDataTable<Context> dataTable) {
-        super(id, DialogType.YES_NO, dataTable);
+    public ContextDeleteConfirmPanel(GenericDataTable<Context> dataTable) {
+        super("contextDeleteConfirmPanel", DialogType.YES_NO, dataTable);
     }
 
     /**

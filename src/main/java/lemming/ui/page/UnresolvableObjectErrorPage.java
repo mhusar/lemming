@@ -46,6 +46,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
      * @param exception
      *            exception raised due to an unresolvable object
      */
+    @SuppressWarnings("SameParameterValue")
     public UnresolvableObjectErrorPage(ActionType action, Object element, Exception exception) {
         this.action = action;
         this.exception = exception;

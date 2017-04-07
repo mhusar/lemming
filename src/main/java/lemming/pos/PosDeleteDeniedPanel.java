@@ -15,24 +15,19 @@ import org.apache.wicket.model.StringResourceModel;
 public class PosDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
      */
-    public PosDeleteDeniedPanel(String id) {
-        super(id, DialogType.OKAY);
+    public PosDeleteDeniedPanel() {
+        super("posDeleteDeniedPanel", DialogType.OKAY);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param dataTable
      *            data table that is refreshed
      */
-    public PosDeleteDeniedPanel(String id, GenericDataTable<Pos> dataTable) {
-        super(id, DialogType.OKAY, dataTable);
+    public PosDeleteDeniedPanel(GenericDataTable<Pos> dataTable) {
+        super("posDeleteDeniedPanel", DialogType.OKAY, dataTable);
     }
 
     /**

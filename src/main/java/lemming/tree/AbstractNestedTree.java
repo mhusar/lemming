@@ -57,7 +57,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
             throw new IllegalStateException("The selected model is not allowed to be null!");
         }
 
-        add(new Subtree<>("subtree", this, null));
+        add(new Subtree<>(this, null));
         setOutputMarkupId(true);
     }
 

@@ -75,9 +75,9 @@ public class ContextEditPage extends BasePage {
         ModalMessagePanel contextDeleteConfirmPanel;
 
         if (nextPageClass != null) {
-            contextDeleteConfirmPanel = new ContextDeleteConfirmPanel("contextDeleteConfirmPanel", nextPageClass);
+            contextDeleteConfirmPanel = new ContextDeleteConfirmPanel(nextPageClass);
         } else {
-            contextDeleteConfirmPanel = new ContextDeleteConfirmPanel("contextDeleteConfirmPanel",
+            contextDeleteConfirmPanel = new ContextDeleteConfirmPanel(
                     ContextIndexPage.class);
         }
 
@@ -92,7 +92,7 @@ public class ContextEditPage extends BasePage {
             add(new Label("header", getString("ContextEditPage.editHeader")));
         }
 
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new ContextEditForm("contextEditForm", contextModel, nextPageClass));
+        add(new FeedbackPanel());
+        add(new ContextEditForm(contextModel, nextPageClass));
     }
 }

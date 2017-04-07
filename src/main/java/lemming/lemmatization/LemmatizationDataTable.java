@@ -45,34 +45,27 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
     /**
      * Creates a data table with toolbars.
      *
-     * @param id
-     *            ID of a data table
-     * @param columns
-     *            list of columns
-     * @param dataProvider
-     *            provides data for a table
+     * @param columns list of columns
+     * @param dataProvider provides data for a table
      */
-    public LemmatizationDataTable(String id, List<IColumn<Context, String>> columns,
+    public LemmatizationDataTable(List<IColumn<Context, String>> columns,
                                   GenericDataProvider<Context> dataProvider) {
-        super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
+        super("lemmatizationDataTable", columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(dataProvider, null);
     }
 
     /**
      * Creates a data table with toolbars.
      *
-     * @param id
-     *            ID of a data table
      * @param columns
      *            list of columns
      * @param dataProvider
      *            provides data for a table
      * @param filterForm
-     *            form that filters data of a table
      */
-    public LemmatizationDataTable(String id, List<IColumn<Context, String>> columns,
+    public LemmatizationDataTable(List<IColumn<Context, String>> columns,
                                   GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {
-        super(id, columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
+        super("lemmatizationDataTable", columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(dataProvider, filterForm);
     }
 

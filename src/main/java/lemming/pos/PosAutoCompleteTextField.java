@@ -30,6 +30,7 @@ public class PosAutoCompleteTextField extends PosTextField {
      * @param id
      *            ID of the text field
      */
+    @SuppressWarnings("SameParameterValue")
     public PosAutoCompleteTextField(String id) {
         super(id);
         add(new PosAutoCompleteBehavior(id));
@@ -43,6 +44,7 @@ public class PosAutoCompleteTextField extends PosTextField {
      * @param model
      *            data model of the text field
      */
+    @SuppressWarnings("SameParameterValue")
     public PosAutoCompleteTextField(String id, IModel<Pos> model) {
         super(id, model);
         add(new PosAutoCompleteBehavior(id));

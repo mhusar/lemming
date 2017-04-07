@@ -32,24 +32,22 @@ public class SenseEditPanel extends Panel {
     /**
      * Creates a sense edit panel.
      *
-     * @param id ID of the panel
      * @param lemmaModel model of a parent lemma
      */
-    public SenseEditPanel(String id, IModel<Lemma> lemmaModel) {
-        super(id);
-        add(new SenseEditForm("senseEditForm", lemmaModel));
+    public SenseEditPanel(IModel<Lemma> lemmaModel) {
+        super("senseEditPanel");
+        add(new SenseEditForm(lemmaModel));
     }
 
     /**
      * Creates a sense edit panel.
      *
-     * @param id ID of the panel
      * @param lemmaModel model of a parent lemma
      * @param senseModel model of a sense
      */
-    public SenseEditPanel(String id, IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
-        super(id);
-        add(new SenseEditForm("senseEditForm", lemmaModel, senseModel));
+    public SenseEditPanel(IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
+        super("senseEditPanel");
+        add(new SenseEditForm(lemmaModel, senseModel));
     }
 
     /**
@@ -110,23 +108,21 @@ public class SenseEditPanel extends Panel {
         /**
          * Creates a sense edit form.
          *
-         * @param id ID of the panel
          * @param lemmaModel model of a parent lemma
          */
-        public SenseEditForm(String id, IModel<Lemma> lemmaModel) {
-            super(id);
+        public SenseEditForm(IModel<Lemma> lemmaModel) {
+            super("senseEditForm");
             this.lemmaModel = lemmaModel;
         }
 
         /**
          * Creates a sense edit form.
          *
-         * @param id ID of the panel
          * @param lemmaModel model of a parent lemma
          * @param senseModel model of a sense
          */
-        public SenseEditForm(String id, IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
-            super(id);
+        public SenseEditForm(IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
+            super("senseEditForm");
             this.lemmaModel = lemmaModel;
             this.senseModel = senseModel;
             parentSenseModel = new Model<>();
@@ -157,12 +153,12 @@ public class SenseEditPanel extends Panel {
 
             senseTree.addSelectListener(this);
             senseTree.addDropListener(this);
-            SenseEditPanel.this.add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", lemmaModel, senseTree));
+            SenseEditPanel.this.add(new SenseDeleteConfirmPanel(lemmaModel, senseTree));
 
-            addSenseButton = new AddSenseButton("addSenseButton");
-            addChildSenseButton = new AddChildSenseButton("addChildSenseButton");
-            deleteSenseButton = new DeleteSenseButton("deleteSenseButton");
-            saveSenseButton = new SaveSenseButton("saveSenseButton", this);
+            addSenseButton = new AddSenseButton();
+            addChildSenseButton = new AddChildSenseButton();
+            deleteSenseButton = new DeleteSenseButton();
+            saveSenseButton = new SaveSenseButton(this);
 
             if (senseModel instanceof IModel) {
                 if (senseModel.getObject().isParentSense()) {
@@ -303,11 +299,9 @@ public class SenseEditPanel extends Panel {
         private class AddSenseButton extends AjaxLink<Void> {
             /**
              * Creates an add sense button.
-             *
-             * @param id ID of the button
              */
-            public AddSenseButton(String id) {
-                super(id);
+            public AddSenseButton() {
+                super("addSenseButton");
             }
 
             /**
@@ -336,11 +330,9 @@ public class SenseEditPanel extends Panel {
         private class AddChildSenseButton extends AjaxLink<Void> {
             /**
              * Creates an add child sense button.
-             *
-             * @param id ID of the button
              */
-            public AddChildSenseButton(String id) {
-                super(id);
+            public AddChildSenseButton() {
+                super("addChildSenseButton");
             }
 
             /**
@@ -370,11 +362,9 @@ public class SenseEditPanel extends Panel {
         private class DeleteSenseButton extends AjaxLink<Void> {
             /**
              * Creates a delete sense button.
-             *
-             * @param id ID of the button
              */
-            public DeleteSenseButton(String id) {
-                super(id);
+            public DeleteSenseButton() {
+                super("deleteSenseButton");
             }
 
             /**
@@ -396,11 +386,9 @@ public class SenseEditPanel extends Panel {
         private class SaveSenseButton extends AjaxButton {
             /**
              * Creates a save sense button.
-             *
-             * @param id ID of the button
              */
-            public SaveSenseButton(String id, Form<?> form) {
-                super(id, form);
+            public SaveSenseButton(Form<?> form) {
+                super("saveSenseButton", form);
             }
 
             /**

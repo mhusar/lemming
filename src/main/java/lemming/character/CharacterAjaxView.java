@@ -19,11 +19,9 @@ import lemming.ui.AjaxView;
 public class CharacterAjaxView extends AjaxView<Character> {
     /**
      * Creates an Ajax view for special characters.
-     *
-     * @param id ID of the view
      */
-    public CharacterAjaxView(String id) {
-        super(id);
+    public CharacterAjaxView() {
+        super("characterView");
     }
 
     /**

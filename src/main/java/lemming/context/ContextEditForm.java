@@ -28,15 +28,11 @@ public class ContextEditForm extends Form<Context> {
     /**
      * Creates a context edit form.
      *
-     * @param id
-     *            ID of the edit form
-     * @param model
-     *            context model that is edited
-     * @param nextPageClass
-     *            class of the next page
+     * @param model context model that is edited
+     * @param nextPageClass class of the next page
      */
-    public ContextEditForm(String id, IModel<Context> model, Class<? extends Page> nextPageClass) {
-        super(id, model);
+    public ContextEditForm(IModel<Context> model, Class<? extends Page> nextPageClass) {
+        super("contextEditForm", model);
 
         this.nextPageClass = nextPageClass;
         LemmaTextField lemmaTextField = new LemmaAutoCompleteTextField("lemma");
@@ -57,8 +53,8 @@ public class ContextEditForm extends Form<Context> {
         add(precedingTextField.setRequired(true));
         add(keywordTextField);
         add(followingTextField.setRequired(true));
-        add(new CancelButton("cancelButton"));
-        add(new DeleteButton("deleteButton", model).setVisible(!(isContextTransient(model))));
+        add(new CancelButton());
+        add(new DeleteButton(model).setVisible(!(isContextTransient(model))));
     }
 
     /**
@@ -99,12 +95,9 @@ public class ContextEditForm extends Form<Context> {
     private final class CancelButton extends AjaxLink<Context> {
         /**
          * Creates a cancel button.
-         *
-         * @param id
-         *            ID of the button
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -130,13 +123,10 @@ public class ContextEditForm extends Form<Context> {
         /**
          * Creates a delete button.
          *
-         * @param id
-         *            ID of the button
-         * @param model
-         *            model which is deleted by the button
+         * @param model model which is deleted by the button
          */
-        private DeleteButton(String id, IModel<Context> model) {
-            super(id, model);
+        private DeleteButton(IModel<Context> model) {
+            super("deleteButton", model);
         }
 
         /**

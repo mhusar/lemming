@@ -43,6 +43,7 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
      * @param model
      *            data model of the text field
      */
+    @SuppressWarnings("SameParameterValue")
     public LemmaAutoCompleteTextField(String id, IModel<Lemma> model) {
         super(id, model);
         add(new LemmaAutoCompleteBehavior(id));

@@ -15,12 +15,9 @@ import lemming.ui.panel.ModalMessagePanel;
 public class UserDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
      */
-    public UserDeleteDeniedPanel(String id) {
-        super(id, DialogType.OKAY);
+    public UserDeleteDeniedPanel() {
+        super("userDeleteDeniedPanel", DialogType.OKAY);
     }
 
     /**

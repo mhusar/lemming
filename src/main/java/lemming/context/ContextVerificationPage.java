@@ -40,6 +40,6 @@ public class ContextVerificationPage extends BasePage {
         super.onInitialize();
         add(new TitleLabel(getString("ContextVerificationPage.header")));
         add(new Label("header", getString("ContextVerificationPage.header")));
-        add(new ContextVerificationForm("ContextVerificationForm", model));
+        add(new ContextVerificationForm(model));
     }
 }

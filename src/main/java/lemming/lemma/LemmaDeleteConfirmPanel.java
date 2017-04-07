@@ -16,38 +16,32 @@ import lemming.ui.panel.ModalMessagePanel;
 public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param responsePage
      *            page loaded on confirmation
      */
-    public LemmaDeleteConfirmPanel(String id, Page responsePage) {
-        super(id, DialogType.YES_NO, responsePage);
+    public LemmaDeleteConfirmPanel(Page responsePage) {
+        super("lemmaDeleteConfirmPanel", DialogType.YES_NO, responsePage);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param responsePageClass
      *            class of page loaded on confirmation
      */
-    public LemmaDeleteConfirmPanel(String id, Class<? extends Page> responsePageClass) {
-        super(id, DialogType.YES_NO, responsePageClass);
+    public LemmaDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
+        super("lemmaDeleteConfirmPanel", DialogType.YES_NO, responsePageClass);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param dataTable
      *            data table that is refreshed
      */
-    public LemmaDeleteConfirmPanel(String id, GenericDataTable<Lemma> dataTable) {
-        super(id, DialogType.YES_NO, dataTable);
+    public LemmaDeleteConfirmPanel(GenericDataTable<Lemma> dataTable) {
+        super("lemmaDeleteConfirmPanel", DialogType.YES_NO, dataTable);
     }
 
     /**

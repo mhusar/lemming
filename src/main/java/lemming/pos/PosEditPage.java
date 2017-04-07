@@ -80,9 +80,9 @@ public class PosEditPage extends BasePage {
         ModalMessagePanel posDeleteConfirmPanel;
 
         if (nextPageClass != null) {
-            posDeleteConfirmPanel = new PosDeleteConfirmPanel("posDeleteConfirmPanel", nextPageClass);
+            posDeleteConfirmPanel = new PosDeleteConfirmPanel(nextPageClass);
         } else {
-            posDeleteConfirmPanel = new PosDeleteConfirmPanel("posDeleteConfirmPanel", PosIndexPage.class);
+            posDeleteConfirmPanel = new PosDeleteConfirmPanel(PosIndexPage.class);
         }
 
         add(posDeleteConfirmPanel);
@@ -96,8 +96,8 @@ public class PosEditPage extends BasePage {
             add(new Label("header", getString("PosEditPage.editHeader")));
         }
 
-        add(new PosDeleteDeniedPanel("posDeleteDeniedPanel"));
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new PosEditForm("posEditForm", posModel, nextPageClass));
+        add(new PosDeleteDeniedPanel());
+        add(new FeedbackPanel());
+        add(new PosEditForm(posModel, nextPageClass));
     }
 }

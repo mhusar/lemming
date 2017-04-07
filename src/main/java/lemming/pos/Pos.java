@@ -126,6 +126,7 @@ public class Pos extends DatedEntity implements Serializable {
      *
      * @param source source of a part of speech
      */
+    @SuppressWarnings("SameParameterValue")
     public void setSource(Source.PosType source) {
         this.source = source;
     }

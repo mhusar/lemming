@@ -95,6 +95,7 @@ public abstract class ModalMessagePanel extends Panel {
      * @param responsePageClass
      *            class of page loaded on confirmation
      */
+    @SuppressWarnings("SameParameterValue")
     public ModalMessagePanel(String id, DialogType dialogType, Class<? extends Page> responsePageClass) {
         super(id);
 
@@ -140,11 +141,11 @@ public abstract class ModalMessagePanel extends Panel {
 
         if (dialogType == DialogType.YES_NO) {
             fragment = new Fragment("fragment", "yesNoDialog", this);
-            fragment.add(new CancelButton("cancelButton"));
-            fragment.add(new ConfirmButton("confirmButton").add(new Label("modalConfirm", getConfirmationString())));
+            fragment.add(new CancelButton());
+            fragment.add(new ConfirmButton().add(new Label("modalConfirm", getConfirmationString())));
         } else if (dialogType == DialogType.OKAY) {
             fragment = new Fragment("fragment", "okayDialog", this);
-            fragment.add(new ConfirmButton("confirmButton").add(new Label("modalConfirm", getConfirmationString())));
+            fragment.add(new ConfirmButton().add(new Label("modalConfirm", getConfirmationString())));
         }
 
         container.add(fragment);
@@ -232,12 +233,9 @@ public abstract class ModalMessagePanel extends Panel {
     private class CancelButton extends AjaxLink<Void> {
         /**
          * Creates a button.
-         * 
-         * @param id
-         *            ID of button
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -259,12 +257,9 @@ public abstract class ModalMessagePanel extends Panel {
     private class ConfirmButton extends AjaxLink<Void> {
         /**
          * Creates a button.
-         * 
-         * @param id
-         *            ID of button
          */
-        public ConfirmButton(String id) {
-            super(id);
+        public ConfirmButton() {
+            super("confirmButton");
         }
 
         /**

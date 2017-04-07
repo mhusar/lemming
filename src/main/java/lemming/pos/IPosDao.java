@@ -31,6 +31,7 @@ public interface IPosDao extends IDao<Pos> {
      * @param source source of data
      * @return A list of matching parts of speech.
      */
+    @SuppressWarnings("SameParameterValue")
     List<Pos> findBySource(Source.PosType source);
 
     /**

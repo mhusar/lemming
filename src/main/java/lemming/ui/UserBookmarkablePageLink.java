@@ -18,6 +18,7 @@ public class UserBookmarkablePageLink extends BookmarkablePageLink<Void> {
      * @param pageClass
      *            class of page
      */
+    @SuppressWarnings("SameParameterValue")
     public UserBookmarkablePageLink(String id, Class<? extends Page> pageClass) {
         super(id, pageClass);
     }

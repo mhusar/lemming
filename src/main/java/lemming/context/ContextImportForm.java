@@ -53,11 +53,9 @@ public class ContextImportForm extends Form<Void> {
 
     /**
      * Creates a context import form.
-     *
-     * @param id ID of the form
      */
-    public ContextImportForm(String id) {
-        super(id);
+    public ContextImportForm() {
+        super("contextImportForm");
         setMultiPart(true);
         setMaxSize(Bytes.megabytes(10));
         setFileMaxSize(Bytes.megabytes(10));
@@ -102,11 +100,11 @@ public class ContextImportForm extends Form<Void> {
         setMarkupId(getId());
         fileInput = new FileUploadField("fileInput", new Model<>(new ArrayList<>()));
         textInput = new TextField<>("textInput", Model.of(""));
-        removeButton = new RemoveButton("removeButton");
+        removeButton = new RemoveButton();
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel("alertPanel");
-        SubmitButton submitButton = new SubmitButton("submitButton", this);
-        contextGroupPanel = new InboundContextGroupPanel("contextGroupPanel");
+        SubmitButton submitButton = new SubmitButton(this);
+        contextGroupPanel = new InboundContextGroupPanel();
 
         fileInput.add(new FileInputChangeBehavior())
                 .add(AttributeModifier.append("style", "position: absolute; left: -9999px;"));
@@ -115,7 +113,7 @@ public class ContextImportForm extends Form<Void> {
         add(removeButton.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
         add(browseButton.setMarkupId(browseButton.getId()).add(new BrowseButtonBehavior()));
         getPage().add(alertPanel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
-        getPage().add(new ToHomePageButton("toHomePageButton"));
+        getPage().add(new ToHomePageButton());
         getPage().add(submitButton);
         getPage().add(contextGroupPanel.setOutputMarkupId(true));
     }
@@ -252,11 +250,9 @@ public class ContextImportForm extends Form<Void> {
     private class RemoveButton extends AjaxLink<Void> {
         /**
          * Creates a remove button.
-         *
-         * @param id ID of the button
          */
-        public RemoveButton(String id) {
-            super(id);
+        public RemoveButton() {
+            super("removeButton");
         }
 
         /**
@@ -279,11 +275,9 @@ public class ContextImportForm extends Form<Void> {
     private final class ToHomePageButton extends AjaxLink<Void> {
         /**
          * Creates a redirect button.
-         *
-         * @param id ID of the button
          */
-        public ToHomePageButton(String id) {
-            super(id);
+        public ToHomePageButton() {
+            super("toHomePageButton");
         }
 
         /**
@@ -304,11 +298,10 @@ public class ContextImportForm extends Form<Void> {
         /**
          * Creates a submit button.
          *
-         * @param id ID of the submit button
          * @param form that is submitted
          */
-        public SubmitButton(String id, Form<?> form) {
-            super(id, form);
+        public SubmitButton(Form<?> form) {
+            super("submitButton", form);
         }
 
         /**

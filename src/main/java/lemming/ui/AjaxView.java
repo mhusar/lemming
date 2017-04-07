@@ -33,6 +33,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      * @param id
      *            ID of the view
      */
+    @SuppressWarnings("SameParameterValue")
     public AjaxView(String id) {
         super(id);
     }

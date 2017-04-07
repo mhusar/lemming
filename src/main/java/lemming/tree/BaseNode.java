@@ -73,6 +73,7 @@ public abstract class BaseNode<T> extends Panel {
          *
          * @param id ID of the switch
          */
+        @SuppressWarnings("SameParameterValue")
         public NodeSwitch(String id) {
             super(id);
         }

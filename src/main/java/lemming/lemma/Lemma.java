@@ -256,6 +256,7 @@ public class Lemma extends DatedEntity implements Serializable {
      *
      * @param source source of a lemma
      */
+    @SuppressWarnings("SameParameterValue")
     public void setSource(Source.LemmaType source) {
         this.source = source;
     }

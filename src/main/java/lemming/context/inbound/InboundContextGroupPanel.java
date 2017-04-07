@@ -38,13 +38,11 @@ public class InboundContextGroupPanel extends Panel {
 
     /**
      * Creates an InboundContextGroupPanel.
-     *
-     * @param id ID of the panel
      */
-    public InboundContextGroupPanel(String id) {
-        super(id);
+    public InboundContextGroupPanel() {
+        super("contextGroupPanel");
         placeholder = new WebMarkupContainer("placeholder");
-        contextGroupView = new InboundContextGroupView("contextGroupView");
+        contextGroupView = new InboundContextGroupView();
         add(placeholder);
         add(contextGroupView);
     }
@@ -64,11 +62,9 @@ public class InboundContextGroupPanel extends Panel {
     private class InboundContextGroupView extends RefreshingView<InboundContextGroup> {
         /**
          * Create an InboundContextGroupView.
-         *
-         * @param id ID of the view
          */
-        public InboundContextGroupView(String id) {
-            super(id);
+        public InboundContextGroupView() {
+            super("contextGroupView");
         }
 
         /**
@@ -135,8 +131,8 @@ public class InboundContextGroupPanel extends Panel {
             item.add(new Label("itemLabel", itemLabel));
             item.add(new WebMarkupContainer("detailsButton").add(AttributeModifier.append("data-html",
                     popoverContent)));
-            item.add(new VerifyButton("verifyButton", item.getModel()));
-            item.add(new DiscardButton("discardButton", item.getModel()));
+            item.add(new VerifyButton(item.getModel()));
+            item.add(new DiscardButton(item.getModel()));
         }
 
         /**
@@ -172,8 +168,8 @@ public class InboundContextGroupPanel extends Panel {
         /**
          * Creates a verify button.
          */
-        public VerifyButton(String id, IModel<InboundContextGroup> model) {
-            super(id, model);
+        public VerifyButton(IModel<InboundContextGroup> model) {
+            super("verifyButton", model);
         }
 
         /**
@@ -192,11 +188,10 @@ public class InboundContextGroupPanel extends Panel {
         /**
          * Creates a discard button.
          *
-         * @param id ID of the button
          * @param model model of the button
          */
-        public DiscardButton(String id, IModel<InboundContextGroup> model) {
-            super(id, model);
+        public DiscardButton(IModel<InboundContextGroup> model) {
+            super("discardButton", model);
         }
 
         /**

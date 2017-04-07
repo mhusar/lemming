@@ -48,7 +48,7 @@ public class SenseIndexPage extends IndexBasePage {
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
         GenericDataTable<Sense> dataTable;
-        ChooseLemmaPanel chooseLemmaPanel = new ChooseLemmaPanel("chooseLemmaPanel");
+        ChooseLemmaPanel chooseLemmaPanel = new ChooseLemmaPanel();
 
         // check if the session is expired
         WebSession.get().checkSessionExpired();
@@ -68,10 +68,10 @@ public class SenseIndexPage extends IndexBasePage {
             fragment.add(dataTable);
         }
 
-        add(new SenseDeleteConfirmPanel("senseDeleteConfirmPanel", dataTable));
-        add(new FeedbackPanel("feedbackPanel"));
+        add(new SenseDeleteConfirmPanel(dataTable));
+        add(new FeedbackPanel());
         add(filterTextField);
-        add(new NewButton("new", chooseLemmaPanel));
+        add(new NewButton(chooseLemmaPanel));
         add(container);
         container.add(fragment);
         add(chooseLemmaPanel);
@@ -115,11 +115,10 @@ public class SenseIndexPage extends IndexBasePage {
         /**
          * Creates a button.
          *
-         * @param id ID of the button
          * @param chooseLemmaPanel a panel used to choose a lemma for sense editing
          */
-        public NewButton(String id, ModalFormPanel chooseLemmaPanel) {
-            super(id);
+        public NewButton(ModalFormPanel chooseLemmaPanel) {
+            super("new");
             this.chooseLemmaPanel = chooseLemmaPanel;
         }
 
@@ -145,11 +144,9 @@ public class SenseIndexPage extends IndexBasePage {
 
         /**
          * Creates a choose lemma panel.
-         *
-         * @param id ID of the panel
          */
-        public ChooseLemmaPanel(String id) {
-            super(id);
+        public ChooseLemmaPanel() {
+            super("chooseLemmaPanel");
             lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<>());
             addFormComponent(lemmaTextField);
         }

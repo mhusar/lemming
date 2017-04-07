@@ -20,6 +20,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
      * @param propertyExpression
      *            property expression of a column
      */
+    @SuppressWarnings("SameParameterValue")
     public PrecedingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }
@@ -34,6 +35,7 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
      * @param propertyExpression
      *            property expression of a column
      */
+    @SuppressWarnings("SameParameterValue")
     public PrecedingContextTextFilterColumn(IModel<String> displayModel, String sortProperty,
                                             String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);

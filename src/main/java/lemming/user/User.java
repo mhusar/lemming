@@ -142,6 +142,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      * @param realName
      *            a real name
      */
+    @SuppressWarnings("SameParameterValue")
     public void setRealName(String realName) {
         this.realName = realName;
     }
@@ -161,6 +162,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      * @param username
      *            a username
      */
+    @SuppressWarnings("SameParameterValue")
     public void setUsername(String username) {
         this.username = username;
     }
@@ -181,6 +183,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      *            a hashed password
      * @see UserDao#hashPassword(String, byte[])
      */
+    @SuppressWarnings("SameParameterValue")
     public void setPassword(String password) {
         this.password = password;
     }
@@ -220,6 +223,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      * @param role
      *            the role of a user
      */
+    @SuppressWarnings("SameParameterValue")
     public void setRole(UserRoles.Role role) {
         this.role = role;
     }
@@ -239,6 +243,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      * @param enabled
      *            true or false
      */
+    @SuppressWarnings("SameParameterValue")
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }

@@ -22,14 +22,11 @@ import lemming.user.UserEditPage;
 public class HeaderPanel extends Panel {
     /**
      * Creates a header panel.
-     * 
-     * @param id
-     *            ID of a panel
-     * @param activePageClass
-     *            class of active page
+     *
+     * @param activePageClass class of active page
      */
-    public HeaderPanel(String id, Class<? extends Page> activePageClass) {
-        super(id);
+    public HeaderPanel(Class<? extends Page> activePageClass) {
+        super("headerPanel");
 
         WebMarkupContainer homePageItem = new WebMarkupContainer("homePageItem");
         WebMarkupContainer lemmatizationItem = new WebMarkupContainer("lemmatizationItem");

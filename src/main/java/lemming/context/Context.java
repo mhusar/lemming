@@ -203,7 +203,7 @@ public class Context extends BaseContext implements Serializable {
      *
      * @param selected selected state of a context
      */
-    public void setSelected(Boolean selected) {
+    public void setSelected(@SuppressWarnings("SameParameterValue") Boolean selected) {
         this.selected = selected;
     }
 }

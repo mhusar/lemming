@@ -29,16 +29,14 @@ import lemming.ui.panel.FeedbackPanel;
 public class UserViewPanel extends Panel {
     /**
      * Creates a user list panel.
-     * 
-     * @param id
-     *            ID of a user list panel
+     *
      * @param model
      *            model of selected user
      */
-    public UserViewPanel(String id, IModel<User> model) {
-        super(id);
+    public UserViewPanel(IModel<User> model) {
+        super("userViewPanel");
         setOutputMarkupId(true);
-        add(new UserView("userView", model));
+        add(new UserView(model));
     }
 
     /**
@@ -52,14 +50,12 @@ public class UserViewPanel extends Panel {
 
         /**
          * Creates a user view.
-         * 
-         * @param id
-         *            ID of a user view
+         *
          * @param model
          *            model of selected user
          */
-        public UserView(String id, IModel<User> model) {
-            super(id);
+        public UserView(IModel<User> model) {
+            super("userView");
             selectedUserModel = model;
         }
 
@@ -96,7 +92,7 @@ public class UserViewPanel extends Panel {
          */
         @Override
         protected void populateItem(Item<User> item) {
-            final AjaxLink<User> userLink = new UserLink("userLink", item.getModel());
+            final AjaxLink<User> userLink = new UserLink(item.getModel());
 
             if (item.getModelObject().equals(selectedUserModel.getObject())) {
                 userLink.add(AttributeModifier.replace("class", "list-group-item active"));
@@ -134,14 +130,12 @@ public class UserViewPanel extends Panel {
         private final class UserLink extends AjaxLink<User> {
             /**
              * Creates a user link.
-             * 
-             * @param id
-             *            ID of a user link
+             *
              * @param model
              *            model of a user
              */
-            private UserLink(String id, IModel<User> model) {
-                super(id, model);
+            private UserLink(IModel<User> model) {
+                super("userLink", model);
             }
 
             /**
@@ -156,7 +150,7 @@ public class UserViewPanel extends Panel {
                 UserEditPage userEditPage = findParent(UserEditPage.class);
                 UserEditPanel userEditPanel = (UserEditPanel) userEditPage.get("userEditPanel");
                 MarkupContainer feedbackPanel = (FeedbackPanel) userEditPage.get("feedbackPanel");
-                Component newUserEditForm = new UserEditForm("userEditForm",
+                Component newUserEditForm = new UserEditForm(
                         new CompoundPropertyModel<>(getModelObject()));
 
                 userView.setSelectedUser(getModel());

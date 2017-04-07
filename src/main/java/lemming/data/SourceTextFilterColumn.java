@@ -29,6 +29,7 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      * @param propertyExpression
      *            property expression of a column
      */
+    @SuppressWarnings("SameParameterValue")
     public SourceTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }
@@ -43,6 +44,7 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      * @param propertyExpression
      *            property expression of a column
      */
+    @SuppressWarnings("SameParameterValue")
     public SourceTextFilterColumn(IModel<String> displayModel, S sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
     }

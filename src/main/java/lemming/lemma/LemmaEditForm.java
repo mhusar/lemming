@@ -35,16 +35,12 @@ public class LemmaEditForm extends Form<Lemma> {
 
     /**
      * Creates a lemma edit form.
-     * 
-     * @param id
-     *            ID of the edit form
-     * @param model
-     *            lemma model that is edited
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param model lemma model that is edited
+     * @param nextPageClass class of the next page
      */
-    public LemmaEditForm(String id, IModel<Lemma> model, Class<? extends Page> nextPageClass) {
-        super(id, model);
+    public LemmaEditForm(IModel<Lemma> model, Class<? extends Page> nextPageClass) {
+        super("lemmaEditForm", model);
 
         this.nextPageClass = nextPageClass;
         RequiredTextField<String> nameTextField = new RequiredTextField<>("name");
@@ -61,7 +57,7 @@ public class LemmaEditForm extends Form<Lemma> {
         TextField<String> referenceTextField = new TextField<>("reference");
         MarkupContainer userContainer = new WebMarkupContainer("userContainer");
         UserTextField userTextField = new UserTextField("user");
-        DeleteButton deleteButton = new DeleteButton("deleteButton", model);
+        DeleteButton deleteButton = new DeleteButton(model);
 
         add(nameTextField);
         add(replacementContainer);
@@ -75,7 +71,7 @@ public class LemmaEditForm extends Form<Lemma> {
         add(userContainer);
         userContainer.add(userTextField);
 
-        add(new CancelButton("cancelButton"));
+        add(new CancelButton());
         add(deleteButton);
 
         if (isLemmaTransient(model)) {
@@ -149,12 +145,9 @@ public class LemmaEditForm extends Form<Lemma> {
     private final class CancelButton extends AjaxLink<Lemma> {
         /**
          * Creates a cancel button.
-         * 
-         * @param id
-         *            ID of the button
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -179,14 +172,11 @@ public class LemmaEditForm extends Form<Lemma> {
     private final class DeleteButton extends AjaxLink<Lemma> {
         /**
          * Creates a delete button.
-         * 
-         * @param id
-         *            ID of the button
-         * @param model
-         *            model which is deleted by the button
+         *
+         * @param model model which is deleted by the button
          */
-        private DeleteButton(String id, IModel<Lemma> model) {
-            super(id, model);
+        private DeleteButton(IModel<Lemma> model) {
+            super("deleteButton", model);
         }
 
         /**
