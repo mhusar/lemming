@@ -66,6 +66,7 @@ public class WebApplication extends AuthenticatedWebApplication {
         if (AuthenticatedWebApplication.get().getConfigurationType().equals(RuntimeConfigurationType.DEPLOYMENT)) {
             // don’t show an exception page when an unexpected exception is thrown
             getExceptionSettings().setUnexpectedExceptionDisplay(ExceptionSettings.SHOW_NO_EXCEPTION_PAGE);
+            getMarkupSettings().setStripComments(true);
         }
 
         if (getInitParameter("wicket.stripWicketTags").equals("true")) {
