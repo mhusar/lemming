@@ -72,9 +72,7 @@ public class WebSession extends AuthenticatedWebSession {
      * @throws RestartResponseException
      */
     public void checkSessionExpired() {
-        if (user instanceof User) {
-            return;
-        } else {
+        if (user == null) {
             if (isTemporary()) {
                 logger.error("Session is expired. Redirect to sign-in page.");
                 bind();

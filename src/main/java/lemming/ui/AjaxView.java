@@ -230,11 +230,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      * @return True if the model is selected; false otherwise.
      */
     private Boolean isSelected(IModel<T> model) {
-        if (model.getObject().equals(getSelectedModel().getObject())) {
-            return true;
-        } else {
-            return false;
-        }
+        return model.getObject().equals(getSelectedModel().getObject());
     }
 
     /**

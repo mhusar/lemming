@@ -28,7 +28,7 @@ public abstract class Source {
      */
     public enum LemmaType {
         TL, USER
-    };
+    }
 
     /**
      * Sources of parts of speech.

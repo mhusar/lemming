@@ -187,11 +187,7 @@ public class Sense extends DatedEntity implements Serializable {
      * @return True if a sense is a parent sense, false otherwise.
      */
     public Boolean isParentSense() {
-        if (childPosition == null) {
-            return true;
-        }
-
-        return false;
+        return childPosition == null;
     }
 
     /**

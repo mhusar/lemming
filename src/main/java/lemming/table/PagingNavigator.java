@@ -95,7 +95,6 @@ class PagingNavigator extends AjaxPagingNavigator {
              */
             @Override
             protected void disableLink(ComponentTag tag) {
-                return;
             }
         });
 
@@ -127,7 +126,6 @@ class PagingNavigator extends AjaxPagingNavigator {
              */
             @Override
             protected void disableLink(ComponentTag tag) {
-                return;
             }
         });
 
@@ -187,7 +185,6 @@ class PagingNavigator extends AjaxPagingNavigator {
          */
         @Override
         public void setObject(String object) {
-            return;
         }
 
         /**
@@ -275,7 +272,6 @@ class PagingNavigator extends AjaxPagingNavigator {
          */
         @Override
         public void setObject(String object) {
-            return;
         }
 
         /**
@@ -283,7 +279,6 @@ class PagingNavigator extends AjaxPagingNavigator {
          */
         @Override
         public void detach() {
-            return;
         }
 
         /**

@@ -23,7 +23,7 @@ public abstract class ModalMessagePanel extends Panel {
      */
     public enum DialogType {
         YES_NO, OKAY
-    };
+    }
 
     /**
      * Dialog type of the modal window.

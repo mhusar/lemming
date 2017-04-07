@@ -22,7 +22,7 @@ public class LockingErrorPage extends EmptyBasePage {
      */
     public enum ActionType {
         SAVE, REMOVE
-    };
+    }
 
     /**
      * Type of action that failed due to locking.

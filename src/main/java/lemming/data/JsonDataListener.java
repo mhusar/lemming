@@ -59,7 +59,7 @@ public class JsonDataListener implements ServletContextListener {
                 List<Lemma> subList = lemmaList.subList(from, to);
                 Boolean result = lemmaDao.batchResolve(subList);
 
-                if (result == false) {
+                if (!result) {
                     logger.error("At least one replacement lemma doesn’t exist!");
                 }
             }

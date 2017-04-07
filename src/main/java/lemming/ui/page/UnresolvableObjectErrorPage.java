@@ -18,7 +18,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
      */
     public enum ActionType {
         SAVE, REMOVE
-    };
+    }
 
     /**
      * Type of action that failed due an unresolvable object.
