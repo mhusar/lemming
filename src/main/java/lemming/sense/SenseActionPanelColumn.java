@@ -74,7 +74,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
             add(new Link<Void>("editLink") {
                 @Override
                 public void onClick() {
-                    setResponsePage(new SenseEditPage(model, getPage().getPageClass()));
+                    setResponsePage(new SenseEditPage(model));
                 }
             });
             add(new AjaxLink<Void>("deleteLink") {
