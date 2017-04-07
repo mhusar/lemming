@@ -32,10 +32,9 @@ public class CharacterAjaxView extends AjaxView<Character> {
     @Override
     protected Iterator<IModel<Character>> getItemModels() {
         List<IModel<Character>> characterModels = new ArrayList<>();
-        Iterator<Character> characterIterator = new CharacterDao().getAll().iterator();
 
-        while (characterIterator.hasNext()) {
-            characterModels.add(new Model<>(characterIterator.next()));
+        for (Character character : new CharacterDao().getAll()) {
+            characterModels.add(new Model<>(character));
         }
 
         return characterModels.iterator();

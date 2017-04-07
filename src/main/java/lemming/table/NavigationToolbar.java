@@ -38,11 +38,8 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        Iterator<Component> iterator = iterator();
 
-        while (iterator.hasNext()) {
-            Component component = iterator.next();
-
+        for (Component component : this) {
             if (component.getId().equals("span")) {
                 WebMarkupContainer spanContainer = (WebMarkupContainer) component;
                 spanContainer.add(navigatorFormPanel);

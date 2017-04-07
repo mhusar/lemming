@@ -72,10 +72,9 @@ public class UserViewPanel extends Panel {
         @SuppressWarnings("unchecked")
         private void setSelectedUser(IModel<User> model) {
             selectedUserModel = model;
-            Iterator<Component> itemIterator = iterator();
 
-            while (itemIterator.hasNext()) {
-                Item<User> item = (Item<User>) itemIterator.next();
+            for (Component component : this) {
+                Item<User> item = (Item<User>) component;
 
                 if (item.getModelObject().equals(selectedUserModel.getObject())) {
                     item.get("userLink").add(AttributeModifier.replace("class", "list-group-item active"));
@@ -121,10 +120,9 @@ public class UserViewPanel extends Panel {
         @Override
         protected Iterator<IModel<User>> getItemModels() {
             List<IModel<User>> userModels = new ArrayList<>();
-            Iterator<User> userIterator = new UserDao().getAll().iterator();
 
-            while (userIterator.hasNext()) {
-                userModels.add(new Model<>(userIterator.next()));
+            for (User user : new UserDao().getAll()) {
+                userModels.add(new Model<>(user));
             }
 
             return userModels.iterator();

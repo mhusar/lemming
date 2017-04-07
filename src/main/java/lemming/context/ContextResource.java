@@ -120,13 +120,12 @@ public class ContextResource {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            Iterator<Context> iterator = entityManager
+
+            for (Context context : entityManager
                     .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma l LEFT JOIN FETCH l.pos " +
                             "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
-                    .setParameter("keyword", keyword).getResultList().iterator();
-
-            while (iterator.hasNext()) {
-                jsonGenerator.writeObject(iterator.next());
+                    .setParameter("keyword", keyword).getResultList()) {
+                jsonGenerator.writeObject(context);
             }
 
             jsonGenerator.flush();
