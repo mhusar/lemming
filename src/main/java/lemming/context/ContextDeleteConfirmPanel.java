@@ -2,7 +2,6 @@ package lemming.context;
 
 import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
@@ -65,7 +64,7 @@ public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     public StringResourceModel getMessageModel() {
         Context context = (Context) getDefaultModelObject();
 
-        return new StringResourceModel("ContextDeleteConfirmPanel.message",(Component) this,
+        return new StringResourceModel("ContextDeleteConfirmPanel.message", this,
                 getDefaultModel()).setParameters(context.getPreceding() + " <i>" + context.getKeyword() +
                 "</i> " + context.getFollowing());
     }

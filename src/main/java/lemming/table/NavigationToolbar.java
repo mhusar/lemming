@@ -6,8 +6,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import java.util.Iterator;
-
 /**
  * An extended AjaxNavigationToolbar with a custom paging navigator.
  *

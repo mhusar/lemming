@@ -277,7 +277,7 @@ public abstract class AjaxView<T> extends RepeatingView {
                 Item<T> item = (Item<T>) childIterator.next();
 
                 item.setIndex(index);
-                item.setModel((IModel<T>) model);
+                item.setModel(model);
                 refreshItem(target, item, isSelected);
             } else {
                 Item<T> item = getNewItem(newChildId(), index, model, isSelected);

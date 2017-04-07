@@ -1,6 +1,10 @@
 package lemming.user;
 
+import lemming.auth.UserRoles;
+import lemming.auth.WebSession;
 import lemming.ui.TitleLabel;
+import lemming.ui.page.BasePage;
+import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -9,11 +13,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
-
-import lemming.auth.UserRoles;
-import lemming.auth.WebSession;
-import lemming.ui.page.BasePage;
-import lemming.ui.panel.FeedbackPanel;
 
 /**
  * A page containing a user list and a user edit form.
@@ -91,12 +90,11 @@ public class UserEditPage extends BasePage {
         /**
          * Called on button click.
          * 
-         * @param target
-         *            target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            MarkupContainer userEditPage = (UserEditPage) findParent(UserEditPage.class);
+            MarkupContainer userEditPage = findParent(UserEditPage.class);
             MarkupContainer userViewPanel = (UserViewPanel) userEditPage.get("userViewPanel");
             MarkupContainer feedbackPanel = (FeedbackPanel) userEditPage.get("feedbackPanel");
             Component userView = new UserViewPanel.UserView("userView", new Model<>(new User()));
@@ -107,7 +105,6 @@ public class UserEditPage extends BasePage {
             target.add(userEditPanel.addOrReplace(userEditForm));
             target.focusComponent(userEditForm.get("realName"));
 
-            // clear feedback panel
             WebSession.get().clearFeedbackMessages();
             target.add(feedbackPanel);
         }

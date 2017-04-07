@@ -2,7 +2,6 @@ package lemming.pos;
 
 import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
@@ -51,8 +50,8 @@ public class PosDeleteDeniedPanel extends ModalMessagePanel {
     public StringResourceModel getMessageModel() {
         Pos pos = (Pos) getDefaultModelObject();
 
-        return new StringResourceModel("PosDeleteDeniedPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + pos.getName() + "</b>");
+        return new StringResourceModel("PosDeleteDeniedPanel.message", this,
+                getDefaultModel()).setParameters("<b>" + pos.getName() + "</b>");
     }
 
     /**

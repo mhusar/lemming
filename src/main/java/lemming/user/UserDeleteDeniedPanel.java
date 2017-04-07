@@ -1,6 +1,5 @@
 package lemming.user;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
@@ -39,7 +38,7 @@ public class UserDeleteDeniedPanel extends ModalMessagePanel {
     public StringResourceModel getMessageModel() {
         User user = (User) getDefaultModelObject();
 
-        return new StringResourceModel("UserDeleteDeniedPanel.message", (Component) this,
+        return new StringResourceModel("UserDeleteDeniedPanel.message", this,
                 getDefaultModel()).setParameters("<b>" + user.getRealName() + "</b>");
     }
 

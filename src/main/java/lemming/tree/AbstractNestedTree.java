@@ -6,7 +6,6 @@ import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 import java.util.HashSet;

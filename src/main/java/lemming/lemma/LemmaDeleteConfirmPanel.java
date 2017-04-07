@@ -1,6 +1,5 @@
 package lemming.lemma;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
@@ -66,8 +65,8 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     public StringResourceModel getMessageModel() {
         Lemma lemma = (Lemma) getDefaultModelObject();
 
-        return new StringResourceModel("LemmaDeleteConfirmPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + lemma.getName() + "</b>");
+        return new StringResourceModel("LemmaDeleteConfirmPanel.message", this,
+                getDefaultModel()).setParameters("<b>" + lemma.getName() + "</b>");
     }
 
     /**

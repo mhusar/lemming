@@ -3,7 +3,6 @@ package lemming.sense;
 import lemming.lemma.Lemma;
 import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
@@ -74,8 +73,8 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
     public StringResourceModel getMessageModel() {
         Sense sense = (Sense) getDefaultModelObject();
 
-        return new StringResourceModel("SenseDeleteConfirmPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + sense.getMeaning() + "</b>");
+        return new StringResourceModel("SenseDeleteConfirmPanel.message", this,
+                getDefaultModel()).setParameters("<b>" + sense.getMeaning() + "</b>");
     }
 
     /**

@@ -5,7 +5,6 @@ import lemming.lemma.Lemma;
 import lemming.lemma.LemmaDao;
 import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
-import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -41,14 +40,8 @@ public class SenseEditPage extends BasePage {
      * Creates a sense edit page.
      * 
      * @param model model of the edited lemma or sense object
-     * @param nextPageClass class of the next page
      */
-    public SenseEditPage(IModel<?> model, Class<? extends Page> nextPageClass) {
-        /*
-      Class of the next page.
-     */
-        Class<? extends Page> nextPageClass1 = nextPageClass;
-
+    public SenseEditPage(IModel<?> model) {
         if (model instanceof IModel) {
             if (model.getObject() instanceof Lemma) {
                 Lemma lemma = (Lemma) model.getObject();
