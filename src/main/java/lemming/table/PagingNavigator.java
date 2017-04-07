@@ -27,11 +27,9 @@ class PagingNavigator extends AjaxPagingNavigator {
 
     /**
      * Creates a paging navigator.
-     * 
-     * @param id
-     *            ID of this navigator
-     * @param pageable
-     *            data table or data view that is paged
+     *
+     * @param id       ID of this navigator
+     * @param pageable data table or data view that is paged
      */
     public PagingNavigator(String id, IPageable pageable) {
         super(id, pageable);
@@ -40,12 +38,9 @@ class PagingNavigator extends AjaxPagingNavigator {
     /**
      * Creates a paging navigation with numbered page links.
      *
-     * @param id
-     *            ID of this navigator
-     * @param pageable
-     *            data table or data view that is paged
-     * @param labelProvider
-     *            provider for the label of this navigator
+     * @param id            ID of this navigator
+     * @param pageable      data table or data view that is paged
+     * @param labelProvider provider for the label of this navigator
      * @return A new paging navigation.
      */
     @Override
@@ -72,12 +67,9 @@ class PagingNavigator extends AjaxPagingNavigator {
     /**
      * Creates a page link for decrement/increment items.
      *
-     * @param id
-     *            ID of the link
-     * @param pageable
-     *            data table or data view that is paged
-     * @param increment
-     *            the amount of incrementation
+     * @param id        ID of the link
+     * @param pageable  data table or data view that is paged
+     * @param increment the amount of incrementation
      * @return A page link.
      */
     @Override
@@ -104,12 +96,9 @@ class PagingNavigator extends AjaxPagingNavigator {
     /**
      * Creates a page link for first/last page items.
      *
-     * @param id
-     *            ID of the link
-     * @param pageable
-     *            data table or data view that is paged
-     * @param pageNumber
-     *            page to jump to
+     * @param id         ID of the link
+     * @param pageable   data table or data view that is paged
+     * @param pageNumber page to jump to
      * @return A page link.
      */
     protected AbstractLink newPagingNavigationLink(String id, IPageable pageable, int pageNumber) {
@@ -137,15 +126,13 @@ class PagingNavigator extends AjaxPagingNavigator {
      */
     private class PagingLinkModel implements IModel<String>, Serializable {
         /**
-         * Page number of a link.
-         */
-        private final long pageNumber;
-
-        /**
          * Data table or data view to be paged.
          */
         final IPageable pageable;
-
+        /**
+         * Page number of a link.
+         */
+        private final long pageNumber;
         /**
          * The CSS value used to style a link.
          */
@@ -154,12 +141,9 @@ class PagingNavigator extends AjaxPagingNavigator {
         /**
          * Creates a link model.
          *
-         * @param pageable
-         *            data table or data view that is paged
-         * @param pageNumber
-         *            page number of a link
-         * @param cssValue
-         *            CSS value used to style a link
+         * @param pageable   data table or data view that is paged
+         * @param pageNumber page number of a link
+         * @param cssValue   CSS value used to style a link
          */
         public PagingLinkModel(IPageable pageable, long pageNumber, String cssValue) {
             this.pageNumber = pageNumber;
@@ -180,8 +164,7 @@ class PagingNavigator extends AjaxPagingNavigator {
         /**
          * Does nothing.
          *
-         * @param object
-         *            Some object.
+         * @param object Some object.
          */
         @Override
         public void setObject(String object) {
@@ -244,10 +227,8 @@ class PagingNavigator extends AjaxPagingNavigator {
         /**
          * Creates a link model.
          *
-         * @param pageable
-         *            data table or data view that is paged
-         * @param pageNumber
-         *            page number of a link
+         * @param pageable   data table or data view that is paged
+         * @param pageNumber page number of a link
          */
         public PagingLinkIncrementModel(IPageable pageable, long pageNumber) {
             this.pageable = pageable;
@@ -267,8 +248,7 @@ class PagingNavigator extends AjaxPagingNavigator {
         /**
          * Does nothing.
          *
-         * @param object
-         *            Some object.
+         * @param object Some object.
          */
         @Override
         public void setObject(String object) {

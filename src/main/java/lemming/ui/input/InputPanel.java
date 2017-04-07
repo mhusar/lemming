@@ -25,7 +25,7 @@ public class InputPanel extends Panel {
 
     /**
      * Renders what the component wants to contribute to the head section.
-     * 
+     *
      * @param response the response object
      */
     @Override
@@ -34,7 +34,7 @@ public class InputPanel extends Panel {
                 "scripts/input-panel.js", getLocale(), getStyle(), "") {
             /**
              * Returns a list of dependent references.
-             * 
+             *
              * @return A list of dependent references.
              */
             @Override

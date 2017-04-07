@@ -26,7 +26,7 @@ public class InboundContext extends BaseContext {
      * A context group an inbound context belongs to.
      */
     @ManyToOne
-    @JoinColumn(name="group_id", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private InboundContextGroup group;
 
     /**

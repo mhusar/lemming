@@ -91,7 +91,7 @@ public class WebApplication extends AuthenticatedWebApplication {
 
     /**
      * Creates a home page class for this application.
-     * 
+     *
      * @return A home page class.
      */
     @Override
@@ -101,7 +101,7 @@ public class WebApplication extends AuthenticatedWebApplication {
 
     /**
      * Creates a sign-in page class for this application.
-     * 
+     *
      * @return A sign-in page class.
      */
     @Override
@@ -111,7 +111,7 @@ public class WebApplication extends AuthenticatedWebApplication {
 
     /**
      * Creates a web session class for this application.
-     * 
+     *
      * @return A web session class.
      */
     @Override

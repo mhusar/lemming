@@ -16,17 +16,17 @@ import lemming.ui.panel.ModalMessagePanel;
 /**
  * A page containing a lemma edit form.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class LemmaEditPage extends BasePage {
-    /**
-     * Model of the edited lemma object.
-     */
-    private CompoundPropertyModel<Lemma> lemmaModel;
-
     /**
      * Class of the next page.
      */
     private final Class<? extends Page> nextPageClass;
+
+    /**
+     * Model of the edited lemma object.
+     */
+    private CompoundPropertyModel<Lemma> lemmaModel;
 
     /**
      * Creates a lemma edit page.
@@ -42,9 +42,8 @@ public class LemmaEditPage extends BasePage {
 
     /**
      * Creates a lemma edit page.
-     * 
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param nextPageClass class of the next page
      */
     public LemmaEditPage(Class<? extends Page> nextPageClass) {
         lemmaModel = new CompoundPropertyModel<>(new Lemma());
@@ -57,11 +56,9 @@ public class LemmaEditPage extends BasePage {
 
     /**
      * Creates a lemma edit page.
-     * 
-     * @param lemmaModel
-     *            model of the edited lemma object
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param lemmaModel    model of the edited lemma object
+     * @param nextPageClass class of the next page
      */
     public LemmaEditPage(IModel<Lemma> lemmaModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;

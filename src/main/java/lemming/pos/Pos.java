@@ -106,8 +106,7 @@ public class Pos extends DatedEntity implements Serializable {
     /**
      * Sets the name of a part of speech.
      *
-     * @param name
-     *            the name of a part of speech
+     * @param name the name of a part of speech
      */
     public void setName(String name) {
         this.name = name;

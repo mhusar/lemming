@@ -11,13 +11,12 @@ import org.apache.wicket.model.StringResourceModel;
 /**
  * A panel containing a modal window dialog asking if a context shall be deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param responsePage
-     *            page loaded on confirmation
+     * @param responsePage page loaded on confirmation
      */
     @SuppressWarnings("unused")
     public ContextDeleteConfirmPanel(Page responsePage) {
@@ -27,8 +26,7 @@ public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param responsePageClass
-     *            class of page loaded on confirmation
+     * @param responsePageClass class of page loaded on confirmation
      */
     public ContextDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
         super("contextDeleteConfirmPanel", DialogType.YES_NO, responsePageClass);
@@ -37,8 +35,7 @@ public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public ContextDeleteConfirmPanel(GenericDataTable<Context> dataTable) {
         super("contextDeleteConfirmPanel", DialogType.YES_NO, dataTable);

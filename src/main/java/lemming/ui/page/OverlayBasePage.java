@@ -17,7 +17,7 @@ public class OverlayBasePage extends BasePage implements IAjaxIndicatorAware {
 
     /**
      * Returns the markup ID of the indicating element.
-     * 
+     *
      * @return A markup ID attribute value.
      */
     @Override

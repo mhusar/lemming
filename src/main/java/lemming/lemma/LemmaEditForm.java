@@ -35,7 +35,7 @@ class LemmaEditForm extends Form<Lemma> {
     /**
      * Creates a lemma edit form.
      *
-     * @param model lemma model that is edited
+     * @param model         lemma model that is edited
      * @param nextPageClass class of the next page
      */
     public LemmaEditForm(IModel<Lemma> model, Class<? extends Page> nextPageClass) {
@@ -108,9 +108,8 @@ class LemmaEditForm extends Form<Lemma> {
 
     /**
      * Checks if a lemma model is transient.
-     * 
-     * @param model
-     *            lemma model that is checked
+     *
+     * @param model lemma model that is checked
      * @return True if a lemma model is transient; false otherwise.
      */
     private Boolean isLemmaTransient(IModel<Lemma> model) {
@@ -151,9 +150,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -180,9 +178,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -209,9 +206,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Creates a lemma name validator.
-         * 
-         * @param model
-         *            lemma model that is edited
+         *
+         * @param model lemma model that is edited
          */
         public UniqueLemmaNameValidator(IModel<Lemma> model) {
             lemmaModel = model;
@@ -219,9 +215,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Validates the value of a form component.
-         * 
-         * @param validatable
-         *            IValidatable instance that is validated
+         *
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<String> validatable) {
@@ -252,8 +247,7 @@ class LemmaEditForm extends Form<Lemma> {
         /**
          * Validates the value of a form component.
          *
-         * @param validatable
-         *            IValidatable instance that is validated
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<Lemma> validatable) {

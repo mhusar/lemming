@@ -16,11 +16,11 @@ import org.apache.wicket.model.PropertyModel;
  * @param <F> filter model type
  * @param <S> sort property type
  */
-public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
+public class GenericRowSelectColumn<T, F, S> extends TextFilterColumn<T, F, S> {
     /**
      * Creates a row selection column.
      *
-     * @param displayModel title of a column
+     * @param displayModel       title of a column
      * @param propertyExpression property expression of a column
      */
     public GenericRowSelectColumn(IModel<String> displayModel, String propertyExpression) {
@@ -30,8 +30,8 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     /**
      * Creates a row selection column.
      *
-     * @param displayModel model of a column
-     * @param sortProperty sort property of a column
+     * @param displayModel       model of a column
+     * @param sortProperty       sort property of a column
      * @param propertyExpression property expression of a column
      */
     @SuppressWarnings("unused")
@@ -42,9 +42,9 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     /**
      * Populates the current table cell item.
      *
-     * @param item item representing the current table cell being rendered
+     * @param item        item representing the current table cell being rendered
      * @param componentId id of the component used to render the cell
-     * @param rowModel model of the row item being rendered
+     * @param rowModel    model of the row item being rendered
      */
     @Override
     public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> rowModel) {
@@ -58,7 +58,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         /**
          * Creates a panel.
          *
-         * @param id ID of the panel
+         * @param id    ID of the panel
          * @param model row model
          */
         public CheckboxPanel(String id, IModel<T> model) {

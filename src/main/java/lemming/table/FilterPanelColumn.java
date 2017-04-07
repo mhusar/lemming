@@ -21,9 +21,8 @@ import lemming.data.GenericDataProvider;
 
 /**
  * A custom column that delivers go and clear filter as filter.
- * 
- * @param <T>
- *            The type of element that is filtered.
+ *
+ * @param <T> The type of element that is filtered.
  */
 public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
     /**
@@ -33,11 +32,9 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
 
     /**
      * Creates a filter panel column.
-     * 
-     * @param displayModel
-     *            title of a column
-     * @param typeClass
-     *            class type that is filtered
+     *
+     * @param displayModel title of a column
+     * @param typeClass    class type that is filtered
      */
     protected FilterPanelColumn(IModel<String> displayModel, Class<T> typeClass) {
         super(displayModel);
@@ -46,11 +43,9 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
 
     /**
      * Returns a panel with a go and clear filter.
-     * 
-     * @param componentId
-     *            ID of the panel
-     * @param form
-     *            form the panel is attached to
+     *
+     * @param componentId ID of the panel
+     * @param form        form the panel is attached to
      * @return A panel with a go and clear filter.
      */
     @SuppressWarnings("unchecked")
@@ -73,13 +68,10 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
 
     /**
      * Populates a cell in a grid view. Must be overridden to be useful.
-     * 
-     * @param cellItem
-     *            cell item that is populated
-     * @param componentId
-     *            ID of the child component
-     * @param rowModel
-     *            model of the current row
+     *
+     * @param cellItem    cell item that is populated
+     * @param componentId ID of the child component
+     * @param rowModel    model of the current row
      */
     @Override
     public void populateItem(Item<ICellPopulator<T>> cellItem, String componentId, IModel<T> rowModel) {
@@ -92,18 +84,14 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
     private class GenericFilterPanel extends Panel {
         /**
          * Creates a go and clear panel.
-         * 
-         * @param id
-         *            ID of the panel
-         * @param goModel
-         *            label of the go button
-         * @param clearModel
-         *            label of the clear button
-         * @param originalState
-         *            original state of the filter
+         *
+         * @param id            ID of the panel
+         * @param goModel       label of the go button
+         * @param clearModel    label of the clear button
+         * @param originalState original state of the filter
          */
         public GenericFilterPanel(final String id, final IModel<String> goModel, final IModel<String> clearModel,
-                final Object originalState) {
+                                  final Object originalState) {
             super(id);
             add(new GenericGoAndClearFilter(goModel, clearModel, originalState));
         }
@@ -124,8 +112,8 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
         private Boolean configured = false;
 
         /**
-         * @param goModel label of the go button
-         * @param clearModel label of the clear button
+         * @param goModel       label of the go button
+         * @param clearModel    label of the clear button
          * @param originalState the original state
          */
         @SuppressWarnings("unchecked")
@@ -154,9 +142,8 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
 
         /**
          * Provides a behavior for the submit button.
-         * 
-         * @param button
-         *            the submit button
+         *
+         * @param button the submit button
          */
         @Override
         @SuppressWarnings("unchecked")

@@ -12,7 +12,7 @@ import lemming.ui.panel.ModalMessagePanel;
  * A panel containing a modal window dialog stating that a lemma could not be
  * deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
@@ -24,8 +24,7 @@ public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public LemmaDeleteDeniedPanel(GenericDataTable<Lemma> dataTable) {
         super("lemmaDeleteDeniedPanel", DialogType.OKAY, dataTable);

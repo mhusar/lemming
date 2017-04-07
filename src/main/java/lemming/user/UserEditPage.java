@@ -54,7 +54,7 @@ public class UserEditPage extends BasePage {
 
     /**
      * Returns markup variations based on user roles.
-     * 
+     *
      * @return An identifier for a markup variation.
      */
     @Override
@@ -75,7 +75,7 @@ public class UserEditPage extends BasePage {
     /**
      * A button which starts the creation of a new user.
      */
-    @AuthorizeAction(action = "RENDER", roles = { UserRoles.ADMIN })
+    @AuthorizeAction(action = "RENDER", roles = {UserRoles.ADMIN})
     private final class AddUserButton extends AjaxLink<Void> {
         /**
          * Creates a add user button.
@@ -86,7 +86,7 @@ public class UserEditPage extends BasePage {
 
         /**
          * Called on button click.
-         * 
+         *
          * @param target target that produces an Ajax response
          */
         @Override

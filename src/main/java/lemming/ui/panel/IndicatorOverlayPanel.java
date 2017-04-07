@@ -16,7 +16,6 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 public class IndicatorOverlayPanel extends Panel {
     /**
      * Creates a throbber overlay panel.
-     *
      */
     public IndicatorOverlayPanel() {
         super("indicatorOverlayPanel");
@@ -34,7 +33,7 @@ public class IndicatorOverlayPanel extends Panel {
 
     /**
      * Renders a css header item to the web response.
-     * 
+     *
      * @param response the response object
      */
     @Override

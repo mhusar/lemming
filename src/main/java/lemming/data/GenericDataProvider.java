@@ -19,8 +19,7 @@ import java.util.Map;
 /**
  * Provides data for data table views.
  *
- * @param <T>
- *            data type that is provided
+ * @param <T> data type that is provided
  */
 public final class GenericDataProvider<T> extends SortableDataProvider<T, String> implements IFilterStateLocator<T> {
     /**
@@ -46,10 +45,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * Creates a data provider.
      *
-     * @param typeClass
-     *            class type that is provided
-     * @param defaultSortParam
-     *            default sort param
+     * @param typeClass        class type that is provided
+     * @param defaultSortParam default sort param
      */
     public GenericDataProvider(Class<T> typeClass, SortParam<String> defaultSortParam) {
         this.typeClass = typeClass;
@@ -59,10 +56,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * Returns an iterator for a subset of total data.
      *
-     * @param first
-     *            first row of data
-     * @param count
-     *            minimum number of rows retrieved
+     * @param first first row of data
+     * @param count minimum number of rows retrieved
      * @return Iterator capable of iterating over row data.
      */
     @Override
@@ -79,7 +74,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         }
 
         Selection<T> selection = getSelection(root);
-        Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
+        Map<String, Join<?, ?>> joins = CriteriaHelper.getJoins(root, typeClass);
         Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
         List<Order> orderList = getOrder(criteriaBuilder, root, joins);
         TypedQuery<T> typedQuery;
@@ -147,7 +142,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
             setSort(defaultSortParam);
         }
 
-        Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
+        Map<String, Join<?, ?>> joins = CriteriaHelper.getJoins(root, typeClass);
         Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
         TypedQuery<Long> typedQuery;
 
@@ -201,7 +196,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * Returns automatically created restrictions for a filter state.
      *
      * @param criteriaBuilder constructor for criteria queries
-     * @param root query root referencing entities
+     * @param root            query root referencing entities
      * @return An expression of type boolean, or null.
      */
     private Expression<Boolean> getFilterStateRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
@@ -248,7 +243,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * Returns automatically created restrictions for a filter string.
      *
      * @param criteriaBuilder constructor for criteria queries
-     * @param root query root referencing entities
+     * @param root            query root referencing entities
      * @return An expression of type boolean, or null.
      */
     private Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
@@ -284,7 +279,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * Returns filter string or filter state restrictions.
      *
      * @param criteriaBuilder constructor for criteria queries
-     * @param root query root referencing entities
+     * @param root            query root referencing entities
      * @return An expression of type boolean, or null.
      */
     private Expression<Boolean> getRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
@@ -305,8 +300,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * Returns a list of orders matching sort properties.
      *
      * @param criteriaBuilder constructor for criteria queries
-     * @param root query root referencing entities
-     * @param joins map of joins
+     * @param root            query root referencing entities
+     * @param joins           map of joins
      * @return A list of order objects.
      */
     private List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String, Join<?, ?>> joins) {

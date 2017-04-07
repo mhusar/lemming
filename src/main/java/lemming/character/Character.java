@@ -56,7 +56,7 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Returns the ID associated with a character.
-     * 
+     *
      * @return Primary key of a character.
      */
     public Integer getId() {
@@ -65,9 +65,8 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Sets the ID of a character.
-     * 
-     * @param id
-     *            the ID of a character
+     *
+     * @param id the ID of a character
      */
     @SuppressWarnings("unused")
     private void setId(Integer id) {
@@ -76,7 +75,7 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Returns the version of a character.
-     * 
+     *
      * @return Version number of a character.
      */
     @SuppressWarnings("unused")
@@ -86,9 +85,8 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Sets the version number of a character.
-     * 
-     * @param version
-     *            version number of a character
+     *
+     * @param version version number of a character
      */
     @SuppressWarnings("unused")
     private void setVersion(Long version) {
@@ -97,7 +95,7 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Returns the character string of a character.
-     * 
+     *
      * @return Identifier of a character.
      */
     public String getCharacter() {
@@ -106,9 +104,8 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Sets the character string of a character.
-     * 
-     * @param character
-     *            the character string of a character
+     *
+     * @param character the character string of a character
      */
     @SuppressWarnings("unused")
     public void setCharacter(String character) {
@@ -117,7 +114,7 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Returns the position of a character.
-     * 
+     *
      * @return Position of a character.
      */
     public Integer getPosition() {
@@ -126,9 +123,8 @@ public class Character extends DatedEntity implements Serializable {
 
     /**
      * Sets the position of a character.
-     * 
-     * @param position
-     *            the position of a character
+     *
+     * @param position the position of a character
      */
     public void setPosition(Integer position) {
         this.position = position;

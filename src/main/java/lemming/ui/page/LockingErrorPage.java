@@ -15,25 +15,16 @@ import lemming.HomePage;
 /**
  * Displayed when a locking exception occurs.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class LockingErrorPage extends EmptyBasePage {
-    /**
-     * Available action types.
-     */
-    public enum ActionType {
-        SAVE, REMOVE
-    }
-
     /**
      * Type of action that failed due to locking.
      */
     private ActionType action;
-
     /**
      * Element which failed to save or remove.
      */
     private Object element;
-
     /*
      * Exception raised due to locking.
      */
@@ -48,13 +39,10 @@ public class LockingErrorPage extends EmptyBasePage {
 
     /**
      * Creates a locking error page.
-     * 
-     * @param action
-     *            type of action that failed due to locking
-     * @param element
-     *            element which failed to save or remove
-     * @param exception
-     *            exception raised due to locking
+     *
+     * @param action    type of action that failed due to locking
+     * @param element   element which failed to save or remove
+     * @param exception exception raised due to locking
      */
     public LockingErrorPage(ActionType action, Object element, Exception exception) {
         this.action = action;
@@ -104,7 +92,7 @@ public class LockingErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the identifier of an entity.
-     * 
+     *
      * @return A number string or null.
      */
     private String getIdentifier() {
@@ -133,7 +121,7 @@ public class LockingErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the name of an entity.
-     * 
+     *
      * @return A name string or null.
      */
     private String getEntityName() {
@@ -147,5 +135,12 @@ public class LockingErrorPage extends EmptyBasePage {
         }
 
         return entityName;
+    }
+
+    /**
+     * Available action types.
+     */
+    public enum ActionType {
+        SAVE, REMOVE
     }
 }

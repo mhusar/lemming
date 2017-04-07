@@ -18,7 +18,7 @@ public class FeedbackPanel extends org.apache.wicket.markup.html.panel.FeedbackP
 
     /**
      * Returns a CSS class string.
-     * 
+     *
      * @param message the analyzed feedback message
      * @return A CSS class string based on message level.
      */
@@ -27,17 +27,17 @@ public class FeedbackPanel extends org.apache.wicket.markup.html.panel.FeedbackP
         String css;
 
         switch (message.getLevel()) {
-        case FeedbackMessage.SUCCESS:
-            css = "success";
-            break;
-        case FeedbackMessage.INFO:
-            css = "info";
-            break;
-        case FeedbackMessage.ERROR:
-            css = "danger";
-            break;
-        default:
-            css = "warning";
+            case FeedbackMessage.SUCCESS:
+                css = "success";
+                break;
+            case FeedbackMessage.INFO:
+                css = "info";
+                break;
+            case FeedbackMessage.ERROR:
+                css = "danger";
+                break;
+            default:
+                css = "warning";
         }
 
         return css;

@@ -15,17 +15,17 @@ import org.apache.wicket.model.IModel;
 /**
  * A page containing a part of speech edit form.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class PosEditPage extends BasePage {
-    /**
-     * Model of the edited pos object.
-     */
-    private CompoundPropertyModel<Pos> posModel;
-
     /**
      * Class of the next page.
      */
     private final Class<? extends Page> nextPageClass;
+
+    /**
+     * Model of the edited pos object.
+     */
+    private CompoundPropertyModel<Pos> posModel;
 
     /**
      * Creates a pos edit page.
@@ -39,9 +39,8 @@ public class PosEditPage extends BasePage {
 
     /**
      * Creates a pos edit page.
-     * 
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param nextPageClass class of the next page
      */
     public PosEditPage(Class<? extends Page> nextPageClass) {
         posModel = new CompoundPropertyModel<>(new Pos());
@@ -52,11 +51,9 @@ public class PosEditPage extends BasePage {
 
     /**
      * Creates a pos edit page.
-     * 
-     * @param posModel
-     *            model of the edited pos object
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param posModel      model of the edited pos object
+     * @param nextPageClass class of the next page
      */
     public PosEditPage(IModel<Pos> posModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;

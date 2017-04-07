@@ -25,13 +25,12 @@ import lemming.ui.panel.FeedbackPanel;
 /**
  * A panel with a view displaying some users.
  */
-@AuthorizeAction(action = "RENDER", roles = { UserRoles.ADMIN })
+@AuthorizeAction(action = "RENDER", roles = {UserRoles.ADMIN})
 class UserViewPanel extends Panel {
     /**
      * Creates a user list panel.
      *
-     * @param model
-     *            model of selected user
+     * @param model model of selected user
      */
     public UserViewPanel(IModel<User> model) {
         super("userViewPanel");
@@ -51,8 +50,7 @@ class UserViewPanel extends Panel {
         /**
          * Creates a user view.
          *
-         * @param model
-         *            model of selected user
+         * @param model model of selected user
          */
         public UserView(IModel<User> model) {
             super("userView");
@@ -61,9 +59,8 @@ class UserViewPanel extends Panel {
 
         /**
          * Sets the selected user.
-         * 
-         * @param model
-         *            user model of the selected user.
+         *
+         * @param model user model of the selected user.
          */
         @SuppressWarnings("unchecked")
         private void setSelectedUser(IModel<User> model) {
@@ -86,9 +83,8 @@ class UserViewPanel extends Panel {
 
         /**
          * Populates view items with components.
-         * 
-         * @param item
-         *            view item that is populated
+         *
+         * @param item view item that is populated
          */
         @Override
         protected void populateItem(Item<User> item) {
@@ -110,7 +106,7 @@ class UserViewPanel extends Panel {
 
         /**
          * Returns an iterator which iterates over item models.
-         * 
+         *
          * @return An iterator which iterates over item models.
          */
         @Override
@@ -131,8 +127,7 @@ class UserViewPanel extends Panel {
             /**
              * Creates a user link.
              *
-             * @param model
-             *            model of a user
+             * @param model model of a user
              */
             private UserLink(IModel<User> model) {
                 super("userLink", model);
@@ -140,9 +135,8 @@ class UserViewPanel extends Panel {
 
             /**
              * Called when a link is clicked.
-             * 
-             * @param target
-             *            target that produces an Ajax response
+             *
+             * @param target target that produces an Ajax response
              */
             @Override
             public void onClick(AjaxRequestTarget target) {

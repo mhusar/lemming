@@ -23,7 +23,7 @@ import java.io.Serializable;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
-	@Index(columnList = "name, replacement_string, pos_string, source, reference")
+        @Index(columnList = "name, replacement_string, pos_string, source, reference")
 })
 public class Lemma extends DatedEntity implements Serializable {
     /**
@@ -49,14 +49,14 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Replacement of a lemma.
      */
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "replacement_id")
     @JsonIgnore
     private Lemma replacement;
 
     /**
      * Replacement of a lemma as string.
-     *
+     * <p>
      * For better performance of the lemma index table.
      * Don’t use @JsonIgnore here. It will break lemma import.
      */
@@ -66,13 +66,13 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Part of speech of a lemma.
      */
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pos_id")
     private Pos pos;
 
     /**
      * Part of speech of a lemma as string.
-     *
+     * <p>
      * For better performance of the lemma index table. TL lemmata don’t have a pos object because of different part
      * of speech names.
      * Don’t use @JsonIgnore here. It will break lemma import.
@@ -90,13 +90,13 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Reference of a lemma.
      */
-    @Column(name = "reference", length=60)
+    @Column(name = "reference", length = 60)
     private String reference;
 
     /**
      * User that generated a lemma.
      */
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -156,8 +156,7 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Sets the lemma of a lemma.
      *
-     * @param name
-     *            the name of a lemma
+     * @param name the name of a lemma
      */
     public void setName(String name) {
         this.name = name;
@@ -211,8 +210,7 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Sets the part of speech of a lemma.
      *
-     * @param pos
-     *            the part of speech of a lemma
+     * @param pos the part of speech of a lemma
      */
     public void setPos(Pos pos) {
         this.pos = pos;
@@ -236,8 +234,7 @@ public class Lemma extends DatedEntity implements Serializable {
     /**
      * Sets the part of speech of a lemma as string.
      *
-     * @param posString
-     *            the part of speech of a lemma
+     * @param posString the part of speech of a lemma
      */
     public void setPosString(String posString) {
         this.posString = posString;

@@ -13,8 +13,7 @@ class UserEditPanel extends Panel {
     /**
      * Creates a user edit panel.
      *
-     * @param model
-     *            model of edited user
+     * @param model model of edited user
      */
     public UserEditPanel(IModel<User> model) {
         super("userEditPanel");
@@ -28,7 +27,7 @@ class UserEditPanel extends Panel {
 
     /**
      * Returns markup variations based on user roles.
-     * 
+     *
      * @return An identifier for a markup variation.
      */
     @Override

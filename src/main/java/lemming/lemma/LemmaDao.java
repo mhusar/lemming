@@ -522,7 +522,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Lemma> query = entityManager.createQuery("SELECT l FROM Lemma l " +
-                            "LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user", Lemma.class);
+                    "LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user", Lemma.class);
             List<Lemma> lemmaList = query.getResultList();
             transaction.commit();
             return lemmaList;

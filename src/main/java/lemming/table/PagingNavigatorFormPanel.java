@@ -60,7 +60,7 @@ class PagingNavigatorFormPanel<T> extends Panel {
         /**
          * Creates a go to button.
          *
-         * @param table the parent table
+         * @param table         the parent table
          * @param pageTextField a text field for page numbers
          */
         public GotoButton(DataTable<T, String> table, TextField<String> pageTextField) {
@@ -73,7 +73,7 @@ class PagingNavigatorFormPanel<T> extends Panel {
          * Called on form submit.
          *
          * @param target target that produces an Ajax response
-         * @param form the parent form
+         * @param form   the parent form
          */
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

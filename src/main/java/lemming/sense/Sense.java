@@ -70,7 +70,7 @@ public class Sense extends DatedEntity implements Serializable {
 
     /**
      * Lemma of a sense as string.
-     *
+     * <p>
      * For better performance of the sense index table.
      */
     @Column(name = "lemma_string", length = 120, nullable = false)
@@ -81,7 +81,8 @@ public class Sense extends DatedEntity implements Serializable {
      * Child senses of a sense.
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "sense_children", indexes = { @Index(columnList = "parent_id, child_id", unique = true) }, joinColumns = { @JoinColumn(name = "parent_id") }, inverseJoinColumns = { @JoinColumn(name = "child_id") })
+    @JoinTable(name = "sense_children", indexes = {@Index(columnList = "parent_id, child_id", unique = true)},
+            joinColumns = {@JoinColumn(name = "parent_id")}, inverseJoinColumns = {@JoinColumn(name = "child_id")})
     private List<Sense> children = new ArrayList<>();
 
     /**

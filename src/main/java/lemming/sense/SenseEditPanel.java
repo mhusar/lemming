@@ -23,13 +23,6 @@ import java.util.List;
  */
 public class SenseEditPanel extends Panel {
     /**
-     * Type of a sense.
-     */
-    public enum SenseType {
-        PARENT, CHILD
-    }
-
-    /**
      * Creates a sense edit panel.
      *
      * @param lemmaModel model of a parent lemma
@@ -48,6 +41,13 @@ public class SenseEditPanel extends Panel {
     public SenseEditPanel(IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
         super("senseEditPanel");
         add(new SenseEditForm(lemmaModel, senseModel));
+    }
+
+    /**
+     * Type of a sense.
+     */
+    public enum SenseType {
+        PARENT, CHILD
     }
 
     /**
@@ -294,6 +294,78 @@ public class SenseEditPanel extends Panel {
         }
 
         /**
+         * Saves a sense.
+         *
+         * @param target target that produces an Ajax response
+         * @param form   form that is submitted
+         */
+        private void saveSense(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form) {
+            SenseDao senseDao = new SenseDao();
+            List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
+            String meaning = meaningTextField.getInput();
+            Sense sense = senseModel.getObject();
+
+            sense.setMeaning(meaning);
+
+            if (new SenseDao().isTransient(sense)) {
+                sense.setLemma(lemmaModel.getObject());
+
+                if (!rootNodes.isEmpty()) {
+                    Sense lastRootNode = rootNodes.get(rootNodes.size() - 1);
+                    sense.setParentPosition(lastRootNode.getParentPosition() + 1);
+                } else {
+                    sense.setParentPosition(0);
+                }
+
+                senseDao.persist(sense);
+                senseTree.select(target, senseDao.find(sense.getId()));
+            } else {
+                Sense mergedSense = senseDao.merge(sense);
+                senseModel.setObject(mergedSense);
+                senseTree.select(target, mergedSense);
+            }
+        }
+
+        /**
+         * Saves a child sense.
+         *
+         * @param target target that produces an Ajax response
+         * @param form   form that is submitted
+         */
+        private void saveChildSense(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form) {
+            SenseDao senseDao = new SenseDao();
+            String meaning = meaningTextField.getInput();
+            Sense parentSense = parentSenseModel.getObject();
+            List<Sense> children = parentSense.getChildren();
+            Sense childSense = senseModel.getObject();
+
+            childSense.setMeaning(meaning);
+
+            if (senseDao.isTransient(childSense)) {
+                childSense.setLemma(lemmaModel.getObject());
+                childSense.setParentPosition(parentSense.getParentPosition());
+
+                if (!children.isEmpty()) {
+                    Sense lastChild = children.get(children.size() - 1);
+                    childSense.setChildPosition(lastChild.getChildPosition() + 1);
+                } else {
+                    childSense.setChildPosition(0);
+                }
+
+                parentSense.getChildren().add(childSense);
+                senseDao.persist(childSense);
+                parentSense = senseDao.merge(parentSense);
+                senseTree.select(target, senseDao.find(childSense.getId()));
+            } else {
+                Sense mergedChildSense = senseDao.merge(childSense);
+                senseModel.setObject(mergedChildSense);
+                senseTree.select(target, mergedChildSense);
+            }
+
+            parentSenseModel.setObject(parentSense);
+        }
+
+        /**
          * A button which adds a sense.
          */
         private class AddSenseButton extends AjaxLink<Void> {
@@ -395,7 +467,7 @@ public class SenseEditPanel extends Panel {
              * Called on form submit.
              *
              * @param target target that produces an Ajax response
-             * @param form form that is submitted
+             * @param form   form that is submitted
              */
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -405,78 +477,6 @@ public class SenseEditPanel extends Panel {
                     saveChildSense(target, form);
                 }
             }
-        }
-
-        /**
-         * Saves a sense.
-         *
-         * @param target target that produces an Ajax response
-         * @param form form that is submitted
-         */
-        private void saveSense(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form) {
-            SenseDao senseDao = new SenseDao();
-            List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
-            String meaning = meaningTextField.getInput();
-            Sense sense = senseModel.getObject();
-
-            sense.setMeaning(meaning);
-
-            if (new SenseDao().isTransient(sense)) {
-                sense.setLemma(lemmaModel.getObject());
-
-                if (!rootNodes.isEmpty()) {
-                    Sense lastRootNode = rootNodes.get(rootNodes.size() - 1);
-                    sense.setParentPosition(lastRootNode.getParentPosition() + 1);
-                } else {
-                    sense.setParentPosition(0);
-                }
-
-                senseDao.persist(sense);
-                senseTree.select(target, senseDao.find(sense.getId()));
-            } else {
-                Sense mergedSense = senseDao.merge(sense);
-                senseModel.setObject(mergedSense);
-                senseTree.select(target, mergedSense);
-            }
-        }
-
-        /**
-         * Saves a child sense.
-         *
-         * @param target target that produces an Ajax response
-         * @param form form that is submitted
-         */
-        private void saveChildSense(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form) {
-            SenseDao senseDao = new SenseDao();
-            String meaning = meaningTextField.getInput();
-            Sense parentSense = parentSenseModel.getObject();
-            List<Sense> children = parentSense.getChildren();
-            Sense childSense = senseModel.getObject();
-
-            childSense.setMeaning(meaning);
-
-            if (senseDao.isTransient(childSense)) {
-                childSense.setLemma(lemmaModel.getObject());
-                childSense.setParentPosition(parentSense.getParentPosition());
-
-                if (!children.isEmpty()) {
-                    Sense lastChild = children.get(children.size() - 1);
-                    childSense.setChildPosition(lastChild.getChildPosition() + 1);
-                } else {
-                    childSense.setChildPosition(0);
-                }
-
-                parentSense.getChildren().add(childSense);
-                senseDao.persist(childSense);
-                parentSense = senseDao.merge(parentSense);
-                senseTree.select(target, senseDao.find(childSense.getId()));
-            } else {
-                Sense mergedChildSense = senseDao.merge(childSense);
-                senseModel.setObject(mergedChildSense);
-                senseTree.select(target, mergedChildSense);
-            }
-
-            parentSenseModel.setObject(parentSense);
         }
     }
 }

@@ -26,9 +26,8 @@ public class PosAutoCompleteTextField extends PosTextField {
 
     /**
      * Creates a part of speech auto complete text field.
-     * 
-     * @param id
-     *            ID of the text field
+     *
+     * @param id ID of the text field
      */
     @SuppressWarnings("SameParameterValue")
     public PosAutoCompleteTextField(String id) {
@@ -38,11 +37,9 @@ public class PosAutoCompleteTextField extends PosTextField {
 
     /**
      * Creates a part of speech auto complete text field.
-     * 
-     * @param id
-     *            ID of the text field
-     * @param model
-     *            data model of the text field
+     *
+     * @param id    ID of the text field
+     * @param model data model of the text field
      */
     @SuppressWarnings("SameParameterValue")
     public PosAutoCompleteTextField(String id, IModel<Pos> model) {
@@ -61,9 +58,8 @@ public class PosAutoCompleteTextField extends PosTextField {
 
         /**
          * Creates a behavior.
-         * 
-         * @param id
-         *            ID of the auto complete text field
+         *
+         * @param id ID of the auto complete text field
          */
         public PosAutoCompleteBehavior(String id) {
             textFieldId = id;
@@ -93,11 +89,9 @@ public class PosAutoCompleteTextField extends PosTextField {
 
         /**
          * Renders a JavaScript header item to the web response.
-         * 
-         * @param component
-         *            component which is contributing to the response
-         * @param response
-         *            the response object
+         *
+         * @param component component which is contributing to the response
+         * @param response  the response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {

@@ -191,7 +191,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      * Remove sense from parent sense and fix child positions.
      *
      * @param entityManager an interface to interact with the persistence context
-     * @param sense the sense to remove
+     * @param sense         the sense to remove
      */
     private void removeFromParentSense(EntityManager entityManager, Sense sense) {
         TypedQuery<Sense> parentQuery = entityManager
@@ -216,7 +216,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      * Fix parent positions of siblings and their children.
      *
      * @param entityManager an interface to interact with the persistence context
-     * @param sense the sense to remove
+     * @param sense         the sense to remove
      */
     private void fixParentPositions(EntityManager entityManager, Sense sense) {
         TypedQuery<Sense> siblingsQuery = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
@@ -380,8 +380,8 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s WHERE s.lemma = :lemma " +
-                            "AND s.parentPosition = :parentPosition AND s.childPosition IS NOT NULL " +
-                            "ORDER BY s.childPosition", Sense.class);
+                    "AND s.parentPosition = :parentPosition AND s.childPosition IS NOT NULL " +
+                    "ORDER BY s.childPosition", Sense.class);
             List<Sense> childSenseList = query.setParameter("lemma", sense.getLemma())
                     .setParameter("parentPosition", sense.getParentPosition()).getResultList();
             transaction.commit();

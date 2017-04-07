@@ -27,7 +27,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * Creates a sense tree.
      *
-     * @param id ID of a tree
+     * @param id       ID of a tree
      * @param provider provider of tree data
      */
     @SuppressWarnings("SameParameterValue")
@@ -38,8 +38,8 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * Creates a sense tree.
      *
-     * @param id ID of a tree
-     * @param provider provider of tree data
+     * @param id                  ID of a tree
+     * @param provider            provider of tree data
      * @param selectedSenseObject model of the selected sense object
      */
     @SuppressWarnings("SameParameterValue")
@@ -51,7 +51,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * Creates a new content component.
      *
-     * @param id ID of the component
+     * @param id    ID of the component
      * @param model model of the node object
      * @return A node label component.
      */
@@ -68,7 +68,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * Creates a node component.
      *
-     * @param id ID of the component
+     * @param id    ID of the component
      * @param model model of the node object
      * @return A node component.
      */

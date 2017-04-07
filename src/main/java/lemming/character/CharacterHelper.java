@@ -12,7 +12,7 @@ import javax.json.JsonArrayBuilder;
 public class CharacterHelper {
     /**
      * Returns a JsonArray with character data.
-     * 
+     *
      * @return A JsonArray with character data.
      */
     public static JsonArray getCharacterData() {

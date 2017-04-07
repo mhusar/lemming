@@ -12,13 +12,12 @@ import lemming.ui.panel.ModalMessagePanel;
 /**
  * A panel containing a modal window dialog asking if a lemma shall be deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param responsePage
-     *            page loaded on confirmation
+     * @param responsePage page loaded on confirmation
      */
     @SuppressWarnings("unused")
     public LemmaDeleteConfirmPanel(Page responsePage) {
@@ -28,8 +27,7 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param responsePageClass
-     *            class of page loaded on confirmation
+     * @param responsePageClass class of page loaded on confirmation
      */
     public LemmaDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
         super("lemmaDeleteConfirmPanel", DialogType.YES_NO, responsePageClass);
@@ -38,8 +36,7 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public LemmaDeleteConfirmPanel(GenericDataTable<Lemma> dataTable) {
         super("lemmaDeleteConfirmPanel", DialogType.YES_NO, dataTable);

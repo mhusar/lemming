@@ -26,7 +26,7 @@ import javax.ws.rs.core.StreamingOutput;
  * A resource for part of speech data.
  */
 @Path("pos")
-@RolesAllowed({"STUDENT","USER","ADMIN"})
+@RolesAllowed({"STUDENT", "USER", "ADMIN"})
 public class PosResource {
     /**
      * Returns a chunked JSON response.

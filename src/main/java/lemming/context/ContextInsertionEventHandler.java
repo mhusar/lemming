@@ -11,7 +11,7 @@ public class ContextInsertionEventHandler implements ReferenceInsertionEventHand
      * A call-back which is executed during Velocity merge before a reference value is inserted into the output stream.
      *
      * @param reference reference from template about to be inserted
-     * @param value value about to be inserted (after its toString() method is called)
+     * @param value     value about to be inserted (after its toString() method is called)
      * @return Object on which toString() should be called for output.
      */
     @Override

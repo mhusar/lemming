@@ -11,22 +11,17 @@ import org.apache.wicket.model.IModel;
 /**
  * A slightly manipulated TextFilteredPropertyColumn adding a CSS class to the
  * text field.
- * 
- * @param <T>
- *            object type
- * @param <F>
- *            filter model type
- * @param <S>
- *            sort property type
+ *
+ * @param <T> object type
+ * @param <F> filter model type
+ * @param <S> sort property type
  */
 public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, S> {
     /**
      * Creates a TextFilterColumn.
-     * 
-     * @param displayModel
-     *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
+     *
+     * @param displayModel       title of a column
+     * @param propertyExpression property expression of a column
      */
     protected TextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
@@ -34,13 +29,10 @@ public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, 
 
     /**
      * Creates a TextFilterColumn.
-     * 
-     * @param displayModel
-     *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
+     *
+     * @param displayModel       title of a column
+     * @param sortProperty       sort property of a column
+     * @param propertyExpression property expression of a column
      */
     public TextFilterColumn(IModel<String> displayModel, S sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
@@ -48,11 +40,9 @@ public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, 
 
     /**
      * Returns the component used to filter a column.
-     * 
-     * @param componentId
-     *            ID of the component
-     * @param form
-     *            filter form the component will be attached to
+     *
+     * @param componentId ID of the component
+     * @param form        filter form the component will be attached to
      * @return Component that will be used to represent a filter for the column.
      */
     @Override

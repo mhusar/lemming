@@ -19,17 +19,13 @@ import lemming.table.GenericDataTable;
  */
 public abstract class ModalMessagePanel extends Panel {
     /**
-     * Available dialog types.
-     */
-    public enum DialogType {
-        YES_NO, OKAY
-    }
-
-    /**
      * Dialog type of the modal window.
      */
     private final DialogType dialogType;
-
+    /**
+     * ID of the modal window.
+     */
+    private final String modalWindowId;
     /**
      * Message label of the modal window dialog.
      */
@@ -51,17 +47,10 @@ public abstract class ModalMessagePanel extends Panel {
     private DataTable<?, String> dataTable;
 
     /**
-     * ID of the modal window.
-     */
-    private final String modalWindowId;
-
-    /**
      * Creates a modal window.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param dialogType
-     *            dialog type of the modal window
+     *
+     * @param id         ID of the panel
+     * @param dialogType dialog type of the modal window
      */
     protected ModalMessagePanel(String id, DialogType dialogType) {
         this(id, dialogType, (Page) null);
@@ -69,13 +58,10 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Creates a modal window.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param dialogType
-     *            dialog type of the modal window
-     * @param responsePage
-     *            page loaded on confirmation
+     *
+     * @param id           ID of the panel
+     * @param dialogType   dialog type of the modal window
+     * @param responsePage page loaded on confirmation
      */
     protected ModalMessagePanel(String id, DialogType dialogType, Page responsePage) {
         super(id);
@@ -87,13 +73,10 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Creates a modal window.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param dialogType
-     *            dialog type of the modal window
-     * @param responsePageClass
-     *            class of page loaded on confirmation
+     *
+     * @param id                ID of the panel
+     * @param dialogType        dialog type of the modal window
+     * @param responsePageClass class of page loaded on confirmation
      */
     @SuppressWarnings("SameParameterValue")
     protected ModalMessagePanel(String id, DialogType dialogType, Class<? extends Page> responsePageClass) {
@@ -106,13 +89,10 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Creates a modal window.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param dialogType
-     *            dialog type of the modal window
-     * @param dataTable
-     *            data table that is refreshed
+     *
+     * @param id         ID of the panel
+     * @param dialogType dialog type of the modal window
+     * @param dataTable  data table that is refreshed
      */
     protected ModalMessagePanel(String id, DialogType dialogType, DataTable<?, String> dataTable) {
         super(id);
@@ -154,11 +134,9 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Shows a modal window and replaces the message label.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param model
-     *            model of the default object model
+     *
+     * @param target target that produces an Ajax response
+     * @param model  model of the default object model
      */
     public void show(AjaxRequestTarget target, IModel<?> model) {
         setDefaultModel(model);
@@ -174,14 +152,10 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Shows a modal window and replaces the message label.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param model
-     *            model of the default object model
-     * @param messageModel
-     *            custom message model which overrides the model from method
-     *            getMessageModel()
+     *
+     * @param target       target that produces an Ajax response
+     * @param model        model of the default object model
+     * @param messageModel custom message model which overrides the model from method getMessageModel()
      */
     @SuppressWarnings("unused")
     public void show(AjaxRequestTarget target, IModel<?> model, StringResourceModel messageModel) {
@@ -197,21 +171,21 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Returns the title of the modal window.
-     * 
+     *
      * @return A title string.
      */
     protected abstract String getTitleString();
 
     /**
      * Returns the message of the modal dialog.
-     * 
+     *
      * @return A message string model or null.
      */
     protected abstract StringResourceModel getMessageModel();
 
     /**
      * Returns the button text of the confirmation button.
-     * 
+     *
      * @return A confirmation string.
      */
     protected abstract String getConfirmationString();
@@ -230,6 +204,13 @@ public abstract class ModalMessagePanel extends Panel {
     protected abstract void onConfirm(AjaxRequestTarget target);
 
     /**
+     * Available dialog types.
+     */
+    public enum DialogType {
+        YES_NO, OKAY
+    }
+
+    /**
      * Cancels the dialog when clicked.
      */
     private class CancelButton extends AjaxLink<Void> {
@@ -242,9 +223,8 @@ public abstract class ModalMessagePanel extends Panel {
 
         /**
          * Called when the button is clicked.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -266,9 +246,8 @@ public abstract class ModalMessagePanel extends Panel {
 
         /**
          * Called when the button is clicked.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {

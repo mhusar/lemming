@@ -18,21 +18,19 @@ import org.slf4j.LoggerFactory;
  */
 public class SignInPage extends EmptyBasePage {
     /**
+     * A logger named corresponding to this class.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(SignInPage.class);
+    /**
      * Username string.
      */
     @SuppressWarnings("unused")
     private String username;
-
     /**
      * Password string.
      */
     @SuppressWarnings("unused")
     private String password;
-
-    /**
-     * A logger named corresponding to this class.
-     */
-    private static final Logger logger = LoggerFactory.getLogger(SignInPage.class);
 
     /**
      * Creates a sign-in page.

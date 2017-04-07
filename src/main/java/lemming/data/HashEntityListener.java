@@ -50,7 +50,7 @@ public class HashEntityListener {
      * @return A string of arbitrary length.
      */
     private String getString(BaseContext context) {
-        return String.join("\u001F\u001F", new String[] {
+        return String.join("\u001F\u001F", new String[]{
                 context.getPreceding(),
                 Optional.ofNullable(context.getInitPunctuation()).orElse(""),
                 context.getKeyword(),

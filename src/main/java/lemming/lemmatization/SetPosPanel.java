@@ -74,7 +74,7 @@ class SetPosPanel extends ModalFormPanel {
      * Confirms the dialog when clicked.
      *
      * @param target target that produces an Ajax response
-     * @param form form that is submitted
+     * @param form   form that is submitted
      */
     @Override
     public void onConfirm(AjaxRequestTarget target, Form<?> form) {

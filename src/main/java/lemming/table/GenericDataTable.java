@@ -14,9 +14,8 @@ import lemming.data.GenericDataProvider;
 
 /**
  * A custom data table with toolbars and data provider.
- * 
- * @param <T>
- *            class type that is rendered
+ *
+ * @param <T> class type that is rendered
  */
 public class GenericDataTable<T> extends DataTable<T, String> {
     /**

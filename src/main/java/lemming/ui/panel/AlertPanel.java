@@ -12,13 +12,6 @@ import org.apache.wicket.model.Model;
  */
 public class AlertPanel extends Panel {
     /**
-     * Alert panel types.
-     */
-    public enum Type {
-        SUCCESS, INFO, WARNING, ERROR
-    }
-
-    /**
      * A label displaying a colon.
      */
     private final Label colonLabel;
@@ -98,6 +91,13 @@ public class AlertPanel extends Panel {
 
         add(AttributeModifier.replace("class", styleClass));
         return this;
+    }
+
+    /**
+     * Alert panel types.
+     */
+    public enum Type {
+        SUCCESS, INFO, WARNING, ERROR
     }
 
     /**

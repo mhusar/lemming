@@ -15,9 +15,9 @@ import org.apache.wicket.util.string.StringValue;
 
 /**
  * A selectable tree node.
- *
+ * <p>
  * To enable behaviors of draggable nodes external JavaScript code must be enabled.
- *
+ * <p>
  * Add this code to method renderHead() of the parent tree:
  * ResourceReference reference = new JavaScriptResourceReference(DraggableNode.class, "scripts/draggable-node.js");
  * response.render(JavaScriptHeaderItem.forReference(reference));
@@ -28,8 +28,8 @@ public class DraggableNode<T> extends BaseNode<T> {
     /**
      * Creates a tree node.
      *
-     * @param id ID of the node
-     * @param tree the owning tree
+     * @param id    ID of the node
+     * @param tree  the owning tree
      * @param model model of the node object
      */
     public DraggableNode(String id, AbstractNestedTree<T> tree, IModel<T> model) {
@@ -84,7 +84,7 @@ public class DraggableNode<T> extends BaseNode<T> {
         /**
          * Creates a dropzone
          *
-         * @param id ID of the dropzone
+         * @param id   ID of the dropzone
          * @param type dropzone type
          */
         public Dropzone(String id, DropzoneType type) {

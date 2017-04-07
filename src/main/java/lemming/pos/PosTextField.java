@@ -13,9 +13,8 @@ import org.apache.wicket.util.convert.IConverter;
 public class PosTextField extends TextField<Pos> {
     /**
      * Creates a part of speech text field.
-     * 
-     * @param id
-     *            ID of the text field
+     *
+     * @param id ID of the text field
      */
     PosTextField(String id) {
         super(id);
@@ -23,11 +22,9 @@ public class PosTextField extends TextField<Pos> {
 
     /**
      * Creates a part of speech text field.
-     * 
-     * @param id
-     *            ID of the text field
-     * @param model
-     *            data model of the text field
+     *
+     * @param id    ID of the text field
+     * @param model data model of the text field
      */
     PosTextField(String id, IModel<Pos> model) {
         super(id, model);
@@ -35,9 +32,8 @@ public class PosTextField extends TextField<Pos> {
 
     /**
      * Returns a converter for part of speech objects.
-     * 
-     * @param type
-     *            class type of converted object
+     *
+     * @param type class type of converted object
      * @return A converter for part of speech objects.
      */
     @Override
@@ -45,7 +41,7 @@ public class PosTextField extends TextField<Pos> {
         return new IConverter<C>() {
             /**
              * Converts an name string to a part of speech object.
-             * 
+             *
              * @param name
              *            name that is converted
              * @param locale
@@ -67,7 +63,7 @@ public class PosTextField extends TextField<Pos> {
 
             /**
              * Converts a part of speech object to an name string.
-             * 
+             *
              * @param pos
              *            part of speech that is converted
              * @param locale

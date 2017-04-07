@@ -27,8 +27,7 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
     /**
      * Creates a lemma auto complete text field.
      *
-     * @param id
-     *            ID of the text field
+     * @param id ID of the text field
      */
     public LemmaAutoCompleteTextField(String id) {
         super(id);
@@ -38,10 +37,8 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
     /**
      * Creates a lemma auto complete text field.
      *
-     * @param id
-     *            ID of the text field
-     * @param model
-     *            data model of the text field
+     * @param id    ID of the text field
+     * @param model data model of the text field
      */
     @SuppressWarnings("SameParameterValue")
     public LemmaAutoCompleteTextField(String id, IModel<Lemma> model) {
@@ -60,9 +57,8 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
 
         /**
          * Creates a behavior.
-         * 
-         * @param id
-         *            ID of the auto complete text field
+         *
+         * @param id ID of the auto complete text field
          */
         public LemmaAutoCompleteBehavior(String id) {
             textFieldId = id;
@@ -105,11 +101,9 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
 
         /**
          * Renders a JavaScript header item to the web response.
-         * 
-         * @param component
-         *            component which is contributing to the response
-         * @param response
-         *            the response object
+         *
+         * @param component component which is contributing to the response
+         * @param response  the response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {

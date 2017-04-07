@@ -10,7 +10,7 @@ import org.apache.wicket.model.IModel;
 /**
  * A page for the verifying of inbound contexts.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class ContextVerificationPage extends BasePage {
     /**
      * Model of a group of inbound contexts.

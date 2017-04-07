@@ -11,14 +11,12 @@ import org.apache.wicket.model.IModel;
 /**
  * A TextFilteredColumn to display preceding contexts properly.
  */
-public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,Context,String> {
+public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context, Context, String> {
     /**
      * Creates a TextFilterColumn for preceding contexts.
      *
-     * @param displayModel
-     *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param propertyExpression property expression of a column
      */
     @SuppressWarnings({"SameParameterValue", "unused"})
     public PrecedingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
@@ -28,12 +26,9 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     /**
      * Creates a TextFilterColumn for preceding contexts.
      *
-     * @param displayModel
-     *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param sortProperty       sort property of a column
+     * @param propertyExpression property expression of a column
      */
     @SuppressWarnings("SameParameterValue")
     public PrecedingContextTextFilterColumn(IModel<String> displayModel, String sortProperty,
@@ -44,9 +39,9 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
     /**
      * Populates the current table cell item.
      *
-     * @param item item representing the current table cell being rendered
+     * @param item        item representing the current table cell being rendered
      * @param componentId id of the component used to render the cell
-     * @param rowModel model of the row item being rendered
+     * @param rowModel    model of the row item being rendered
      */
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
@@ -62,12 +57,9 @@ public class PrecedingContextTextFilterColumn extends TextFilterColumn<Context,C
         /**
          * Creates a panel.
          *
-         * @param id
-         *            ID of the panel
-         * @param preceding
-         *            preceding text to display
-         * @param punctuation
-         *            preceding punctuation of keyword
+         * @param id          ID of the panel
+         * @param preceding   preceding text to display
+         * @param punctuation preceding punctuation of keyword
          */
         public ContextPanel(String id, String preceding, String punctuation) {
             super(id);

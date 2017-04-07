@@ -20,7 +20,7 @@ import lemming.ui.panel.FeedbackPanel;
 /**
  * A page containing a special character edit form.
  */
-@AuthorizeInstantiation({ "USER", "ADMIN" })
+@AuthorizeInstantiation({"USER", "ADMIN"})
 public class CharacterEditPage extends BasePage {
     /**
      * Model of the edited character object.
@@ -71,9 +71,8 @@ public class CharacterEditPage extends BasePage {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         @SuppressWarnings("unchecked")

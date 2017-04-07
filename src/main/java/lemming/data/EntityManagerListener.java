@@ -18,6 +18,19 @@ public class EntityManagerListener implements ServletContextListener {
     private static EntityManagerFactory entityManagerFactory;
 
     /**
+     * Creates an entity manager.
+     *
+     * @return An entity manager.
+     */
+    public static EntityManager createEntityManager() {
+        if (entityManagerFactory == null) {
+            throw new IllegalStateException("Context is not yet initialized.");
+        }
+
+        return entityManagerFactory.createEntityManager();
+    }
+
+    /**
      * Initializes the entity manager factory.
      *
      * @param servletContextEvent event containing the ServletContext that is being initialized
@@ -33,18 +46,5 @@ public class EntityManagerListener implements ServletContextListener {
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         entityManagerFactory.close();
-    }
-
-    /**
-     * Creates an entity manager.
-     *
-     * @return An entity manager.
-     */
-    public static EntityManager createEntityManager() {
-        if (entityManagerFactory == null) {
-            throw new IllegalStateException("Context is not yet initialized.");
-        }
-
-        return entityManagerFactory.createEntityManager();
     }
 }

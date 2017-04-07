@@ -22,9 +22,8 @@ import lemming.ui.panel.ModalMessagePanel;
 public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
     /**
      * Creates a column.
-     * 
-     * @param displayModel
-     *            title of the column
+     *
+     * @param displayModel title of the column
      */
     public LemmaActionPanelColumn(IModel<String> displayModel) {
         super(displayModel, Lemma.class);
@@ -32,7 +31,7 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
 
     /**
      * Returns the CSS class of this type of column.
-     * 
+     *
      * @return A string representing a CSS class.
      */
     @Override
@@ -42,13 +41,10 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
 
     /**
      * Populates cell items with components.
-     * 
-     * @param cellItem
-     *            cell item that is populated
-     * @param componentId
-     *            ID of the child component
-     * @param rowModel
-     *            model of the row
+     *
+     * @param cellItem    cell item that is populated
+     * @param componentId ID of the child component
+     * @param rowModel    model of the row
      */
     @Override
     public void populateItem(Item<ICellPopulator<Lemma>> cellItem, String componentId, IModel<Lemma> rowModel) {
@@ -61,11 +57,9 @@ public class LemmaActionPanelColumn extends FilterPanelColumn<Lemma> {
     private class ActionPanel extends Panel {
         /**
          * Creates a action panel.
-         * 
-         * @param id
-         *            ID of the panel
-         * @param model
-         *            lemma model of a cell item
+         *
+         * @param id    ID of the panel
+         * @param model lemma model of a cell item
          */
         public ActionPanel(String id, final IModel<Lemma> model) {
             super(id, model);

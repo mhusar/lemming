@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * An index page that lists all available contexts in a data table for lemmatization.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * True if the filter form shall be enabled.
@@ -135,7 +135,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Creates a row selection column.
          *
-         * @param displayModel title of a column
+         * @param displayModel       title of a column
          * @param propertyExpression property expression of a column
          */
         @SuppressWarnings("SameParameterValue")
@@ -176,12 +176,9 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Creates a behavior.
          *
-         * @param textField
-         *            text field used a filter component
-         * @param dataTable
-         *            data table displaying filtered data
-         * @param dataProvider
-         *            data provider which delivers data for the table.
+         * @param textField    text field used a filter component
+         * @param dataTable    data table displaying filtered data
+         * @param dataProvider data provider which delivers data for the table.
          */
         public FilterUpdatingBehavior(TextField<String> textField, LemmatizationDataTable dataTable,
                                       GenericDataProvider<Context> dataProvider) {
@@ -194,8 +191,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Called when the text field content changes.
          *
-         * @param target
-         *            target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         protected void onUpdate(AjaxRequestTarget target) {
@@ -236,7 +232,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Called on click.
          *
-         * @param  target target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -264,7 +260,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Called on click.
          *
-         * @param  target target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {

@@ -85,7 +85,7 @@ public class InboundContextGroup extends DatedEntity implements Serializable {
      * Creates an inbound context group.
      *
      * @param timestamp timestamp of contexts
-     * @param user owner of a context group
+     * @param user      owner of a context group
      */
     public InboundContextGroup(Timestamp timestamp, User user) {
         this.timestamp = timestamp;

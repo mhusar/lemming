@@ -31,7 +31,7 @@ public class Application extends ResourceConfig {
         // configure lemma resource logging
         ResourceConfig lemmaResourceConfig = new ResourceConfig(LemmaResource.class);
         lemmaResourceConfig.register(new LoggingFeature(logger, Level.ALL, LoggingFeature.Verbosity.PAYLOAD_ANY,
-               LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));
+                LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));
         // enable gzip encoder for lemma resource
         EncodingFilter.enableFor(lemmaResourceConfig, GZipEncoder.class);
 

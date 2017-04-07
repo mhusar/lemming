@@ -20,9 +20,8 @@ import org.apache.wicket.model.IModel;
 public class PosActionPanelColumn extends FilterPanelColumn<Pos> {
     /**
      * Creates a column.
-     * 
-     * @param displayModel
-     *            title of the column
+     *
+     * @param displayModel title of the column
      */
     public PosActionPanelColumn(IModel<String> displayModel) {
         super(displayModel, Pos.class);
@@ -30,7 +29,7 @@ public class PosActionPanelColumn extends FilterPanelColumn<Pos> {
 
     /**
      * Returns the CSS class of this type of column.
-     * 
+     *
      * @return A string representing a CSS class.
      */
     @Override
@@ -40,13 +39,10 @@ public class PosActionPanelColumn extends FilterPanelColumn<Pos> {
 
     /**
      * Populates cell items with components.
-     * 
-     * @param cellItem
-     *            cell item that is populated
-     * @param componentId
-     *            ID of the child component
-     * @param rowModel
-     *            model of the row
+     *
+     * @param cellItem    cell item that is populated
+     * @param componentId ID of the child component
+     * @param rowModel    model of the row
      */
     @Override
     public void populateItem(Item<ICellPopulator<Pos>> cellItem, String componentId, IModel<Pos> rowModel) {
@@ -59,11 +55,9 @@ public class PosActionPanelColumn extends FilterPanelColumn<Pos> {
     private class ActionPanel extends Panel {
         /**
          * Creates a action panel.
-         * 
-         * @param id
-         *            ID of the panel
-         * @param model
-         *            part of speech model of a cell item
+         *
+         * @param id    ID of the panel
+         * @param model part of speech model of a cell item
          */
         public ActionPanel(String id, final IModel<Pos> model) {
             super(id, model);

@@ -58,7 +58,7 @@ public interface IDao<E> {
      * Find by primary key. Search for an entity of the specified class and primary key. If the entity instance is
      * contained in the persistence context, it is returned from there.
      *
-     * @param primaryKey  primary key
+     * @param primaryKey primary key
      * @return The found entity instance or null if the entity does not exist.
      */
     E find(Object primaryKey);
@@ -73,7 +73,7 @@ public interface IDao<E> {
     /**
      * Sends the user to an error page if saving of data failed due to locking.
      *
-     * @param element the element that was not saved
+     * @param element   the element that was not saved
      * @param exception the raised exception
      */
     void panicOnSaveLockingError(Object element, RuntimeException exception);
@@ -82,7 +82,7 @@ public interface IDao<E> {
      * Sends the user to an error page if removing of data failed due to
      * locking.
      *
-     * @param element the element that was not removed
+     * @param element   the element that was not removed
      * @param exception the raised exception
      */
     void panicOnRemoveLockingError(Object element, RuntimeException exception);
@@ -91,7 +91,7 @@ public interface IDao<E> {
      * Sends the user to an error page if saving of data failed due to an
      * unresolvable object.
      *
-     * @param element the element that was not saved
+     * @param element   the element that was not saved
      * @param exception the raised exception
      */
     void panicOnSaveUnresolvableObjectError(Object element, RuntimeException exception);
@@ -100,7 +100,7 @@ public interface IDao<E> {
      * Sends the user to an error page if removing of data failed due to an
      * unresolvable object.
      *
-     * @param element the element that was not removed
+     * @param element   the element that was not removed
      * @param exception the raised exception
      */
     void panicOnRemoveUnresolvableObjectError(Object element, RuntimeException exception);

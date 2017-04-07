@@ -52,16 +52,6 @@ class ContextImportForm extends Form<Void> {
     private static final Logger logger = LoggerFactory.getLogger(ContextImportForm.class);
 
     /**
-     * Creates a context import form.
-     */
-    public ContextImportForm() {
-        super("contextImportForm");
-        setMultiPart(true);
-        setMaxSize(Bytes.megabytes(10));
-        setFileMaxSize(Bytes.megabytes(10));
-    }
-
-    /**
      * A file input field.
      */
     private FileUploadField fileInput;
@@ -90,6 +80,16 @@ class ContextImportForm extends Form<Void> {
      * A panel which lists groups of inbound contexts.
      */
     private InboundContextGroupPanel contextGroupPanel;
+
+    /**
+     * Creates a context import form.
+     */
+    public ContextImportForm() {
+        super("contextImportForm");
+        setMultiPart(true);
+        setMaxSize(Bytes.megabytes(10));
+        setFileMaxSize(Bytes.megabytes(10));
+    }
 
     /**
      * Called when a context import form is initialized.
@@ -125,7 +125,7 @@ class ContextImportForm extends Form<Void> {
     /**
      * Called on submit of the content import form.
      *
-     * @param target target that produces an Ajax response
+     * @param target   target that produces an Ajax response
      * @param fileItem object representing a file for a form item
      */
     private void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
@@ -181,7 +181,7 @@ class ContextImportForm extends Form<Void> {
     /**
      * Called when an exception occurs.
      *
-     * @param target target that produces an Ajax response
+     * @param target    target that produces an Ajax response
      * @param exception exception which occurred.
      */
     private void onException(AjaxRequestTarget target, Exception exception) {
@@ -234,7 +234,7 @@ class ContextImportForm extends Form<Void> {
          * Renders to the web response what the component wants to contribute.
          *
          * @param component component object
-         * @param response response object
+         * @param response  response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
@@ -308,7 +308,7 @@ class ContextImportForm extends Form<Void> {
          * Submits a form.
          *
          * @param target target target that produces an Ajax response
-         * @param form form that is submitted
+         * @param form   form that is submitted
          */
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

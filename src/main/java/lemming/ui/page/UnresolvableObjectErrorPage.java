@@ -11,20 +11,12 @@ import lemming.HomePage;
 /**
  * Displayed when an unresolvable object exception occurs.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class UnresolvableObjectErrorPage extends EmptyBasePage {
-    /**
-     * Available action types.
-     */
-    public enum ActionType {
-        SAVE, REMOVE
-    }
-
     /**
      * Type of action that failed due an unresolvable object.
      */
     private ActionType action;
-
     /*
      * Exception raised due to an unresolvable object.
      */
@@ -39,13 +31,10 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Creates an unresolvable object error page.
-     * 
-     * @param action
-     *            type of action that failed
-     * @param element
-     *            element which failed to save or remove
-     * @param exception
-     *            exception raised due to an unresolvable object
+     *
+     * @param action    type of action that failed
+     * @param element   element which failed to save or remove
+     * @param exception exception raised due to an unresolvable object
      */
     @SuppressWarnings("SameParameterValue")
     public UnresolvableObjectErrorPage(ActionType action, @SuppressWarnings("unused") Object element,
@@ -100,7 +89,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the identifier of an entity.
-     * 
+     *
      * @return A number string or null.
      */
     private String getIdentifier() {
@@ -120,7 +109,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the name of an entity.
-     * 
+     *
      * @return A name string or null.
      */
     private String getEntityName() {
@@ -132,5 +121,12 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
         }
 
         return entityName;
+    }
+
+    /**
+     * Available action types.
+     */
+    public enum ActionType {
+        SAVE, REMOVE
     }
 }

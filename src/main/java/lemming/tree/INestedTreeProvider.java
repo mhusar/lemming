@@ -4,6 +4,7 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
 
 /**
  * A tree provider for a nested tree.
+ *
  * @see AbstractNestedTree
  */
 public interface INestedTreeProvider<T> extends ITreeProvider<T> {

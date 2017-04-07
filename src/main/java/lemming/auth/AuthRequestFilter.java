@@ -18,9 +18,17 @@ import java.security.Principal;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthRequestFilter implements ContainerRequestFilter {
+    /**
+     * The servlet request;
+     */
     @Context
     HttpServletRequest request;
 
+    /**
+     * Filters requests with a security context.
+     *
+     * @param requestContext the request context
+     */
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         HttpSession session = request.getSession(true);

@@ -11,14 +11,12 @@ import org.apache.wicket.model.IModel;
 /**
  * A TextFilteredColumn adding to display keywords of contexts properly.
  */
-public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,String> {
+public class KeywordTextFilterColumn extends TextFilterColumn<Context, Context, String> {
     /**
      * Creates a TextFilterColumn for contexts.
      *
-     * @param displayModel
-     *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param propertyExpression property expression of a column
      */
     @SuppressWarnings({"SameParameterValue", "unused"})
     public KeywordTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
@@ -28,12 +26,9 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
     /**
      * Creates a TextFilterColumn for contexts.
      *
-     * @param displayModel
-     *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param sortProperty       sort property of a column
+     * @param propertyExpression property expression of a column
      */
     @SuppressWarnings("SameParameterValue")
     public KeywordTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
@@ -43,9 +38,9 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
     /**
      * Populates the current table cell item.
      *
-     * @param item item representing the current table cell being rendered
+     * @param item        item representing the current table cell being rendered
      * @param componentId id of the component used to render the cell
-     * @param rowModel model of the row item being rendered
+     * @param rowModel    model of the row item being rendered
      */
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
@@ -61,10 +56,8 @@ public class KeywordTextFilterColumn extends TextFilterColumn<Context,Context,St
         /**
          * Creates a panel.
          *
-         * @param id
-         *            ID of the panel
-         * @param label
-         *            label to display
+         * @param id    ID of the panel
+         * @param label label to display
          */
         public KeywordPanel(String id, String label) {
             super(id);

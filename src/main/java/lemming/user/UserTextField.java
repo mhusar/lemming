@@ -22,7 +22,7 @@ public class UserTextField extends TextField<User> {
 
     /**
      * Returns a converter for user objects.
-     * 
+     *
      * @param type class type of converted object
      * @return A converter for user objects.
      */
@@ -31,7 +31,7 @@ public class UserTextField extends TextField<User> {
         return new IConverter<C>() {
             /**
              * Converts an name string to a user object.
-             * 
+             *
              * @param name name that is converted
              * @param locale locale used to convert the name
              * @return The converted object, or null.
@@ -51,7 +51,7 @@ public class UserTextField extends TextField<User> {
 
             /**
              * Converts a user object to an name string.
-             * 
+             *
              * @param user
              *            user that is converted
              * @param locale

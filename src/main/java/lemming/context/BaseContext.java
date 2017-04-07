@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * Base class representing a context with a minimum of fields.
  */
-@EntityListeners({ HashEntityListener.class })
+@EntityListeners({HashEntityListener.class})
 @MappedSuperclass
 public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
@@ -52,7 +52,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Keyword of a context.
      */
-    @Column(name = "keyword", length=120, nullable = false)
+    @Column(name = "keyword", length = 120, nullable = false)
     private String keyword;
 
     /**
@@ -88,13 +88,13 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Creates an instance of a context.
      *
-     * @param location location of a context
-     * @param type type of a context
-     * @param keyword keyword of a context
-     * @param preceding preceding text of a context
-     * @param following following text of a context
+     * @param location        location of a context
+     * @param type            type of a context
+     * @param keyword         keyword of a context
+     * @param preceding       preceding text of a context
+     * @param following       following text of a context
      * @param initPunctuation punctuation preceding the keyword
-     * @param endPunctuation punctuation following the keyword
+     * @param endPunctuation  punctuation following the keyword
      */
     BaseContext(String location, ContextType.Type type, String keyword, String preceding, String following,
                 String initPunctuation, String endPunctuation) {
@@ -211,8 +211,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Sets the keyword of a context.
      *
-     * @param keyword
-     *            the keyword of a context
+     * @param keyword the keyword of a context
      */
     public void setKeyword(String keyword) {
         this.keyword = keyword;

@@ -28,7 +28,7 @@ class ContextEditForm extends Form<Context> {
     /**
      * Creates a context edit form.
      *
-     * @param model context model that is edited
+     * @param model         context model that is edited
      * @param nextPageClass class of the next page
      */
     public ContextEditForm(IModel<Context> model, Class<? extends Page> nextPageClass) {
@@ -60,8 +60,7 @@ class ContextEditForm extends Form<Context> {
     /**
      * Checks if a context model is transient.
      *
-     * @param model
-     *            context model that is checked
+     * @param model context model that is checked
      * @return True if a context model is transient; false otherwise.
      */
     private Boolean isContextTransient(IModel<Context> model) {
@@ -103,8 +102,7 @@ class ContextEditForm extends Form<Context> {
         /**
          * Called on button click.
          *
-         * @param target
-         *            target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -132,8 +130,7 @@ class ContextEditForm extends Form<Context> {
         /**
          * Called on button click.
          *
-         * @param target
-         *            target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {

@@ -32,7 +32,8 @@ public abstract class KwicIndex {
         /**
          * Creates a sublist object. Needed for JAXB.
          */
-        public SubList() {}
+        public SubList() {
+        }
 
         /**
          * Creates a sublist.
@@ -331,7 +332,7 @@ public abstract class KwicIndex {
          * Creates a punctuation object.
          *
          * @param value value of a punctuation
-         * @param type type of punctuation
+         * @param type  type of punctuation
          */
         public Punctuation(String value, String type) {
             this.type = type;

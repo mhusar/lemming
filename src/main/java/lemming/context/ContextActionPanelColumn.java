@@ -18,9 +18,8 @@ import org.apache.wicket.model.IModel;
 public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
     /**
      * Creates a column.
-     * 
-     * @param displayModel
-     *            title of the column
+     *
+     * @param displayModel title of the column
      */
     public ContextActionPanelColumn(IModel<String> displayModel) {
         super(displayModel, Context.class);
@@ -28,7 +27,7 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
 
     /**
      * Returns the CSS class of this type of column.
-     * 
+     *
      * @return A string representing a CSS class.
      */
     @Override
@@ -38,13 +37,10 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
 
     /**
      * Populates cell items with components.
-     * 
-     * @param cellItem
-     *            cell item that is populated
-     * @param componentId
-     *            ID of the child component
-     * @param rowModel
-     *            model of the row
+     *
+     * @param cellItem    cell item that is populated
+     * @param componentId ID of the child component
+     * @param rowModel    model of the row
      */
     @Override
     public void populateItem(Item<ICellPopulator<Context>> cellItem, String componentId, IModel<Context> rowModel) {
@@ -57,11 +53,9 @@ public class ContextActionPanelColumn extends FilterPanelColumn<Context> {
     private class ActionPanel extends Panel {
         /**
          * Creates a action panel.
-         * 
-         * @param id
-         *            ID of the panel
-         * @param model
-         *            context model of a cell item
+         *
+         * @param id    ID of the panel
+         * @param model context model of a cell item
          */
         public ActionPanel(String id, final IModel<Context> model) {
             super(id, model);

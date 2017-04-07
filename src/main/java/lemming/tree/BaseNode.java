@@ -25,8 +25,8 @@ public abstract class BaseNode<T> extends Panel {
     /**
      * Creates a tree node.
      *
-     * @param id ID of the node
-     * @param tree the owning tree
+     * @param id    ID of the node
+     * @param tree  the owning tree
      * @param model model of the node object
      */
     BaseNode(String id, AbstractNestedTree<T> tree, IModel<T> model) {
@@ -154,7 +154,7 @@ public abstract class BaseNode<T> extends Panel {
          * Processes the component tag.
          *
          * @param component component that renders the component tag
-         * @param tag tag to modify
+         * @param tag       tag to modify
          */
         @Override
         @SuppressWarnings("unchecked")

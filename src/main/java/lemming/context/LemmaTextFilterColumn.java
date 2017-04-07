@@ -11,17 +11,15 @@ import org.apache.wicket.model.IModel;
 
 /**
  * A TextFilteredColumn to display keywords of contexts properly.
- *
+ * <p>
  * This column adds class "first-child" to be able to style this column as first child of a row.
  */
-public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,String> {
+public class LemmaTextFilterColumn extends TextFilterColumn<Context, Context, String> {
     /**
      * Creates a TextFilterColumn for contexts.
      *
-     * @param displayModel
-     *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param propertyExpression property expression of a column
      */
     @SuppressWarnings({"SameParameterValue", "unused"})
     public LemmaTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
@@ -31,12 +29,9 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,Stri
     /**
      * Creates a TextFilterColumn for contexts.
      *
-     * @param displayModel
-     *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param sortProperty       sort property of a column
+     * @param propertyExpression property expression of a column
      */
     @SuppressWarnings("SameParameterValue")
     public LemmaTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
@@ -46,9 +41,9 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,Stri
     /**
      * Populates the current table cell item.
      *
-     * @param item item representing the current table cell being rendered
+     * @param item        item representing the current table cell being rendered
      * @param componentId id of the component used to render the cell
-     * @param rowModel model of the row item being rendered
+     * @param rowModel    model of the row item being rendered
      */
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
@@ -77,10 +72,8 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,Stri
         /**
          * Creates a panel.
          *
-         * @param id
-         *            ID of the panel
-         * @param label
-         *            label to display
+         * @param id    ID of the panel
+         * @param label label to display
          */
         public ContextPanel(String id, String label) {
             super(id);

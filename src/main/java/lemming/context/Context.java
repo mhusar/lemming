@@ -34,8 +34,9 @@ public class Context extends BaseContext implements Serializable {
 
     /**
      * Part of speech of a context as string.
-     *
+     * <p>
      * For better performance of the context index table.
+     * </p>
      */
     @Column(name = "pos_string", length = 120)
     @JsonIgnore
@@ -50,8 +51,9 @@ public class Context extends BaseContext implements Serializable {
 
     /**
      * Lemma of a context as string.
-     *
+     * <p>
      * For better performance of the context index table.
+     * </p>
      */
     @Column(name = "lemma_string", length = 120)
     @JsonIgnore
@@ -82,13 +84,13 @@ public class Context extends BaseContext implements Serializable {
     /**
      * Creates an instance of a context.
      *
-     * @param location location of a context
-     * @param type type of a context
-     * @param keyword keyword of a context
-     * @param preceding preceding text of a context
-     * @param following following text of a context
+     * @param location        location of a context
+     * @param type            type of a context
+     * @param keyword         keyword of a context
+     * @param preceding       preceding text of a context
+     * @param following       following text of a context
      * @param initPunctuation punctuation preceding the keyword
-     * @param endPunctuation punctuation following the keyword
+     * @param endPunctuation  punctuation following the keyword
      */
     public Context(String location, ContextType.Type type, String keyword, String preceding, String following,
                    String initPunctuation, String endPunctuation) {

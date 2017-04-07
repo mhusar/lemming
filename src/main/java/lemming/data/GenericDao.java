@@ -19,8 +19,7 @@ import java.util.List;
 /**
  * Implements methods from interface IDao.
  *
- * @param <E>
- *            entity type
+ * @param <E> entity type
  * @see IDao
  */
 public abstract class GenericDao<E> implements IDao<E> {

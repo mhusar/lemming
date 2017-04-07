@@ -11,7 +11,7 @@ import lemming.ui.panel.ModalMessagePanel;
  * A panel containing a modal window dialog stating that a user could not be
  * deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "ADMIN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"ADMIN"})
 public class UserDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.

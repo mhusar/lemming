@@ -89,7 +89,7 @@ class CharacterEditForm extends Form<Character> {
          * Called on form submit.
          *
          * @param target target that produces an Ajax response
-         * @param form the submitted form
+         * @param form   the submitted form
          */
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

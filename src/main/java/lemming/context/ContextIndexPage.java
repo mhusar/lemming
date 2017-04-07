@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * An index page that lists all available contexts in a data table.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class ContextIndexPage extends IndexBasePage {
     /**
      * True if the filter form shall be enabled.

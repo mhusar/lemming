@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * An index page that lists all available lemmata in a data table.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class LemmaIndexPage extends IndexBasePage {
     /**
      * True if the filter form shall be enabled.
@@ -83,7 +83,7 @@ public class LemmaIndexPage extends IndexBasePage {
 
     /**
      * Returns the list of columns of the data table.
-     * 
+     *
      * @return A list of columns.
      */
     private List<IColumn<Lemma, String>> getColumns() {

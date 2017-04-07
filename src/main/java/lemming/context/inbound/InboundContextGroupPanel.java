@@ -87,7 +87,7 @@ public class InboundContextGroupPanel extends Panel {
          * Creates a location string based on begin and end location.
          *
          * @param contextGroupDao Data Access Object for inbound context groups
-         * @param contextGroup group of inbound contexts
+         * @param contextGroup    group of inbound contexts
          * @return A location string.
          */
         private String createLocationString(InboundContextGroupDao contextGroupDao, InboundContextGroup contextGroup) {

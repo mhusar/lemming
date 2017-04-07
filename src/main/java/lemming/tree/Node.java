@@ -11,8 +11,8 @@ class Node<T> extends BaseNode<T> {
     /**
      * Creates a tree node.
      *
-     * @param id ID of the node
-     * @param tree the owning tree
+     * @param id    ID of the node
+     * @param tree  the owning tree
      * @param model model of the node object
      */
     public Node(String id, AbstractNestedTree<T> tree, IModel<T> model) {

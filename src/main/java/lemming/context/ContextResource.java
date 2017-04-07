@@ -43,7 +43,7 @@ import java.util.Properties;
  * A resource for context data.
  */
 @Path("contexts")
-@RolesAllowed({"STUDENT","USER","ADMIN"})
+@RolesAllowed({"STUDENT", "USER", "ADMIN"})
 public class ContextResource {
     /**
      * The servlet context.
@@ -86,7 +86,7 @@ public class ContextResource {
             };
 
             return Response.ok(streamingOutput).type("text/json")
-                .header("Content-Disposition", "attachment; filename=\"contexts.json\"").build();
+                    .header("Content-Disposition", "attachment; filename=\"contexts.json\"").build();
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -104,7 +104,7 @@ public class ContextResource {
      * Writes context items per JSON generator.
      *
      * @param jsonGenerator a JSON generator
-     * @param keyword a context keyword
+     * @param keyword       a context keyword
      */
     private void writeJsonResult(JsonGenerator jsonGenerator, String keyword) throws IOException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
@@ -208,7 +208,7 @@ public class ContextResource {
             transaction = entityManager.getTransaction();
             transaction.begin();
             Iterator<Context> iterator = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                            "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
+                    "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                     .setParameter("keyword", keyword).getResultList().iterator();
             KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 
@@ -269,8 +269,8 @@ public class ContextResource {
                         String keyword = results.getString(0);
                         EntityManager entityManager2 = EntityManagerListener.createEntityManager();
                         Iterator<Context> iterator = entityManager2.createQuery("SELECT c FROM Context c " +
-                                        "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
-                                        "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
+                                "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
+                                "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                                 .setParameter("keyword", keyword).getResultList().iterator();
                         KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 

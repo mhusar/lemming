@@ -38,7 +38,7 @@ public interface ILemmaDao extends IDao<Lemma> {
     /**
      * Returns a list of matching lemmata for a given substring.
      *
-     * @param substring substring of a lemma name
+     * @param substring           substring of a lemma name
      * @param excludeReplacements exclude replacement lemmata
      * @return A list of matching lemmata.
      */
