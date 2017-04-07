@@ -115,7 +115,8 @@ public class LockingErrorPage extends EmptyBasePage {
             try {
                 field = element.getClass().getField("id");
                 identifier = field.getInt(element);
-            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
+                    ignored) {
             }
         } else if (exception instanceof StaleObjectStateException) {
             StaleObjectStateException staleObjectStateException = (StaleObjectStateException) exception;
