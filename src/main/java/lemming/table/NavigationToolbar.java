@@ -29,7 +29,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
      */
     public NavigationToolbar(DataTable<T, String> table) {
         super(table);
-        navigatorFormPanel = new PagingNavigatorFormPanel<T>("navigatorFormPanel", table);
+        navigatorFormPanel = new PagingNavigatorFormPanel<>("navigatorFormPanel", table);
     }
 
     /**

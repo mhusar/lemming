@@ -43,11 +43,11 @@ public class PosEditForm extends Form<Pos> {
         super(id, model);
 
         this.nextPageClass = nextPageClass;
-        RequiredTextField<String> nameTextField = new RequiredTextField<String>("name");
-        ListChoice<Source.PosType> sourceListChoice = new ListChoice<Source.PosType>("source",
-                new PropertyModel<Source.PosType>(getModelObject(), "source"),
-                new ArrayList<Source.PosType>(Arrays.asList(Source.PosType.values())),
-                new EnumChoiceRenderer<Source.PosType>(), 1);
+        RequiredTextField<String> nameTextField = new RequiredTextField<>("name");
+        ListChoice<Source.PosType> sourceListChoice = new ListChoice<>("source",
+                new PropertyModel<>(getModelObject(), "source"),
+                new ArrayList<>(Arrays.asList(Source.PosType.values())),
+                new EnumChoiceRenderer<>(), 1);
 
         add(nameTextField);
         add(sourceListChoice.setEnabled(false));

@@ -52,12 +52,12 @@ public class UserEditForm extends Form<User> {
     protected void onInitialize() {
         super.onInitialize();
 
-        TextField<String> realNameTextField = new RequiredTextField<String>("realName");
-        TextField<String> usernameTextField = new RequiredTextField<String>("username");
-        ListChoice<UserRoles.Role> roleListChoice = new ListChoice<UserRoles.Role>("role",
-                new PropertyModel<UserRoles.Role>(getModelObject(), "role"),
-                new ArrayList<UserRoles.Role>(Arrays.asList(UserRoles.Role.values())),
-                new EnumChoiceRenderer<UserRoles.Role>(), 3);
+        TextField<String> realNameTextField = new RequiredTextField<>("realName");
+        TextField<String> usernameTextField = new RequiredTextField<>("username");
+        ListChoice<UserRoles.Role> roleListChoice = new ListChoice<>("role",
+                new PropertyModel<>(getModelObject(), "role"),
+                new ArrayList<>(Arrays.asList(UserRoles.Role.values())),
+                new EnumChoiceRenderer<>(), 3);
 
         add(realNameTextField.setOutputMarkupId(true));
         add(usernameTextField);

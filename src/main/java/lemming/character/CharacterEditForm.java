@@ -44,7 +44,7 @@ public class CharacterEditForm extends Form<Character> {
 
         this.characterView = characterView;
         Integer numberOfCharacters = new CharacterDao().getAll().size();
-        RequiredTextField<String> characterTextField = new RequiredTextField<String>("character");
+        RequiredTextField<String> characterTextField = new RequiredTextField<>("character");
         NumberTextField positionTextField = new NumberTextField("position");
 
         add(characterTextField.setOutputMarkupId(true));
@@ -57,9 +57,9 @@ public class CharacterEditForm extends Form<Character> {
 
         if (isCharacterTransient(model.getObject())) {
             positionTextField.add(AttributeModifier.append("value", (numberOfCharacters + 1)));
-            positionTextField.add(new RangeValidator<Integer>(1, numberOfCharacters + 1));
+            positionTextField.add(new RangeValidator<>(1, numberOfCharacters + 1));
         } else {
-            positionTextField.add(new RangeValidator<Integer>(1, numberOfCharacters));
+            positionTextField.add(new RangeValidator<>(1, numberOfCharacters));
         }
     }
 
@@ -106,9 +106,9 @@ public class CharacterEditForm extends Form<Character> {
             }
 
             Character refreshedCharacter = characterDao.findByCharacter(character.getCharacter());
-            IModel<Character> refreshedCharacterModel = new Model<Character>(refreshedCharacter);
+            IModel<Character> refreshedCharacterModel = new Model<>(refreshedCharacter);
             Form<Character> newEditForm = new CharacterEditForm("characterEditForm",
-                    new CompoundPropertyModel<Character>(refreshedCharacter), characterView);
+                    new CompoundPropertyModel<>(refreshedCharacter), characterView);
 
             this.remove();
             characterView.setSelectedModel(refreshedCharacterModel);
@@ -164,14 +164,14 @@ public class CharacterEditForm extends Form<Character> {
                 Item<Character> item = (Item<Character>) iterator.next();
                 IModel<Character> firstCharacterModel = item.getModel();
                 newEditForm = new CharacterEditForm("characterEditForm",
-                        new CompoundPropertyModel<Character>(firstCharacterModel), characterView);
+                        new CompoundPropertyModel<>(firstCharacterModel), characterView);
 
                 characterView.setSelectedModel(firstCharacterModel);
             } else {
                 newEditForm = new CharacterEditForm("characterEditForm",
-                        new CompoundPropertyModel<Character>(new Character()), characterView);
+                        new CompoundPropertyModel<>(new Character()), characterView);
 
-                characterView.setSelectedModel(new Model<Character>(new Character()));
+                characterView.setSelectedModel(new Model<>(new Character()));
             }
 
             this.remove();
@@ -228,13 +228,13 @@ public class CharacterEditForm extends Form<Character> {
             }
 
             if (selectedCharacterModel == null) {
-                selectedCharacterModel = new Model<Character>(new Character());
+                selectedCharacterModel = new Model<>(new Character());
             }
 
             new CharacterDao().remove(getModelObject());
             Form<Character> editForm = findParent(CharacterEditForm.class);
             Form<Character> newEditForm = new CharacterEditForm("characterEditForm",
-                    new CompoundPropertyModel<Character>(selectedCharacterModel), characterView);
+                    new CompoundPropertyModel<>(selectedCharacterModel), characterView);
             Panel feedbackPanel = (Panel) editForm.getPage().get("feedbackPanel");
 
             this.remove();

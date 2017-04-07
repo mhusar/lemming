@@ -31,7 +31,7 @@ public class PosEditPage extends BasePage {
      * Creates a pos edit page.
      */
     public PosEditPage() {
-        posModel = new CompoundPropertyModel<Pos>(new Pos());
+        posModel = new CompoundPropertyModel<>(new Pos());
         nextPageClass = null;
         // set pos source to user
         posModel.getObject().setSource(Source.PosType.USER);
@@ -44,7 +44,7 @@ public class PosEditPage extends BasePage {
      *            class of the next page
      */
     public PosEditPage(Class<? extends Page> nextPageClass) {
-        posModel = new CompoundPropertyModel<Pos>(new Pos());
+        posModel = new CompoundPropertyModel<>(new Pos());
         this.nextPageClass = nextPageClass;
         // set pos source to user
         posModel.getObject().setSource(Source.PosType.USER);
@@ -63,7 +63,7 @@ public class PosEditPage extends BasePage {
 
         if (posModel instanceof IModel) {
             Pos pos = posModel.getObject();
-            this.posModel = new CompoundPropertyModel<Pos>(posModel);
+            this.posModel = new CompoundPropertyModel<>(posModel);
             new PosDao().refresh(pos);
         }
     }

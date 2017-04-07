@@ -129,7 +129,7 @@ public class SenseEditPanel extends Panel {
             super(id);
             this.lemmaModel = lemmaModel;
             this.senseModel = senseModel;
-            parentSenseModel = new Model<Sense>();
+            parentSenseModel = new Model<>();
         }
 
         /**
@@ -144,15 +144,15 @@ public class SenseEditPanel extends Panel {
 
             if (!(senseModel instanceof IModel) && !rootNodes.isEmpty()) {
                 Sense firstRootNode = rootNodes.get(0);
-                senseModel = new Model<Sense>(firstRootNode);
+                senseModel = new Model<>(firstRootNode);
             }
 
             if (senseModel instanceof IModel) {
                 senseTree = new SenseTree("senses", treeProvider, senseModel.getObject());
-                meaningTextField = new TextField<String>("meaning", new PropertyModel<String>(senseModel, "meaning"));
+                meaningTextField = new TextField<>("meaning", new PropertyModel<>(senseModel, "meaning"));
             } else {
                 senseTree = new SenseTree("senses", treeProvider);
-                meaningTextField = new TextField<String>("meaning", new Model<String>(""));
+                meaningTextField = new TextField<>("meaning", new Model<>(""));
             }
 
             senseTree.addSelectListener(this);
@@ -197,7 +197,7 @@ public class SenseEditPanel extends Panel {
          */
         public void onSelect(AjaxRequestTarget target, Sense selectedSense) {
             SenseDao senseDao = new SenseDao();
-            IModel<Sense> selectedNodeModel = new Model<Sense>(selectedSense);
+            IModel<Sense> selectedNodeModel = new Model<>(selectedSense);
 
             if (selectedNodeModel instanceof IModel) {
                 senseModel = selectedNodeModel;
@@ -238,7 +238,7 @@ public class SenseEditPanel extends Panel {
          */
         @Override
         public void onDeselect(AjaxRequestTarget target) {
-            meaningTextField.setDefaultModel(new Model<String>(""));
+            meaningTextField.setDefaultModel(new Model<>(""));
             target.add(meaningTextField);
         }
 
@@ -325,7 +325,7 @@ public class SenseEditPanel extends Panel {
              */
             @Override
             public void onClick(AjaxRequestTarget target) {
-                senseModel = new Model<Sense>(new Sense());
+                senseModel = new Model<>(new Sense());
 
                 setSenseType(SenseType.PARENT);
                 meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
@@ -359,7 +359,7 @@ public class SenseEditPanel extends Panel {
             @Override
             public void onClick(AjaxRequestTarget target) {
                 parentSenseModel.setObject(senseModel.getObject());
-                senseModel = new Model<Sense>(new Sense());
+                senseModel = new Model<>(new Sense());
 
                 setSenseType(SenseType.CHILD);
                 meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
@@ -394,7 +394,7 @@ public class SenseEditPanel extends Panel {
             public void onClick(AjaxRequestTarget target) {
                 SenseDeleteConfirmPanel senseDeleteConfirmPanel = (SenseDeleteConfirmPanel) SenseEditPanel.this
                         .get("senseDeleteConfirmPanel");
-                senseDeleteConfirmPanel.show(target, new Model<Sense>(senseModel.getObject()));
+                senseDeleteConfirmPanel.show(target, new Model<>(senseModel.getObject()));
             }
         }
 

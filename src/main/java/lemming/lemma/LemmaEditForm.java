@@ -48,18 +48,18 @@ public class LemmaEditForm extends Form<Lemma> {
         super(id, model);
 
         this.nextPageClass = nextPageClass;
-        RequiredTextField<String> nameTextField = new RequiredTextField<String>("name");
+        RequiredTextField<String> nameTextField = new RequiredTextField<>("name");
         MarkupContainer replacementContainer = new WebMarkupContainer("replacementContainer");
         LemmaTextField replacementTextField = new LemmaAutoCompleteTextField("replacement");
         MarkupContainer posLabel = new WebMarkupContainer("posLabel");
         PosTextField posTextField = new PosAutoCompleteTextField("pos");
-        TextField<String> posStringTextField = new TextField<String>("posString");
-        ListChoice<Source.LemmaType> sourceListChoice = new ListChoice<Source.LemmaType>("source",
-                new PropertyModel<Source.LemmaType>(getModelObject(), "source"),
-                new ArrayList<Source.LemmaType>(Arrays.asList(Source.LemmaType.values())),
-                new EnumChoiceRenderer<Source.LemmaType>(), 1);
+        TextField<String> posStringTextField = new TextField<>("posString");
+        ListChoice<Source.LemmaType> sourceListChoice = new ListChoice<>("source",
+                new PropertyModel<>(getModelObject(), "source"),
+                new ArrayList<>(Arrays.asList(Source.LemmaType.values())),
+                new EnumChoiceRenderer<>(), 1);
         MarkupContainer referenceContainer = new WebMarkupContainer("referenceContainer");
-        TextField<String> referenceTextField = new TextField<String>("reference");
+        TextField<String> referenceTextField = new TextField<>("reference");
         MarkupContainer userContainer = new WebMarkupContainer("userContainer");
         UserTextField userTextField = new UserTextField("user");
         DeleteButton deleteButton = new DeleteButton("deleteButton", model);

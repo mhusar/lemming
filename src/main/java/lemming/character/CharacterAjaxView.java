@@ -31,11 +31,11 @@ public class CharacterAjaxView extends AjaxView<Character> {
      */
     @Override
     protected Iterator<IModel<Character>> getItemModels() {
-        List<IModel<Character>> characterModels = new ArrayList<IModel<Character>>();
+        List<IModel<Character>> characterModels = new ArrayList<>();
         Iterator<Character> characterIterator = new CharacterDao().getAll().iterator();
 
         while (characterIterator.hasNext()) {
-            characterModels.add(new Model<Character>(characterIterator.next()));
+            characterModels.add(new Model<>(characterIterator.next()));
         }
 
         return characterModels.iterator();
@@ -46,7 +46,7 @@ public class CharacterAjaxView extends AjaxView<Character> {
      */
     @Override
     protected Item<Character> getNewItem(String id, int index, IModel<Character> model, Boolean isSelected) {
-        Item<Character> item = new Item<Character>(id, index, model);
+        Item<Character> item = new Item<>(id, index, model);
         Label label = new Label("label", model.getObject().getCharacter());
 
         if (isSelected) {

@@ -38,9 +38,9 @@ public class CharacterEditPage extends BasePage {
         WebSession.get().checkSessionExpired();
 
         if (characters.isEmpty()) {
-            characterModel = new CompoundPropertyModel<Character>(new Character());
+            characterModel = new CompoundPropertyModel<>(new Character());
         } else {
-            characterModel = new CompoundPropertyModel<Character>(characters.get(0));
+            characterModel = new CompoundPropertyModel<>(characters.get(0));
         }
     }
 
@@ -87,9 +87,9 @@ public class CharacterEditPage extends BasePage {
             AjaxView<Character> characterView = (AjaxView<Character>) characterViewPanel.get("characterView");
             Component characterEditForm = characterEditPage.get("characterEditForm");
             Component newCharacterEditForm = new CharacterEditForm("characterEditForm",
-                    new CompoundPropertyModel<Character>(new Character()), characterView);
+                    new CompoundPropertyModel<>(new Character()), characterView);
 
-            characterView.setSelectedModel(new Model<Character>(new Character()));
+            characterView.setSelectedModel(new Model<>(new Character()));
             characterView.refresh(target);
             characterEditForm.replaceWith(newCharacterEditForm);
             target.add(newCharacterEditForm);

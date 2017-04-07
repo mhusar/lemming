@@ -87,8 +87,8 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
     private void createTable(GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {
         setOutputMarkupId(true);
         add(AttributeModifier.append("class", "table table-hover table-striped selectable"));
-        addTopToolbar(new NavigationToolbar<Context>(this));
-        addTopToolbar(new HeadersToolbar<String>(this, dataProvider));
+        addTopToolbar(new NavigationToolbar<>(this));
+        addTopToolbar(new HeadersToolbar<>(this, dataProvider));
         addBottomToolbar(new NoRecordsToolbar(this));
 
         if (filterForm instanceof FilterForm) {
@@ -102,8 +102,8 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        rowModels = new HashMap<Integer, IModel<Context>>(new Long(DEFAULT_ROWS_PER_PAGE).intValue());
-        selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+        rowModels = new HashMap<>(new Long(DEFAULT_ROWS_PER_PAGE).intValue());
+        selectedContextIds = new CollectionModel<>(new ArrayList<>());
     }
 
     /**
@@ -112,7 +112,7 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
     @Override
     protected void onAfterRender() {
         super.onAfterRender();
-        selectedContextIds.setObject(new ArrayList<Integer>());
+        selectedContextIds.setObject(new ArrayList<>());
     }
 
     /**

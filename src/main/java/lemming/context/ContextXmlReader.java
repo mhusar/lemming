@@ -131,7 +131,7 @@ public class ContextXmlReader implements ErrorHandler {
      */
     public List<InboundContext> readXml(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        List<InboundContext> contexts = new ArrayList<InboundContext>();
+        List<InboundContext> contexts = new ArrayList<>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
         String currentElementName = "";
         String punctuationType = "";

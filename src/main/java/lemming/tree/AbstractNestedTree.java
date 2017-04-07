@@ -26,7 +26,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Listener for select events.
      */
-    private Set<ISelectListener<T>> selectListeners = new HashSet<ISelectListener<T>>();
+    private Set<ISelectListener<T>> selectListeners = new HashSet<>();
 
     /**
      * Creates a nested tree.
@@ -58,7 +58,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
             throw new IllegalStateException("The selected model is not allowed to be null!");
         }
 
-        add(new Subtree<T>("subtree", this, null));
+        add(new Subtree<>("subtree", this, null));
         setOutputMarkupId(true);
     }
 

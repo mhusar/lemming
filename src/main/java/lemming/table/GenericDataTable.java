@@ -88,8 +88,8 @@ public class GenericDataTable<T> extends DataTable<T, String> {
     private void createTable(GenericDataProvider<T> dataProvider, FilterForm<T> filterForm) {
         setOutputMarkupId(true);
         add(AttributeModifier.append("class", "table table-hover table-striped"));
-        addTopToolbar(new NavigationToolbar<T>(this));
-        addTopToolbar(new HeadersToolbar<String>(this, dataProvider));
+        addTopToolbar(new NavigationToolbar<>(this));
+        addTopToolbar(new HeadersToolbar<>(this, dataProvider));
         addBottomToolbar(new NoRecordsToolbar(this));
 
         if (filterForm instanceof FilterForm) {

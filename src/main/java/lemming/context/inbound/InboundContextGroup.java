@@ -72,7 +72,7 @@ public class InboundContextGroup extends DatedEntity implements Serializable {
      * A list of inbound contexts belonging to a context group.
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "group", orphanRemoval = true)
-    private List<InboundContext> contexts = new ArrayList<InboundContext>();
+    private List<InboundContext> contexts = new ArrayList<>();
 
     /**
      * Creates an inbound context group.

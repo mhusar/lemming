@@ -47,7 +47,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      */
     @Override
     public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> rowModel) {
-        item.add(new CheckboxPanel<T>(componentId, rowModel));
+        item.add(new CheckboxPanel<>(componentId, rowModel));
     }
 
     /**
@@ -62,7 +62,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
          */
         public CheckboxPanel(String id, IModel<T> model) {
             super(id, model);
-            CheckBox checkBox = new CheckBox("selected", new PropertyModel<Boolean>(model, getPropertyExpression()));
+            CheckBox checkBox = new CheckBox("selected", new PropertyModel<>(model, getPropertyExpression()));
             checkBox.add(new AjaxFormComponentUpdatingBehavior("change") {
                 @Override
                 protected void onUpdate(AjaxRequestTarget target) {

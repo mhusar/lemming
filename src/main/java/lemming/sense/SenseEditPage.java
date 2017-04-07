@@ -55,12 +55,12 @@ public class SenseEditPage extends BasePage {
             if (model.getObject() instanceof Lemma) {
                 Lemma lemma = (Lemma) model.getObject();
                 Lemma refreshedLemma = new LemmaDao().refresh(lemma);
-                lemmaModel = new Model<Lemma>(refreshedLemma);
+                lemmaModel = new Model<>(refreshedLemma);
             } else if (model.getObject() instanceof Sense) {
                 Sense sense = (Sense) model.getObject();
                 Sense refreshedSense = new SenseDao().refresh(sense);
-                senseModel = new CompoundPropertyModel<Sense>(refreshedSense);
-                lemmaModel = new Model<Lemma>(refreshedSense.getLemma());
+                senseModel = new CompoundPropertyModel<>(refreshedSense);
+                lemmaModel = new Model<>(refreshedSense.getLemma());
             }
         }
     }

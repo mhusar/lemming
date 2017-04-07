@@ -38,17 +38,17 @@ public class HeaderPanel extends Panel {
         WebMarkupContainer senseIndexItem = new WebMarkupContainer("senseIndexItem");
         WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
-        BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<Void>("homePageLink", HomePage.class);
-        BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<Void>("lemmatizationLink",
+        BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<>("homePageLink", HomePage.class);
+        BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<>("lemmatizationLink",
                 LemmatizationPage.class);
-        BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<Void>("contextIndexLink",
+        BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<>("contextIndexLink",
                 ContextIndexPage.class);
-        BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
+        BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<>("lemmaIndexLink",
                 LemmaIndexPage.class);
-        BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<Void>("senseIndexLink",
+        BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<>("senseIndexLink",
                 SenseIndexPage.class);
-        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
-        BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
+        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<>("posIndexLink", PosIndexPage.class);
+        BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<>("userEditLink", UserEditPage.class);
         Link<Void> logoutLink = new Link<Void>("logoutLink") {
             public void onClick() {
                 new UserDao().logout();

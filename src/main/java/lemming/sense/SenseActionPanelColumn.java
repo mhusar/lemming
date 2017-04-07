@@ -103,7 +103,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
                 public void onClick(AjaxRequestTarget target) {
                     ModalMessagePanel senseDeleteConfirmPanel = (ModalMessagePanel) getPage()
                             .get("senseDeleteConfirmPanel");
-                    senseDeleteConfirmPanel.show(target, new Model<Sense>(model.getObject()));
+                    senseDeleteConfirmPanel.show(target, new Model<>(model.getObject()));
                 }
             });
         }

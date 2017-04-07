@@ -78,10 +78,10 @@ public class InboundContextGroupPanel extends Panel {
          */
         @Override
         protected Iterator<IModel<InboundContextGroup>> getItemModels() {
-            List<IModel<InboundContextGroup>> itemModels = new ArrayList<IModel<InboundContextGroup>>();
+            List<IModel<InboundContextGroup>> itemModels = new ArrayList<>();
 
             for (InboundContextGroup contextGroup : new InboundContextGroupDao().getAll()) {
-                itemModels.add(new Model<InboundContextGroup>(contextGroup));
+                itemModels.add(new Model<>(contextGroup));
             }
 
             return itemModels.iterator();

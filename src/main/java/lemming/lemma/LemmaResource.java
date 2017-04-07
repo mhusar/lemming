@@ -58,7 +58,7 @@ public class LemmaResource {
                             .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
                     jsonGenerator.writeStartArray();
                     EntityManager entityManager2 = EntityManagerListener.createEntityManager();
-                    List<Integer> idList = new ArrayList<Integer>(1000);
+                    List<Integer> idList = new ArrayList<>(1000);
 
                     while (results.next()) {
                         idList.add(results.getInteger(0));

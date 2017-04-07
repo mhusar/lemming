@@ -51,10 +51,10 @@ public class LemmatizationPage extends LemmatizationBasePage {
      * Creates a lemmatization page.
      */
     public LemmatizationPage() {
-        GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
-                new SortParam<String>("keyword", true));
-        FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        GenericDataProvider<Context> dataProvider = new GenericDataProvider<>(Context.class,
+                new SortParam<>("keyword", true));
+        FilterForm<Context> filterForm = new FilterForm<>("filterForm", dataProvider);
+        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 

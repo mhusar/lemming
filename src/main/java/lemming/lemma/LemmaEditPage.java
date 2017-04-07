@@ -32,7 +32,7 @@ public class LemmaEditPage extends BasePage {
      * Creates a lemma edit page.
      */
     public LemmaEditPage() {
-        lemmaModel = new CompoundPropertyModel<Lemma>(new Lemma());
+        lemmaModel = new CompoundPropertyModel<>(new Lemma());
         nextPageClass = null;
         // set lemma source to user
         lemmaModel.getObject().setSource(Source.LemmaType.USER);
@@ -47,7 +47,7 @@ public class LemmaEditPage extends BasePage {
      *            class of the next page
      */
     public LemmaEditPage(Class<? extends Page> nextPageClass) {
-        lemmaModel = new CompoundPropertyModel<Lemma>(new Lemma());
+        lemmaModel = new CompoundPropertyModel<>(new Lemma());
         this.nextPageClass = nextPageClass;
         // set lemma source to user
         lemmaModel.getObject().setSource(Source.LemmaType.USER);
@@ -69,7 +69,7 @@ public class LemmaEditPage extends BasePage {
         if (lemmaModel instanceof IModel) {
             Lemma lemma = lemmaModel.getObject();
             Lemma refreshedLemma = new LemmaDao().refresh(lemma);
-            this.lemmaModel = new CompoundPropertyModel<Lemma>(refreshedLemma);
+            this.lemmaModel = new CompoundPropertyModel<>(refreshedLemma);
         }
     }
 

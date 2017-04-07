@@ -120,11 +120,11 @@ public class UserViewPanel extends Panel {
          */
         @Override
         protected Iterator<IModel<User>> getItemModels() {
-            List<IModel<User>> userModels = new ArrayList<IModel<User>>();
+            List<IModel<User>> userModels = new ArrayList<>();
             Iterator<User> userIterator = new UserDao().getAll().iterator();
 
             while (userIterator.hasNext()) {
-                userModels.add(new Model<User>(userIterator.next()));
+                userModels.add(new Model<>(userIterator.next()));
             }
 
             return userModels.iterator();
@@ -159,7 +159,7 @@ public class UserViewPanel extends Panel {
                 UserEditPanel userEditPanel = (UserEditPanel) userEditPage.get("userEditPanel");
                 MarkupContainer feedbackPanel = (FeedbackPanel) userEditPage.get("feedbackPanel");
                 Component newUserEditForm = new UserEditForm("userEditForm",
-                        new CompoundPropertyModel<User>(getModelObject()));
+                        new CompoundPropertyModel<>(getModelObject()));
 
                 userView.setSelectedUser(getModel());
                 target.addChildren(userView, AjaxLink.class);

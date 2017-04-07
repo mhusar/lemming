@@ -41,13 +41,13 @@ public class ContextEditForm extends Form<Context> {
         this.nextPageClass = nextPageClass;
         LemmaTextField lemmaTextField = new LemmaAutoCompleteTextField("lemma");
         PosTextField posTextField = new PosAutoCompleteTextField("pos");
-        ListChoice<ContextType.Type> typeListChoice = new ListChoice<ContextType.Type>("type",
-                new PropertyModel<ContextType.Type>(getModelObject(), "type"),
-                new ArrayList<ContextType.Type>(Arrays.asList(ContextType.Type.values())),
-                new EnumChoiceRenderer<ContextType.Type>(), 1);
-        RequiredTextField<String> locationTextField = new RequiredTextField<String>("location");
+        ListChoice<ContextType.Type> typeListChoice = new ListChoice<>("type",
+                new PropertyModel<>(getModelObject(), "type"),
+                new ArrayList<>(Arrays.asList(ContextType.Type.values())),
+                new EnumChoiceRenderer<>(), 1);
+        RequiredTextField<String> locationTextField = new RequiredTextField<>("location");
         TextField<String> precedingTextField = new NonTrimmingTextField("preceding");
-        RequiredTextField<String> keywordTextField = new RequiredTextField<String>("keyword");
+        RequiredTextField<String> keywordTextField = new RequiredTextField<>("keyword");
         TextField<String> followingTextField = new NonTrimmingTextField("following");
 
         add(lemmaTextField);

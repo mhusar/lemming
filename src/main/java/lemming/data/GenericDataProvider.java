@@ -209,7 +209,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     protected Expression<Boolean> getFilterStateRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
         if (state instanceof Object) {
-            List<Predicate> predicateList = new ArrayList<Predicate>();
+            List<Predicate> predicateList = new ArrayList<>();
 
             for (Field field : state.getClass().getDeclaredFields()) {
                 field.setAccessible(true);

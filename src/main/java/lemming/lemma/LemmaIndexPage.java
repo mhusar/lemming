@@ -36,10 +36,10 @@ public class LemmaIndexPage extends IndexBasePage {
      * Creates a lemma index page.
      */
     public LemmaIndexPage() {
-        GenericDataProvider<Lemma> dataProvider = new GenericDataProvider<Lemma>(Lemma.class,
-                new SortParam<String>("name", true));
-        FilterForm<Lemma> filterForm = new FilterForm<Lemma>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        GenericDataProvider<Lemma> dataProvider = new GenericDataProvider<>(Lemma.class,
+                new SortParam<>("name", true));
+        FilterForm<Lemma> filterForm = new FilterForm<>("filterForm", dataProvider);
+        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
         GenericDataTable<Lemma> dataTable;
@@ -49,14 +49,14 @@ public class LemmaIndexPage extends IndexBasePage {
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new GenericDataTable<Lemma>("lemmaDataTable", getColumns(), dataProvider, filterForm);
+            dataTable = new GenericDataTable<>("lemmaDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new GenericDataTable<Lemma>("lemmaDataTable", getColumns(), dataProvider);
+            dataTable = new GenericDataTable<>("lemmaDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             fragment.add(dataTable);
@@ -87,7 +87,7 @@ public class LemmaIndexPage extends IndexBasePage {
      * @return A list of columns.
      */
     private List<IColumn<Lemma, String>> getColumns() {
-        List<IColumn<Lemma, String>> columns = new ArrayList<IColumn<Lemma, String>>();
+        List<IColumn<Lemma, String>> columns = new ArrayList<>();
 
         columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.name")),
                 "name", "name"));

@@ -42,7 +42,7 @@ public abstract class KwicIndex {
          */
         public SubList(String key) {
             this.key = key;
-            items = new ArrayList<Item>();
+            items = new ArrayList<>();
         }
 
         /**

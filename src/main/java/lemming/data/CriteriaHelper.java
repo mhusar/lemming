@@ -212,7 +212,7 @@ public final class CriteriaHelper {
      */
     private static List<Order> getContextOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
                                              Boolean isAscending) {
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList<>();
 
         if (isAscending) {
             switch (property) {
@@ -284,7 +284,7 @@ public final class CriteriaHelper {
      */
     private static List<Order> getSenseOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
                                              Boolean isAscending) {
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList<>();
 
         if (isAscending) {
             switch (property) {
@@ -328,7 +328,7 @@ public final class CriteriaHelper {
      */
     public static List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<?> root, Map<String,Join<?,?>> joins,
                                  String property, Boolean isAscending, Class<?> typeClass) {
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList<>();
         String[] splitProperty = property.split("\\.");
         Expression<String> expression;
 

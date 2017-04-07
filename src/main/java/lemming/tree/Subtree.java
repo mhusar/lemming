@@ -39,7 +39,7 @@ public class Subtree<T> extends Panel {
 
             @Override
             protected Item<T> newItem(String id, int index, IModel<T> model) {
-                return new Branch<T>(id, index, model);
+                return new Branch<>(id, index, model);
             }
 
             @Override
@@ -48,7 +48,7 @@ public class Subtree<T> extends Panel {
                 Component node = tree.newNodeComponent("node", model);
 
                 item.add(node);
-                item.add(new Subtree<T>("subtree", tree, model));
+                item.add(new Subtree<>("subtree", tree, model));
             }
         };
 
