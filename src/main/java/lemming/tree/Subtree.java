@@ -85,11 +85,7 @@ public class Subtree<T> extends Panel {
         T modelObject = getModelObject();
 
         // null if there is only a root node
-        if (modelObject == null) {
-            return true;
-        } else {
-            return tree.getState(modelObject) == AbstractTree.State.EXPANDED;
-        }
+        return modelObject == null || tree.getState(modelObject) == AbstractTree.State.EXPANDED;
     }
 
     /**
