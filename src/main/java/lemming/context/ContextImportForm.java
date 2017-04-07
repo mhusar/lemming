@@ -132,7 +132,7 @@ public class ContextImportForm extends Form<Void> {
      */
     public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
         ContextXmlReader xmlReader = new ContextXmlReader();
-        List<InboundContext> contexts = null;
+        List<InboundContext> contexts;
 
         try {
             xmlReader.validateXml(fileItem.getInputStream());

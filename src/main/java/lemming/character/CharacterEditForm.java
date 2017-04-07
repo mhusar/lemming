@@ -156,7 +156,7 @@ public class CharacterEditForm extends Form<Character> {
         @SuppressWarnings("unchecked")
         public void onClick(AjaxRequestTarget target) {
             Form<Character> editForm = findParent(CharacterEditForm.class);
-            Form<Character> newEditForm = null;
+            Form<Character> newEditForm;
             Panel feedbackPanel = (Panel) editForm.getPage().get("feedbackPanel");
             Iterator<Component> iterator = characterView.iterator();
 

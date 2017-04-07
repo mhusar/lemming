@@ -82,7 +82,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
         Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
         List<Order> orderList = getOrder(criteriaBuilder, root, joins);
-        TypedQuery<T> typedQuery = null;
+        TypedQuery<T> typedQuery;
 
         if (restriction == null) {
             typedQuery = entityManager.createQuery(criteriaQuery.select(selection).orderBy(orderList))
@@ -149,7 +149,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
 
         Map<String,Join<?,?>> joins = CriteriaHelper.getJoins(root, typeClass);
         Expression<Boolean> restriction = getRestriction(criteriaBuilder, root, joins);
-        TypedQuery<Long> typedQuery = null;
+        TypedQuery<Long> typedQuery;
 
         if (restriction == null) {
             typedQuery = entityManager.createQuery(criteriaQuery.select(criteriaBuilder.count(root)));
