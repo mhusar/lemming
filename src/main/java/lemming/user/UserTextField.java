@@ -53,7 +53,7 @@ public class UserTextField extends TextField<User> {
                 UserDao userDao = new UserDao();
                 User user = userDao.findByRealName(name);
 
-                if (user instanceof User) {
+                if (user != null) {
                     return (C) user;
                 } else {
                     return null;

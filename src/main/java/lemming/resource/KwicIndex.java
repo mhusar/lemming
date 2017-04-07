@@ -2,8 +2,6 @@ package lemming.resource;
 
 import lemming.context.Context;
 import lemming.context.ContextType;
-import lemming.lemma.Lemma;
-import lemming.pos.Pos;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -165,11 +163,11 @@ public abstract class KwicIndex {
                 endPunctuationString = context.getEndPunctuation();
             }
 
-            if (context.getLemma() instanceof Lemma) {
+            if (context.getLemma() != null) {
                 lemma = context.getLemma().getName();
             }
 
-            if (context.getPos() instanceof Pos) {
+            if (context.getPos() != null) {
                 pos = context.getPos().getName();
             }
 

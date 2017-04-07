@@ -200,7 +200,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      */
     @Override
     protected void onConfigure() {
-        if (noItemContainer instanceof WebMarkupContainer) {
+        if (noItemContainer != null) {
             if (size() > 0) {
                 noItemContainer.setVisible(false);
             } else {
@@ -273,7 +273,7 @@ public abstract class AjaxView<T> extends RepeatingView {
             IModel<T> model = modelIterator.next();
             Boolean isSelected = isSelected(model);
 
-            if (childIterator.hasNext()) {
+            if (childIterator != null && childIterator.hasNext()) {
                 Item<T> item = (Item<T>) childIterator.next();
 
                 item.setIndex(index);
@@ -289,7 +289,7 @@ public abstract class AjaxView<T> extends RepeatingView {
             index++;
         }
 
-        if (childIterator instanceof Iterator) {
+        if (childIterator != null) {
             while (childIterator.hasNext()) {
                 removeItem(target, (Item<T>) childIterator.next());
             }
@@ -303,17 +303,15 @@ public abstract class AjaxView<T> extends RepeatingView {
      *            target that produces an Ajax response
      */
     private void refreshNoItemContainer(AjaxRequestTarget target) {
-        if (noItemContainer instanceof WebMarkupContainer) {
+        if (noItemContainer != null) {
             if (size() > 0) {
                 noItemContainer.setVisible(false);
             } else {
                 noItemContainer.setVisible(true);
             }
 
-            String javaScript = getRefreshNoItemContainerJavaScript(
-                    noItemContainer.getMarkupId(), noItemContainer.getParent()
-                            .getMarkupId(), noItemContainer.isVisible());
-
+            String javaScript = getRefreshNoItemContainerJavaScript(noItemContainer.getMarkupId(), noItemContainer
+                    .getParent().getMarkupId(), noItemContainer.isVisible());
             target.prependJavaScript(javaScript);
             target.add(noItemContainer);
         }

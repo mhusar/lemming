@@ -150,7 +150,7 @@ public class ContextImportForm extends Form<Void> {
             return;
         }
 
-        if (contexts instanceof List) {
+        if (contexts != null) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             User user = WebSession.get().getUser();
 

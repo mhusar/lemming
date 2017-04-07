@@ -58,11 +58,7 @@ public class WebSession extends AuthenticatedWebSession {
      * @return The owner of a session or null.
      */
     public User getUser() {
-        if (user instanceof User) {
-            return user;
-        } else {
-            return null;
-        }
+        return user;
     }
 
     /**
@@ -109,7 +105,7 @@ public class WebSession extends AuthenticatedWebSession {
 
         User user = userDao.findByUsername(username);
 
-        if (user instanceof User) {
+        if (user != null) {
             try {
                 if (userDao.authenticate(user, password)) {
                     bind();
@@ -142,7 +138,7 @@ public class WebSession extends AuthenticatedWebSession {
             roles.add(UserRoles.SIGNED_IN);
         }
 
-        if (user instanceof User) {
+        if (user != null) {
             roles.add(user.getRole().name());
         }
 

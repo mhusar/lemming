@@ -59,7 +59,7 @@ public class PosTextField extends TextField<Pos> {
                 PosDao posDao = new PosDao();
                 Pos pos = posDao.findByName(name);
 
-                if (pos instanceof Pos) {
+                if (pos != null) {
                     return (C) pos;
                 } else {
                     return null;

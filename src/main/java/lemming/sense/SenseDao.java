@@ -27,7 +27,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      * {@inheritDoc}
      */
     public Boolean isTransient(Sense sense) {
-        return !(sense.getId() instanceof Integer);
+        return sense.getId() == null;
     }
 
     /**
@@ -36,7 +36,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      * @param sense the refreshed sense
      */
     private void refreshForeignKeyStrings(Sense sense) {
-        if (sense.getLemma() instanceof Lemma) {
+        if (sense.getLemma() != null) {
             sense.setLemmaString(sense.getLemma().getName());
         }
     }

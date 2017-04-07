@@ -98,7 +98,7 @@ public class SignInPage extends EmptyBasePage {
             } else {
                 User matchingUser = new UserDao().findByUsername(getUsername());
 
-                if (matchingUser instanceof User) {
+                if (matchingUser != null) {
                     if (matchingUser.getEnabled()) {
                         error(getString("SignInPage.passwordWrongMessage"));
                         logger.info("Password wrong for user " + getUsername() + ".");

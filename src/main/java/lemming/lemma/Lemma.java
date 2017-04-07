@@ -216,7 +216,7 @@ public class Lemma extends DatedEntity implements Serializable {
     public void setPos(Pos pos) {
         this.pos = pos;
 
-        if (pos instanceof Pos) {
+        if (pos != null) {
             posString = pos.getName();
         } else {
             posString = null;

@@ -191,7 +191,7 @@ public class Context extends BaseContext implements Serializable {
      * @return Selected state of a context.
      */
     public Boolean getSelected() {
-        if (selected instanceof Boolean) {
+        if (selected != null) {
             return selected;
         } else {
             return false;

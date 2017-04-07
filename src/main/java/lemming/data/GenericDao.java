@@ -232,7 +232,7 @@ public abstract class GenericDao<E> implements IDao<E> {
         if (RequestCycle.get() != null) {
             Page lockingErrorPage = new LockingErrorPage(LockingErrorPage.ActionType.SAVE, element, exception);
             throw new RestartResponseException(lockingErrorPage);
-        } else {
+        } else if (exception != null) {
             throw exception;
         }
     }
@@ -248,7 +248,7 @@ public abstract class GenericDao<E> implements IDao<E> {
         if (RequestCycle.get() != null) {
             Page lockingErrorPage = new LockingErrorPage(LockingErrorPage.ActionType.REMOVE, element, exception);
             throw new RestartResponseException(lockingErrorPage);
-        } else {
+        } else if (exception != null) {
             throw exception;
         }
     }
@@ -265,7 +265,7 @@ public abstract class GenericDao<E> implements IDao<E> {
             Page unresolvableObjectErrorPage = new UnresolvableObjectErrorPage(
                     UnresolvableObjectErrorPage.ActionType.REMOVE, element, exception);
             throw new RestartResponseException(unresolvableObjectErrorPage);
-        } else {
+        } else if (exception != null) {
             throw exception;
         }
     }
@@ -282,7 +282,7 @@ public abstract class GenericDao<E> implements IDao<E> {
             Page unresolvableObjectErrorPage = new UnresolvableObjectErrorPage(
                     UnresolvableObjectErrorPage.ActionType.REMOVE, element, exception);
             throw new RestartResponseException(unresolvableObjectErrorPage);
-        } else {
+        } else if (exception != null) {
             throw exception;
         }
     }

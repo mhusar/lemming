@@ -15,7 +15,6 @@ import lemming.sense.SenseEditPage;
 import lemming.sense.SenseIndexPage;
 import lemming.ui.page.AccessDeniedPage;
 import lemming.ui.page.PageExpiredPage;
-import lemming.user.User;
 import lemming.user.UserEditPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
@@ -49,7 +48,7 @@ public class WebApplication extends AuthenticatedWebApplication {
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(
                 component -> {
                     if (component instanceof Page) {
-                        if (WebSession.get().getUser() instanceof User) {
+                        if (WebSession.get().getUser() != null) {
                             throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
                         } else {
                             if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||

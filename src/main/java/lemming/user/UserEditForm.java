@@ -103,10 +103,10 @@ public class UserEditForm extends Form<User> {
         Integer userId = user.getId();
         Boolean passwordChanged = true;
 
-        if (userId instanceof Integer) {
+        if (userId != null) {
             User persistentUser = userDao.find(userId);
 
-            if (persistentUser instanceof User) {
+            if (persistentUser != null) {
                 passwordChanged = !user.getPassword().equals(persistentUser.getPassword());
             }
         }
@@ -220,7 +220,7 @@ public class UserEditForm extends Form<User> {
         public void validate(IValidatable<UserRoles.Role> validatable) {
             ValidationError error = new ValidationError();
 
-            if (!(validatable.getValue() instanceof UserRoles.Role)) {
+            if (validatable.getValue() == null) {
                 error.addKey("UserEditForm.role-is-required");
             }
 
@@ -262,10 +262,10 @@ public class UserEditForm extends Form<User> {
             User user = userDao.findByRealName(validatable.getValue());
 
             if (userDao.isTransient(userModel.getObject())) {
-                if (user instanceof User) {
+                if (user != null) {
                     error.addKey("UserEditForm.realName-is-non-unique");
                 }
-            } else if (user instanceof User) {
+            } else if (user != null) {
                 if (!(user.equals(userModel.getObject()))) {
                     error.addKey("UserEditForm.realName-is-non-unique");
                 }
@@ -309,10 +309,10 @@ public class UserEditForm extends Form<User> {
             User user = userDao.findByUsername(validatable.getValue());
 
             if (userDao.isTransient(userModel.getObject())) {
-                if (user instanceof User) {
+                if (user != null) {
                     error.addKey("UserEditForm.username-is-non-unique");
                 }
-            } else if (user instanceof User) {
+            } else if (user != null) {
                 if (!(user.equals(userModel.getObject()))) {
                     error.addKey("UserEditForm.username-is-non-unique");
                 }

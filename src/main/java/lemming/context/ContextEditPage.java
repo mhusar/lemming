@@ -56,7 +56,7 @@ public class ContextEditPage extends BasePage {
     public ContextEditPage(IModel<Context> contextModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;
 
-        if (contextModel instanceof IModel) {
+        if (contextModel != null) {
             Context context = contextModel.getObject();
             Context refreshedContext = new ContextDao().refresh(context);
             this.contextModel = new CompoundPropertyModel<>(refreshedContext);
@@ -74,7 +74,7 @@ public class ContextEditPage extends BasePage {
         WebSession.get().checkSessionExpired();
         ModalMessagePanel contextDeleteConfirmPanel;
 
-        if (nextPageClass instanceof Class) {
+        if (nextPageClass != null) {
             contextDeleteConfirmPanel = new ContextDeleteConfirmPanel("contextDeleteConfirmPanel", nextPageClass);
         } else {
             contextDeleteConfirmPanel = new ContextDeleteConfirmPanel("contextDeleteConfirmPanel",

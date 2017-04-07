@@ -26,7 +26,7 @@ public class InboundContextGroupDao extends GenericDao<InboundContextGroup> impl
      */
     @Override
     public Boolean isTransient(InboundContextGroup contextGroup) {
-        return !(contextGroup.getId() instanceof Integer);
+        return contextGroup.getId() == null;
     }
 
     /**

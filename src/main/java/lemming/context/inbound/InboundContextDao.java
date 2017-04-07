@@ -25,7 +25,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      */
     @Override
     public Boolean isTransient(InboundContext context) {
-        return !(context.getId() instanceof Integer);
+        return context.getId() == null;
     }
 
     /**

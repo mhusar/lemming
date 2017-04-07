@@ -89,6 +89,7 @@ public final class CriteriaHelper {
         // deactivate filtering by context type
         ContextType.Type type = null;
 
+        //noinspection ConstantConditions
         if (type != null) {
             return criteriaBuilder.or(
                     criteriaBuilder.like(root.get("location"), filter + "%"),
@@ -341,7 +342,7 @@ public final class CriteriaHelper {
         if (Array.getLength(splitProperty) == 2) {
             Join<?,?> join = joins.get(splitProperty[0]);
 
-            if (join instanceof Join) {
+            if (join != null) {
                 expression = join.get(splitProperty[1]);
             } else {
                 throw new IllegalStateException("Join for sort property " + property + " is missing.");

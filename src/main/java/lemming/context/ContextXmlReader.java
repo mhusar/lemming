@@ -34,7 +34,9 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void error(SAXParseException exception) throws SAXException {
-        throw (exception);
+        if (exception != null) {
+            throw exception;
+        }
     }
 
     /**
@@ -45,7 +47,9 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void fatalError(SAXParseException exception) throws SAXException {
-        throw (exception);
+        if (exception != null) {
+            throw exception;
+        }
     }
 
     /**
@@ -56,7 +60,9 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void warning(SAXParseException exception) throws SAXException {
-        throw (exception);
+        if (exception != null) {
+            throw exception;
+        }
     }
 
     /**

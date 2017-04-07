@@ -86,7 +86,7 @@ public class ContextEditForm extends Form<Context> {
             contextDao.merge(context);
         }
 
-        if (nextPageClass instanceof Class) {
+        if (nextPageClass != null) {
             setResponsePage(nextPageClass);
         } else {
             setResponsePage(ContextEditPage.class);
@@ -115,7 +115,7 @@ public class ContextEditForm extends Form<Context> {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            if (nextPageClass instanceof Class) {
+            if (nextPageClass != null) {
                 setResponsePage(nextPageClass);
             } else {
                 setResponsePage(ContextIndexPage.class);

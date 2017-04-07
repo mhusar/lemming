@@ -29,7 +29,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      */
     @Override
     public Boolean isTransient(Context context) {
-        return !(context.getId() instanceof Integer);
+        return context.getId() == null;
     }
 
     /**
@@ -38,11 +38,11 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      * @param context the refreshed context
      */
     private void refreshForeignKeyStrings(Context context) {
-        if (context.getLemma() instanceof Lemma) {
+        if (context.getLemma() != null) {
             context.setLemmaString(context.getLemma().getName());
         }
 
-        if (context.getPos() instanceof Pos) {
+        if (context.getPos() != null) {
             context.setPosString(context.getPos().getName());
         }
     }

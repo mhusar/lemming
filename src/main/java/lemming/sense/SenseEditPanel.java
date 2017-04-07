@@ -142,7 +142,7 @@ public class SenseEditPanel extends Panel {
             List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
             INestedTreeProvider<Sense> treeProvider = new SenseTreeProvider(lemmaModel.getObject());
 
-            if (!(senseModel instanceof IModel) && !rootNodes.isEmpty()) {
+            if (senseModel == null && !rootNodes.isEmpty()) {
                 Sense firstRootNode = rootNodes.get(0);
                 senseModel = new Model<>(firstRootNode);
             }
@@ -197,40 +197,32 @@ public class SenseEditPanel extends Panel {
          */
         public void onSelect(AjaxRequestTarget target, Sense selectedSense) {
             SenseDao senseDao = new SenseDao();
-            IModel<Sense> selectedNodeModel = new Model<>(selectedSense);
+            senseModel.setObject(senseDao.refresh(selectedSense));
 
-            if (selectedNodeModel instanceof IModel) {
-                senseModel = selectedNodeModel;
+            if (senseModel.getObject().isParentSense()) {
+                setSenseType(SenseType.PARENT);
+                addChildSenseButton.setVisible(true).setEnabled(true);
 
-                if (senseModel.getObject() instanceof Sense) {
-                    senseModel.setObject(senseDao.refresh(senseModel.getObject()));
-
-                    if (senseModel.getObject().isParentSense()) {
-                        setSenseType(SenseType.PARENT);
-                        addChildSenseButton.setVisible(true).setEnabled(true);
-
-                        if (senseDao.hasChildSenses(senseModel.getObject())) {
-                            deleteSenseButton.setVisible(true).setEnabled(false);
-                        } else {
-                            deleteSenseButton.setVisible(true).setEnabled(true);
-                        }
-
-                        target.add(addChildSenseButton);
-                        target.add(deleteSenseButton);
-                    } else {
-                        setSenseType(SenseType.CHILD);
-                        Sense parentSense = senseDao.getParent(senseModel.getObject());
-                        parentSenseModel.setObject(parentSense);
-                        addChildSenseButton.setVisible(true).setEnabled(false);
-                        deleteSenseButton.setVisible(true).setEnabled(true);
-                        target.add(addChildSenseButton);
-                        target.add(deleteSenseButton);
-                    }
-
-                    meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
-                    target.add(meaningTextField);
+                if (senseDao.hasChildSenses(senseModel.getObject())) {
+                    deleteSenseButton.setVisible(true).setEnabled(false);
+                } else {
+                    deleteSenseButton.setVisible(true).setEnabled(true);
                 }
+
+                target.add(addChildSenseButton);
+                target.add(deleteSenseButton);
+            } else {
+                setSenseType(SenseType.CHILD);
+                Sense parentSense = senseDao.getParent(senseModel.getObject());
+                parentSenseModel.setObject(parentSense);
+                addChildSenseButton.setVisible(true).setEnabled(false);
+                deleteSenseButton.setVisible(true).setEnabled(true);
+                target.add(addChildSenseButton);
+                target.add(deleteSenseButton);
             }
+
+            meaningTextField.setDefaultModel(new PropertyModel<String>(senseModel, "meaning"));
+            target.add(meaningTextField);
         }
 
         /**

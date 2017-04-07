@@ -31,7 +31,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
      */
     @Override
     public Boolean isTransient(Character character) {
-        return !(character.getId() instanceof Integer);
+        return character.getId() == null;
     }
 
     /**

@@ -281,10 +281,10 @@ public class CharacterEditForm extends Form<Character> {
             Character character = characterDao.findByCharacter(characterString);
 
             if (characterDao.isTransient(characterModel.getObject())) {
-                if (character instanceof Character) {
+                if (character != null) {
                     error.addKey("CharacterEditPage.character-is-non-unique");
                 }
-            } else if (character instanceof Character) {
+            } else if (character != null) {
                 if (!(character.equals(characterModel.getObject()))) {
                     error.addKey("CharacterEditPage.character-is-non-unique");
                 }

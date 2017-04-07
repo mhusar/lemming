@@ -74,7 +74,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Root<T> root = criteriaQuery.from(typeClass);
         EntityTransaction transaction = entityManager.getTransaction();
 
-        if (!(getSort() instanceof SortParam)) {
+        if (getSort() == null) {
             setSort(defaultSortParam);
         }
 
@@ -143,7 +143,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Root<T> root = criteriaQuery.from(typeClass);
         EntityTransaction transaction = entityManager.getTransaction();
 
-        if (!(getSort() instanceof SortParam)) {
+        if (getSort() == null) {
             setSort(defaultSortParam);
         }
 
@@ -205,7 +205,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @return An expression of type boolean, or null.
      */
     protected Expression<Boolean> getFilterStateRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
-        if (state instanceof Object) {
+        if (state != null) {
             List<Predicate> predicateList = new ArrayList<>();
 
             for (Field field : state.getClass().getDeclaredFields()) {
@@ -253,7 +253,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     protected Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
                                                              Map<String,Join<?,?>> joins) {
-        if (filter instanceof String) {
+        if (filter != null) {
             return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, typeClass);
         } else {
             return null;
@@ -292,9 +292,9 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Expression<Boolean> filterStateRestriction = getFilterStateRestriction(criteriaBuilder, root);
         Expression<Boolean> filterStringRestriction = getFilterStringRestriction(criteriaBuilder, root, joins);
 
-        if (filterStateRestriction instanceof Expression) {
+        if (filterStateRestriction != null) {
             return filterStateRestriction;
-        } else if (filterStringRestriction instanceof Expression) {
+        } else if (filterStringRestriction != null) {
             return filterStringRestriction;
         }
 
