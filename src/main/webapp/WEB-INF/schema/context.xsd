@@ -40,7 +40,7 @@
 
     <xs:simpleType name="singleBlankString">
         <xs:restriction base="xs:string">
-            <xs:pattern value="\S*(\ \S+)*\ ?"/>
+            <xs:pattern value="\S*( \S+)* ?"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -63,7 +63,7 @@
 
     <xs:simpleType name="trimmedString">
         <xs:restriction base="xs:string">
-            <xs:pattern value="\S+(\ \S+)*"/>
+            <xs:pattern value="\S+( \S+)*"/>
         </xs:restriction>
     </xs:simpleType>
 
