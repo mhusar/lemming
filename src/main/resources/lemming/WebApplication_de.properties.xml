@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!--suppress CheckTagEmptyBody -->
 <properties>
     <entry key="AccessDeniedPage.header">Zugriff verweigert</entry>
     <entry key="AccessDeniedPage.message">Der Zugriff auf die angeforderte Seite wurde verweigert.</entry>
