@@ -24,7 +24,7 @@ public class ContextEditPage extends BasePage {
     /**
      * Class of the next page.
      */
-    private Class<? extends Page> nextPageClass;
+    private final Class<? extends Page> nextPageClass;
 
     /**
      * Creates a context edit page.

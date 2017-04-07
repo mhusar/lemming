@@ -16,7 +16,7 @@ public class BasePage extends EmptyBasePage {
     /**
      * Creates a base page.
      */
-    public BasePage() {
+    protected BasePage() {
         super();
     }
 

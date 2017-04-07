@@ -110,7 +110,7 @@ public class SenseIndexPage extends IndexBasePage {
         /**
          * A panel used to choose a lemma for sense editing.
          */
-        private ModalFormPanel chooseLemmaPanel;
+        private final ModalFormPanel chooseLemmaPanel;
 
         /**
          * Creates a button.
@@ -140,7 +140,7 @@ public class SenseIndexPage extends IndexBasePage {
         /**
          * A auto-complete textfield for lemmata.
          */
-        private LemmaAutoCompleteTextField lemmaTextField;
+        private final LemmaAutoCompleteTextField lemmaTextField;
 
         /**
          * Creates a choose lemma panel.

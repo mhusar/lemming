@@ -13,7 +13,7 @@ import org.apache.wicket.model.Model;
  *
  * @param <T> class type
  */
-public class PagingNavigatorFormPanel<T> extends Panel {
+class PagingNavigatorFormPanel<T> extends Panel {
     /**
      * Creates a paging navigator form panel.
      *
@@ -50,12 +50,12 @@ public class PagingNavigatorFormPanel<T> extends Panel {
         /**
          * The parent table.
          */
-        private DataTable<T, String> table;
+        private final DataTable<T, String> table;
 
         /**
          * A text field for page numbers.
          */
-        private TextField<String> pageTextField;
+        private final TextField<String> pageTextField;
 
         /**
          * Creates a go to button.

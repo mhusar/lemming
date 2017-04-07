@@ -13,7 +13,7 @@ public class IndexBasePage extends BasePage {
     /**
      * Creates an index base page.
      */
-    public IndexBasePage() {
+    protected IndexBasePage() {
         super();
     }
 

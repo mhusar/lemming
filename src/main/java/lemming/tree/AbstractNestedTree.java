@@ -20,12 +20,12 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Model of the selected node object.
      */
-    private IModel<T> selectedObjectModel;
+    private final IModel<T> selectedObjectModel;
 
     /**
      * Listener for select events.
      */
-    private Set<ISelectListener<T>> selectListeners = new HashSet<>();
+    private final Set<ISelectListener<T>> selectListeners = new HashSet<>();
 
     /**
      * Creates a nested tree.
@@ -34,7 +34,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      * @param provider tree provider for nested trees
      * @param selectedNode the selected node object which may be null
      */
-    public AbstractNestedTree(String id, INestedTreeProvider<T> provider, T selectedNode) {
+    protected AbstractNestedTree(String id, INestedTreeProvider<T> provider, T selectedNode) {
         super(id, provider);
         setModel(createExpandState(selectedNode));
         selectedObjectModel = provider.model(selectedNode);

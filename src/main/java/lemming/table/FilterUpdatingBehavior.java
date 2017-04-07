@@ -16,17 +16,17 @@ public class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
     /**
      * The text field used as filter component.
      */
-    TextField<String> textField;
+    private final TextField<String> textField;
 
     /**
      * Data table displaying filtered data.
      */
-    GenericDataTable<?> dataTable;
+    private final GenericDataTable<?> dataTable;
 
     /**
      * Data provider which delivers data for the table.
      */
-    GenericDataProvider<?> dataProvider;
+    private final GenericDataProvider<?> dataProvider;
 
     /**
      * Creates a behavior.

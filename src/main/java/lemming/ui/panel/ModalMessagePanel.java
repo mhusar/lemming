@@ -28,7 +28,7 @@ public abstract class ModalMessagePanel extends Panel {
     /**
      * Dialog type of the modal window.
      */
-    private DialogType dialogType;
+    private final DialogType dialogType;
 
     /**
      * Message label of the modal window dialog.
@@ -53,7 +53,7 @@ public abstract class ModalMessagePanel extends Panel {
     /**
      * ID of the modal window.
      */
-    private String modalWindowId;
+    private final String modalWindowId;
 
     /**
      * Creates a modal window.
@@ -63,7 +63,7 @@ public abstract class ModalMessagePanel extends Panel {
      * @param dialogType
      *            dialog type of the modal window
      */
-    public ModalMessagePanel(String id, DialogType dialogType) {
+    protected ModalMessagePanel(String id, DialogType dialogType) {
         this(id, dialogType, (Page) null);
     }
 
@@ -77,7 +77,7 @@ public abstract class ModalMessagePanel extends Panel {
      * @param responsePage
      *            page loaded on confirmation
      */
-    public ModalMessagePanel(String id, DialogType dialogType, Page responsePage) {
+    protected ModalMessagePanel(String id, DialogType dialogType, Page responsePage) {
         super(id);
 
         modalWindowId = id + "-window";
@@ -96,7 +96,7 @@ public abstract class ModalMessagePanel extends Panel {
      *            class of page loaded on confirmation
      */
     @SuppressWarnings("SameParameterValue")
-    public ModalMessagePanel(String id, DialogType dialogType, Class<? extends Page> responsePageClass) {
+    protected ModalMessagePanel(String id, DialogType dialogType, Class<? extends Page> responsePageClass) {
         super(id);
 
         modalWindowId = id + "-window";
@@ -114,7 +114,7 @@ public abstract class ModalMessagePanel extends Panel {
      * @param dataTable
      *            data table that is refreshed
      */
-    public ModalMessagePanel(String id, DialogType dialogType, DataTable<?, String> dataTable) {
+    protected ModalMessagePanel(String id, DialogType dialogType, DataTable<?, String> dataTable) {
         super(id);
 
         modalWindowId = id + "-window";
@@ -200,33 +200,34 @@ public abstract class ModalMessagePanel extends Panel {
      * 
      * @return A title string.
      */
-    public abstract String getTitleString();
+    protected abstract String getTitleString();
 
     /**
      * Returns the message of the modal dialog.
      * 
      * @return A message string model or null.
      */
-    public abstract StringResourceModel getMessageModel();
+    protected abstract StringResourceModel getMessageModel();
 
     /**
      * Returns the button text of the confirmation button.
      * 
      * @return A confirmation string.
      */
-    public abstract String getConfirmationString();
+    protected abstract String getConfirmationString();
 
     /**
      * Called when the modal dialog is canceled.
      */
-    public abstract void onCancel();
+    @SuppressWarnings("EmptyMethod")
+    protected abstract void onCancel();
 
     /**
      * Called when the modal dialog is confirmed.
      *
      * @param target target that produces an Ajax response
      */
-    public abstract void onConfirm(AjaxRequestTarget target);
+    protected abstract void onConfirm(AjaxRequestTarget target);
 
     /**
      * Cancels the dialog when clicked.

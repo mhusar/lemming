@@ -25,7 +25,7 @@ public class CharacterEditPage extends BasePage {
     /**
      * Model of the edited character object.
      */
-    private CompoundPropertyModel<Character> characterModel;
+    private final CompoundPropertyModel<Character> characterModel;
 
     /**
      * Creates a character edit page.

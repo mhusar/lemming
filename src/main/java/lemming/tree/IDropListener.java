@@ -23,7 +23,7 @@ public interface IDropListener {
      * @param sourceComponent the source component
      * @param targetComponent the target component
      */
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "EmptyMethod"})
     void onMiddleDrop(AjaxRequestTarget target, Component sourceComponent, Component targetComponent);
 
     /**

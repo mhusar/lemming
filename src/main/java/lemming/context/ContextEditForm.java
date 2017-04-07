@@ -19,11 +19,11 @@ import java.util.Arrays;
 /**
  * A form for editing contexts.
  */
-public class ContextEditForm extends Form<Context> {
+class ContextEditForm extends Form<Context> {
     /**
      * Class of the next page.
      */
-    private Class<? extends Page> nextPageClass;
+    private final Class<? extends Page> nextPageClass;
 
     /**
      * Creates a context edit form.

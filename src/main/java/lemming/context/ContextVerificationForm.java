@@ -7,7 +7,7 @@ import org.apache.wicket.model.IModel;
 /**
  * A form for the verification of inbound contexts.
  */
-public class ContextVerificationForm extends Form<InboundContextGroup> {
+class ContextVerificationForm extends Form<InboundContextGroup> {
     /**
      * Creates a context verify form.
      *
@@ -15,10 +15,5 @@ public class ContextVerificationForm extends Form<InboundContextGroup> {
      */
     public ContextVerificationForm(IModel<InboundContextGroup> model) {
         super("ContextVerificationForm", model);
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
     }
 }

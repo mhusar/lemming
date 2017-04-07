@@ -144,7 +144,7 @@ class PagingNavigator extends AjaxPagingNavigator {
         /**
          * Data table or data view to be paged.
          */
-        protected final IPageable pageable;
+        final IPageable pageable;
 
         /**
          * The CSS value used to style a link.
@@ -234,7 +234,7 @@ class PagingNavigator extends AjaxPagingNavigator {
         /**
          * Data table or data view to be paged.
          */
-        protected final IPageable pageable;
+        final IPageable pageable;
 
         /**
          * Page number of a link.

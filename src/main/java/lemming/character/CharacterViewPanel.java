@@ -14,11 +14,11 @@ import lemming.ui.AjaxView;
 /**
  * A panel with a view which displays special characters.
  */
-public class CharacterViewPanel extends Panel {
+class CharacterViewPanel extends Panel {
     /**
      * A view displaying special characters.
      */
-    private CharacterAjaxView characterView;
+    private final CharacterAjaxView characterView;
 
     /**
      * Creates a character view panel.

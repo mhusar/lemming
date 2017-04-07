@@ -82,7 +82,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Creates an instance of a context.
      */
-    public BaseContext() {
+    protected BaseContext() {
     }
 
     /**
@@ -96,8 +96,8 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      * @param initPunctuation punctuation preceding the keyword
      * @param endPunctuation punctuation following the keyword
      */
-    public BaseContext(String location, ContextType.Type type, String keyword, String preceding, String following,
-                       String initPunctuation, String endPunctuation) {
+    BaseContext(String location, ContextType.Type type, String keyword, String preceding, String following,
+                String initPunctuation, String endPunctuation) {
         this.location = location;
         this.type = type;
         this.keyword = keyword;

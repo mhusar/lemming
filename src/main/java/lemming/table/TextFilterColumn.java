@@ -28,7 +28,7 @@ public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, 
      * @param propertyExpression
      *            property expression of a column
      */
-    public TextFilterColumn(IModel<String> displayModel, String propertyExpression) {
+    protected TextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }
 

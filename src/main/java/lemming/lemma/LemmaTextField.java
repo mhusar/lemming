@@ -17,7 +17,7 @@ public class LemmaTextField extends TextField<Lemma> {
      * @param id
      *            ID of the text field
      */
-    public LemmaTextField(String id) {
+    LemmaTextField(String id) {
         super(id);
     }
 
@@ -29,7 +29,7 @@ public class LemmaTextField extends TextField<Lemma> {
      * @param model
      *            data model of the text field
      */
-    public LemmaTextField(String id, IModel<Lemma> model) {
+    LemmaTextField(String id, IModel<Lemma> model) {
         super(id, model);
     }
 

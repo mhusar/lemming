@@ -29,7 +29,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
     /**
      * The class type that is filtered.
      */
-    Class<T> typeClass;
+    private final Class<T> typeClass;
 
     /**
      * Creates a filter panel column.
@@ -39,7 +39,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
      * @param typeClass
      *            class type that is filtered
      */
-    public FilterPanelColumn(IModel<String> displayModel, Class<T> typeClass) {
+    protected FilterPanelColumn(IModel<String> displayModel, Class<T> typeClass) {
         super(displayModel);
         this.typeClass = typeClass;
     }

@@ -25,7 +25,7 @@ public class PosEditPage extends BasePage {
     /**
      * Class of the next page.
      */
-    private Class<? extends Page> nextPageClass;
+    private final Class<? extends Page> nextPageClass;
 
     /**
      * Creates a pos edit page.

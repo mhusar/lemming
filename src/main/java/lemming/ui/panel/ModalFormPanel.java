@@ -25,22 +25,22 @@ public abstract class ModalFormPanel extends Panel {
     /**
      * Form of a modal form panel.
      */
-    private Form<?> form;
+    private final Form<?> form;
 
     /**
      * The modal window container.
      */
-    private MarkupContainer container;
+    private final MarkupContainer container;
 
     /**
      * Confirms the dialog when clicked.
      */
-    private Button confirmButton;
+    private final Button confirmButton;
 
     /**
      * ID of the modal window.
      */
-    private String modalWindowId;
+    private final String modalWindowId;
 
     /**
      * Creates a modal form panel.
@@ -100,7 +100,7 @@ public abstract class ModalFormPanel extends Panel {
      *
      * @return A string.
      */
-    public String getModalWindowId() {
+    protected String getModalWindowId() {
         return modalWindowId;
     }
 
@@ -118,7 +118,7 @@ public abstract class ModalFormPanel extends Panel {
      *
      * @param target target that produces an Ajax response
      */
-    public void hide(AjaxRequestTarget target) {
+    private void hide(AjaxRequestTarget target) {
         form.visitFormComponents((IVisitor<FormComponent<?>, List<FormComponent>>) (formComponent, visit) -> target
                 .appendJavaScript("jQuery('#" + formComponent.getMarkupId() + "').val('');"));
         target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
@@ -160,7 +160,8 @@ public abstract class ModalFormPanel extends Panel {
     /**
      * Called when the modal dialog is canceled.
      */
-    public void onCancel() {
+    @SuppressWarnings("EmptyMethod")
+    private void onCancel() {
     }
 
     /**

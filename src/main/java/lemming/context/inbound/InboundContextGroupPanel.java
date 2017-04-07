@@ -29,12 +29,12 @@ public class InboundContextGroupPanel extends Panel {
     /**
      * A placeholder that is displayed when the context group view is empty.
      */
-    private MarkupContainer placeholder;
+    private final MarkupContainer placeholder;
 
     /**
      * A RefreshingView for entities of class InboundContextGroup.
      */
-    private InboundContextGroupView contextGroupView;
+    private final InboundContextGroupView contextGroupView;
 
     /**
      * Creates an InboundContextGroupPanel.

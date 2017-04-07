@@ -25,7 +25,7 @@ import java.util.*;
 /**
  * A custom data table with toolbars and data provider for context lemmatization.
  */
-public class LemmatizationDataTable extends DataTable<Context, String> {
+class LemmatizationDataTable extends DataTable<Context, String> {
     /**
      * Default rows per page.
      */
@@ -62,6 +62,7 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
      * @param dataProvider
      *            provides data for a table
      * @param filterForm
+     *            filter form of a lemmatization table
      */
     public LemmatizationDataTable(List<IColumn<Context, String>> columns,
                                   GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {

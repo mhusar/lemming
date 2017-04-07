@@ -1,7 +1,6 @@
 package lemming.data;
 
 import lemming.context.Context;
-import lemming.context.ContextType;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
@@ -16,7 +15,7 @@ import java.util.Map;
 /**
  * A helper class for criteria restrictions.
  */
-public final class CriteriaHelper {
+final class CriteriaHelper {
     /**
      * Matches a filter string against a lemma source type.
      *
@@ -332,6 +331,7 @@ public final class CriteriaHelper {
      * @param typeClass data type
      * @return A map of joins, or null.
      */
+    @SuppressWarnings("SameReturnValue")
     public static Map<String,Join<?,?>> getJoins(@SuppressWarnings("unused") Root<?> root,
                                                  @SuppressWarnings("unused") Class<?> typeClass) {
         return null;

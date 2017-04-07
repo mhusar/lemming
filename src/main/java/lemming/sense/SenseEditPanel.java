@@ -58,7 +58,7 @@ public class SenseEditPanel extends Panel {
         /**
          * Model of the parent lemma.
          */
-        private IModel<Lemma> lemmaModel;
+        private final IModel<Lemma> lemmaModel;
 
         /**
          * Model of the edited sense object.

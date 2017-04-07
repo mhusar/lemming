@@ -16,7 +16,7 @@ public class EmptyBasePage extends WebPage {
     /**
      * Creates a base page.
      */
-    public EmptyBasePage() {
+    protected EmptyBasePage() {
         super();
     }
 
@@ -25,7 +25,7 @@ public class EmptyBasePage extends WebPage {
      * 
      * @param model the page model
      */
-    public EmptyBasePage(IModel<?> model) {
+    private EmptyBasePage(IModel<?> model) {
         super(model);
     }
 

@@ -23,11 +23,11 @@ import java.util.Arrays;
 /**
  * A form for editing parts of speech.
  */
-public class PosEditForm extends Form<Pos> {
+class PosEditForm extends Form<Pos> {
     /**
      * Class of the next page.
      */
-    private Class<? extends Page> nextPageClass;
+    private final Class<? extends Page> nextPageClass;
 
     /**
      * Creates a part of speech edit form.
@@ -35,6 +35,7 @@ public class PosEditForm extends Form<Pos> {
      * @param model
      *            part of speech model that is edited
      * @param nextPageClass
+     *            class of next page
      */
     public PosEditForm(IModel<Pos> model, Class<? extends Page> nextPageClass) {
         super("posEditForm", model);
@@ -152,7 +153,7 @@ public class PosEditForm extends Form<Pos> {
         /**
          * Pos model that is edited.
          */
-        private IModel<Pos> posModel;
+        private final IModel<Pos> posModel;
 
         /**
          * Creates a part of speech name validator.

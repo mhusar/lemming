@@ -19,7 +19,7 @@ public class Subtree<T> extends Panel {
     /**
      * The owning tree.
      */
-    private AbstractNestedTree<T> tree;
+    private final AbstractNestedTree<T> tree;
 
     /**
      * Creates a subtree.
@@ -70,7 +70,7 @@ public class Subtree<T> extends Panel {
      * @return A model object or null.
      */
     @SuppressWarnings("unchecked")
-    public T getModelObject() {
+    private T getModelObject() {
         return (T) getDefaultModelObject();
     }
 
@@ -105,7 +105,7 @@ public class Subtree<T> extends Panel {
         /**
          * The wrapped iterator.
          */
-        private Iterator<? extends T> iterator;
+        private final Iterator<? extends T> iterator;
 
         /**
          * Creates a model iterator.

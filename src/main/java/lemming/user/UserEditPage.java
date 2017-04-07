@@ -22,7 +22,7 @@ public class UserEditPage extends BasePage {
     /**
      * Model of the edited user object.
      */
-    private CompoundPropertyModel<User> userModel;
+    private final CompoundPropertyModel<User> userModel;
 
     /**
      * Creates a user edit page.

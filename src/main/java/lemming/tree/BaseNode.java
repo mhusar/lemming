@@ -20,7 +20,7 @@ public abstract class BaseNode<T> extends Panel {
     /**
      * The owning tree.
      */
-    private AbstractNestedTree<T> tree;
+    private final AbstractNestedTree<T> tree;
 
     /**
      * Creates a tree node.
@@ -29,7 +29,7 @@ public abstract class BaseNode<T> extends Panel {
      * @param tree the owning tree
      * @param model model of the node object
      */
-    public BaseNode(String id, AbstractNestedTree<T> tree, IModel<T> model) {
+    BaseNode(String id, AbstractNestedTree<T> tree, IModel<T> model) {
         super(id, model);
         this.tree = tree;
         setOutputMarkupId(true);
@@ -40,7 +40,7 @@ public abstract class BaseNode<T> extends Panel {
      *
      * @return A tree object.
      */
-    protected AbstractNestedTree<T> getTree() {
+    AbstractNestedTree<T> getTree() {
         return tree;
     }
 
@@ -67,7 +67,7 @@ public abstract class BaseNode<T> extends Panel {
     /**
      * A toggle switch to expand/collapse nodes.
      */
-    protected class NodeSwitch extends AjaxLink<Void> {
+    class NodeSwitch extends AjaxLink<Void> {
         /**
          * Create a node switch.
          *
@@ -130,7 +130,7 @@ public abstract class BaseNode<T> extends Panel {
     /**
      * A behavior which makes a tree node selectable.
      */
-    protected class SelectBehavior extends AjaxEventBehavior {
+    class SelectBehavior extends AjaxEventBehavior {
         public SelectBehavior() {
             super("click");
         }
@@ -149,7 +149,7 @@ public abstract class BaseNode<T> extends Panel {
     /**
      * A behavior that adds style to a node.
      */
-    protected class StyleBehavior extends Behavior {
+    class StyleBehavior extends Behavior {
         /**
          * Processes the component tag.
          *

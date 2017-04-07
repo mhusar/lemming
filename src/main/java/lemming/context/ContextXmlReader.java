@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Helper class to validate and read context XML data.
  */
-public class ContextXmlReader implements ErrorHandler {
+class ContextXmlReader implements ErrorHandler {
     /**
      * Receive notification of a recoverable error.
      *

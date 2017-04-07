@@ -34,7 +34,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      *            ID of the view
      */
     @SuppressWarnings("SameParameterValue")
-    public AjaxView(String id) {
+    protected AjaxView(String id) {
         super(id);
     }
 
@@ -54,7 +54,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      * 
      * @return A model of selected data.
      */
-    public IModel<T> getSelectedModel() {
+    private IModel<T> getSelectedModel() {
         return selectedModel;
     }
 
@@ -147,7 +147,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      * @param model
      *            model of the clicked item
      */
-    public abstract void onItemClick(AjaxRequestTarget target, IModel<T> model);
+    protected abstract void onItemClick(AjaxRequestTarget target, IModel<T> model);
 
     /**
      * Called when an Ajax view is initialized.
