@@ -1,7 +1,6 @@
 package lemming.user;
 
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
 
@@ -19,16 +18,6 @@ public class UserTextField extends TextField<User> {
     @SuppressWarnings("SameParameterValue")
     public UserTextField(String id) {
         super(id);
-    }
-
-    /**
-     * Creates a user text field.
-     *
-     * @param id ID of the text field
-     * @param model data model of the text field
-     */
-    public UserTextField(String id, IModel<User> model) {
-        super(id, model);
     }
 
     /**

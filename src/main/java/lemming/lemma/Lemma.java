@@ -16,6 +16,7 @@ import java.io.Serializable;
 /**
  * Class representing a lemma.
  */
+@SuppressWarnings("unused")
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity

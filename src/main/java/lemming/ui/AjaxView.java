@@ -39,18 +39,6 @@ public abstract class AjaxView<T> extends RepeatingView {
     }
 
     /**
-     * Creates an Ajax view.
-     * 
-     * @param id
-     *            ID of the view
-     * @param model
-     *            model of parent data
-     */
-    public AjaxView(String id, IModel<T> model) {
-        super(id, model);
-    }
-
-    /**
      * Sets the reference to a container that is displayed if there is no item
      * available.
      * 
@@ -110,26 +98,22 @@ public abstract class AjaxView<T> extends RepeatingView {
      *            ID of the container
      * @param parentId
      *            parent ID of the container
-     * @param isVisible
-     *            visibility state of the container
      * @return A JavaScript string.
      */
-    protected abstract String getRefreshNoItemContainerJavaScript(String id, String parentId, Boolean isVisible);
+    protected abstract String getRefreshNoItemContainerJavaScript(String id, String parentId);
 
     /**
      * Creates a JavaScript string which refreshes an item if evaluated.
      * 
      * @param id
      *            ID of the item
-     * @param index
-     *            index of the item
      * @param model
      *            model wrapped by the item
      * @param isSelected
      *            defines if a data model is selected
      * @return A JavaScript string.
      */
-    protected abstract String getRefreshItemJavaScript(String id, int index, IModel<T> model, Boolean isSelected);
+    protected abstract String getRefreshItemJavaScript(String id, IModel<T> model, Boolean isSelected);
 
     /**
      * Creates a JavaScript string which appends an item if evaluated.
@@ -138,16 +122,13 @@ public abstract class AjaxView<T> extends RepeatingView {
      *            ID of the item
      * @param parentId
      *            parent ID of the item
-     * @param index
-     *            index of the item
      * @param model
      *            model wrapped by the item
      * @param isSelected
      *            defines if a data model is selected
      * @return A JavaScript string.
      */
-    protected abstract String getAppendItemJavaScript(String id, String parentId, int index, IModel<T> model,
-                                                      Boolean isSelected);
+    protected abstract String getAppendItemJavaScript(String id, String parentId, IModel<T> model, Boolean isSelected);
 
     /**
      * Creates a JavaScript string whiche removes an item if evaluated.
@@ -312,7 +293,7 @@ public abstract class AjaxView<T> extends RepeatingView {
             }
 
             String javaScript = getRefreshNoItemContainerJavaScript(noItemContainer.getMarkupId(), noItemContainer
-                    .getParent().getMarkupId(), noItemContainer.isVisible());
+                    .getParent().getMarkupId());
             target.prependJavaScript(javaScript);
             target.add(noItemContainer);
         }
@@ -330,7 +311,7 @@ public abstract class AjaxView<T> extends RepeatingView {
      */
     private void refreshItem(AjaxRequestTarget target, Item<T> item, Boolean isSelected) {
         replace(item);
-        String javaScript = getRefreshItemJavaScript(item.getMarkupId(), item.getIndex(), item.getModel(), isSelected);
+        String javaScript = getRefreshItemJavaScript(item.getMarkupId(), item.getModel(), isSelected);
         target.prependJavaScript(javaScript);
     }
 
@@ -349,7 +330,7 @@ public abstract class AjaxView<T> extends RepeatingView {
         addOnClickBehavior(item);
         add(item);
 
-        String javaScript = getAppendItemJavaScript(item.getMarkupId(), getParent().getMarkupId(), item.getIndex(),
+        String javaScript = getAppendItemJavaScript(item.getMarkupId(), getParent().getMarkupId(),
                 item.getModel(), isSelected);
 
         target.prependJavaScript(javaScript);

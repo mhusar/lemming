@@ -139,9 +139,8 @@ public class ContextEditForm extends Form<Context> {
         public void onClick(AjaxRequestTarget target) {
             ModalMessagePanel contextDeleteConfirmPanel = (ModalMessagePanel) getPage()
                     .get("contextDeleteConfirmPanel");
-            // not needed
+            @SuppressWarnings("unused")
             ModalMessagePanel contextDeleteDeniedPanel = (ModalMessagePanel) getPage().get("contextDeleteDeniedPanel");
-
             contextDeleteConfirmPanel.show(target, getModel());
         }
     }

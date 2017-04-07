@@ -20,6 +20,7 @@ public class ContextVerificationPage extends BasePage {
     /**
      * Creates a context verification page.
      */
+    @SuppressWarnings("unused")
     public ContextVerificationPage() {
     }
 

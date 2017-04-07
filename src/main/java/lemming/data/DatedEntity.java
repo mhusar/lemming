@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  * A base entity class with created and modified fields.
  */
 @MappedSuperclass
+@SuppressWarnings("unused")
 public abstract class DatedEntity {
     /**
      * Creation timestamp of the containing entity.

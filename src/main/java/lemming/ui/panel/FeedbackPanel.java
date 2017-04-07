@@ -1,7 +1,6 @@
 package lemming.ui.panel;
 
 import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 
@@ -14,17 +13,6 @@ public class FeedbackPanel extends org.apache.wicket.markup.html.panel.FeedbackP
      */
     public FeedbackPanel() {
         super("feedbackPanel");
-        setMarkupId(getId());
-    }
-
-    /**
-     * Creates a feedback panel.
-     * 
-     * @param id ID of a feedback panel
-     * @param filter a filter for feedback messages
-     */
-    public FeedbackPanel(String id, IFeedbackMessageFilter filter) {
-        super(id, filter);
         setMarkupId(getId());
     }
 

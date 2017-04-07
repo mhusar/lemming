@@ -42,6 +42,7 @@ public class LockingErrorPage extends EmptyBasePage {
     /**
      * Empty constructor which is used when a user isn’t signed in.
      */
+    @SuppressWarnings("unused")
     public LockingErrorPage() {
     }
 

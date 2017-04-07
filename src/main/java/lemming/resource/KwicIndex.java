@@ -14,6 +14,7 @@ public abstract class KwicIndex {
     /**
      * Sublist of element kwiclist.
      */
+    @SuppressWarnings("unused")
     @XmlRootElement(name = "sublist")
     public static class SubList {
         /**
@@ -74,6 +75,7 @@ public abstract class KwicIndex {
     /**
      * Item of a sublist element.
      */
+    @SuppressWarnings("unused")
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Item {
         /**
@@ -281,6 +283,7 @@ public abstract class KwicIndex {
     /**
      * Keyword of a context item.
      */
+    @SuppressWarnings("unused")
     public static class Keyword {
         /**
          * Value of a keyword.
@@ -310,6 +313,7 @@ public abstract class KwicIndex {
     /**
      * Punctuation of a context item.
      */
+    @SuppressWarnings("unused")
     public static class Punctuation {
         /**
          * Type of punctuation.

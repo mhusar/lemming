@@ -8,7 +8,6 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -23,15 +22,6 @@ public class LemmatizationBasePage extends EmptyBasePage {
      */
     public LemmatizationBasePage() {
         super();
-    }
-
-    /**
-     * Creates a lemmatization base page.
-     *
-     * @param model the page model
-     */
-    public LemmatizationBasePage(IModel<?> model) {
-        super(model);
     }
 
     /**

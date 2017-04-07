@@ -20,11 +20,13 @@ public class SignInPage extends EmptyBasePage {
     /**
      * Username string.
      */
+    @SuppressWarnings("unused")
     private String username;
 
     /**
      * Password string.
      */
+    @SuppressWarnings("unused")
     private String password;
 
     /**

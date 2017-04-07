@@ -131,6 +131,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      *
      * @return A hash string.
      */
+    @SuppressWarnings("unused")
     public String getHash() {
         return hash;
     }
@@ -147,6 +148,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      *
      * @return Version number of a context.
      */
+    @SuppressWarnings("unused")
     public Long getVersion() {
         return version;
     }

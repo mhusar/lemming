@@ -59,7 +59,7 @@ public class Subtree<T> extends Panel {
      *
      * @return A model or null.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unused"})
     public IModel<T> getModel() {
         return (IModel<T>) getDefaultModel();
     }

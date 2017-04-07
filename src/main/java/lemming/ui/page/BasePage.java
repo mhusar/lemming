@@ -1,15 +1,13 @@
 package lemming.ui.page;
 
-import javax.json.JsonArray;
-
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.model.IModel;
-
 import lemming.character.CharacterHelper;
 import lemming.ui.input.InputPanel;
 import lemming.ui.panel.HeaderPanel;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.TransparentWebMarkupContainer;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+
+import javax.json.JsonArray;
 
 /**
  * A base page with header and input panels.
@@ -20,15 +18,6 @@ public class BasePage extends EmptyBasePage {
      */
     public BasePage() {
         super();
-    }
-
-    /**
-     * Creates a base page.
-     * 
-     * @param model the page model
-     */
-    public BasePage(IModel<?> model) {
-        super(model);
     }
 
     /**

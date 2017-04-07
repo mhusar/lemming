@@ -233,6 +233,7 @@ public class ContextXmlReader implements ErrorHandler {
          * Creates a XmlStreamException.
          * @param message exception message
          */
+        @SuppressWarnings("unused")
         public XmlStreamException(String message) {
             super(message);
         }

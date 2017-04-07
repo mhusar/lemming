@@ -5,6 +5,7 @@ import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosTextField;
 import lemming.sense.SenseDao;
+import lemming.ui.panel.ModalMessagePanel;
 import lemming.user.UserTextField;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
@@ -18,8 +19,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
-
-import lemming.ui.panel.ModalMessagePanel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -251,21 +250,6 @@ public class LemmaEditForm extends Form<Lemma> {
      */
     private class ReplacementLemmaValidator implements IValidator<Lemma> {
         /**
-         * Lemma model that is edited.
-         */
-        private IModel<Lemma> lemmaModel;
-
-        /**
-         * Creates a replacement lemma validator.
-         *
-         * @param model
-         *            lemma model that is edited
-         */
-        public ReplacementLemmaValidator(IModel<Lemma> model) {
-            lemmaModel = model;
-        }
-
-        /**
          * Validates the value of a form component.
          *
          * @param validatable
@@ -274,7 +258,6 @@ public class LemmaEditForm extends Form<Lemma> {
         @Override
         public void validate(IValidatable<Lemma> validatable) {
             ValidationError error = new ValidationError();
-            LemmaDao lemmaDao = new LemmaDao();
             Lemma lemma = validatable.getValue();
 
             if (lemma != null) {

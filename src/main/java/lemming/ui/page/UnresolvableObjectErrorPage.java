@@ -33,6 +33,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
     /**
      * Empty constructor which is used when a user isn’t signed in.
      */
+    @SuppressWarnings("unused")
     public UnresolvableObjectErrorPage() {
     }
 
@@ -47,7 +48,8 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
      *            exception raised due to an unresolvable object
      */
     @SuppressWarnings("SameParameterValue")
-    public UnresolvableObjectErrorPage(ActionType action, Object element, Exception exception) {
+    public UnresolvableObjectErrorPage(ActionType action, @SuppressWarnings("unused") Object element,
+                                       Exception exception) {
         this.action = action;
         this.exception = exception;
 

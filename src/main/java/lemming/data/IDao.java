@@ -7,6 +7,7 @@ import java.util.List;
  *
  * @param <E> entity type
  */
+@SuppressWarnings("unused")
 public interface IDao<E> {
     /**
      * Checks if an object is transient.

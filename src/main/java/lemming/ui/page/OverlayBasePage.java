@@ -10,6 +10,7 @@ public class OverlayBasePage extends BasePage implements IAjaxIndicatorAware {
     /**
      * Creates an overlay base page.
      */
+    @SuppressWarnings("unused")
     public OverlayBasePage() {
         super();
     }

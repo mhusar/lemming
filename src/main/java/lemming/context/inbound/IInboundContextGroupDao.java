@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Defines an inbound context group DAO by extending interface IDao.
  */
+@SuppressWarnings("unused")
 public interface IInboundContextGroupDao extends IDao<InboundContextGroup> {
     /**
      * Returns a list of inbound contexts of a context group.

@@ -44,6 +44,7 @@ public class GenericDataTable<T> extends DataTable<T, String> {
      * @param dataProvider provides data for a table
      * @param rowsPerPage  rows per page
      */
+    @SuppressWarnings("unused")
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
                             Long rowsPerPage) {
         super(id, columns, dataProvider, rowsPerPage);
@@ -73,6 +74,7 @@ public class GenericDataTable<T> extends DataTable<T, String> {
      * @param filterForm   form that filters data of a table
      * @param rowsPerPage  rows per page
      */
+    @SuppressWarnings("unused")
     public GenericDataTable(String id, List<IColumn<T, String>> columns, GenericDataProvider<T> dataProvider,
                             FilterForm<T> filterForm, Long rowsPerPage) {
         super(id, columns, dataProvider, rowsPerPage);

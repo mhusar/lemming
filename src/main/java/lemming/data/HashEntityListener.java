@@ -11,6 +11,7 @@ import java.util.Optional;
 /**
  * Sets a hash for an entity if its class is recognized.
  */
+@SuppressWarnings("unused")
 public class HashEntityListener {
     /**
      * Called on pre-persist.

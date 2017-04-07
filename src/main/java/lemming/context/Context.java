@@ -118,6 +118,7 @@ public class Context extends BaseContext implements Serializable {
      *
      * @return Part of speech of a context as string.
      */
+    @SuppressWarnings("unused")
     public String getPosString() {
         return posString;
     }
@@ -172,6 +173,7 @@ public class Context extends BaseContext implements Serializable {
      *
      * @return Sense of a context.
      */
+    @SuppressWarnings("unused")
     public Sense getSense() {
         return sense;
     }
@@ -181,6 +183,7 @@ public class Context extends BaseContext implements Serializable {
      *
      * @param sense sense of a context
      */
+    @SuppressWarnings("unused")
     public void setSense(Sense sense) {
         this.sense = sense;
     }

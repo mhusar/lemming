@@ -32,16 +32,6 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      *
      * @param id ID of the tree
      * @param provider tree provider for nested trees
-     */
-    public AbstractNestedTree(String id, INestedTreeProvider<T> provider) {
-        this(id, provider, null);
-    }
-
-    /**
-     * Creates a nested tree.
-     *
-     * @param id ID of the tree
-     * @param provider tree provider for nested trees
      * @param selectedNode the selected node object which may be null
      */
     public AbstractNestedTree(String id, INestedTreeProvider<T> provider, T selectedNode) {
@@ -67,7 +57,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      * @param selectedNode the selected node object
      * @return A set of expanded node objects.
      */
-    protected abstract IModel<Set<T>> createExpandState(T selectedNode);
+    protected abstract IModel<Set<T>> createExpandState(@SuppressWarnings("unused") T selectedNode);
 
     /**
      * Adds a listener for select events.
@@ -131,7 +121,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      * @param target target that produces an Ajax response
      * @param object node object to expand
      */
-    public void expand(AjaxRequestTarget target, T object) {
+    public void expand(@SuppressWarnings("unused") AjaxRequestTarget target, T object) {
         super.expand(object);
     }
 

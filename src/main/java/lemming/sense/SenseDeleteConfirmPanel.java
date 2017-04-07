@@ -29,6 +29,7 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      */
+    @SuppressWarnings("unused")
     public SenseDeleteConfirmPanel() {
         super("senseDeleteConfirmPanel", DialogType.YES_NO);
     }

@@ -413,7 +413,7 @@ public class SenseEditPanel extends Panel {
          * @param target target that produces an Ajax response
          * @param form form that is submitted
          */
-        private void saveSense(AjaxRequestTarget target, Form<?> form) {
+        private void saveSense(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form) {
             SenseDao senseDao = new SenseDao();
             List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
             String meaning = meaningTextField.getInput();
@@ -446,7 +446,7 @@ public class SenseEditPanel extends Panel {
          * @param target target that produces an Ajax response
          * @param form form that is submitted
          */
-        private void saveChildSense(AjaxRequestTarget target, Form<?> form) {
+        private void saveChildSense(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form) {
             SenseDao senseDao = new SenseDao();
             String meaning = meaningTextField.getInput();
             Sense parentSense = parentSenseModel.getObject();

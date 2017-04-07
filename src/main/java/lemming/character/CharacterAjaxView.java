@@ -60,7 +60,7 @@ public class CharacterAjaxView extends AjaxView<Character> {
      * {@inheritDoc}
      */
     @Override
-    protected String getRefreshNoItemContainerJavaScript(String id, String parentId, Boolean isVisible) {
+    protected String getRefreshNoItemContainerJavaScript(String id, String parentId) {
         if (isVisible()) {
             String cssClass = "list-group-item";
             return String.format("jQuery(\"#%s\").remove(); "
@@ -77,7 +77,7 @@ public class CharacterAjaxView extends AjaxView<Character> {
      * {@inheritDoc}
      */
     @Override
-    protected String getRefreshItemJavaScript(String id, int index, IModel<Character> model, Boolean isSelected) {
+    protected String getRefreshItemJavaScript(String id, IModel<Character> model, Boolean isSelected) {
         String javaScript = String.format("var item = jQuery(\"#%s\"); " + "jQuery(\"%s\", item).text(\"%s\"); ",
                 id, "span", model.getObject().getCharacter());
 
@@ -94,7 +94,7 @@ public class CharacterAjaxView extends AjaxView<Character> {
      * {@inheritDoc}
      */
     @Override
-    protected String getAppendItemJavaScript(String id, String parentId, int index, IModel<Character> model,
+    protected String getAppendItemJavaScript(String id, String parentId, IModel<Character> model,
                                              Boolean isSelected) {
         String cssClass = (isSelected) ? "list-group-item active" : "list-group-item";
         return String.format(

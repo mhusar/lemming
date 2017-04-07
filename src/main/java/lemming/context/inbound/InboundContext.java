@@ -41,6 +41,7 @@ public class InboundContext extends BaseContext {
      *
      * @return An inbound context.
      */
+    @SuppressWarnings("unused")
     public Context toContext() {
         return new Context(getLocation(), getType(), getKeyword(), getPreceding(), getFollowing(), getInitPunctuation(),
                 getEndPunctuation());
@@ -51,6 +52,7 @@ public class InboundContext extends BaseContext {
      *
      * @return A context group.
      */
+    @SuppressWarnings("unused")
     public InboundContextGroup getGroup() {
         return group;
     }

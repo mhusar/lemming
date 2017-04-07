@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Information about a group of inbound contexts.
  */
+@SuppressWarnings("unused")
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity

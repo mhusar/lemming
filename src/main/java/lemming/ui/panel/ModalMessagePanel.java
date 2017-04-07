@@ -183,6 +183,7 @@ public abstract class ModalMessagePanel extends Panel {
      *            custom message model which overrides the model from method
      *            getMessageModel()
      */
+    @SuppressWarnings("unused")
     public void show(AjaxRequestTarget target, IModel<?> model, StringResourceModel messageModel) {
         setDefaultModel(model);
         Label label = new Label("modalMessage", messageModel);

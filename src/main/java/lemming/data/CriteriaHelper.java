@@ -18,25 +18,6 @@ import java.util.Map;
  */
 public final class CriteriaHelper {
     /**
-     * Matches a filter string against a context type.
-     *
-     * @param filter string filter
-     * @return A context type, or null.
-     */
-    private static ContextType.Type matchContextType(String filter) {
-        String rubricString = new ResourceModel("Type.RUBRIC").getObject();
-        String segmentString = new ResourceModel("Type.SEGMENT").getObject();
-
-        if (rubricString.toUpperCase().startsWith(filter.toUpperCase())) {
-            return ContextType.Type.RUBRIC;
-        } else if (segmentString.toUpperCase().startsWith(filter.toUpperCase())) {
-            return ContextType.Type.SEGMENT;
-        }
-
-        return null;
-    }
-
-    /**
      * Matches a filter string against a lemma source type.
      *
      * @param filter string filter
@@ -86,30 +67,14 @@ public final class CriteriaHelper {
      */
     private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
                                                                          Root<?> root, String filter) {
-        // deactivate filtering by context type
-        ContextType.Type type = null;
-
-        //noinspection ConstantConditions
-        if (type != null) {
-            return criteriaBuilder.or(
-                    criteriaBuilder.like(root.get("location"), filter + "%"),
-                    criteriaBuilder.equal(root.get("type"), type),
-                    criteriaBuilder.like(root.get("preceding"), filter + "%"),
-                    criteriaBuilder.like(root.get("keyword"), filter + "%"),
-                    criteriaBuilder.like(root.get("following"), filter + "%"),
-                    criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
-                    criteriaBuilder.like(root.get("posString"), filter + "%")
-            );
-        } else {
-            return criteriaBuilder.or(
-                    criteriaBuilder.like(root.get("location"), filter + "%"),
-                    criteriaBuilder.like(root.get("preceding"), filter + "%"),
-                    criteriaBuilder.like(root.get("keyword"), filter + "%"),
-                    criteriaBuilder.like(root.get("following"), filter + "%"),
-                    criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
-                    criteriaBuilder.like(root.get("posString"), filter + "%")
-            );
-        }
+        return criteriaBuilder.or(
+                criteriaBuilder.like(root.get("location"), filter + "%"),
+                criteriaBuilder.like(root.get("preceding"), filter + "%"),
+                criteriaBuilder.like(root.get("keyword"), filter + "%"),
+                criteriaBuilder.like(root.get("following"), filter + "%"),
+                criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
+                criteriaBuilder.like(root.get("posString"), filter + "%")
+        );
     }
 
     /**
@@ -187,8 +152,8 @@ public final class CriteriaHelper {
      * @return An expression of type boolean, or null.
      */
     public static Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
-                                                                 Map<String,Join<?,?>> joins, String filter,
-                                                                 Class<?> typeClass) {
+                                                                 @SuppressWarnings("unused") Map<String,Join<?,?>> joins,
+                                                                 String filter, Class<?> typeClass) {
         if (typeClass.equals(Context.class)) {
             return getContextFilterStringRestriction(criteriaBuilder, root, filter);
         } else if (typeClass.equals(Lemma.class)) {
@@ -367,7 +332,8 @@ public final class CriteriaHelper {
      * @param typeClass data type
      * @return A map of joins, or null.
      */
-    public static Map<String,Join<?,?>> getJoins(Root<?> root, Class<?> typeClass) {
+    public static Map<String,Join<?,?>> getJoins(@SuppressWarnings("unused") Root<?> root,
+                                                 @SuppressWarnings("unused") Class<?> typeClass) {
         return null;
     }
 }

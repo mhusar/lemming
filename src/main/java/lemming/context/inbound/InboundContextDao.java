@@ -12,14 +12,8 @@ import java.util.List;
 /**
  * Represents a Data Access Object providing data operations for inbound contexts.
  */
+@SuppressWarnings("unused")
 public class InboundContextDao extends GenericDao<InboundContext> implements IInboundContextDao {
-    /**
-     * Creates an instance of an InboundContextDao.
-     */
-    public InboundContextDao() {
-        super();
-    }
-
     /**
      * {@inheritDoc}
      */

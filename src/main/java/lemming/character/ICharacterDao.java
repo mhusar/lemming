@@ -13,5 +13,6 @@ public interface ICharacterDao extends IDao<Character> {
      *            the character string of a character
      * @return The matching character or null.
      */
+    @SuppressWarnings("unused")
     Character findByCharacter(String character);
 }

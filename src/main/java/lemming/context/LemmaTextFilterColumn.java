@@ -23,7 +23,7 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context,Context,Stri
      * @param propertyExpression
      *            property expression of a column
      */
-    @SuppressWarnings("SameParameterValue")
+    @SuppressWarnings({"SameParameterValue", "unused"})
     public LemmaTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }

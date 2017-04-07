@@ -20,6 +20,7 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
      * @param responsePage
      *            page loaded on confirmation
      */
+    @SuppressWarnings("unused")
     public LemmaDeleteConfirmPanel(Page responsePage) {
         super("lemmaDeleteConfirmPanel", DialogType.YES_NO, responsePage);
     }

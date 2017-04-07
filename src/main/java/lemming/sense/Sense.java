@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Class representing a sense.
  */
+@SuppressWarnings("unused")
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity

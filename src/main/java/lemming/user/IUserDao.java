@@ -5,6 +5,7 @@ import lemming.data.IDao;
 /**
  * Defines a user DAO by extending interface IDao.
  */
+@SuppressWarnings("unused")
 public interface IUserDao extends IDao<User> {
     /**
      * Checks if a default user is needed.

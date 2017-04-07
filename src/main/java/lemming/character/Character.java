@@ -110,6 +110,7 @@ public class Character extends DatedEntity implements Serializable {
      * @param character
      *            the character string of a character
      */
+    @SuppressWarnings("unused")
     public void setCharacter(String character) {
         this.character = character;
     }

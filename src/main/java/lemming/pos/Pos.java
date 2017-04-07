@@ -13,6 +13,7 @@ import java.io.Serializable;
 /**
  * Class representing a part of speech.
  */
+@SuppressWarnings("unused")
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity

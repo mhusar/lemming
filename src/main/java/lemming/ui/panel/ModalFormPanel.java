@@ -155,7 +155,7 @@ public abstract class ModalFormPanel extends Panel {
      * @param form form that is submitted
      * @param target target that produces an Ajax response
      */
-    public abstract void onConfirm(AjaxRequestTarget target, Form<?> form);
+    public abstract void onConfirm(AjaxRequestTarget target, @SuppressWarnings("unused") Form<?> form);
 
     /**
      * Called when the modal dialog is canceled.

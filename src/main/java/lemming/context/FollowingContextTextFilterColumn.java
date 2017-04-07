@@ -20,7 +20,7 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
      * @param propertyExpression
      *            property expression of a column
      */
-    @SuppressWarnings("SameParameterValue")
+    @SuppressWarnings({"SameParameterValue", "unused"})
     public FollowingContextTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }

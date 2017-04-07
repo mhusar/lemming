@@ -11,6 +11,7 @@ public interface IDraggableTree {
      *
      * @param listener a drop listener
      */
+    @SuppressWarnings("unused")
     void addDropListener(IDropListener listener);
 
     /**

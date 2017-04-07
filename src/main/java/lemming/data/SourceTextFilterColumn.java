@@ -29,7 +29,7 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      * @param propertyExpression
      *            property expression of a column
      */
-    @SuppressWarnings("SameParameterValue")
+    @SuppressWarnings({"SameParameterValue", "unused"})
     public SourceTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }

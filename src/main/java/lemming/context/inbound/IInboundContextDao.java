@@ -13,5 +13,6 @@ public interface IInboundContextDao extends IDao<InboundContext> {
      *
      * @param contexts context instances
      */
+    @SuppressWarnings("unused")
     void batchPersist(List<InboundContext> contexts);
 }

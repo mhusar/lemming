@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Defines a lemma DAO by extending interface IDao.
  */
+@SuppressWarnings("unused")
 public interface ILemmaDao extends IDao<Lemma> {
     /**
      * Makes multiple lemma instances managed and persistent.

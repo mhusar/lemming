@@ -34,6 +34,7 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      * @param sortProperty sort property of a column
      * @param propertyExpression property expression of a column
      */
+    @SuppressWarnings("unused")
     public GenericRowSelectColumn(IModel<String> displayModel, S sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
     }

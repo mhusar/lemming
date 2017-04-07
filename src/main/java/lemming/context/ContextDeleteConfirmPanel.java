@@ -19,6 +19,7 @@ public class ContextDeleteConfirmPanel extends ModalMessagePanel {
      * @param responsePage
      *            page loaded on confirmation
      */
+    @SuppressWarnings("unused")
     public ContextDeleteConfirmPanel(Page responsePage) {
         super("contextDeleteConfirmPanel", DialogType.YES_NO, responsePage);
     }

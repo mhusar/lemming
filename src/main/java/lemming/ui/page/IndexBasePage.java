@@ -3,7 +3,6 @@ package lemming.ui.page;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
@@ -16,15 +15,6 @@ public class IndexBasePage extends BasePage {
      */
     public IndexBasePage() {
         super();
-    }
-
-    /**
-     * Creates an index base page.
-     *
-     * @param model the page model
-     */
-    public IndexBasePage(IModel<?> model) {
-        super(model);
     }
 
     /**
