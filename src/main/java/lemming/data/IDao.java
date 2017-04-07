@@ -11,8 +11,7 @@ public interface IDao<E> {
     /**
      * Checks if an object is transient.
      *
-     * @param element
-     *            element to check
+     * @param element element to check
      * @return True if element is transient; false otherwise.
      */
     Boolean isTransient(E element);
@@ -73,10 +72,8 @@ public interface IDao<E> {
     /**
      * Sends the user to an error page if saving of data failed due to locking.
      *
-     * @param element
-     *            the element that was not saved
-     * @param exception
-     *            the raised exception
+     * @param element the element that was not saved
+     * @param exception the raised exception
      */
     void panicOnSaveLockingError(Object element, RuntimeException exception);
 
@@ -84,9 +81,8 @@ public interface IDao<E> {
      * Sends the user to an error page if removing of data failed due to
      * locking.
      *
-     * @element the element that was not removed
-     * @param exception
-     *            the raised exception
+     * @param element the element that was not removed
+     * @param exception the raised exception
      */
     void panicOnRemoveLockingError(Object element, RuntimeException exception);
 
@@ -94,10 +90,8 @@ public interface IDao<E> {
      * Sends the user to an error page if saving of data failed due to an
      * unresolvable object.
      *
-     * @param element
-     *            the element that was not saved
-     * @param exception
-     *            the raised exception
+     * @param element the element that was not saved
+     * @param exception the raised exception
      */
     void panicOnSaveUnresolvableObjectError(Object element, RuntimeException exception);
 
@@ -105,9 +99,8 @@ public interface IDao<E> {
      * Sends the user to an error page if removing of data failed due to an
      * unresolvable object.
      *
-     * @element the element that was not removed
-     * @param exception
-     *            the raised exception
+     * @param element the element that was not removed
+     * @param exception the raised exception
      */
     void panicOnRemoveUnresolvableObjectError(Object element, RuntimeException exception);
 }

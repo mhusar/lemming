@@ -64,8 +64,6 @@ public class WebSession extends AuthenticatedWebSession {
     /**
      * Checks if the session is expired. Throws a RestartResponseException to
      * send the user to the sign-in page if the session user is invalid.
-     *
-     * @throws RestartResponseException
      */
     public void checkSessionExpired() {
         if (user == null) {

@@ -51,7 +51,6 @@ public class PosTextField extends TextField<Pos> {
              * @param locale
              *            locale used to convert the name
              * @return The converted object, or null.
-             * @throws ConversionException
              */
             @Override
             @SuppressWarnings("unchecked")

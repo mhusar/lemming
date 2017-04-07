@@ -30,7 +30,6 @@ public class ContextXmlReader implements ErrorHandler {
      * Receive notification of a recoverable error.
      *
      * @param exception error information encapsulated in a SAX parse exception
-     * @throws SAXException
      */
     @Override
     public void error(SAXParseException exception) throws SAXException {
@@ -43,7 +42,6 @@ public class ContextXmlReader implements ErrorHandler {
      * Receive notification of a non-recoverable error.
      *
      * @param exception error information encapsulated in a SAX parse exception
-     * @throws SAXException
      */
     @Override
     public void fatalError(SAXParseException exception) throws SAXException {
@@ -56,7 +54,6 @@ public class ContextXmlReader implements ErrorHandler {
      * Receive notification of a warning.
      *
      * @param exception warning information encapsulated in a SAX parse exception
-     * @throws SAXException
      */
     @Override
     public void warning(SAXParseException exception) throws SAXException {

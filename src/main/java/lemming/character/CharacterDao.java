@@ -118,8 +118,6 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
      *            entity manager interacting with the persistence context
      * @param character
      *            a character object
-     *
-     * @throws RuntimeException
      */
     private void insertCharacter(EntityManager entityManager, Character character) throws  RuntimeException {
         TypedQuery<Character> query = entityManager
@@ -146,8 +144,6 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
      *            the new character
      * @param persistentCharacter
      *            the persistent character
-     *
-     * @throws RuntimeException
      */
     private Character moveCharacter(EntityManager entityManager, Character character, Character persistentCharacter)
             throws RuntimeException {

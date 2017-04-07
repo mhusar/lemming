@@ -48,9 +48,8 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     /**
      * Creates a paging navigator.
      *
-     * @param navigatorId
-     * @param table
-     *            table a paging navigator is attached to
+     * @param navigatorId ID of the navigator
+     * @param table table a paging navigator is attached to
      * @return A new paging navigator.
      */
     @Override

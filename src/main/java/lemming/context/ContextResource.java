@@ -105,7 +105,6 @@ public class ContextResource {
      *
      * @param jsonGenerator a JSON generator
      * @param keyword a context keyword
-     * @throws IOException
      */
     private void writeJsonResult(JsonGenerator jsonGenerator, String keyword) throws IOException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();

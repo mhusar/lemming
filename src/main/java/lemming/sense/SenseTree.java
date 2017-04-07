@@ -111,8 +111,9 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     }
 
     /**
+     * Adds a drop listener.
      *
-     * @param listener
+     * @param listener a drop listener
      */
     @Override
     public void addDropListener(IDropListener listener) {
@@ -120,8 +121,9 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     }
 
     /**
+     * Returns a set of drop listeners.
      *
-     * @return
+     * @return A set of drop listeners.
      */
     @Override
     public Set<? extends IDropListener> getDropListeners() {
