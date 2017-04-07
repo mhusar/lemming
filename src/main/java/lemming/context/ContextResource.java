@@ -110,7 +110,6 @@ public class ContextResource {
      *
      * @param jsonGenerator a JSON generator
      * @param keyword a context keyword
-     * @return A velocity context.
      * @throws IOException
      */
     private void writeJsonResult(JsonGenerator jsonGenerator, String keyword) throws IOException {
@@ -301,10 +300,7 @@ public class ContextResource {
                         indentingStreamWriter.flush();
                         results.close();
                         session.getTransaction().commit();
-                    } catch (JAXBException e) {
-                        e.printStackTrace();
-                        throw new RuntimeException(e);
-                    } catch (XMLStreamException e) {
+                    } catch (JAXBException | XMLStreamException e) {
                         e.printStackTrace();
                         throw new RuntimeException(e);
                     }
