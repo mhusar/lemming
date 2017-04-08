@@ -3,16 +3,16 @@
 This web app allows to annotate _Keyword in Context_ indices ([KWIC](https://en.wikipedia.org/wiki/Key_Word_in_Context))
 with lemmata, senses and parts of speech in an effective way.
 
+## Documentation
+
+* [API documentation](https://mhusar.github.io/lemming/apidocs/)
+
 ## Getting started
 
 * [OpenJDK 8](http://openjdk.java.net/)
 * [Maven](https://maven.apache.org/)
 * [MariaDB](https://mariadb.org/)
 * [Jetty](https://www.eclipse.org/jetty/)
-
-### Documentation
-
-* [API documentation](https://mhusar.github.io/lemming/apidocs/)
 
 ### Database configuration
 
