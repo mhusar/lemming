@@ -10,6 +10,10 @@ with lemmata, senses and parts of speech in an effective way.
 * [MariaDB](https://mariadb.org/)
 * [Jetty](https://www.eclipse.org/jetty/)
 
+### Documentation
+
+* [API documentation](https://mhusar.github.io/lemming/apidocs/)
+
 ### Database configuration
 
 Configure properties for the JAVA Persistence API ([JPA](https://en.wikipedia.org/wiki/Java_Persistence_API)) from the
