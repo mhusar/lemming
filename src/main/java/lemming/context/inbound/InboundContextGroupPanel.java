@@ -43,6 +43,7 @@ public class InboundContextGroupPanel extends Panel {
         super("contextGroupPanel");
         placeholder = new WebMarkupContainer("placeholder");
         contextGroupView = new InboundContextGroupView();
+
         add(placeholder);
         add(contextGroupView);
     }
@@ -123,9 +124,9 @@ public class InboundContextGroupPanel extends Panel {
             String itemLabel = new StringResourceModel("InboundContextGroupView.itemLabel", this)
                     .setParameters(contextCount, location).getString();
             String popoverContent = new StringResourceModel("InboundContextGroupView.popoverContent", this)
-                    .setParameters("<dl class='dl-horizontal' data-date='" + instant.toString() + "' data-locale='" +
-                                    getString("InboundContextGroupView.popoverLocale") + "'><dt>",
-                            "</dt><dd>" + user + "</dd><dt>", "</dt><dd class='date'></dd><dt>",
+                    .setParameters(String.format("<dl class='dl-horizontal' data-date='%s' data-locale='%s'><dt>",
+                            instant.toString(), getString("InboundContextGroupView.popoverLocale")),
+                            String.format("</dt><dd>%s</dd><dt>", user), "</dt><dd class='date'></dd><dt>",
                             "</dt><dd class='time'></dd></dl>").getString();
 
             item.add(new Label("itemLabel", itemLabel));
