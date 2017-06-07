@@ -11,6 +11,7 @@ import lemming.ui.input.InputPanel;
 import lemming.ui.page.IndexBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalFormPanel;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
@@ -18,9 +19,13 @@ import org.apache.wicket.ajax.attributes.ThrottlingSettings;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.behavior.AbstractAjaxBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -76,6 +81,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
             fragment.add(dataTable);
         }
 
+        filterTextField.add(new PageScrollingBehavior());
         add(new FeedbackPanel("feedbackPanel"));
         add(new InputPanel("inputPanel"));
         add(filterTextField);
@@ -213,6 +219,27 @@ public class LemmatizationPage extends LemmatizationBasePage {
             super.updateAjaxAttributes(attributes);
             attributes.setChannel(new AjaxChannel(getComponent().getId(), AjaxChannel.Type.DROP));
             attributes.setThrottlingSettings(new ThrottlingSettings(Duration.milliseconds(200)));
+        }
+    }
+
+    /**
+     * Adds a behavior to the filter text field which reacts to page scrolling.
+     */
+    private class PageScrollingBehavior extends Behavior {
+        /**
+         * Renders to the web response what the component wants to contribute.
+         *
+         * @param component component object
+         * @param response response object
+         */
+        @Override
+        public void renderHead(Component component, IHeaderResponse response) {
+            String javaScript = String.format("jQuery(window).scroll(function () { " +
+                    "var focused = jQuery(':focus'), input = jQuery('#%s'); " +
+                    "if (focused.length) { return; } " +
+                    "if (input.length && input.isInViewport(input.height())) { " +
+                    "input.focus(); } });", component.getMarkupId());
+            response.render(OnDomReadyHeaderItem.forScript(javaScript));
         }
     }
 
