@@ -24,7 +24,7 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, pos_string, lemma_string")})
+        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string")})
 public class Context extends DatedEntity implements Serializable {
     /**
      * ID associated with a context.
@@ -52,6 +52,12 @@ public class Context extends DatedEntity implements Serializable {
      */
     @Column(name = "location", length = 30, nullable = false)
     private String location;
+
+    /**
+     * Number of of a context in a location.
+     */
+    @Column(name = "number", nullable = false)
+    private Integer number;
 
     /**
      * Type of a context.
@@ -215,6 +221,24 @@ public class Context extends DatedEntity implements Serializable {
      */
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    /**
+     * Returns the number of a context.
+     *
+     * @return Number of a context.
+     */
+    public Integer getNumber() {
+        return number;
+    }
+
+    /**
+     * Sets the number of a context.
+     *
+     * @param number number of a context
+     */
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     /**

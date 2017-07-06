@@ -38,6 +38,13 @@
         </xs:restriction>
     </xs:simpleType>
 
+
+    <xs:simpleType name="number">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="singleBlankString">
         <xs:restriction base="xs:string">
             <xs:pattern value="\S*(\ \S+)*\ ?"/>
@@ -47,6 +54,7 @@
     <xs:attributeGroup name="itemAttributes">
         <xs:attribute type="singleBlankString" name="following" use="required"/>
         <xs:attribute type="itemLocation" name="location" use="required"/>
+        <xs:attribute type="number" name="n" use="required"/>
         <xs:attribute type="singleBlankString" name="preceding" use="required"/>
         <xs:attribute type="itemType" name="type" use="required"/>
     </xs:attributeGroup>

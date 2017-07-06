@@ -39,6 +39,7 @@
     <entry key="Context.keyword">Keyword</entry>
     <entry key="Context.lemma">Lemma</entry>
     <entry key="Context.location">Location</entry>
+    <entry key="Context.number">Number</entry>
     <entry key="Context.pos">Part of speech</entry>
     <entry key="Context.preceding">Preceding</entry>
     <entry key="Context.type">Type</entry>

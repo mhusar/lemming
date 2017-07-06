@@ -21,18 +21,18 @@
     <div class="container">
         <form wicket:id="contextEditForm" class="form-horizontal" role="form">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="form-group">
-                        <label for="lemma" class="col-sm-4 control-label">
+                        <label for="lemma" class="col-sm-3 control-label">
                             <wicket:message key="Context.lemma"></wicket:message>
                         </label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-9">
                             <input type="text" wicket:id="lemma" id="lemma" class="form-control" maxlength="100"
                                    autofocus="autofocus"/>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="pos" class="col-sm-4 control-label">
                             <wicket:message key="Context.pos"></wicket:message>
@@ -42,24 +42,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="type" class="col-sm-4 control-label">
+                        <label for="type" class="col-sm-6 control-label">
                             <wicket:message key="Context.type"></wicket:message>
                         </label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             <select wicket:id="type" id="type" class="form-control" required="required"></select>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="location" class="col-sm-4 control-label">
+                        <label for="location" class="col-sm-3 control-label">
                             <wicket:message key="Context.location"></wicket:message>
                         </label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-9">
                             <input type="text" wicket:id="location" id="location" class="form-control"
                                    required="required" maxlength="25"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="location" class="col-sm-4 control-label">
+                            <wicket:message key="Context.number"></wicket:message>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="number" wicket:id="number" id="number" class="form-control"
+                                   required="required" maxlength="4"/>
                         </div>
                     </div>
                 </div>

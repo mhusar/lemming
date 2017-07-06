@@ -46,6 +46,7 @@ public class ContextEditForm extends Form<Context> {
                 new ArrayList<ContextType.Type>(Arrays.asList(ContextType.Type.values())),
                 new EnumChoiceRenderer<ContextType.Type>(), 1);
         RequiredTextField<String> locationTextField = new RequiredTextField<String>("location");
+        NumberTextField<Integer> numberTextField = new NumberTextField<Integer>("number");
         TextField<String> precedingTextField = new NonTrimmingTextField("preceding");
         TextField<String> initPunctuationTextField = new NonTrimmingTextField("initPunctuation");
         RequiredTextField<String> keywordTextField = new RequiredTextField<String>("keyword");
@@ -56,6 +57,7 @@ public class ContextEditForm extends Form<Context> {
         add(posTextField);
         add(typeListChoice);
         add(locationTextField);
+        add(numberTextField.setMinimum(1).setRequired(true));
         add(precedingTextField.setRequired(true));
         add(initPunctuationTextField);
         add(keywordTextField);

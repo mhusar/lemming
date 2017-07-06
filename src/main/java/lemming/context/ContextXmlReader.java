@@ -78,6 +78,9 @@ public class ContextXmlReader implements ErrorHandler {
                 case "location":
                     context.setLocation(value);
                     break;
+                case "n":
+                    context.setNumber(Integer.valueOf(value));
+                    break;
                 case "preceding":
                     context.setPreceding(value);
                     break;

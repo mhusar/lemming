@@ -39,6 +39,7 @@
     <entry key="Context.keyword">Stichwort</entry>
     <entry key="Context.lemma">Lemma</entry>
     <entry key="Context.location">Ort</entry>
+    <entry key="Context.number">Nummer</entry>
     <entry key="Context.pos">Wortart</entry>
     <entry key="Context.preceding">Vorausgehend</entry>
     <entry key="Context.type">Art</entry>
