@@ -211,7 +211,7 @@ public class Context extends DatedEntity implements Serializable {
     /**
      * Sets the location of a context.
      *
-     * @param location location of a context.
+     * @param location location of a context
      */
     public void setLocation(String location) {
         this.location = location;
