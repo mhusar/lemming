@@ -47,7 +47,9 @@ public class ContextEditForm extends Form<Context> {
                 new EnumChoiceRenderer<ContextType.Type>(), 1);
         RequiredTextField<String> locationTextField = new RequiredTextField<String>("location");
         TextField<String> precedingTextField = new NonTrimmingTextField("preceding");
+        TextField<String> initPunctuationTextField = new NonTrimmingTextField("initPunctuation");
         RequiredTextField<String> keywordTextField = new RequiredTextField<String>("keyword");
+        TextField<String> endPunctuationTextField = new NonTrimmingTextField("endPunctuation");
         TextField<String> followingTextField = new NonTrimmingTextField("following");
 
         add(lemmaTextField);
@@ -55,7 +57,9 @@ public class ContextEditForm extends Form<Context> {
         add(typeListChoice);
         add(locationTextField);
         add(precedingTextField.setRequired(true));
+        add(initPunctuationTextField);
         add(keywordTextField);
+        add(endPunctuationTextField);
         add(followingTextField.setRequired(true));
         add(new CancelButton("cancelButton"));
         add(new DeleteButton("deleteButton", model).setVisible(!(isContextTransient(model))));

@@ -33,7 +33,9 @@
     <entry key="ChooseLemmaPanel.lemma">Lemma</entry>
     <entry key="ChooseLemmaPanel.chooseLemma">Choose lemma</entry>
     <entry key="ChooseLemmaPanel.okay">OK</entry>
+    <entry key="Context.endPunctuation">end punctuation</entry>
     <entry key="Context.following">Following</entry>
+    <entry key="Context.initPunctuation">init punctuation</entry>
     <entry key="Context.keyword">Keyword</entry>
     <entry key="Context.lemma">Lemma</entry>
     <entry key="Context.location">Location</entry>

@@ -79,9 +79,29 @@
                         <label for="keyword" class="col-sm-2 control-label">
                             <wicket:message key="Context.keyword"></wicket:message>
                         </label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-2">
+                            <label class="sr-only" for="initPunctuation">
+                                <wicket:message key="Context.initPunctuation"></wicket:message>
+                            </label>
+                            <input type="text" wicket:id="initPunctuation" id="initPunctuation" class="form-control"
+                                   maxlength="1"/>
+                            <span class="help-block">
+                                <wicket:message key="Context.initPunctuation"></wicket:message>
+                            </span>
+                        </div>
+                        <div class="col-sm-6">
                             <input type="text" wicket:id="keyword" id="keyword" class="form-control"
                                    required="required" maxlength="100"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="sr-only" for="endPunctuation">
+                                <wicket:message key="Context.endPunctuation"></wicket:message>
+                            </label>
+                            <input type="text" wicket:id="endPunctuation" id="endPunctuation" class="form-control"
+                                   maxlength="1"/>
+                            <span class="help-block">
+                                <wicket:message key="Context.endPunctuation"></wicket:message>
+                            </span>
                         </div>
                     </div>
                 </div>
