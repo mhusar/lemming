@@ -36,10 +36,10 @@ public class ContextIndexPage extends IndexBasePage {
      * Creates a context index page.
      */
     public ContextIndexPage() {
-        GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
-                new SortParam<String>("keyword", true));
-        FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        GenericDataProvider<Context> dataProvider = new GenericDataProvider<>(Context.class,
+                new SortParam<>("keyword", true));
+        FilterForm<Context> filterForm = new FilterForm<>("filterForm", dataProvider);
+        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
         GenericDataTable<Context> dataTable;
@@ -49,14 +49,14 @@ public class ContextIndexPage extends IndexBasePage {
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new GenericDataTable<Context>("contextDataTable", getColumns(), dataProvider, filterForm);
+            dataTable = new GenericDataTable<>("contextDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new GenericDataTable<Context>("contextDataTable", getColumns(), dataProvider);
+            dataTable = new GenericDataTable<>("contextDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             fragment.add(dataTable);
@@ -88,7 +88,7 @@ public class ContextIndexPage extends IndexBasePage {
      * @return A list of columns.
      */
     private List<IColumn<Context, String>> getColumns() {
-        List<IColumn<Context, String>> columns = new ArrayList<IColumn<Context, String>>();
+        List<IColumn<Context, String>> columns = new ArrayList<>();
 
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.lemma")),
                 "lemmaString", "lemmaString"));

@@ -40,7 +40,7 @@ class SetPosPanel extends ModalFormPanel {
     public SetPosPanel(String id, LemmatizationDataTable dataTable) {
         super(id);
         this.dataTable = dataTable;
-        posTextField = new PosAutoCompleteTextField("pos", new Model<Pos>());
+        posTextField = new PosAutoCompleteTextField("pos", new Model<>());
         addFormComponent(posTextField);
     }
 
@@ -82,7 +82,7 @@ class SetPosPanel extends ModalFormPanel {
         String posName = posTextField.getInput();
         Pos pos = new PosDao().findByName(posName);
         Collection<IModel<Context>> rowModels = dataTable.getRowModels();
-        CollectionModel<Integer> selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+        CollectionModel<Integer> selectedContextIds = new CollectionModel<>(new ArrayList<>());
         ContextDao contextDao = new ContextDao();
 
         if (pos != null) {

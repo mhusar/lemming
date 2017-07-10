@@ -33,7 +33,7 @@ public class UserEditPage extends BasePage {
 
         // check if the session is expired
         WebSession.get().checkSessionExpired();
-        userModel = new CompoundPropertyModel<User>(sessionUser);
+        userModel = new CompoundPropertyModel<>(sessionUser);
     }
 
     /**
@@ -99,9 +99,9 @@ public class UserEditPage extends BasePage {
             MarkupContainer userEditPage = findParent(UserEditPage.class);
             MarkupContainer userViewPanel = (UserViewPanel) userEditPage.get("userViewPanel");
             MarkupContainer feedbackPanel = (FeedbackPanel) userEditPage.get("feedbackPanel");
-            Component userView = new UserViewPanel.UserView("userView", new Model<User>(new User()));
+            Component userView = new UserViewPanel.UserView("userView", new Model<>(new User()));
             MarkupContainer userEditPanel = (UserEditPanel) userEditPage.get("userEditPanel");
-            Component userEditForm = new UserEditForm("userEditForm", new CompoundPropertyModel<User>(new User()));
+            Component userEditForm = new UserEditForm("userEditForm", new CompoundPropertyModel<>(new User()));
 
             target.add(userViewPanel.addOrReplace(userView));
             target.add(userEditPanel.addOrReplace(userEditForm));

@@ -10,9 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Order;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -209,7 +206,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     protected Expression<Boolean> getFilterStateRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
         if (state != null) {
-            List<Predicate> predicateList = new ArrayList<Predicate>();
+            List<Predicate> predicateList = new ArrayList<>();
 
             for (Field field : state.getClass().getDeclaredFields()) {
                 field.setAccessible(true);

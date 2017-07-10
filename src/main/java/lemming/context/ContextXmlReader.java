@@ -133,7 +133,7 @@ public class ContextXmlReader implements ErrorHandler {
      */
     public List<Context> readXml(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        List<Context> contexts = new ArrayList<Context>();
+        List<Context> contexts = new ArrayList<>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
         String currentElementName = "";
         String punctuationType = "";

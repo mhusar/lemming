@@ -57,7 +57,7 @@ public class TextFilterColumn<T, F, S> extends TextFilteredPropertyColumn<T, F, 
      */
     @Override
     public Component getFilter(String componentId, FilterForm<?> form) {
-        TextFilter<F> filter = new TextFilter<F>(componentId, getFilterModel(form), form);
+        TextFilter<F> filter = new TextFilter<>(componentId, getFilterModel(form), form);
         TextField<F> textField = filter.getFilter();
 
         textField.add(AttributeModifier.append("class", "form-control"));

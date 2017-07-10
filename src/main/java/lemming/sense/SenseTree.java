@@ -22,7 +22,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * A set of drop listeners.
      */
-    private Set<IDropListener> dropListeners = new HashSet<IDropListener>();
+    private Set<IDropListener> dropListeners = new HashSet<>();
 
     /**
      * Creates a sennse tree,
@@ -72,7 +72,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
      */
     @Override
     public Component newNodeComponent(String id, IModel<Sense> model) {
-        return new DraggableNode<Sense>(id, this, model);
+        return new DraggableNode<>(id, this, model);
     }
 
     /**
@@ -85,7 +85,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     @SuppressWarnings("unchecked")
     protected IModel<Set<Sense>> createExpandState(Sense selectedNode) {
         Iterator iterator = getProvider().getRoots();
-        HashSet<Sense> expandedSenses = new HashSet<Sense>();
+        HashSet<Sense> expandedSenses = new HashSet<>();
 
         while (iterator.hasNext()) {
             expandedSenses.add((Sense) iterator.next());

@@ -40,7 +40,7 @@ class SetLemmaPanel extends ModalFormPanel {
     public SetLemmaPanel(String id, LemmatizationDataTable dataTable) {
         super(id);
         this.dataTable = dataTable;
-        lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<Lemma>());
+        lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<>());
         addFormComponent(lemmaTextField);
     }
 
@@ -82,7 +82,7 @@ class SetLemmaPanel extends ModalFormPanel {
         String lemmaName = lemmaTextField.getInput();
         Lemma lemma = new LemmaDao().findByName(lemmaName);
         Collection<IModel<Context>> rowModels = dataTable.getRowModels();
-        CollectionModel<Integer> selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
+        CollectionModel<Integer> selectedContextIds = new CollectionModel<>(new ArrayList<>());
         ContextDao contextDao = new ContextDao();
 
         if (lemma != null) {

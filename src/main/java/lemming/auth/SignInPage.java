@@ -37,7 +37,7 @@ public class SignInPage extends EmptyBasePage {
      */
     public SignInPage() {
         add(new FeedbackPanel("feedbackPanel"));
-        add(new SignInForm("signInForm").setDefaultModel(new CompoundPropertyModel<SignInPage>(this)));
+        add(new SignInForm("signInForm").setDefaultModel(new CompoundPropertyModel<>(this)));
         setStatelessHint(true);
     }
 

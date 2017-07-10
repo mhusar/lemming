@@ -18,12 +18,9 @@ import javax.persistence.EntityTransaction;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * A resource for part of speech data.
@@ -48,25 +45,22 @@ public class PosResource {
             Query query = session.createQuery("FROM Pos ORDER BY name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream outputStream) throws IOException, WebApplicationException {
-                    JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
-                            .enable(SerializationFeature.INDENT_OUTPUT)
-                            .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
-                    jsonGenerator.writeStartArray();
+            StreamingOutput streamingOutput = outputStream -> {
+                JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
+                        .enable(SerializationFeature.INDENT_OUTPUT)
+                        .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
+                jsonGenerator.writeStartArray();
 
-                    while (results.next()) {
-                        jsonGenerator.writeObject(results.get(0));
-                        jsonGenerator.flush();
-                    }
-
-                    jsonGenerator.writeEndArray();
+                while (results.next()) {
+                    jsonGenerator.writeObject(results.get(0));
                     jsonGenerator.flush();
-                    jsonGenerator.close();
-                    results.close();
-                    session.getTransaction().commit();
                 }
+
+                jsonGenerator.writeEndArray();
+                jsonGenerator.flush();
+                jsonGenerator.close();
+                results.close();
+                session.getTransaction().commit();
             };
 
             return Response.ok(streamingOutput).type(MediaType.APPLICATION_JSON)

@@ -6,8 +6,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import java.util.Iterator;
-
 /**
  * An extended AjaxNavigationToolbar with a custom paging navigator.
  *
@@ -29,7 +27,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
      */
     public NavigationToolbar(DataTable<T, String> table) {
         super(table);
-        navigatorFormPanel = new PagingNavigatorFormPanel<T>("navigatorFormPanel", table);
+        navigatorFormPanel = new PagingNavigatorFormPanel<>("navigatorFormPanel", table);
     }
 
     /**
@@ -38,11 +36,8 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        Iterator<Component> iterator = iterator();
 
-        while (iterator.hasNext()) {
-            Component component = iterator.next();
-
+        for (Component component : this) {
             if (component.getId().equals("span")) {
                 WebMarkupContainer spanContainer = (WebMarkupContainer) component;
                 spanContainer.add(navigatorFormPanel);

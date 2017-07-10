@@ -8,7 +8,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
@@ -38,9 +37,9 @@ public class CharacterEditPage extends BasePage {
         WebSession.get().checkSessionExpired();
 
         if (characters.isEmpty()) {
-            characterModel = new CompoundPropertyModel<Character>(new Character());
+            characterModel = new CompoundPropertyModel<>(new Character());
         } else {
-            characterModel = new CompoundPropertyModel<Character>(characters.get(0));
+            characterModel = new CompoundPropertyModel<>(characters.get(0));
         }
     }
 
@@ -87,9 +86,9 @@ public class CharacterEditPage extends BasePage {
             AjaxView<Character> characterView = (AjaxView<Character>) characterViewPanel.get("characterView");
             Component characterEditForm = characterEditPage.get("characterEditForm");
             Component newCharacterEditForm = new CharacterEditForm("characterEditForm",
-                    new CompoundPropertyModel<Character>(new Character()), characterView);
+                    new CompoundPropertyModel<>(new Character()), characterView);
 
-            characterView.setSelectedModel(new Model<Character>(new Character()));
+            characterView.setSelectedModel(new Model<>(new Character()));
             characterView.refresh(target);
             characterEditForm.replaceWith(newCharacterEditForm);
             target.add(newCharacterEditForm);

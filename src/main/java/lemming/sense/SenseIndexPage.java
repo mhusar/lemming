@@ -41,10 +41,10 @@ public class SenseIndexPage extends IndexBasePage {
      * Creates a sense index page.
      */
     public SenseIndexPage() {
-        GenericDataProvider<Sense> dataProvider = new GenericDataProvider<Sense>(Sense.class,
-                new SortParam<String>("lemmaString", true));
-        FilterForm<Sense> filterForm = new FilterForm<Sense>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        GenericDataProvider<Sense> dataProvider = new GenericDataProvider<>(Sense.class,
+                new SortParam<>("lemmaString", true));
+        FilterForm<Sense> filterForm = new FilterForm<>("filterForm", dataProvider);
+        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
         GenericDataTable<Sense> dataTable;
@@ -55,14 +55,14 @@ public class SenseIndexPage extends IndexBasePage {
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new GenericDataTable<Sense>("senseDataTable", getColumns(), dataProvider, filterForm);
+            dataTable = new GenericDataTable<>("senseDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new GenericDataTable<Sense>("senseDataTable", getColumns(), dataProvider);
+            dataTable = new GenericDataTable<>("senseDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             fragment.add(dataTable);
@@ -92,7 +92,7 @@ public class SenseIndexPage extends IndexBasePage {
      * @return A list of columns.
      */
     private List<IColumn<Sense, String>> getColumns() {
-        List<IColumn<Sense, String>> columns = new ArrayList<IColumn<Sense, String>>();
+        List<IColumn<Sense, String>> columns = new ArrayList<>();
 
         columns.add(new TextFilterColumn<Sense, Sense, String>(Model.of(getString("Sense.lemma")),
                 "lemmaString", "lemmaString"));
@@ -150,7 +150,7 @@ public class SenseIndexPage extends IndexBasePage {
          */
         public ChooseLemmaPanel(String id) {
             super(id);
-            lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<Lemma>());
+            lemmaTextField = new LemmaAutoCompleteTextField("lemma", new Model<>());
             addFormComponent(lemmaTextField);
         }
 
@@ -186,7 +186,7 @@ public class SenseIndexPage extends IndexBasePage {
             Lemma lemma = new LemmaDao().findByName(lemmaName);
 
             if (lemma != null) {
-                setResponsePage(new SenseEditPage(new Model<Lemma>(lemma), SenseIndexPage.class));
+                setResponsePage(new SenseEditPage(new Model<>(lemma), SenseIndexPage.class));
             }
         }
     }

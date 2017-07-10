@@ -15,13 +15,10 @@ import lemming.sense.SenseEditPage;
 import lemming.sense.SenseIndexPage;
 import lemming.ui.page.AccessDeniedPage;
 import lemming.ui.page.PageExpiredPage;
-import lemming.user.User;
 import lemming.user.UserEditPage;
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.RuntimeConfigurationType;
-import org.apache.wicket.authorization.IUnauthorizedComponentInstantiationListener;
 import org.apache.wicket.authorization.UnauthorizedInstantiationException;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
@@ -49,19 +46,16 @@ public class WebApplication extends AuthenticatedWebApplication {
         getSecuritySettings().setAuthorizationStrategy(
                 new AnnotationsRoleAuthorizationStrategy(this));
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(
-                new IUnauthorizedComponentInstantiationListener() {
-                    @Override
-                    public void onUnauthorizedInstantiation(Component component) {
-                        if (component instanceof Page) {
-                            if (WebSession.get().getUser() != null) {
-                                throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
+                component -> {
+                    if (component instanceof Page) {
+                        if (WebSession.get().getUser() != null) {
+                            throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
+                        } else {
+                            if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||
+                                    component instanceof PosEditPage || component instanceof SenseEditPage) {
+                                component.setResponsePage(SignInPage.class);
                             } else {
-                                if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||
-                                        component instanceof PosEditPage || component instanceof SenseEditPage) {
-                                    component.setResponsePage(SignInPage.class);
-                                } else {
-                                    throw new RestartResponseAtInterceptPageException(SignInPage.class);
-                                }
+                                throw new RestartResponseAtInterceptPageException(SignInPage.class);
                             }
                         }
                     }

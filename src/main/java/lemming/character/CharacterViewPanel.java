@@ -61,7 +61,7 @@ public class CharacterViewPanel extends Panel {
         Page characterEditPage = getPage();
         Form<Character> characterEditForm = (Form<Character>) characterEditPage.get("characterEditForm");
         Form<Character> newCharacterEditForm = new CharacterEditForm("characterEditForm",
-                new CompoundPropertyModel<Character>(model), getCharacterView());
+                new CompoundPropertyModel<>(model), getCharacterView());
 
         characterEditForm.replaceWith(newCharacterEditForm);
         target.add(newCharacterEditForm);

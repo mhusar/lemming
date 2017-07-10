@@ -15,7 +15,6 @@ import org.apache.wicket.model.IModel;
 import lemming.auth.WebSession;
 import lemming.table.FilterPanelColumn;
 import lemming.ui.panel.ModalMessagePanel;
-import lemming.user.User;
 
 /**
  * A custom column with actions for lemmata and and a filter panel as filter.

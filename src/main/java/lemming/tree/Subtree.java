@@ -39,7 +39,7 @@ public class Subtree<T> extends Panel {
 
             @Override
             protected Item<T> newItem(String id, int index, IModel<T> model) {
-                return new Branch<T>(id, index, model);
+                return new Branch<>(id, index, model);
             }
 
             @Override
@@ -48,7 +48,7 @@ public class Subtree<T> extends Panel {
                 Component node = tree.newNodeComponent("node", model);
 
                 item.add(node);
-                item.add(new Subtree<T>("subtree", tree, model));
+                item.add(new Subtree<>("subtree", tree, model));
             }
         };
 
@@ -85,11 +85,7 @@ public class Subtree<T> extends Panel {
         T modelObject = getModelObject();
 
         // null if there is only a root node
-        if (modelObject == null) {
-            return true;
-        } else {
-            return tree.getState(modelObject) == AbstractTree.State.EXPANDED;
-        }
+        return modelObject == null || tree.getState(modelObject) == AbstractTree.State.EXPANDED;
     }
 
     /**

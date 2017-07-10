@@ -2,8 +2,6 @@ package lemming.resource;
 
 import lemming.context.Context;
 import lemming.context.ContextType;
-import lemming.lemma.Lemma;
-import lemming.pos.Pos;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -42,7 +40,7 @@ public abstract class KwicIndex {
          */
         public SubList(String key) {
             this.key = key;
-            items = new ArrayList<Item>();
+            items = new ArrayList<>();
         }
 
         /**

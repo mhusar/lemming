@@ -2,7 +2,6 @@ package lemming.pos;
 
 import lemming.table.GenericDataTable;
 import lemming.ui.panel.ModalMessagePanel;
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;

@@ -18,12 +18,9 @@ import javax.persistence.EntityTransaction;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,37 +47,18 @@ public class LemmaResource {
             Query query = session.createQuery("SELECT l.id FROM Lemma l ORDER BY l.name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-            StreamingOutput streamingOutput = new StreamingOutput() {
-                @Override
-                public void write(OutputStream outputStream) throws IOException, WebApplicationException {
-                    JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
-                            .enable(SerializationFeature.INDENT_OUTPUT)
-                            .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
-                    jsonGenerator.writeStartArray();
-                    EntityManager entityManager2 = EntityManagerListener.createEntityManager();
-                    List<Integer> idList = new ArrayList<Integer>(1000);
+            StreamingOutput streamingOutput = outputStream -> {
+                JsonGenerator jsonGenerator = new ObjectMapper().configure(MapperFeature.USE_ANNOTATIONS, true)
+                        .enable(SerializationFeature.INDENT_OUTPUT)
+                        .getFactory().createGenerator(outputStream, JsonEncoding.UTF8);
+                jsonGenerator.writeStartArray();
+                EntityManager entityManager2 = EntityManagerListener.createEntityManager();
+                List<Integer> idList = new ArrayList<>(1000);
 
-                    while (results.next()) {
-                        idList.add(results.getInteger(0));
+                while (results.next()) {
+                    idList.add(results.getInteger(0));
 
-                        if (idList.size() == 1000) {
-                            List<Lemma> lemmaList = entityManager2
-                                    .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
-                                            "LEFT JOIN FETCH l.pos WHERE l.replacement IS NULL " +
-                                            "AND l.id IN (:ids) ORDER BY l.name", Lemma.class)
-                                    .setParameter("ids", idList).getResultList();
-
-                            for (Lemma lemma : lemmaList) {
-                                jsonGenerator.writeObject(lemma);
-                                jsonGenerator.flush();
-                            }
-
-                            idList.clear();
-                            entityManager2.clear();
-                        }
-                    }
-
-                    if (!idList.isEmpty()) {
+                    if (idList.size() == 1000) {
                         List<Lemma> lemmaList = entityManager2
                                 .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
                                         "LEFT JOIN FETCH l.pos WHERE l.replacement IS NULL " +
@@ -91,15 +69,31 @@ public class LemmaResource {
                             jsonGenerator.writeObject(lemma);
                             jsonGenerator.flush();
                         }
-                    }
 
-                    jsonGenerator.writeEndArray();
-                    jsonGenerator.flush();
-                    jsonGenerator.close();
-                    entityManager2.close();
-                    results.close();
-                    session.getTransaction().commit();
+                        idList.clear();
+                        entityManager2.clear();
+                    }
                 }
+
+                if (!idList.isEmpty()) {
+                    List<Lemma> lemmaList = entityManager2
+                            .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
+                                    "LEFT JOIN FETCH l.pos WHERE l.replacement IS NULL " +
+                                    "AND l.id IN (:ids) ORDER BY l.name", Lemma.class)
+                            .setParameter("ids", idList).getResultList();
+
+                    for (Lemma lemma : lemmaList) {
+                        jsonGenerator.writeObject(lemma);
+                        jsonGenerator.flush();
+                    }
+                }
+
+                jsonGenerator.writeEndArray();
+                jsonGenerator.flush();
+                jsonGenerator.close();
+                entityManager2.close();
+                results.close();
+                session.getTransaction().commit();
             };
 
             return Response.ok(streamingOutput).type(MediaType.APPLICATION_JSON)

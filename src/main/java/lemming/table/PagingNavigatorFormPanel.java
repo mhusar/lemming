@@ -37,7 +37,7 @@ public class PagingNavigatorFormPanel<T> extends Panel {
          */
         public PagingNavigatorForm(String id, DataTable<T, String> table) {
             super(id);
-            TextField<String> pageTextField = new TextField<String>("page", Model.of(""));
+            TextField<String> pageTextField = new TextField<>("page", Model.of(""));
             AjaxButton gotoButton = new GotoButton("gotoButton", table, pageTextField);
             add(pageTextField.setOutputMarkupId(true));
             add(gotoButton.setOutputMarkupId(true));

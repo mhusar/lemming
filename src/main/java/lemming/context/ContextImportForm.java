@@ -16,7 +16,6 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -88,8 +87,8 @@ public class ContextImportForm extends Form<Void> {
     protected void onInitialize() {
         super.onInitialize();
         setMarkupId(getId());
-        fileInput = new FileUploadField("fileInput", new Model<ArrayList<FileUpload>>(new ArrayList<FileUpload>()));
-        textInput = new TextField<String>("textInput", Model.of(""));
+        fileInput = new FileUploadField("fileInput", new Model<>(new ArrayList<>()));
+        textInput = new TextField<>("textInput", Model.of(""));
         removeButton = new RemoveButton("removeButton");
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel("alertPanel");

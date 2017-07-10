@@ -6,7 +6,6 @@ import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 import java.util.HashSet;
@@ -26,7 +25,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Listener for select events.
      */
-    private Set<ISelectListener<T>> selectListeners = new HashSet<ISelectListener<T>>();
+    private Set<ISelectListener<T>> selectListeners = new HashSet<>();
 
     /**
      * Creates a nested tree.
@@ -58,7 +57,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
             throw new IllegalStateException("The selected model is not allowed to be null!");
         }
 
-        add(new Subtree<T>("subtree", this, null));
+        add(new Subtree<>("subtree", this, null));
         setOutputMarkupId(true);
     }
 
@@ -214,16 +213,13 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         if (handler != null) {
             final IModel<T> model = getProvider().model(object);
 
-            visitChildren(Node.class, new IVisitor<Node<T>, Void>() {
-                @Override
-                public void component(Node<T> node, IVisit<Void> visit) {
-                    if (model.equals(node.getModel())) {
-                        handler.add(node);
-                        visit.stop();
-                    }
-
-                    visit.dontGoDeeper();
+            visitChildren(Node.class, (IVisitor<Node<T>, Void>) (node, visit) -> {
+                if (model.equals(node.getModel())) {
+                    handler.add(node);
+                    visit.stop();
                 }
+
+                visit.dontGoDeeper();
             });
             model.detach();
         }
@@ -240,13 +236,10 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
         if (handler != null) {
             final IModel<T> model = getProvider().model(object);
 
-            visitChildren(Branch.class, new IVisitor<Branch<T>, Void>() {
-                @Override
-                public void component(Branch<T> branch, IVisit<Void> visit) {
-                    if (model.equals(branch.getModel())) {
-                        handler.add(branch);
-                        visit.stop();
-                    }
+            visitChildren(Branch.class, (IVisitor<Branch<T>, Void>) (branch, visit) -> {
+                if (model.equals(branch.getModel())) {
+                    handler.add(branch);
+                    visit.stop();
                 }
             });
             model.detach();

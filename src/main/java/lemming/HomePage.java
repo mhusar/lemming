@@ -25,19 +25,19 @@ public class HomePage extends BasePage {
      * Initializes a home page.
      */
     public HomePage() {
-        BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<Void>("lemmatizationLink",
+        BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<>("lemmatizationLink",
                 LemmatizationPage.class);
-        BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<Void>("contextIndexLink",
+        BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<>("contextIndexLink",
                 ContextIndexPage.class);
-        BookmarkablePageLink<Void> contextImportLink = new BookmarkablePageLink<Void>("contextImportLink",
+        BookmarkablePageLink<Void> contextImportLink = new BookmarkablePageLink<>("contextImportLink",
                 ContextImportPage.class);
-        BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<Void>("lemmaIndexLink",
+        BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<>("lemmaIndexLink",
                 LemmaIndexPage.class);
-        BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<Void>("senseIndexLink",
+        BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<>("senseIndexLink",
                 SenseIndexPage.class);
-        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<Void>("posIndexLink", PosIndexPage.class);
-        BookmarkablePageLink<Void> resourceLink = new BookmarkablePageLink<Void>("resourceLink", ResourcePage.class);
-        BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<Void>("userEditLink", UserEditPage.class);
+        BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<>("posIndexLink", PosIndexPage.class);
+        BookmarkablePageLink<Void> resourceLink = new BookmarkablePageLink<>("resourceLink", ResourcePage.class);
+        BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<>("userEditLink", UserEditPage.class);
         UserBookmarkablePageLink characterEditPageLink = new UserBookmarkablePageLink("characterEditPageLink",
                 CharacterEditPage.class);
 

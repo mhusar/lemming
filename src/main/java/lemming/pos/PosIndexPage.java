@@ -36,10 +36,10 @@ public class PosIndexPage extends IndexBasePage {
      * Creates a pos index page.
      */
     public PosIndexPage() {
-        GenericDataProvider<Pos> dataProvider = new GenericDataProvider<Pos>(Pos.class,
-                new SortParam<String>("name", true));
-        FilterForm<Pos> filterForm = new FilterForm<Pos>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        GenericDataProvider<Pos> dataProvider = new GenericDataProvider<>(Pos.class,
+                new SortParam<>("name", true));
+        FilterForm<Pos> filterForm = new FilterForm<>("filterForm", dataProvider);
+        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
         GenericDataTable<Pos> dataTable;
@@ -49,14 +49,14 @@ public class PosIndexPage extends IndexBasePage {
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new GenericDataTable<Pos>("posDataTable", getColumns(), dataProvider, filterForm);
+            dataTable = new GenericDataTable<>("posDataTable", getColumns(), dataProvider, filterForm);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new GenericDataTable<Pos>("posDataTable", getColumns(), dataProvider);
+            dataTable = new GenericDataTable<>("posDataTable", getColumns(), dataProvider);
 
             filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
             fragment.add(dataTable);
@@ -87,7 +87,7 @@ public class PosIndexPage extends IndexBasePage {
      * @return A list of columns.
      */
     private List<IColumn<Pos, String>> getColumns() {
-        List<IColumn<Pos, String>> columns = new ArrayList<IColumn<Pos, String>>();
+        List<IColumn<Pos, String>> columns = new ArrayList<>();
 
         columns.add(new TextFilterColumn<Pos, Pos, String>(Model.of(getString("Pos.name")),
                 "name", "name"));

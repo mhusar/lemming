@@ -1,6 +1,5 @@
 package lemming.ui.page;
 
-import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.head.*;
 import org.apache.wicket.markup.html.WebPage;

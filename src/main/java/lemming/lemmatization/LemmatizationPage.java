@@ -8,7 +8,6 @@ import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.TitleLabel;
 import lemming.ui.input.InputPanel;
-import lemming.ui.page.IndexBasePage;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.Component;
@@ -19,7 +18,6 @@ import org.apache.wicket.ajax.attributes.ThrottlingSettings;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.behavior.AbstractAjaxBehavior;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
@@ -56,10 +54,10 @@ public class LemmatizationPage extends LemmatizationBasePage {
      * Creates a lemmatization page.
      */
     public LemmatizationPage() {
-        GenericDataProvider<Context> dataProvider = new GenericDataProvider<Context>(Context.class,
-                new SortParam<String>("keyword", true));
-        FilterForm<Context> filterForm = new FilterForm<Context>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<String>("filterTextField", Model.of(""));
+        GenericDataProvider<Context> dataProvider = new GenericDataProvider<>(Context.class,
+                new SortParam<>("keyword", true));
+        FilterForm<Context> filterForm = new FilterForm<>("filterForm", dataProvider);
+        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 

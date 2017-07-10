@@ -14,7 +14,6 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 import java.util.List;
@@ -122,12 +121,7 @@ public abstract class ModalFormPanel extends Panel {
      * @param target target that produces an Ajax response
      */
     public void hide(AjaxRequestTarget target) {
-        form.visitFormComponents(new IVisitor<FormComponent<?>, List<FormComponent>>() {
-            @Override
-            public void component(FormComponent<?> formComponent, IVisit<List<FormComponent>> visit) {
-                target.appendJavaScript("jQuery('#" + formComponent.getMarkupId() + "').val('');");
-            }
-        });
+        form.visitFormComponents((IVisitor<FormComponent<?>, List<FormComponent>>) (formComponent, visit) -> target.appendJavaScript("jQuery('#" + formComponent.getMarkupId() + "').val('');"));
         target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
     }
 

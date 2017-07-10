@@ -86,7 +86,7 @@ public class SenseTreeProvider implements INestedTreeProvider<Sense> {
      */
     @Override
     public IModel<Sense> model(Sense object) {
-        return new Model<Sense>(object);
+        return new Model<>(object);
     }
 
     /**

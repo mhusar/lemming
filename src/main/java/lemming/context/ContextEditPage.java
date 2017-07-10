@@ -30,7 +30,7 @@ public class ContextEditPage extends BasePage {
      * Creates a context edit page.
      */
     public ContextEditPage() {
-        contextModel = new CompoundPropertyModel<Context>(new Context());
+        contextModel = new CompoundPropertyModel<>(new Context());
         nextPageClass = null;
     }
 
@@ -41,7 +41,7 @@ public class ContextEditPage extends BasePage {
      *            class of the next page
      */
     public ContextEditPage(Class<? extends Page> nextPageClass) {
-        contextModel = new CompoundPropertyModel<Context>(new Context());
+        contextModel = new CompoundPropertyModel<>(new Context());
         this.nextPageClass = nextPageClass;
     }
 
@@ -59,7 +59,7 @@ public class ContextEditPage extends BasePage {
         if (contextModel != null) {
             Context context = contextModel.getObject();
             Context refreshedContext = new ContextDao().refresh(context);
-            this.contextModel = new CompoundPropertyModel<Context>(refreshedContext);
+            this.contextModel = new CompoundPropertyModel<>(refreshedContext);
         }
     }
 

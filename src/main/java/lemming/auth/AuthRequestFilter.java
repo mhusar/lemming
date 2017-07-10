@@ -1,7 +1,5 @@
 package lemming.auth;
 
-import lemming.user.User;
-
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

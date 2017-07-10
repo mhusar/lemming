@@ -1,7 +1,5 @@
 package lemming.data;
 
-import org.hibernate.ScrollableResults;
-
 import java.util.List;
 
 /**
