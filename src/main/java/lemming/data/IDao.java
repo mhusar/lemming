@@ -86,7 +86,7 @@ public interface IDao<E> {
      * Sends the user to an error page if removing of data failed due to
      * locking.
      *
-     * @element the element that was not removed
+     * @param element the element that was not removed
      * @param exception
      *            the raised exception
      */
@@ -107,7 +107,7 @@ public interface IDao<E> {
      * Sends the user to an error page if removing of data failed due to an
      * unresolvable object.
      *
-     * @element the element that was not removed
+     * @param element the element that was not removed
      * @param exception
      *            the raised exception
      */

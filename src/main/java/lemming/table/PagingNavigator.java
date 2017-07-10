@@ -52,7 +52,7 @@ class PagingNavigator extends AjaxPagingNavigator {
     protected PagingNavigation newNavigation(String id, IPageable pageable, IPagingLabelProvider labelProvider) {
         PagingNavigation navigation = new AjaxPagingNavigation(id, pageable, labelProvider) {
             /**
-             * @param iteration
+             * @param iteration iteration index
              * @return A loop item.
              */
             @Override

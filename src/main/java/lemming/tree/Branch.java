@@ -15,7 +15,7 @@ public class Branch<T> extends Item<T> {
      *
      * @param id ID of the branch
      * @param index index of the branch
-     * @param model
+     * @param model model of the branch
      */
     public Branch(String id, int index, IModel<T> model) {
         super(id, index, model);
