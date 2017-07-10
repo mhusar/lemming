@@ -74,7 +74,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Root<T> root = criteriaQuery.from(typeClass);
         EntityTransaction transaction = entityManager.getTransaction();
 
-        if (!(getSort() != null)) {
+        if (getSort() == null) {
             setSort(defaultSortParam);
         }
 
@@ -143,7 +143,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
         Root<T> root = criteriaQuery.from(typeClass);
         EntityTransaction transaction = entityManager.getTransaction();
 
-        if (!(getSort() != null)) {
+        if (getSort() == null) {
             setSort(defaultSortParam);
         }
 
@@ -311,9 +311,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     protected List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String,Join<?,?>> joins) {
         String property = getSort().getProperty();
-        List<Order> orderList = CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending(),
-                typeClass);
 
-        return orderList;
+        return CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending(),
+                typeClass);
     }
 }

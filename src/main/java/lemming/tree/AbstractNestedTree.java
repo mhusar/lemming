@@ -143,8 +143,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      */
     public void collapse(AjaxRequestTarget target, T object) {
         super.collapse(object);
-        T selectedObject = selectedObjectModel.getObject();
-        T selectedObjectAncestor = selectedObject;
+        T selectedObjectAncestor = selectedObjectModel.getObject();
 
         if (selectedObjectAncestor != null) {
             while (getProvider().hasParent(selectedObjectAncestor)) {

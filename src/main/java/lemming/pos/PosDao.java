@@ -29,7 +29,7 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
      * {@inheritDoc}
      */
     public Boolean isTransient(Pos pos) {
-        return !(pos.getId() != null);
+        return pos.getId() == null;
     }
 
     /**
@@ -61,7 +61,7 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(pos.getUuid() != null)) {
+        if (pos.getUuid() == null) {
             pos.setUuid(UUID.randomUUID().toString());
         }
 

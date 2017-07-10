@@ -62,7 +62,7 @@ public class UserEditPage extends BasePage {
     public String getVariation() {
         User sessionUser = WebSession.get().getUser();
 
-        if (!(sessionUser != null)) {
+        if (sessionUser == null) {
             return "user";
         }
 

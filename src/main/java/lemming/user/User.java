@@ -309,7 +309,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
         User user = (User) object;
 
-        if (!(uuid != null)) {
+        if (uuid == null) {
             uuid = UUID.randomUUID().toString();
         }
 
@@ -323,7 +323,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid != null)) {
+        if (uuid == null) {
             uuid = UUID.randomUUID().toString();
         }
 

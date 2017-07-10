@@ -28,7 +28,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
      * {@inheritDoc}
      */
     public Boolean isTransient(Sense sense) {
-        return !(sense.getId() != null);
+        return sense.getId() == null;
     }
 
     /**
@@ -82,7 +82,7 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(sense.getUuid() != null)) {
+        if (sense.getUuid() == null) {
             sense.setUuid(UUID.randomUUID().toString());
         }
 

@@ -32,11 +32,6 @@ public class SenseEditPage extends BasePage {
     private IModel<Sense> senseModel;
 
     /**
-     * Class of the next page.
-     */
-    private Class<? extends Page> nextPageClass;
-
-    /**
      * Empty constructor which is used when a user isn’t signed in.
      */
     public SenseEditPage() {
@@ -49,8 +44,6 @@ public class SenseEditPage extends BasePage {
      * @param nextPageClass class of the next page
      */
     public SenseEditPage(IModel<?> model, Class<? extends Page> nextPageClass) {
-        this.nextPageClass = nextPageClass;
-
         if (model != null) {
             if (model.getObject() instanceof Lemma) {
                 Lemma lemma = (Lemma) model.getObject();

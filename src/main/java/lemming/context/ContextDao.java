@@ -30,7 +30,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      */
     @Override
     public Boolean isTransient(Context context) {
-        return !(context.getId() != null);
+        return context.getId() == null;
     }
 
     /**
@@ -88,7 +88,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(context.getUuid() != null)) {
+        if (context.getUuid() == null) {
             context.setUuid(UUID.randomUUID().toString());
         }
 
@@ -136,7 +136,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             for (Context context : contexts) {
                 currentContext = context;
 
-                if (!(context.getUuid() != null)) {
+                if (context.getUuid() == null) {
                     context.setUuid(UUID.randomUUID().toString());
                 }
 

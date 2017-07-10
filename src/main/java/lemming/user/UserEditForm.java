@@ -220,7 +220,7 @@ public class UserEditForm extends Form<User> {
         public void validate(IValidatable<UserRoles.Role> validatable) {
             ValidationError error = new ValidationError();
 
-            if (!(validatable.getValue() != null)) {
+            if (validatable.getValue() == null) {
                 error.addKey("UserEditForm.role-is-required");
             }
 

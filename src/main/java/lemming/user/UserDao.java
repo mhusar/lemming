@@ -59,7 +59,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      * {@inheritDoc}
      */
     public Boolean isTransient(User user) {
-        return !(user.getId() != null);
+        return user.getId() == null;
     }
 
     /**
@@ -71,7 +71,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(user.getUuid() != null)) {
+        if (user.getUuid() == null) {
             user.setUuid(UUID.randomUUID().toString());
         }
 
