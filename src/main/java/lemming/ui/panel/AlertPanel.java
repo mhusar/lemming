@@ -21,17 +21,17 @@ public class AlertPanel extends Panel {
     /**
      * A label displaying a colon.
      */
-    private Label colonLabel;
+    private final Label colonLabel;
 
     /**
      * Message label of the panel.
      */
-    private Label messageLabel;
+    private final Label messageLabel;
 
     /**
      * Status label of the panel.
      */
-    private Label statusLabel;
+    private final Label statusLabel;
 
     /**
      * Creates a alert panel.

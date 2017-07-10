@@ -237,7 +237,7 @@ public class UserEditForm extends Form<User> {
          /**
          * User model that is edited.
          */
-        private IModel<User> userModel;
+        private final IModel<User> userModel;
 
         /**
          * Creates a realName validator.
@@ -284,7 +284,7 @@ public class UserEditForm extends Form<User> {
         /**
          * User model that is edited.
          */
-        private IModel<User> userModel;
+        private final IModel<User> userModel;
 
         /**
          * Creates a username validator.

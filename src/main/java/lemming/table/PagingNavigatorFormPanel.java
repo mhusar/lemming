@@ -52,12 +52,12 @@ public class PagingNavigatorFormPanel<T> extends Panel {
         /**
          * The parent table.
          */
-        private DataTable<T, String> table;
+        private final DataTable<T, String> table;
 
         /**
          * A text field for page numbers.
          */
-        private TextField<String> pageTextField;
+        private final TextField<String> pageTextField;
 
         /**
          * Creates a go to button.

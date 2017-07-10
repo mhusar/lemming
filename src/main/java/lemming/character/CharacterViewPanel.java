@@ -18,7 +18,7 @@ public class CharacterViewPanel extends Panel {
     /**
      * A view displaying special characters.
      */
-    private CharacterAjaxView characterView;
+    private final CharacterAjaxView characterView;
 
     /**
      * Creates a character view panel.

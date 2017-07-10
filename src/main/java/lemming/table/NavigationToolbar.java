@@ -17,7 +17,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     /**
      * A navigation form with a go to page field.
      */
-    private Panel navigatorFormPanel;
+    private final Panel navigatorFormPanel;
 
     /**
      * Creates a navigation toolbar.

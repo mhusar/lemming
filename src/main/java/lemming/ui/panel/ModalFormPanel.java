@@ -25,22 +25,22 @@ public abstract class ModalFormPanel extends Panel {
     /**
      * Form of a modal form panel.
      */
-    private Form<?> form;
+    private final Form<?> form;
 
     /**
      * The modal window container.
      */
-    private MarkupContainer container;
+    private final MarkupContainer container;
 
     /**
      * Confirms the dialog when clicked.
      */
-    private Button confirmButton;
+    private final Button confirmButton;
 
     /**
      * ID of the modal window.
      */
-    private String modalWindowId;
+    private final String modalWindowId;
 
     /**
      * Creates a modal form panel.

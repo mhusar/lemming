@@ -14,7 +14,7 @@ public class SenseTreeProvider implements INestedTreeProvider<Sense> {
     /**
      * Lemma of senses.
      */
-    private Lemma lemma;
+    private final Lemma lemma;
 
     /**
      * Creates a sense tree provider.

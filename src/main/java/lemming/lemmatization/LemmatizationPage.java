@@ -48,7 +48,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * A data table for contexts.
      */
-    private LemmatizationDataTable dataTable;
+    private final LemmatizationDataTable dataTable;
 
     /**
      * Creates a lemmatization page.
@@ -165,17 +165,17 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * The text field used as filter component.
          */
-        TextField<String> textField;
+        final TextField<String> textField;
 
         /**
          * Data table displaying filtered data.
          */
-        LemmatizationDataTable dataTable;
+        final LemmatizationDataTable dataTable;
 
         /**
          * Data provider which delivers data for the table.
          */
-        GenericDataProvider<Context> dataProvider;
+        final GenericDataProvider<Context> dataProvider;
 
         /**
          * Creates a behavior.
@@ -248,7 +248,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Modal form panel which is shown on click.
          */
-        private ModalFormPanel setLemmaPanel;
+        private final ModalFormPanel setLemmaPanel;
 
         /**
          * Creates a set lemma link.
@@ -278,7 +278,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Modal form panel which is shown on click.
          */
-        private ModalFormPanel setPosPanel;
+        private final ModalFormPanel setPosPanel;
 
         /**
          * Creates a set part of speech link.

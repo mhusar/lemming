@@ -20,7 +20,7 @@ public abstract class BaseNode<T> extends Panel {
     /**
      * The owning tree.
      */
-    private AbstractNestedTree<T> tree;
+    private final AbstractNestedTree<T> tree;
 
     /**
      * Creates a tree node.

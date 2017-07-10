@@ -30,7 +30,7 @@ public class CharacterEditForm extends Form<Character> {
     /**
      * A character view displaying special characters.
      */
-    private AjaxView<Character> characterView;
+    private final AjaxView<Character> characterView;
 
     /**
      * Creates a special character edit form.
@@ -257,7 +257,7 @@ public class CharacterEditForm extends Form<Character> {
         /**
          * Character model that is edited.
          */
-        private IModel<Character> characterModel;
+        private final IModel<Character> characterModel;
 
         /**
          * Creates a character validator.

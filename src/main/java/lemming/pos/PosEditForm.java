@@ -27,7 +27,7 @@ public class PosEditForm extends Form<Pos> {
     /**
      * Class of the next page.
      */
-    private Class<? extends Page> nextPageClass;
+    private final Class<? extends Page> nextPageClass;
 
     /**
      * Creates a part of speech edit form.
@@ -162,7 +162,7 @@ public class PosEditForm extends Form<Pos> {
         /**
          * Pos model that is edited.
          */
-        private IModel<Pos> posModel;
+        private final IModel<Pos> posModel;
 
         /**
          * Creates a part of speech name validator.

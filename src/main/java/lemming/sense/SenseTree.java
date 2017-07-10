@@ -22,7 +22,7 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * A set of drop listeners.
      */
-    private Set<IDropListener> dropListeners = new HashSet<>();
+    private final Set<IDropListener> dropListeners = new HashSet<>();
 
     /**
      * Creates a sennse tree,

@@ -20,12 +20,12 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Model of the selected node object.
      */
-    private IModel<T> selectedObjectModel;
+    private final IModel<T> selectedObjectModel;
 
     /**
      * Listener for select events.
      */
-    private Set<ISelectListener<T>> selectListeners = new HashSet<>();
+    private final Set<ISelectListener<T>> selectListeners = new HashSet<>();
 
     /**
      * Creates a nested tree.

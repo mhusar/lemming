@@ -80,7 +80,7 @@ public abstract class KwicIndex {
          * Following attribute of an item.
          */
         @XmlAttribute(required = true)
-        private String following;
+        private final String following;
 
         /**
          * Lemma attribute of an item.
@@ -92,7 +92,7 @@ public abstract class KwicIndex {
          * Location attribute of an item.
          */
         @XmlAttribute(required = true)
-        private String location;
+        private final String location;
 
         /**
          * Pos attribute of an item.
@@ -104,7 +104,7 @@ public abstract class KwicIndex {
          * Preceding attribute of an item.
          */
         @XmlAttribute(required = true)
-        private String preceding;
+        private final String preceding;
 
         /**
          * Type attribute of an item.
@@ -128,7 +128,7 @@ public abstract class KwicIndex {
          * Keyword value of an item.
          */
         @XmlElement(name = "string")
-        private Keyword keyword;
+        private final Keyword keyword;
 
         /**
          * End punctuation tag of an item.
@@ -286,7 +286,7 @@ public abstract class KwicIndex {
          * Value of a keyword.
          */
         @XmlValue
-        private String value;
+        private final String value;
 
         /**
          * Creates a keyword object.
@@ -315,13 +315,13 @@ public abstract class KwicIndex {
          * Type of punctuation.
          */
         @XmlAttribute(required = true)
-        private String type;
+        private final String type;
 
         /**
          * Value of a punctuation item.
          */
         @XmlValue
-        private String value;
+        private final String value;
 
         /**
          * Creates a punctuation object.

@@ -28,7 +28,7 @@ public abstract class ModalMessagePanel extends Panel {
     /**
      * Dialog type of the modal window.
      */
-    private DialogType dialogType;
+    private final DialogType dialogType;
 
     /**
      * Message label of the modal window dialog.
@@ -53,7 +53,7 @@ public abstract class ModalMessagePanel extends Panel {
     /**
      * ID of the modal window.
      */
-    private String modalWindowId;
+    private final String modalWindowId;
 
     /**
      * Creates a modal window.

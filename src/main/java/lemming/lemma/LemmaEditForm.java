@@ -31,7 +31,7 @@ public class LemmaEditForm extends Form<Lemma> {
     /**
      * Class of the next page.
      */
-    private Class<? extends Page> nextPageClass;
+    private final Class<? extends Page> nextPageClass;
 
     /**
      * Creates a lemma edit form.
@@ -216,7 +216,7 @@ public class LemmaEditForm extends Form<Lemma> {
         /**
          * Lemma model that is edited.
          */
-        private IModel<Lemma> lemmaModel;
+        private final IModel<Lemma> lemmaModel;
 
         /**
          * Creates a lemma name validator.
@@ -263,7 +263,7 @@ public class LemmaEditForm extends Form<Lemma> {
         /**
          * Lemma model that is edited.
          */
-        private IModel<Lemma> lemmaModel;
+        private final IModel<Lemma> lemmaModel;
 
         /**
          * Creates a replacement lemma validator.

@@ -32,7 +32,7 @@ public abstract class GenericDao<E> implements IDao<E> {
     /**
      * The class of the entity.
      */
-    private Class<E> entityClass;
+    private final Class<E> entityClass;
 
     /**
      * Initializes a GenericDao as IDao implementation.

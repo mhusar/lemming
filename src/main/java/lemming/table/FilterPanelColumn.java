@@ -29,7 +29,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
     /**
      * The class type that is filtered.
      */
-    Class<T> typeClass;
+    final Class<T> typeClass;
 
     /**
      * Creates a filter panel column.

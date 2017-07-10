@@ -26,12 +26,12 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * The data type that is provided.
      */
-    protected Class<T> typeClass;
+    protected final Class<T> typeClass;
 
     /**
      * Defindes the default sort order.
      */
-    protected SortParam<String> defaultSortParam;
+    protected final SortParam<String> defaultSortParam;
 
     /**
      * The state defined by a filter form.

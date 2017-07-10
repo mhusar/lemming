@@ -14,7 +14,7 @@ public class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
     /**
      * The page loaded after submit.
      */
-    private Page responsePage;
+    private final Page responsePage;
 
     /**
      * Creates a submit link.

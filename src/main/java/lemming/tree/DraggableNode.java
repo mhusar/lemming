@@ -79,7 +79,7 @@ public class DraggableNode<T> extends BaseNode<T> {
         /**
          * Dropzone type.
          */
-        private DropzoneType type;
+        private final DropzoneType type;
 
         /**
          * Creates a dropzone

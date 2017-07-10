@@ -24,12 +24,12 @@ class SetPosPanel extends ModalFormPanel {
     /**
      * A data table.
      */
-    private LemmatizationDataTable dataTable;
+    private final LemmatizationDataTable dataTable;
 
     /**
      * A auto-complete textfield for parts of speech.
      */
-    private PosAutoCompleteTextField posTextField;
+    private final PosAutoCompleteTextField posTextField;
 
     /**
      * Creates a set part of speech panel.
