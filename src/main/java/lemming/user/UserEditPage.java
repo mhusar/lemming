@@ -96,7 +96,7 @@ public class UserEditPage extends BasePage {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            MarkupContainer userEditPage = (UserEditPage) findParent(UserEditPage.class);
+            MarkupContainer userEditPage = findParent(UserEditPage.class);
             MarkupContainer userViewPanel = (UserViewPanel) userEditPage.get("userViewPanel");
             MarkupContainer feedbackPanel = (FeedbackPanel) userEditPage.get("feedbackPanel");
             Component userView = new UserViewPanel.UserView("userView", new Model<User>(new User()));

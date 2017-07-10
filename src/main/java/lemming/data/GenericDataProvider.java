@@ -230,7 +230,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
                 if (value != null) {
                     if (value instanceof String) {
                         Expression<String> expression = root.get(field.getName());
-                        String filter = (String) value + "%";
+                        String filter = value + "%";
                         predicateList.add(criteriaBuilder.like(expression, filter));
                     } else {
                         Expression<String> expression = root.get(field.getName());

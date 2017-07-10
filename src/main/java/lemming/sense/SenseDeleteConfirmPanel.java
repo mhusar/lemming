@@ -75,7 +75,7 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
         Sense sense = (Sense) getDefaultModelObject();
 
         return new StringResourceModel("SenseDeleteConfirmPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + sense.getMeaning() + "</b>");
+                this, getDefaultModel()).setParameters("<b>" + sense.getMeaning() + "</b>");
     }
 
     /**

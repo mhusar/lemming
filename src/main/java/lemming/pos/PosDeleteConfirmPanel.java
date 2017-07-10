@@ -66,7 +66,7 @@ public class PosDeleteConfirmPanel extends ModalMessagePanel {
         Pos pos = (Pos) getDefaultModelObject();
 
         return new StringResourceModel("PosDeleteConfirmPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + pos.getName() + "</b>");
+                this, getDefaultModel()).setParameters("<b>" + pos.getName() + "</b>");
     }
 
     /**

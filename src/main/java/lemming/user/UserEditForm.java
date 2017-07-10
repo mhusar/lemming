@@ -107,7 +107,7 @@ public class UserEditForm extends Form<User> {
             User persistentUser = userDao.find(userId);
 
             if (persistentUser instanceof User) {
-                passwordChanged = (user.getPassword().equals(persistentUser.getPassword())) ? false : true;
+                passwordChanged = !user.getPassword().equals(persistentUser.getPassword());
             }
         }
 

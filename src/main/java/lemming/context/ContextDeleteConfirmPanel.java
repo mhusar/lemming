@@ -65,7 +65,7 @@ public class ContextDeleteConfirmPanel extends ModalMessagePanel {
     public StringResourceModel getMessageModel() {
         Context context = (Context) getDefaultModelObject();
 
-        return new StringResourceModel("ContextDeleteConfirmPanel.message",(Component) this,
+        return new StringResourceModel("ContextDeleteConfirmPanel.message", this,
                 getDefaultModel()).setParameters(context.getPreceding() + " <i>" + context.getKeyword() +
                 "</i> " + context.getFollowing());
     }

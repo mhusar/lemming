@@ -27,7 +27,7 @@ public abstract class UserRoles {
     /**
      * Allowed roles for users.
      */
-    public static enum Role {
+    public enum Role {
         STUDENT, USER, ADMIN
-    };
+    }
 }

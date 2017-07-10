@@ -67,7 +67,7 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
         Lemma lemma = (Lemma) getDefaultModelObject();
 
         return new StringResourceModel("LemmaDeleteConfirmPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + lemma.getName() + "</b>");
+                this, getDefaultModel()).setParameters("<b>" + lemma.getName() + "</b>");
     }
 
     /**

@@ -53,7 +53,7 @@ public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
         Lemma lemma = (Lemma) getDefaultModelObject();
 
         return new StringResourceModel("LemmaDeleteDeniedPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + lemma.getName() + "</b>");
+                this, getDefaultModel()).setParameters("<b>" + lemma.getName() + "</b>");
     }
 
     /**

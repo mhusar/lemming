@@ -169,7 +169,7 @@ public class FilterPanelColumn<T> extends FilteredAbstractColumn<T, String> {
             FilterForm<T> form = (FilterForm<T>) button.getForm();
             GenericDataProvider<T> dataProvider = (GenericDataProvider<T>) form.getStateLocator();
 
-            dataProvider.setFilterState((T) WicketObjects.cloneObject(originalState));
+            dataProvider.setFilterState(WicketObjects.cloneObject(originalState));
         }
     }
 }

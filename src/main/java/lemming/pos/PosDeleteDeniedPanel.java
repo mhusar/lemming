@@ -52,7 +52,7 @@ public class PosDeleteDeniedPanel extends ModalMessagePanel {
         Pos pos = (Pos) getDefaultModelObject();
 
         return new StringResourceModel("PosDeleteDeniedPanel.message",
-                (Component) this, getDefaultModel()).setParameters("<b>" + pos.getName() + "</b>");
+                this, getDefaultModel()).setParameters("<b>" + pos.getName() + "</b>");
     }
 
     /**
