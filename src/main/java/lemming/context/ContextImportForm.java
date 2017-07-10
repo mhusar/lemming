@@ -37,11 +37,11 @@ import java.util.List;
 /**
  * A form able to upload and import contexts.
  */
-public class ContextImportForm extends Form<Void> {
+class ContextImportForm extends Form<Void> {
     /**
      * A logger named corresponding to this class.
      */
-    public static final Logger logger = LoggerFactory.getLogger(ContextImportForm.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContextImportForm.class);
 
     /**
      * Creates a context import form.
@@ -115,7 +115,7 @@ public class ContextImportForm extends Form<Void> {
      * @param target target that produces an Ajax response
      * @param fileItem object representing a file for a form item
      */
-    public void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
+    private void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
         ContextXmlReader xmlReader = new ContextXmlReader();
         List<Context> contexts = null;
 

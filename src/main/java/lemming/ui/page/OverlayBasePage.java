@@ -6,7 +6,7 @@ import org.apache.wicket.ajax.IAjaxIndicatorAware;
  * A base page with a header panel which displays a piece of markup when an Ajax
  * request is processing.
  */
-public class OverlayBasePage extends BasePage implements IAjaxIndicatorAware {
+class OverlayBasePage extends BasePage implements IAjaxIndicatorAware {
     /**
      * Creates an overlay base page.
      */

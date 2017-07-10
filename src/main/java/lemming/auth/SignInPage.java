@@ -55,7 +55,7 @@ public class SignInPage extends EmptyBasePage {
      *
      * @return A string.
      */
-    public String getUsername() {
+    private String getUsername() {
         return username;
     }
 
@@ -64,7 +64,7 @@ public class SignInPage extends EmptyBasePage {
      *
      * @return A string.
      */
-    public String getPassword() {
+    private String getPassword() {
         return password;
     }
 

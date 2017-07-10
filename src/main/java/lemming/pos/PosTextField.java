@@ -17,7 +17,7 @@ public class PosTextField extends TextField<Pos> {
      * @param id
      *            ID of the text field
      */
-    public PosTextField(String id) {
+    PosTextField(String id) {
         super(id);
     }
 
@@ -29,7 +29,7 @@ public class PosTextField extends TextField<Pos> {
      * @param model
      *            data model of the text field
      */
-    public PosTextField(String id, IModel<Pos> model) {
+    PosTextField(String id, IModel<Pos> model) {
         super(id, model);
     }
 

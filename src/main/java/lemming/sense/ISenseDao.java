@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Defines a sense DAO by extending interface IDao.
  */
-public interface ISenseDao extends IDao<Sense> {
+interface ISenseDao extends IDao<Sense> {
     /**
      * Returns a list of matching senses for a given lemma.
      *

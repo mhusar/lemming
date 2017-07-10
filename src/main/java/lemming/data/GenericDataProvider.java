@@ -26,22 +26,22 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     /**
      * The data type that is provided.
      */
-    protected final Class<T> typeClass;
+    private final Class<T> typeClass;
 
     /**
      * Defindes the default sort order.
      */
-    protected final SortParam<String> defaultSortParam;
+    private final SortParam<String> defaultSortParam;
 
     /**
      * The state defined by a filter form.
      */
-    protected T state;
+    private T state;
 
     /**
      * The state defined a string filter.
      */
-    protected String filter;
+    private String filter;
 
     /**
      * Creates a data provider.
@@ -204,7 +204,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
-    protected Expression<Boolean> getFilterStateRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
+    private Expression<Boolean> getFilterStateRestriction(CriteriaBuilder criteriaBuilder, Root<T> root) {
         if (state != null) {
             List<Predicate> predicateList = new ArrayList<>();
 
@@ -251,8 +251,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
-    protected Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
-                                                             Map<String,Join<?,?>> joins) {
+    private Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
+                                                           Map<String, Join<?, ?>> joins) {
         if (filter != null) {
             return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, typeClass);
         } else {
@@ -276,7 +276,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param root query root referencing entities
      * @return A selection.
      */
-    protected Selection<T> getSelection(Root<T> root) {
+    private Selection<T> getSelection(Root<T> root) {
         return root;
     }
 
@@ -287,8 +287,8 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param root query root referencing entities
      * @return An expression of type boolean, or null.
      */
-    protected Expression<Boolean> getRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
-                                                 Map<String,Join<?,?>> joins) {
+    private Expression<Boolean> getRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
+                                               Map<String, Join<?, ?>> joins) {
         Expression<Boolean> filterStateRestriction = getFilterStateRestriction(criteriaBuilder, root);
         Expression<Boolean> filterStringRestriction = getFilterStringRestriction(criteriaBuilder, root, joins);
 
@@ -309,7 +309,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      * @param joins map of joins
      * @return A list of order objects.
      */
-    protected List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String,Join<?,?>> joins) {
+    private List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<T> root, Map<String, Join<?, ?>> joins) {
         String property = getSort().getProperty();
 
         return CriteriaHelper.getOrder(criteriaBuilder, root, joins, property, getSort().isAscending(),

@@ -15,7 +15,7 @@ import java.util.Iterator;
  *
  * @param <T> data type
  */
-public class Subtree<T> extends Panel {
+class Subtree<T> extends Panel {
     /**
      * The owning tree.
      */
@@ -71,7 +71,7 @@ public class Subtree<T> extends Panel {
      * @return A model object or null.
      */
     @SuppressWarnings("unchecked")
-    public T getModelObject() {
+    private T getModelObject() {
         return (T) getDefaultModelObject();
     }
 

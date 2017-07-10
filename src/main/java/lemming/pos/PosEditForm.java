@@ -23,7 +23,7 @@ import java.util.Arrays;
 /**
  * A form for editing parts of speech.
  */
-public class PosEditForm extends Form<Pos> {
+class PosEditForm extends Form<Pos> {
     /**
      * Class of the next page.
      */

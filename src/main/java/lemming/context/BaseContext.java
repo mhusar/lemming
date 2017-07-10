@@ -90,7 +90,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Creates an instance of a context.
      */
-    public BaseContext() {
+    BaseContext() {
     }
 
     /**

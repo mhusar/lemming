@@ -26,7 +26,7 @@ import lemming.ui.NumberTextField;
 /**
  * A form for editing special characters.
  */
-public class CharacterEditForm extends Form<Character> {
+class CharacterEditForm extends Form<Character> {
     /**
      * A character view displaying special characters.
      */

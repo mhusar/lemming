@@ -11,7 +11,7 @@ import org.apache.wicket.model.StringResourceModel;
 /**
  * A TextFilteredColumn adding to display values of context type enums properly.
  */
-public class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,String> {
+class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,String> {
     /**
      * Creates a TextFilterColumn for context type enums.
      *

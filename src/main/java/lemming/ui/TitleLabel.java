@@ -15,7 +15,7 @@ public class TitleLabel extends Label {
     /*
      * Creates a title label.
      */
-    public TitleLabel(IModel<?> model) {
+    private TitleLabel(IModel<?> model) {
         super("title", model);
     }
 

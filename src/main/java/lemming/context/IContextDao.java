@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Defines a context DAO by extending interface IDao.
  */
-public interface IContextDao extends IDao<Context> {
+interface IContextDao extends IDao<Context> {
     /**
      * Makes multiple context instances managed and persistent.
      *

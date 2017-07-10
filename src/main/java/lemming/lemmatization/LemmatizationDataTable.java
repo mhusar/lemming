@@ -25,7 +25,7 @@ import java.util.*;
 /**
  * A custom data table with toolbars and data provider for context lemmatization.
  */
-public class LemmatizationDataTable extends DataTable<Context, String> {
+class LemmatizationDataTable extends DataTable<Context, String> {
     /**
      * Default rows per page.
      */

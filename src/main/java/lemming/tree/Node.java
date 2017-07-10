@@ -7,7 +7,7 @@ import org.apache.wicket.model.IModel;
  *
  * @param <T> data type
  */
-public class Node<T> extends BaseNode<T> {
+class Node<T> extends BaseNode<T> {
     /**
      * Creates a tree node.
      *

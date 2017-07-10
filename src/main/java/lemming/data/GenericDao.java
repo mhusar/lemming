@@ -38,7 +38,7 @@ public abstract class GenericDao<E> implements IDao<E> {
      * Initializes a GenericDao as IDao implementation.
      */
     @SuppressWarnings("unchecked")
-    public GenericDao() {
+    protected GenericDao() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
                 .getGenericSuperclass();
         entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];

@@ -26,7 +26,7 @@ import lemming.ui.panel.FeedbackPanel;
  * A panel with a view displaying some users.
  */
 @AuthorizeAction(action = "RENDER", roles = { UserRoles.ADMIN })
-public class UserViewPanel extends Panel {
+class UserViewPanel extends Panel {
     /**
      * Creates a user list panel.
      * 

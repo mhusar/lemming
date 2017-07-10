@@ -189,7 +189,7 @@ public class User extends DatedEntity implements Principal, Serializable {
      * 
      * @return The user’s username.
      */
-    public String getUsername() {
+    private String getUsername() {
         return username;
     }
 

@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
  * A markup container visible to users and admins.
  */
 @AuthorizeAction(action = Action.RENDER, roles = { "USER", "ADMIN" })
-public class UserWebMarkupContainer extends WebMarkupContainer {
+class UserWebMarkupContainer extends WebMarkupContainer {
     /**
      * Creates a markup container.
      * 

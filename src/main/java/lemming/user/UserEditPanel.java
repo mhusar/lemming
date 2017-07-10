@@ -9,7 +9,7 @@ import lemming.auth.WebSession;
 /**
  * A panel containing a user edit form.
  */
-public class UserEditPanel extends Panel {
+class UserEditPanel extends Panel {
     /**
      * Creates a user edit panel.
      * 

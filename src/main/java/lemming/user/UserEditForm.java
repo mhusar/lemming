@@ -32,7 +32,7 @@ import lemming.ui.panel.ModalMessagePanel;
 /**
  * A form for editing users.
  */
-public class UserEditForm extends Form<User> {
+class UserEditForm extends Form<User> {
     /**
      * Creates a user edit form.
      * 

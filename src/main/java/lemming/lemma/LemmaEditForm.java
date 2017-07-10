@@ -27,7 +27,7 @@ import java.util.Arrays;
 /**
  * A form for editing lemmata.
  */
-public class LemmaEditForm extends Form<Lemma> {
+class LemmaEditForm extends Form<Lemma> {
     /**
      * Class of the next page.
      */

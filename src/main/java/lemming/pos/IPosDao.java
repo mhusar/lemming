@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Defines a part of speech DAO by extending interface IDao.
  */
-public interface IPosDao extends IDao<Pos> {
+interface IPosDao extends IDao<Pos> {
     /**
      * Returns a matching part of speech for a given name.
      *

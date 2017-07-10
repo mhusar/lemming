@@ -10,7 +10,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 /**
  * An link that submits a form asynchronously.
  */
-public class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
+class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
     /**
      * The page loaded after submit.
      */

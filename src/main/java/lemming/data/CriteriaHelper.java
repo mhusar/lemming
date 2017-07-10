@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * A helper class for criteria restrictions.
  */
-public final class CriteriaHelper {
+final class CriteriaHelper {
     /**
      * Matches a filter string against a context type.
      *

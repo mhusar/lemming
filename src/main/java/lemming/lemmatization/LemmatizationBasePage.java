@@ -17,11 +17,11 @@ import javax.json.JsonArray;
 /**
  * A lemmatization base page with a header.
  */
-public class LemmatizationBasePage extends EmptyBasePage {
+class LemmatizationBasePage extends EmptyBasePage {
     /**
      * Creates a lemmatization base page.
      */
-    public LemmatizationBasePage() {
+    LemmatizationBasePage() {
         super();
     }
 

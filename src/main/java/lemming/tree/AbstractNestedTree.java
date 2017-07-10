@@ -44,7 +44,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
      * @param provider tree provider for nested trees
      * @param selectedNode the selected node object which may be null
      */
-    public AbstractNestedTree(String id, INestedTreeProvider<T> provider, T selectedNode) {
+    protected AbstractNestedTree(String id, INestedTreeProvider<T> provider, T selectedNode) {
         super(id, provider);
         setModel(createExpandState(selectedNode));
         selectedObjectModel = provider.model(selectedNode);

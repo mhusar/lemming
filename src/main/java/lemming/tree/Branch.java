@@ -9,7 +9,7 @@ import org.apache.wicket.model.IModel;
  *
  * @param <T> data type
  */
-public class Branch<T> extends Item<T> {
+class Branch<T> extends Item<T> {
     /**
      * Creates a branch item.
      *
