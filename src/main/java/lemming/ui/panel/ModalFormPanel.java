@@ -161,6 +161,7 @@ public abstract class ModalFormPanel extends Panel {
     /**
      * Called when the modal dialog is canceled.
      */
+    @SuppressWarnings("EmptyMethod")
     public void onCancel() {
     }
 

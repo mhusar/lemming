@@ -366,6 +366,7 @@ public final class CriteriaHelper {
      * @param typeClass data type
      * @return A map of joins, or null.
      */
+    @SuppressWarnings("SameReturnValue")
     public static Map<String,Join<?,?>> getJoins(Root<?> root, Class<?> typeClass) {
         return null;
     }
