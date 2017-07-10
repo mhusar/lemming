@@ -35,16 +35,12 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
 
     /**
      * Creates a TextFilterColumn for source enums.
-     *
      * @param displayModel
      *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
+     *
      */
-    public SourceTextFilterColumn(IModel<String> displayModel, S sortProperty, String propertyExpression) {
-        super(displayModel, sortProperty, propertyExpression);
+    public SourceTextFilterColumn(IModel<String> displayModel) {
+        super(displayModel, (S) "source", "source");
     }
 
     /**

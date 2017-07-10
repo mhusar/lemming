@@ -71,10 +71,9 @@ public abstract class BaseNode<T> extends Panel {
         /**
          * Create a node switch.
          *
-         * @param id ID of the switch
          */
-        public NodeSwitch(String id) {
-            super(id);
+        public NodeSwitch() {
+            super("switch");
         }
 
         /**

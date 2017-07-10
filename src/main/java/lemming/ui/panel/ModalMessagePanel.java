@@ -87,19 +87,15 @@ public abstract class ModalMessagePanel extends Panel {
 
     /**
      * Creates a modal window.
-     * 
-     * @param id
+     *  @param id
      *            ID of the panel
-     * @param dialogType
-     *            dialog type of the modal window
      * @param responsePageClass
-     *            class of page loaded on confirmation
      */
-    protected ModalMessagePanel(String id, DialogType dialogType, Class<? extends Page> responsePageClass) {
+    protected ModalMessagePanel(String id, Class<? extends Page> responsePageClass) {
         super(id);
 
         modalWindowId = id + "-window";
-        this.dialogType = dialogType;
+        this.dialogType = DialogType.YES_NO;
         this.responsePageClass = responsePageClass;
     }
 
@@ -140,11 +136,11 @@ public abstract class ModalMessagePanel extends Panel {
 
         if (dialogType == DialogType.YES_NO) {
             fragment = new Fragment("fragment", "yesNoDialog", this);
-            fragment.add(new CancelButton("cancelButton"));
-            fragment.add(new ConfirmButton("confirmButton").add(new Label("modalConfirm", getConfirmationString())));
+            fragment.add(new CancelButton());
+            fragment.add(new ConfirmButton().add(new Label("modalConfirm", getConfirmationString())));
         } else if (dialogType == DialogType.OKAY) {
             fragment = new Fragment("fragment", "okayDialog", this);
-            fragment.add(new ConfirmButton("confirmButton").add(new Label("modalConfirm", getConfirmationString())));
+            fragment.add(new ConfirmButton().add(new Label("modalConfirm", getConfirmationString())));
         }
 
         container.add(fragment);
@@ -233,12 +229,10 @@ public abstract class ModalMessagePanel extends Panel {
     private class CancelButton extends AjaxLink<Void> {
         /**
          * Creates a button.
-         * 
-         * @param id
-         *            ID of button
+         *
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -260,12 +254,10 @@ public abstract class ModalMessagePanel extends Panel {
     private class ConfirmButton extends AjaxLink<Void> {
         /**
          * Creates a button.
-         * 
-         * @param id
-         *            ID of button
+         *
          */
-        public ConfirmButton(String id) {
-            super(id);
+        public ConfirmButton() {
+            super("confirmButton");
         }
 
         /**

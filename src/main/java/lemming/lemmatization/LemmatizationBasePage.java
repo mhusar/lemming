@@ -46,7 +46,7 @@ class LemmatizationBasePage extends EmptyBasePage {
 
         bodyContainer.add(AttributeModifier.append("data-characters", characterDataString));
         add(bodyContainer);
-        add(new HeaderPanel("headerPanel", getPage().getClass()));
+        add(new HeaderPanel(getPage().getClass()));
     }
 
     /**

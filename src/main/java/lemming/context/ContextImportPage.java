@@ -28,7 +28,7 @@ public class ContextImportPage extends BasePage {
         super.onInitialize();
         add(new TitleLabel(getString("ContextImportPage.header")));
         add(new Label("header", getString("ContextImportPage.header")));
-        add(new ContextImportForm("contextImportForm"));
-        add(new IndicatorOverlayPanel("indicatorOverlayPanel"));
+        add(new ContextImportForm());
+        add(new IndicatorOverlayPanel());
     }
 }

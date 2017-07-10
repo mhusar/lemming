@@ -22,15 +22,13 @@ class CharacterViewPanel extends Panel {
 
     /**
      * Creates a character view panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      */
-    public CharacterViewPanel(String id) {
-        super(id);
+    public CharacterViewPanel() {
+        super("characterViewPanel");
         setOutputMarkupId(true);
 
-        this.characterView = new CharacterAjaxView("characterView");
+        this.characterView = new CharacterAjaxView();
         WebMarkupContainer dummyItem = new WebMarkupContainer("dummyItem");
 
         dummyItem.setOutputMarkupId(true);
@@ -60,7 +58,7 @@ class CharacterViewPanel extends Panel {
     public void onItemClick(AjaxRequestTarget target, IModel<Character> model) {
         Page characterEditPage = getPage();
         Form<Character> characterEditForm = (Form<Character>) characterEditPage.get("characterEditForm");
-        Form<Character> newCharacterEditForm = new CharacterEditForm("characterEditForm",
+        Form<Character> newCharacterEditForm = new CharacterEditForm(
                 new CompoundPropertyModel<>(model), getCharacterView());
 
         characterEditForm.replaceWith(newCharacterEditForm);

@@ -17,12 +17,11 @@ class PagingNavigatorFormPanel<T> extends Panel {
     /**
      * Creates a paging navigator form panel.
      *
-     * @param id ID of the panel
      * @param table the parent table
      */
-    public PagingNavigatorFormPanel(String id, DataTable<T, String> table) {
-        super(id);
-        add(new PagingNavigatorForm("navigatorForm", table));
+    public PagingNavigatorFormPanel(DataTable<T, String> table) {
+        super("navigatorFormPanel");
+        add(new PagingNavigatorForm(table));
     }
 
     /**
@@ -32,13 +31,12 @@ class PagingNavigatorFormPanel<T> extends Panel {
         /**
          * Creates a paging navigator form.
          *
-         * @param id ID of the form
          * @param table the parent table
          */
-        public PagingNavigatorForm(String id, DataTable<T, String> table) {
-            super(id);
+        public PagingNavigatorForm(DataTable<T, String> table) {
+            super("navigatorForm");
             TextField<String> pageTextField = new TextField<>("page", Model.of(""));
-            AjaxButton gotoButton = new GotoButton("gotoButton", table, pageTextField);
+            AjaxButton gotoButton = new GotoButton(table, pageTextField);
             add(pageTextField.setOutputMarkupId(true));
             add(gotoButton.setOutputMarkupId(true));
             setDefaultButton(gotoButton);
@@ -61,13 +59,11 @@ class PagingNavigatorFormPanel<T> extends Panel {
 
         /**
          * Creates a go to button.
-         *
-         * @param id ID of the button
-         * @param table the parent table
+         *  @param table the parent table
          * @param pageTextField a text field for page numbers
          */
-        public GotoButton(String id, DataTable<T, String> table, TextField<String> pageTextField) {
-            super(id);
+        public GotoButton(DataTable<T, String> table, TextField<String> pageTextField) {
+            super("gotoButton");
             this.table = table;
             this.pageTextField = pageTextField;
         }

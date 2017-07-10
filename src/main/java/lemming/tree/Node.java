@@ -17,7 +17,7 @@ class Node<T> extends BaseNode<T> {
      */
     public Node(String id, AbstractNestedTree<T> tree, IModel<T> model) {
         super(id, tree, model);
-        add(new NodeSwitch("switch"));
+        add(new NodeSwitch());
         add(tree.newContentComponent("content", getModel()));
         add(new SelectBehavior());
         add(new StyleBehavior());

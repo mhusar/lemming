@@ -12,20 +12,18 @@ import lemming.auth.WebSession;
 class UserEditPanel extends Panel {
     /**
      * Creates a user edit panel.
-     * 
-     * @param id
-     *            ID of the edit panel
+     *
      * @param model
      *            model of edited user
      */
-    public UserEditPanel(String id, IModel<User> model) {
-        super(id);
+    public UserEditPanel(IModel<User> model) {
+        super("userEditPanel");
         setOutputMarkupId(true);
 
         // refresh User object to prevent concurrency problems
         // this happens if the edited user is the WebSession user
         new UserDao().refresh(model.getObject());
-        add(new UserEditForm("userEditForm", model));
+        add(new UserEditForm(model));
     }
 
     /**

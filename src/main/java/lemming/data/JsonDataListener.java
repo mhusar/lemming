@@ -37,7 +37,7 @@ public class JsonDataListener implements ServletContextListener {
         LemmaDao lemmaDao = new LemmaDao();
         PosDao posDao = new PosDao();
 
-        if (lemmaDao.findBySource(Source.LemmaType.TL).isEmpty()) {
+        if (lemmaDao.findBySource().isEmpty()) {
             logger.info("Persisting lemma data");
 
             try {
@@ -65,7 +65,7 @@ public class JsonDataListener implements ServletContextListener {
             }
         }
 
-        if (posDao.findBySource(Source.PosType.DEAF).isEmpty()) {
+        if (posDao.findBySource().isEmpty()) {
             logger.info("Persisting pos data");
 
             try {

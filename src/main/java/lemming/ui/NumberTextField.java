@@ -8,12 +8,10 @@ import org.apache.wicket.markup.html.form.TextField;
 public class NumberTextField extends TextField<Integer> {
     /**
      * Creates a number text field.
-     * 
-     * @param id
-     *            ID of a number text field.
+     *
      */
-    public NumberTextField(String id) {
-        super(id);
+    public NumberTextField() {
+        super("position");
     }
 
     /**

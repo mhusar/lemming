@@ -36,8 +36,8 @@ public class SignInPage extends EmptyBasePage {
      * Creates a sign-in page.
      */
     public SignInPage() {
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new SignInForm("signInForm").setDefaultModel(new CompoundPropertyModel<>(this)));
+        add(new FeedbackPanel());
+        add(new SignInForm().setDefaultModel(new CompoundPropertyModel<>(this)));
         setStatelessHint(true);
     }
 
@@ -74,11 +74,10 @@ public class SignInPage extends EmptyBasePage {
     private class SignInForm extends StatelessForm {
         /**
          * Creates a sign-in form.
-         * 
-         * @param id ID of a sign-in form
+         *
          */
-        public SignInForm(String id) {
-            super(id);
+        public SignInForm() {
+            super("signInForm");
             add(new TextField<String>("username"));
             add(new PasswordTextField("password"));
         }

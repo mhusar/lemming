@@ -53,8 +53,8 @@ public abstract class ModalFormPanel extends Panel {
         form = new Form("form");
 
         container = new WebMarkupContainer("modalWindow");
-        confirmButton = new ConfirmButton("confirmButton", form);
-        CancelButton cancelButton = new CancelButton("cancelButton");
+        confirmButton = new ConfirmButton(form);
+        CancelButton cancelButton = new CancelButton();
 
         // bring autocomplete ui to front
         container.add(AttributeModifier.append("class", "ui-front"));
@@ -172,10 +172,9 @@ public abstract class ModalFormPanel extends Panel {
         /**
          * Creates a button.
          *
-         * @param id ID of button
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -197,11 +196,10 @@ public abstract class ModalFormPanel extends Panel {
         /**
          * Creates a button.
          *
-         * @param id ID of button
          * @param form form of a modal form panel
          */
-        public ConfirmButton(String id, Form<?> form) {
-            super(id, form);
+        public ConfirmButton(Form<?> form) {
+            super("confirmButton", form);
         }
 
         /**

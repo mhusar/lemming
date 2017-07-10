@@ -72,9 +72,9 @@ public class SenseEditPage extends BasePage {
         add(new Label("header", getString("SenseEditPage.editHeader")));
 
         if (senseModel != null) {
-            add(new SenseEditPanel("senseEditPanel", lemmaModel, senseModel));
+            add(new SenseEditPanel(lemmaModel, senseModel));
         } else {
-            add(new SenseEditPanel("senseEditPanel", lemmaModel));
+            add(new SenseEditPanel(lemmaModel));
         }
     }
 

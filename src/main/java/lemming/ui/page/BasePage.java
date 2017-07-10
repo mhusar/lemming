@@ -43,7 +43,7 @@ public class BasePage extends EmptyBasePage {
 
         bodyContainer.add(AttributeModifier.append("data-characters", characterDataString));
         add(bodyContainer);
-        add(new HeaderPanel("headerPanel", getPage().getClass()));
-        add(new InputPanel("inputPanel"));
+        add(new HeaderPanel(getPage().getClass()));
+        add(new InputPanel());
     }
 }

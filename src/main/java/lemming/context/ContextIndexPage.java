@@ -62,11 +62,11 @@ public class ContextIndexPage extends IndexBasePage {
             fragment.add(dataTable);
         }
 
-        add(new ContextDeleteConfirmPanel("contextDeleteConfirmPanel", dataTable));
-        add(new FeedbackPanel("feedbackPanel"));
+        add(new ContextDeleteConfirmPanel(dataTable));
+        add(new FeedbackPanel());
         add(filterTextField);
-        add(new NewButton("new"));
-        add(new BatchProcessingButton("batchProcessing"));
+        add(new NewButton());
+        add(new BatchProcessingButton());
         add(container);
         container.add(fragment);
         // auto-shrink following and preceding text columns
@@ -114,11 +114,9 @@ public class ContextIndexPage extends IndexBasePage {
         /**
          * Creates a button.
          *
-         * @param id
-         *            ID of the button
          */
-        public NewButton(String id) {
-            super(id);
+        public NewButton() {
+            super("new");
         }
 
         /**
@@ -136,12 +134,10 @@ public class ContextIndexPage extends IndexBasePage {
     private class BatchProcessingButton extends Link<Void> {
         /**
          * Creates a batch processing button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          */
-        public BatchProcessingButton(String id) {
-            super(id);
+        public BatchProcessingButton() {
+            super("batchProcessing");
         }
 
         /**

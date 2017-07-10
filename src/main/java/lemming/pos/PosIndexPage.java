@@ -62,12 +62,12 @@ public class PosIndexPage extends IndexBasePage {
             fragment.add(dataTable);
         }
 
-        add(new PosDeleteConfirmPanel("posDeleteConfirmPanel", dataTable));
-        add(new PosDeleteDeniedPanel("posDeleteDeniedPanel", dataTable));
-        add(new FeedbackPanel("feedbackPanel"));
+        add(new PosDeleteConfirmPanel(dataTable));
+        add(new PosDeleteDeniedPanel(dataTable));
+        add(new FeedbackPanel());
         add(filterTextField);
-        add(new NewButton("new"));
-        add(new BatchProcessingButton("batchProcessing"));
+        add(new NewButton());
+        add(new BatchProcessingButton());
         add(container);
         container.add(fragment);
     }
@@ -92,7 +92,7 @@ public class PosIndexPage extends IndexBasePage {
         columns.add(new TextFilterColumn<Pos, Pos, String>(Model.of(getString("Pos.name")),
                 "name", "name"));
         columns.add(new SourceTextFilterColumn<Pos, Pos, String>(Model.of(getString("Pos.source")),
-                "source", "source"));
+                "source"));
         columns.add(new PosActionPanelColumn(Model.of("")));
 
         return columns;
@@ -105,11 +105,9 @@ public class PosIndexPage extends IndexBasePage {
         /**
          * Creates a button.
          *
-         * @param id
-         *            ID of the button
          */
-        public NewButton(String id) {
-            super(id);
+        public NewButton() {
+            super("new");
         }
 
         /**
@@ -127,12 +125,10 @@ public class PosIndexPage extends IndexBasePage {
     private class BatchProcessingButton extends Link<Void> {
         /**
          * Creates a batch processing button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          */
-        public BatchProcessingButton(String id) {
-            super(id);
+        public BatchProcessingButton() {
+            super("batchProcessing");
         }
 
         /**

@@ -1,7 +1,6 @@
 package lemming.pos;
 
 import lemming.auth.WebSession;
-import lemming.data.Source;
 import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
@@ -34,7 +33,7 @@ public class PosEditPage extends BasePage {
         posModel = new CompoundPropertyModel<>(new Pos());
         nextPageClass = null;
         // set pos source to user
-        posModel.getObject().setSource(Source.PosType.USER);
+        posModel.getObject().setSource();
     }
 
     /**
@@ -47,7 +46,7 @@ public class PosEditPage extends BasePage {
         posModel = new CompoundPropertyModel<>(new Pos());
         this.nextPageClass = nextPageClass;
         // set pos source to user
-        posModel.getObject().setSource(Source.PosType.USER);
+        posModel.getObject().setSource();
     }
 
     /**
@@ -80,9 +79,9 @@ public class PosEditPage extends BasePage {
         ModalMessagePanel posDeleteConfirmPanel;
 
         if (nextPageClass != null) {
-            posDeleteConfirmPanel = new PosDeleteConfirmPanel("posDeleteConfirmPanel", nextPageClass);
+            posDeleteConfirmPanel = new PosDeleteConfirmPanel(nextPageClass);
         } else {
-            posDeleteConfirmPanel = new PosDeleteConfirmPanel("posDeleteConfirmPanel", PosIndexPage.class);
+            posDeleteConfirmPanel = new PosDeleteConfirmPanel(PosIndexPage.class);
         }
 
         add(posDeleteConfirmPanel);
@@ -96,8 +95,8 @@ public class PosEditPage extends BasePage {
             add(new Label("header", getString("PosEditPage.editHeader")));
         }
 
-        add(new PosDeleteDeniedPanel("posDeleteDeniedPanel"));
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new PosEditForm("posEditForm", posModel, nextPageClass));
+        add(new PosDeleteDeniedPanel());
+        add(new FeedbackPanel());
+        add(new PosEditForm(posModel, nextPageClass));
     }
 }

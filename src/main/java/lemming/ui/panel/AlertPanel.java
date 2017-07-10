@@ -36,10 +36,9 @@ public class AlertPanel extends Panel {
     /**
      * Creates a alert panel.
      *
-     * @param id ID of the panel
      */
-    public AlertPanel(String id) {
-        super(id);
+    public AlertPanel() {
+        super("alertPanel");
         colonLabel = new Label("colonLabel");
         messageLabel = new Label("messageLabel");
         statusLabel = new Label("statusLabel");
@@ -49,7 +48,7 @@ public class AlertPanel extends Panel {
                 .setOutputMarkupPlaceholderTag(true));
         add(messageLabel.setOutputMarkupId(true).setEscapeModelStrings(false));
         add(statusLabel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true));
-        add(new CloseButton("closeButton"));
+        add(new CloseButton());
     }
 
     /**
@@ -106,10 +105,9 @@ public class AlertPanel extends Panel {
         /**
          * Creates a close button.
          *
-         * @param id ID of the button
          */
-        public CloseButton(String id) {
-            super(id);
+        public CloseButton() {
+            super("closeButton");
         }
 
         /**

@@ -12,13 +12,11 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 public class UserBookmarkablePageLink extends BookmarkablePageLink<Void> {
     /**
      * Creates a page link.
-     * 
-     * @param id
-     *            ID of a page link
+     *
      * @param pageClass
      *            class of page
      */
-    public UserBookmarkablePageLink(String id, Class<? extends Page> pageClass) {
-        super(id, pageClass);
+    public UserBookmarkablePageLink(Class<? extends Page> pageClass) {
+        super("characterEditPageLink", pageClass);
     }
 }

@@ -16,24 +16,20 @@ import lemming.ui.panel.ModalMessagePanel;
 public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      */
-    public LemmaDeleteDeniedPanel(String id) {
-        super(id, DialogType.OKAY);
+    public LemmaDeleteDeniedPanel() {
+        super("lemmaDeleteDeniedPanel", DialogType.OKAY);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param dataTable
      *            data table that is refreshed
      */
-    public LemmaDeleteDeniedPanel(String id, GenericDataTable<Lemma> dataTable) {
-        super(id, DialogType.OKAY, dataTable);
+    public LemmaDeleteDeniedPanel(GenericDataTable<Lemma> dataTable) {
+        super("lemmaDeleteDeniedPanel", DialogType.OKAY, dataTable);
     }
 
     /**

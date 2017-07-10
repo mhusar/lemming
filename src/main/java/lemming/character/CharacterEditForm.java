@@ -34,24 +34,22 @@ class CharacterEditForm extends Form<Character> {
 
     /**
      * Creates a special character edit form.
-     *
-     * @param id            ID of the edit form
-     * @param model         model of the character
+     *  @param model         model of the character
      * @param characterView character view displaying special characters
      */
-    public CharacterEditForm(String id, IModel<Character> model, AjaxView<Character> characterView) {
-        super(id, model);
+    public CharacterEditForm(IModel<Character> model, AjaxView<Character> characterView) {
+        super("characterEditForm", model);
 
         this.characterView = characterView;
         Integer numberOfCharacters = new CharacterDao().getAll().size();
         RequiredTextField<String> characterTextField = new RequiredTextField<>("character");
-        NumberTextField positionTextField = new NumberTextField("position");
+        NumberTextField positionTextField = new NumberTextField();
 
         add(characterTextField.setOutputMarkupId(true));
         add(positionTextField.setRequired(true));
-        add(new CancelButton("cancelButton"));
-        add(new SaveButton("saveButton", this));
-        add(new DeleteButton("deleteButton", model).setVisible(!(isCharacterTransient(model.getObject()))));
+        add(new CancelButton());
+        add(new SaveButton(this));
+        add(new DeleteButton(model).setVisible(!(isCharacterTransient(model.getObject()))));
 
         characterTextField.add(new UniqueCharacterValidator(model));
 
@@ -80,11 +78,10 @@ class CharacterEditForm extends Form<Character> {
         /**
          * Creates a save button.
          *
-         * @param id   ID of the button
          * @param form form that is submitted
          */
-        public SaveButton(String id, final Form<Character> form) {
-            super(id, form);
+        public SaveButton(final Form<Character> form) {
+            super("saveButton", form);
         }
 
         /**
@@ -107,7 +104,7 @@ class CharacterEditForm extends Form<Character> {
 
             Character refreshedCharacter = characterDao.findByCharacter(character.getCharacter());
             IModel<Character> refreshedCharacterModel = new Model<>(refreshedCharacter);
-            Form<Character> newEditForm = new CharacterEditForm("characterEditForm",
+            Form<Character> newEditForm = new CharacterEditForm(
                     new CompoundPropertyModel<>(refreshedCharacter), characterView);
 
             this.remove();
@@ -141,10 +138,9 @@ class CharacterEditForm extends Form<Character> {
         /**
          * Creates a cancel button.
          *
-         * @param id ID of the button
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -163,12 +159,12 @@ class CharacterEditForm extends Form<Character> {
             if (iterator.hasNext()) {
                 Item<Character> item = (Item<Character>) iterator.next();
                 IModel<Character> firstCharacterModel = item.getModel();
-                newEditForm = new CharacterEditForm("characterEditForm",
+                newEditForm = new CharacterEditForm(
                         new CompoundPropertyModel<>(firstCharacterModel), characterView);
 
                 characterView.setSelectedModel(firstCharacterModel);
             } else {
-                newEditForm = new CharacterEditForm("characterEditForm",
+                newEditForm = new CharacterEditForm(
                         new CompoundPropertyModel<>(new Character()), characterView);
 
                 characterView.setSelectedModel(new Model<>(new Character()));
@@ -193,11 +189,10 @@ class CharacterEditForm extends Form<Character> {
         /**
          * Creates a delete button.
          *
-         * @param id    ID of the button
          * @param model model which is deleted by the button
          */
-        private DeleteButton(String id, IModel<Character> model) {
-            super(id, model);
+        private DeleteButton(IModel<Character> model) {
+            super("deleteButton", model);
         }
 
         /**
@@ -233,7 +228,7 @@ class CharacterEditForm extends Form<Character> {
 
             new CharacterDao().remove(getModelObject());
             Form<Character> editForm = findParent(CharacterEditForm.class);
-            Form<Character> newEditForm = new CharacterEditForm("characterEditForm",
+            Form<Character> newEditForm = new CharacterEditForm(
                     new CompoundPropertyModel<>(selectedCharacterModel), characterView);
             Panel feedbackPanel = (Panel) editForm.getPage().get("feedbackPanel");
 

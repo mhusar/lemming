@@ -151,10 +151,9 @@ public class Pos extends DatedEntity implements Serializable {
     /**
      * Sets the source of a part of speech.
      *
-     * @param source source of a part of speech
      */
-    public void setSource(Source.PosType source) {
-        this.source = source;
+    public void setSource() {
+        this.source = Source.PosType.USER;
     }
 
     /**

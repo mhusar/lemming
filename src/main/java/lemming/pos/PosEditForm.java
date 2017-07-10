@@ -31,16 +31,12 @@ class PosEditForm extends Form<Pos> {
 
     /**
      * Creates a part of speech edit form.
-     * 
-     * @param id
-     *            ID of the edit form
-     * @param model
+     *  @param model
      *            part of speech model that is edited
      * @param nextPageClass
-     *            class of the next page
      */
-    public PosEditForm(String id, IModel<Pos> model, Class<? extends Page> nextPageClass) {
-        super(id, model);
+    public PosEditForm(IModel<Pos> model, Class<? extends Page> nextPageClass) {
+        super("posEditForm", model);
 
         this.nextPageClass = nextPageClass;
         RequiredTextField<String> nameTextField = new RequiredTextField<>("name");
@@ -51,8 +47,8 @@ class PosEditForm extends Form<Pos> {
 
         add(nameTextField);
         add(sourceListChoice.setEnabled(false));
-        add(new CancelButton("cancelButton"));
-        add(new DeleteButton("deleteButton", model).setVisible(!(isPosTransient(model))));
+        add(new CancelButton());
+        add(new DeleteButton(model).setVisible(!(isPosTransient(model))));
 
         nameTextField.add(new UniquePosNameValidator(model));
     }
@@ -95,12 +91,10 @@ class PosEditForm extends Form<Pos> {
     private final class CancelButton extends AjaxLink<Pos> {
         /**
          * Creates a cancel button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -125,14 +119,12 @@ class PosEditForm extends Form<Pos> {
     private final class DeleteButton extends AjaxLink<Pos> {
         /**
          * Creates a delete button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          * @param model
          *            model which is deleted by the button
          */
-        private DeleteButton(String id, IModel<Pos> model) {
-            super(id, model);
+        private DeleteButton(IModel<Pos> model) {
+            super("deleteButton", model);
         }
 
         /**

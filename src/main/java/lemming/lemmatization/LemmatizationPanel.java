@@ -9,9 +9,8 @@ class LemmatizationPanel extends Panel {
     /**
      * Creates a header panel.
      *
-     * @param id ID of the panel
      */
-    public LemmatizationPanel(String id) {
-        super(id);
+    public LemmatizationPanel() {
+        super("lemmatizationPanel");
     }
 }

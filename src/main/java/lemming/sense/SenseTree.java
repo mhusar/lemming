@@ -27,11 +27,10 @@ public class SenseTree extends AbstractNestedTree<Sense> implements IDraggableTr
     /**
      * Creates a sennse tree,
      *
-     * @param id ID of a tree
      * @param provider provider of tree data
      */
-    public SenseTree(String id, INestedTreeProvider<Sense> provider) {
-        this(id, provider, null);
+    public SenseTree(INestedTreeProvider<Sense> provider) {
+        this("senses", provider, null);
     }
 
     /**

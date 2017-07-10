@@ -38,16 +38,12 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Creates an unresolvable object error page.
-     * 
-     * @param action
-     *            type of action that failed
-     * @param element
+     *  @param element
      *            element which failed to save or remove
      * @param exception
-     *            exception raised due to an unresolvable object
      */
-    public UnresolvableObjectErrorPage(ActionType action, Object element, Exception exception) {
-        this.action = action;
+    public UnresolvableObjectErrorPage(Object element, Exception exception) {
+        this.action = ActionType.REMOVE;
         this.exception = exception;
 
         if (!(exception instanceof UnresolvableObjectException)) {

@@ -3,7 +3,6 @@ package lemming.pos;
 import lemming.context.Context;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
-import lemming.data.Source;
 import lemming.lemma.Lemma;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
@@ -202,7 +201,7 @@ public class PosDao extends GenericDao<Pos> implements IPosDao {
      *
      * @throws RuntimeException
      */
-    public List<Pos> findBySource(Source.PosType source) {
+    public List<Pos> findBySource() {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 

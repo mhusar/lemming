@@ -62,12 +62,12 @@ public class LemmaIndexPage extends IndexBasePage {
             fragment.add(dataTable);
         }
 
-        add(new LemmaDeleteConfirmPanel("lemmaDeleteConfirmPanel", dataTable));
-        add(new LemmaDeleteDeniedPanel("lemmaDeleteDeniedPanel", dataTable));
-        add(new FeedbackPanel("feedbackPanel"));
+        add(new LemmaDeleteConfirmPanel(dataTable));
+        add(new LemmaDeleteDeniedPanel(dataTable));
+        add(new FeedbackPanel());
         add(filterTextField);
-        add(new NewButton("new"));
-        add(new BatchProcessingButton("batchProcessing"));
+        add(new NewButton());
+        add(new BatchProcessingButton());
         add(container);
         container.add(fragment);
     }
@@ -96,7 +96,7 @@ public class LemmaIndexPage extends IndexBasePage {
         columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.pos")),
                 "posString", "posString"));
         columns.add(new SourceTextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.source")),
-                "source", "source"));
+                "source"));
         columns.add(new TextFilterColumn<Lemma, Lemma, String>(Model.of(getString("Lemma.reference")),
                 "reference", "reference"));
         columns.add(new LemmaActionPanelColumn(Model.of("")));
@@ -110,12 +110,10 @@ public class LemmaIndexPage extends IndexBasePage {
     private class NewButton extends Link<Void> {
         /**
          * Creates a button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          */
-        public NewButton(String id) {
-            super(id);
+        public NewButton() {
+            super("new");
         }
 
         /**
@@ -133,12 +131,10 @@ public class LemmaIndexPage extends IndexBasePage {
     private class BatchProcessingButton extends Link<Void> {
         /**
          * Creates a batch processing button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          */
-        public BatchProcessingButton(String id) {
-            super(id);
+        public BatchProcessingButton() {
+            super("batchProcessing");
         }
 
         /**

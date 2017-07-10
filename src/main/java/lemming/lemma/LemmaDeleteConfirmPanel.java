@@ -28,26 +28,22 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param responsePageClass
      *            class of page loaded on confirmation
      */
-    public LemmaDeleteConfirmPanel(String id, Class<? extends Page> responsePageClass) {
-        super(id, DialogType.YES_NO, responsePageClass);
+    public LemmaDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
+        super("lemmaDeleteConfirmPanel", responsePageClass);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param dataTable
      *            data table that is refreshed
      */
-    public LemmaDeleteConfirmPanel(String id, GenericDataTable<Lemma> dataTable) {
-        super(id, DialogType.YES_NO, dataTable);
+    public LemmaDeleteConfirmPanel(GenericDataTable<Lemma> dataTable) {
+        super("lemmaDeleteConfirmPanel", DialogType.YES_NO, dataTable);
     }
 
     /**

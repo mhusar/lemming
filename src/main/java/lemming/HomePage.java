@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
         BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> resourceLink = new BookmarkablePageLink<>("resourceLink", ResourcePage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<>("userEditLink", UserEditPage.class);
-        UserBookmarkablePageLink characterEditPageLink = new UserBookmarkablePageLink("characterEditPageLink",
+        UserBookmarkablePageLink characterEditPageLink = new UserBookmarkablePageLink(
                 CharacterEditPage.class);
 
         // check if the session is expired

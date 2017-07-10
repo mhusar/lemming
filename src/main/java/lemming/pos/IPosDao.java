@@ -1,7 +1,6 @@
 package lemming.pos;
 
 import lemming.data.IDao;
-import lemming.data.Source;
 
 import java.util.List;
 
@@ -28,10 +27,9 @@ interface IPosDao extends IDao<Pos> {
     /**
      * Returns a list of matching parts of speech for a given source.
      *
-     * @param source source of data
      * @return A list of matching parts of speech.
      */
-    List<Pos> findBySource(Source.PosType source);
+    List<Pos> findBySource();
 
     /**
      * Returns the name of a lemma.

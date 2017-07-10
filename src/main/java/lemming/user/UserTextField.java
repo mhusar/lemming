@@ -14,10 +14,9 @@ public class UserTextField extends TextField<User> {
     /**
      * Creates a user text field.
      *
-     * @param id ID of the text field
      */
-    public UserTextField(String id) {
-        super(id);
+    public UserTextField() {
+        super("user");
     }
 
     /**

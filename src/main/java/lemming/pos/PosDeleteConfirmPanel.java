@@ -27,26 +27,22 @@ public class PosDeleteConfirmPanel extends ModalMessagePanel {
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param responsePageClass
      *            class of page loaded on confirmation
      */
-    public PosDeleteConfirmPanel(String id, Class<? extends Page> responsePageClass) {
-        super(id, DialogType.YES_NO, responsePageClass);
+    public PosDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
+        super("posDeleteConfirmPanel", responsePageClass);
     }
 
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
+     *
      * @param dataTable
      *            data table that is refreshed
      */
-    public PosDeleteConfirmPanel(String id, GenericDataTable<Pos> dataTable) {
-        super(id, DialogType.YES_NO, dataTable);
+    public PosDeleteConfirmPanel(GenericDataTable<Pos> dataTable) {
+        super("posDeleteConfirmPanel", DialogType.YES_NO, dataTable);
     }
 
     /**

@@ -35,23 +35,19 @@ class LemmaEditForm extends Form<Lemma> {
 
     /**
      * Creates a lemma edit form.
-     * 
-     * @param id
-     *            ID of the edit form
-     * @param model
+     *  @param model
      *            lemma model that is edited
      * @param nextPageClass
-     *            class of the next page
      */
-    public LemmaEditForm(String id, IModel<Lemma> model, Class<? extends Page> nextPageClass) {
-        super(id, model);
+    public LemmaEditForm(IModel<Lemma> model, Class<? extends Page> nextPageClass) {
+        super("lemmaEditForm", model);
 
         this.nextPageClass = nextPageClass;
         RequiredTextField<String> nameTextField = new RequiredTextField<>("name");
         MarkupContainer replacementContainer = new WebMarkupContainer("replacementContainer");
         LemmaTextField replacementTextField = new LemmaAutoCompleteTextField("replacement");
         MarkupContainer posLabel = new WebMarkupContainer("posLabel");
-        PosTextField posTextField = new PosAutoCompleteTextField("pos");
+        PosTextField posTextField = new PosAutoCompleteTextField();
         TextField<String> posStringTextField = new TextField<>("posString");
         ListChoice<Source.LemmaType> sourceListChoice = new ListChoice<>("source",
                 new PropertyModel<>(getModelObject(), "source"),
@@ -60,8 +56,8 @@ class LemmaEditForm extends Form<Lemma> {
         MarkupContainer referenceContainer = new WebMarkupContainer("referenceContainer");
         TextField<String> referenceTextField = new TextField<>("reference");
         MarkupContainer userContainer = new WebMarkupContainer("userContainer");
-        UserTextField userTextField = new UserTextField("user");
-        DeleteButton deleteButton = new DeleteButton("deleteButton", model);
+        UserTextField userTextField = new UserTextField();
+        DeleteButton deleteButton = new DeleteButton(model);
 
         add(nameTextField);
         add(replacementContainer);
@@ -75,7 +71,7 @@ class LemmaEditForm extends Form<Lemma> {
         add(userContainer);
         userContainer.add(userTextField);
 
-        add(new CancelButton("cancelButton"));
+        add(new CancelButton());
         add(deleteButton);
 
         if (isLemmaTransient(model)) {
@@ -149,12 +145,10 @@ class LemmaEditForm extends Form<Lemma> {
     private final class CancelButton extends AjaxLink<Lemma> {
         /**
          * Creates a cancel button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          */
-        public CancelButton(String id) {
-            super(id);
+        public CancelButton() {
+            super("cancelButton");
         }
 
         /**
@@ -179,14 +173,12 @@ class LemmaEditForm extends Form<Lemma> {
     private final class DeleteButton extends AjaxLink<Lemma> {
         /**
          * Creates a delete button.
-         * 
-         * @param id
-         *            ID of the button
+         *
          * @param model
          *            model which is deleted by the button
          */
-        private DeleteButton(String id, IModel<Lemma> model) {
-            super(id, model);
+        private DeleteButton(IModel<Lemma> model) {
+            super("deleteButton", model);
         }
 
         /**

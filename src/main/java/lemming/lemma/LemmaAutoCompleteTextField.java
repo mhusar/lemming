@@ -38,14 +38,12 @@ public class LemmaAutoCompleteTextField extends LemmaTextField {
     /**
      * Creates a lemma auto complete text field.
      *
-     * @param id
-     *            ID of the text field
      * @param model
      *            data model of the text field
      */
-    public LemmaAutoCompleteTextField(String id, IModel<Lemma> model) {
-        super(id, model);
-        add(new LemmaAutoCompleteBehavior(id));
+    public LemmaAutoCompleteTextField(IModel<Lemma> model) {
+        super("lemma", model);
+        add(new LemmaAutoCompleteBehavior("lemma"));
     }
 
     /**

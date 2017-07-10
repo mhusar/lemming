@@ -350,7 +350,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      *
      * @throws RuntimeException
      */
-    public List<Lemma> findBySource(Source.LemmaType source) {
+    public List<Lemma> findBySource() {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 

@@ -16,12 +16,11 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 public class IndicatorOverlayPanel extends Panel {
     /**
      * Creates a throbber overlay panel.
-     * 
-     * @param id ID of the panel
+     *
      */
-    public IndicatorOverlayPanel(String id) {
-        super(id);
-        setMarkupId(id);
+    public IndicatorOverlayPanel() {
+        super("indicatorOverlayPanel");
+        setMarkupId("indicatorOverlayPanel");
 
         MarkupContainer throbberContainer = new WebMarkupContainer("indicatorContainer");
         PackageResourceReference throbberReference = new PackageResourceReference(getClass(), "images/throbber.svg");

@@ -11,11 +11,10 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 public class FeedbackPanel extends org.apache.wicket.markup.html.panel.FeedbackPanel {
     /**
      * Creates a feedback panel.
-     * 
-     * @param id ID of a feedback panel
+     *
      */
-    public FeedbackPanel(String id) {
-        super(id);
+    public FeedbackPanel() {
+        super("feedbackPanel");
         setMarkupId(getId());
     }
 

@@ -263,7 +263,7 @@ public abstract class GenericDao<E> implements IDao<E> {
 
         if (RequestCycle.get() != null) {
             Page unresolvableObjectErrorPage = new UnresolvableObjectErrorPage(
-                    UnresolvableObjectErrorPage.ActionType.REMOVE, element, exception);
+                    element, exception);
             throw new RestartResponseException(unresolvableObjectErrorPage);
         } else {
             throw exception;
@@ -280,7 +280,7 @@ public abstract class GenericDao<E> implements IDao<E> {
 
         if (RequestCycle.get() != null) {
             Page unresolvableObjectErrorPage = new UnresolvableObjectErrorPage(
-                    UnresolvableObjectErrorPage.ActionType.REMOVE, element, exception);
+                    element, exception);
             throw new RestartResponseException(unresolvableObjectErrorPage);
         } else {
             throw exception;

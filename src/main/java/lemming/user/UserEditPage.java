@@ -42,14 +42,14 @@ public class UserEditPage extends BasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        MarkupContainer feedbackPanel = new FeedbackPanel("feedbackPanel");
+        MarkupContainer feedbackPanel = new FeedbackPanel();
 
         add(new TitleLabel(getString("UserEditPage.header")));
-        add(new UserDeleteDeniedPanel("userDeleteDeniedPanel"));
+        add(new UserDeleteDeniedPanel());
         add(feedbackPanel);
-        add(new UserEditPanel("userEditPanel", userModel));
-        add(new UserViewPanel("userViewPanel", userModel));
-        add(new AddUserButton("addUserButton"));
+        add(new UserEditPanel(userModel));
+        add(new UserViewPanel(userModel));
+        add(new AddUserButton());
         feedbackPanel.setOutputMarkupId(true);
     }
 
@@ -80,12 +80,10 @@ public class UserEditPage extends BasePage {
     private final class AddUserButton extends AjaxLink<Void> {
         /**
          * Creates a add user button.
-         * 
-         * @param id
-         *            ID of a button
+         *
          */
-        private AddUserButton(String id) {
-            super(id);
+        private AddUserButton() {
+            super("addUserButton");
         }
 
         /**
@@ -99,9 +97,9 @@ public class UserEditPage extends BasePage {
             MarkupContainer userEditPage = findParent(UserEditPage.class);
             MarkupContainer userViewPanel = (UserViewPanel) userEditPage.get("userViewPanel");
             MarkupContainer feedbackPanel = (FeedbackPanel) userEditPage.get("feedbackPanel");
-            Component userView = new UserViewPanel.UserView("userView", new Model<>(new User()));
+            Component userView = new UserViewPanel.UserView(new Model<>(new User()));
             MarkupContainer userEditPanel = (UserEditPanel) userEditPage.get("userEditPanel");
-            Component userEditForm = new UserEditForm("userEditForm", new CompoundPropertyModel<>(new User()));
+            Component userEditForm = new UserEditForm(new CompoundPropertyModel<>(new User()));
 
             target.add(userViewPanel.addOrReplace(userView));
             target.add(userEditPanel.addOrReplace(userEditForm));

@@ -37,23 +37,20 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
 
     /**
      * Creates a panel.
-     * 
-     * @param id ID of the panel
+     *
      * @param dataTable data table that is refreshed
      */
-    public SenseDeleteConfirmPanel(String id, GenericDataTable<Sense> dataTable) {
-        super(id, DialogType.YES_NO, dataTable);
+    public SenseDeleteConfirmPanel(GenericDataTable<Sense> dataTable) {
+        super("senseDeleteConfirmPanel", DialogType.YES_NO, dataTable);
     }
 
     /**
      * Creates a panel.
-     *
-     * @param id ID of the panel
-     * @param lemmaModel model of the parent lemma
+     *  @param lemmaModel model of the parent lemma
      * @param senseTree a tree of senses
      */
-    public SenseDeleteConfirmPanel(String id, IModel<Lemma> lemmaModel, SenseTree senseTree) {
-        super(id, DialogType.YES_NO);
+    public SenseDeleteConfirmPanel(IModel<Lemma> lemmaModel, SenseTree senseTree) {
+        super("senseDeleteConfirmPanel", DialogType.YES_NO);
         this.lemmaModel = lemmaModel;
         this.senseTree = senseTree;
     }

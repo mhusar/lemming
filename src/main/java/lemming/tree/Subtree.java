@@ -23,13 +23,11 @@ class Subtree<T> extends Panel {
 
     /**
      * Creates a subtree.
-     *
-     * @param id ID of the subtree
-     * @param tree the owning tree
+     *  @param tree the owning tree
      * @param model model of the node object
      */
-    public Subtree(String id, AbstractNestedTree<T> tree, IModel<T> model) {
-        super(id, model);
+    public Subtree(AbstractNestedTree<T> tree, IModel<T> model) {
+        super("subtree", model);
         this.tree = tree;
         RefreshingView<T> branches = new RefreshingView<T>("branches") {
             @Override
@@ -48,7 +46,7 @@ class Subtree<T> extends Panel {
                 Component node = tree.newNodeComponent("node", model);
 
                 item.add(node);
-                item.add(new Subtree<>("subtree", tree, model));
+                item.add(new Subtree<>(tree, model));
             }
         };
 

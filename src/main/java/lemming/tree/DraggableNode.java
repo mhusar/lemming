@@ -44,7 +44,7 @@ public class DraggableNode<T> extends BaseNode<T> {
         bottomDropzone.add(new DropBehavior());
         add(bottomDropzone);
 
-        middleDropzone.add(new NodeSwitch("switch"));
+        middleDropzone.add(new NodeSwitch());
         middleDropzone.add(getTree().newContentComponent("content", getModel()));
         middleDropzone.add(new DragenterBehavior());
         middleDropzone.add(new DragoverBehavior());

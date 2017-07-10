@@ -26,26 +26,22 @@ public class PosAutoCompleteTextField extends PosTextField {
 
     /**
      * Creates a part of speech auto complete text field.
-     * 
-     * @param id
-     *            ID of the text field
+     *
      */
-    public PosAutoCompleteTextField(String id) {
-        super(id);
-        add(new PosAutoCompleteBehavior(id));
+    public PosAutoCompleteTextField() {
+        super("pos");
+        add(new PosAutoCompleteBehavior("pos"));
     }
 
     /**
      * Creates a part of speech auto complete text field.
-     * 
-     * @param id
-     *            ID of the text field
+     *
      * @param model
      *            data model of the text field
      */
-    public PosAutoCompleteTextField(String id, IModel<Pos> model) {
-        super(id, model);
-        add(new PosAutoCompleteBehavior(id));
+    public PosAutoCompleteTextField(IModel<Pos> model) {
+        super("pos", model);
+        add(new PosAutoCompleteBehavior("pos"));
     }
 
     /**
