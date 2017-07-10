@@ -118,7 +118,7 @@ public class UserEditForm extends Form<User> {
 
                 user.setPassword(hashedPassword);
                 user.setSalt(saltBytes);
-            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException ignored) {
             }
         }
 
