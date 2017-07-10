@@ -47,13 +47,13 @@ public class GenericRowSelectColumn<T,F,S> extends TextFilterColumn<T,F,S> {
      */
     @Override
     public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> rowModel) {
-        item.add(new CheckboxPanel<T>(componentId, rowModel));
+        item.add(new CheckboxPanel(componentId, rowModel));
     }
 
     /**
      * A panel used to display a checkbox.
      */
-    private class CheckboxPanel<T> extends Panel {
+    private class CheckboxPanel extends Panel {
         /**
          * Creates a panel.
          *
