@@ -85,7 +85,7 @@ class SetLemmaPanel extends ModalFormPanel {
         CollectionModel<Integer> selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
         ContextDao contextDao = new ContextDao();
 
-        if (lemma instanceof Lemma) {
+        if (lemma != null) {
             for (IModel<Context> rowModel : rowModels) {
                 if (rowModel.getObject().getSelected()) {
                     Context context = rowModel.getObject();

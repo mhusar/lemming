@@ -85,7 +85,7 @@ class SetPosPanel extends ModalFormPanel {
         CollectionModel<Integer> selectedContextIds = new CollectionModel<Integer>(new ArrayList<Integer>());
         ContextDao contextDao = new ContextDao();
 
-        if (pos instanceof Pos) {
+        if (pos != null) {
             for (IModel<Context> rowModel : rowModels) {
                 if (rowModel.getObject().getSelected()) {
                     Context context = rowModel.getObject();

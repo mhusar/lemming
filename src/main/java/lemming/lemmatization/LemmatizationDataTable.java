@@ -91,7 +91,7 @@ public class LemmatizationDataTable extends DataTable<Context, String> {
         addTopToolbar(new HeadersToolbar<String>(this, dataProvider));
         addBottomToolbar(new NoRecordsToolbar(this));
 
-        if (filterForm instanceof FilterForm) {
+        if (filterForm != null) {
             addTopToolbar(new FilterToolbar(this, filterForm));
         }
     }

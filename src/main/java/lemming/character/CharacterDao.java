@@ -33,7 +33,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
      */
     @Override
     public Boolean isTransient(Character character) {
-        return !(character.getId() instanceof Integer);
+        return !(character.getId() != null);
     }
 
     /**
@@ -46,7 +46,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(character.getUuid() instanceof String)) {
+        if (!(character.getUuid() != null)) {
             character.setUuid(UUID.randomUUID().toString());
         }
 

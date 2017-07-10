@@ -173,7 +173,7 @@ public class Pos extends DatedEntity implements Serializable {
 
         Pos pos = (Pos) object;
 
-        if (!(uuid instanceof String)) {
+        if (!(uuid != null)) {
             uuid = UUID.randomUUID().toString();
         }
 
@@ -187,7 +187,7 @@ public class Pos extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
+        if (!(uuid != null)) {
             uuid = UUID.randomUUID().toString();
         }
 

@@ -53,7 +53,7 @@ public class WebApplication extends AuthenticatedWebApplication {
                     @Override
                     public void onUnauthorizedInstantiation(Component component) {
                         if (component instanceof Page) {
-                            if (WebSession.get().getUser() instanceof User) {
+                            if (WebSession.get().getUser() != null) {
                                 throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
                             } else {
                                 if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||

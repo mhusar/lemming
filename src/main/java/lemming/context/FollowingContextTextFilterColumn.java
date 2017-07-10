@@ -72,7 +72,7 @@ public class FollowingContextTextFilterColumn extends TextFilterColumn<Context,C
             String label = "<span class='string'>" + following  + "</span>";
             String titleString = following.trim();
 
-            if (punctuation instanceof String) {
+            if (punctuation != null) {
                 label = "<span class='punctuation'>" + punctuation + "</span> " + label;
                 titleString = punctuation + " " + titleString;
             }

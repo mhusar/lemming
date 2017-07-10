@@ -242,7 +242,7 @@ public class Lemma extends DatedEntity implements Serializable {
     public void setPos(Pos pos) {
         this.pos = pos;
 
-        if (pos instanceof Pos) {
+        if (pos != null) {
             posString = pos.getName();
         } else {
             posString = null;
@@ -338,7 +338,7 @@ public class Lemma extends DatedEntity implements Serializable {
 
         Lemma lemma = (Lemma) object;
 
-        if (!(uuid instanceof String)) {
+        if (!(uuid != null)) {
             uuid = UUID.randomUUID().toString();
         }
 
@@ -352,7 +352,7 @@ public class Lemma extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
+        if (!(uuid != null)) {
             uuid = UUID.randomUUID().toString();
         }
 

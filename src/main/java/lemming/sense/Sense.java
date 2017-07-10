@@ -286,7 +286,7 @@ public class Sense extends DatedEntity implements Serializable {
 
         Sense sense = (Sense) object;
 
-        if (!(uuid instanceof String)) {
+        if (!(uuid != null)) {
             uuid = UUID.randomUUID().toString();
         }
 
@@ -300,7 +300,7 @@ public class Sense extends DatedEntity implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (!(uuid instanceof String)) {
+        if (!(uuid != null)) {
             uuid = UUID.randomUUID().toString();
         }
 

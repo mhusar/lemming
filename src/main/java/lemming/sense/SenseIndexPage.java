@@ -185,7 +185,7 @@ public class SenseIndexPage extends IndexBasePage {
             String lemmaName = lemmaTextField.getInput();
             Lemma lemma = new LemmaDao().findByName(lemmaName);
 
-            if (lemma instanceof Lemma) {
+            if (lemma != null) {
                 setResponsePage(new SenseEditPage(new Model<Lemma>(lemma), SenseIndexPage.class));
             }
         }

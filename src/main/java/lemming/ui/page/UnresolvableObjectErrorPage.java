@@ -79,13 +79,13 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
                     getString("UnresolvableObjectErrorPage.removeMessage")));
         }
 
-        if (identifier instanceof String) {
+        if (identifier != null) {
             add(new Label("identifier", identifier));
         } else {
             add(new Label("identifier", "").setVisible(false));
         }
 
-        if (entityName instanceof String) {
+        if (entityName != null) {
             add(new Label("entityName", entityName));
         } else {
             add(new Label("entityName", "").setVisible(false));
@@ -108,7 +108,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
             identifier = (Integer) unresolvableObjectException.getIdentifier();
         }
 
-        if (identifier instanceof Integer) {
+        if (identifier != null) {
             return identifier.toString();
         } else {
             return null;

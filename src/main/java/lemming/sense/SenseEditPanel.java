@@ -142,7 +142,7 @@ public class SenseEditPanel extends Panel {
             List<Sense> rootNodes = senseDao.findRootNodes(lemmaModel.getObject());
             INestedTreeProvider<Sense> treeProvider = new SenseTreeProvider(lemmaModel.getObject());
 
-            if (!(senseModel instanceof IModel) && !rootNodes.isEmpty()) {
+            if (!(senseModel != null) && !rootNodes.isEmpty()) {
                 Sense firstRootNode = rootNodes.get(0);
                 senseModel = new Model<Sense>(firstRootNode);
             }
@@ -202,7 +202,7 @@ public class SenseEditPanel extends Panel {
             if (selectedNodeModel instanceof IModel) {
                 senseModel = selectedNodeModel;
 
-                if (senseModel.getObject() instanceof Sense) {
+                if (senseModel.getObject() != null) {
                     senseModel.setObject(senseDao.refresh(senseModel.getObject()));
 
                     if (senseModel.getObject().isParentSense()) {

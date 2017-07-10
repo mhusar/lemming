@@ -136,7 +136,7 @@ public class ContextImportForm extends Form<Void> {
             return;
         }
 
-        if (contexts instanceof List) {
+        if (contexts != null) {
             String message;
 
             if (contexts.size() > 0) {

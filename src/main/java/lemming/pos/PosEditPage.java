@@ -61,7 +61,7 @@ public class PosEditPage extends BasePage {
     public PosEditPage(IModel<Pos> posModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;
 
-        if (posModel instanceof IModel) {
+        if (posModel != null) {
             Pos pos = posModel.getObject();
             this.posModel = new CompoundPropertyModel<Pos>(posModel);
             new PosDao().refresh(pos);
@@ -79,7 +79,7 @@ public class PosEditPage extends BasePage {
         WebSession.get().checkSessionExpired();
         ModalMessagePanel posDeleteConfirmPanel;
 
-        if (nextPageClass instanceof Class) {
+        if (nextPageClass != null) {
             posDeleteConfirmPanel = new PosDeleteConfirmPanel("posDeleteConfirmPanel", nextPageClass);
         } else {
             posDeleteConfirmPanel = new PosDeleteConfirmPanel("posDeleteConfirmPanel", PosIndexPage.class);

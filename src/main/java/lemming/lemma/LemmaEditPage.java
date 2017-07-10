@@ -66,7 +66,7 @@ public class LemmaEditPage extends BasePage {
     public LemmaEditPage(IModel<Lemma> lemmaModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;
 
-        if (lemmaModel instanceof IModel) {
+        if (lemmaModel != null) {
             Lemma lemma = lemmaModel.getObject();
             Lemma refreshedLemma = new LemmaDao().refresh(lemma);
             this.lemmaModel = new CompoundPropertyModel<Lemma>(refreshedLemma);
@@ -85,7 +85,7 @@ public class LemmaEditPage extends BasePage {
         ModalMessagePanel lemmaDeleteConfirmPanel;
         ModalMessagePanel lemmaDeleteDeniedPanel = new LemmaDeleteDeniedPanel("lemmaDeleteDeniedPanel");
 
-        if (nextPageClass instanceof Class) {
+        if (nextPageClass != null) {
             lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel("lemmaDeleteConfirmPanel", nextPageClass);
         } else {
             lemmaDeleteConfirmPanel = new LemmaDeleteConfirmPanel("lemmaDeleteConfirmPanel", LemmaIndexPage.class);

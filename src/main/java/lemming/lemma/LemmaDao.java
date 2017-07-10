@@ -31,7 +31,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      * {@inheritDoc}
      */
     public Boolean isTransient(Lemma lemma) {
-        return !(lemma.getId() instanceof Integer);
+        return !(lemma.getId() != null);
     }
 
     /**
@@ -40,11 +40,11 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
      * @param lemma the refreshed lemma
      */
     private void refreshForeignKeyStrings(EntityManager entityManager, Lemma lemma) {
-        if (lemma.getReplacement() instanceof Lemma) {
+        if (lemma.getReplacement() != null) {
             lemma.setReplacementString(lemma.getReplacement().getName());
         }
 
-        if (lemma.getPos() instanceof Pos) {
+        if (lemma.getPos() != null) {
             lemma.setPosString(lemma.getPos().getName());
         }
 
@@ -105,7 +105,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(lemma.getUuid() instanceof String)) {
+        if (!(lemma.getUuid() != null)) {
             lemma.setUuid(UUID.randomUUID().toString());
         }
 
@@ -153,7 +153,7 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
             for (Lemma lemma : lemmas) {
                 currentLemma = lemma;
 
-                if (!(lemma.getUuid() instanceof String)) {
+                if (!(lemma.getUuid() != null)) {
                     lemma.setUuid(UUID.randomUUID().toString());
                 }
 

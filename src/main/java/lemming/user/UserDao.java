@@ -59,7 +59,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      * {@inheritDoc}
      */
     public Boolean isTransient(User user) {
-        return !(user.getId() instanceof Integer);
+        return !(user.getId() != null);
     }
 
     /**
@@ -71,7 +71,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
-        if (!(user.getUuid() instanceof String)) {
+        if (!(user.getUuid() != null)) {
             user.setUuid(UUID.randomUUID().toString());
         }
 
@@ -214,7 +214,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
      * @throws NoSuchAlgorithmException
      */
     public Boolean authenticate(User user, String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        if (user instanceof User) {
+        if (user != null) {
             String hashedPassword = hashPassword(password, user.getSalt());
             Boolean isPasswordEqual = MessageDigest.isEqual(user.getPassword().getBytes(), hashedPassword.getBytes());
 
@@ -233,7 +233,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
     public void logout() {
         User user = WebSession.get().getUser();
 
-        if (user instanceof User) {
+        if (user != null) {
             logger.info("User #" + user.getId() + " [" + user.getRole().toString() + "] has logged out.");
         }
 
@@ -279,7 +279,7 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         byte[] saltBytes = createRandomSaltBytes();
         String hashedPassword = hashPassword(DefaultUser.PASSWORD, saltBytes);
 
-        if (hashedPassword instanceof String) {
+        if (hashedPassword != null) {
             defaultUser.setRealName(DefaultUser.REAL_NAME);
             defaultUser.setUsername(DefaultUser.USERNAME);
             defaultUser.setPassword(hashedPassword);

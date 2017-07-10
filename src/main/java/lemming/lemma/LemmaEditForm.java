@@ -137,7 +137,7 @@ public class LemmaEditForm extends Form<Lemma> {
             lemmaDao.merge(lemma);
         }
 
-        if (nextPageClass instanceof Class) {
+        if (nextPageClass != null) {
             setResponsePage(nextPageClass);
         } else {
             setResponsePage(LemmaEditPage.class);
@@ -166,7 +166,7 @@ public class LemmaEditForm extends Form<Lemma> {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            if (nextPageClass instanceof Class) {
+            if (nextPageClass != null) {
                 setResponsePage(nextPageClass);
             } else {
                 setResponsePage(LemmaIndexPage.class);
@@ -242,10 +242,10 @@ public class LemmaEditForm extends Form<Lemma> {
             Lemma lemma = lemmaDao.findByName(validatable.getValue());
 
             if (lemmaDao.isTransient(lemmaModel.getObject())) {
-                if (lemma instanceof Lemma) {
+                if (lemma != null) {
                     error.addKey("LemmaEditForm.lemma-is-non-unique");
                 }
-            } else if (lemma instanceof Lemma) {
+            } else if (lemma != null) {
                 if (!(lemma.equals(lemmaModel.getObject()))) {
                     error.addKey("LemmaEditForm.lemma-is-non-unique");
                 }
@@ -288,7 +288,7 @@ public class LemmaEditForm extends Form<Lemma> {
             LemmaDao lemmaDao = new LemmaDao();
             Lemma lemma = validatable.getValue();
 
-            if (lemma instanceof Lemma) {
+            if (lemma != null) {
                 if (lemma.getSource().equals(Source.LemmaType.TL)) {
                     error.addKey("LemmaEditForm.replacement-lemma-is-tl-lemma");
                 }

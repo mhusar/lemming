@@ -277,9 +277,9 @@ public abstract class ModalMessagePanel extends Panel {
         public void onClick(AjaxRequestTarget target) {
             onConfirm(target);
 
-            if (responsePage instanceof Page) {
+            if (responsePage != null) {
                 setResponsePage(responsePage);
-            } else if (responsePageClass instanceof Class) {
+            } else if (responsePageClass != null) {
                 setResponsePage(responsePageClass);
             } else if (dataTable instanceof GenericDataTable<?>) {
                 target.add(dataTable);

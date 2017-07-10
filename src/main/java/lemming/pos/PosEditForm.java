@@ -82,7 +82,7 @@ public class PosEditForm extends Form<Pos> {
             posDao.merge(pos);
         }
 
-        if (nextPageClass instanceof Class) {
+        if (nextPageClass != null) {
             setResponsePage(nextPageClass);
         } else {
             setResponsePage(PosEditPage.class);
@@ -111,7 +111,7 @@ public class PosEditForm extends Form<Pos> {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            if (nextPageClass instanceof Class) {
+            if (nextPageClass != null) {
                 setResponsePage(nextPageClass);
             } else {
                 setResponsePage(PosIndexPage.class);
@@ -187,10 +187,10 @@ public class PosEditForm extends Form<Pos> {
             Pos pos = posDao.findByName(validatable.getValue());
 
             if (posDao.isTransient(posModel.getObject())) {
-                if (pos instanceof Pos) {
+                if (pos != null) {
                     error.addKey("PosEditForm.pos-is-non-unique");
                 }
-            } else if (pos instanceof Pos) {
+            } else if (pos != null) {
                 if (!(pos.equals(posModel.getObject()))) {
                     error.addKey("PosEditForm.pos-is-non-unique");
                 }

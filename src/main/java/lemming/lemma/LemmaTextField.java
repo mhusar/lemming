@@ -59,7 +59,7 @@ public class LemmaTextField extends TextField<Lemma> {
                 LemmaDao lemmaDao = new LemmaDao();
                 Lemma lemma = lemmaDao.findByName(name);
 
-                if (lemma instanceof Lemma) {
+                if (lemma != null) {
                     return (C) lemma;
                 } else {
                     return null;

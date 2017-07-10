@@ -28,7 +28,7 @@ public class AuthRequestFilter implements ContainerRequestFilter {
         HttpSession session = request.getSession(true);
         WebSession webSession = (WebSession) session.getAttribute("wicket:WicketFilter:session");
 
-        if (webSession instanceof WebSession) {
+        if (webSession != null) {
             webSession.bind();
         }
 
@@ -40,8 +40,8 @@ public class AuthRequestFilter implements ContainerRequestFilter {
 
             @Override
             public Principal getUserPrincipal() {
-                if (webSession instanceof WebSession) {
-                    if (webSession.getUser() instanceof User) {
+                if (webSession != null) {
+                    if (webSession.getUser() != null) {
                         return webSession.getUser();
                     }
                 }
@@ -56,8 +56,8 @@ public class AuthRequestFilter implements ContainerRequestFilter {
 
             @Override
             public boolean isUserInRole(String role) {
-                if (webSession instanceof WebSession) {
-                    if (webSession.getUser() instanceof User) {
+                if (webSession != null) {
+                    if (webSession.getUser() != null) {
                         return webSession.getUser().getRole().name().equals(role);
                     }
                 }

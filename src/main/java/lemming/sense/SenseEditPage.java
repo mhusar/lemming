@@ -51,7 +51,7 @@ public class SenseEditPage extends BasePage {
     public SenseEditPage(IModel<?> model, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;
 
-        if (model instanceof IModel) {
+        if (model != null) {
             if (model.getObject() instanceof Lemma) {
                 Lemma lemma = (Lemma) model.getObject();
                 Lemma refreshedLemma = new LemmaDao().refresh(lemma);
@@ -78,7 +78,7 @@ public class SenseEditPage extends BasePage {
         add(new TitleLabel(getString("SenseEditPage.editHeader")));
         add(new Label("header", getString("SenseEditPage.editHeader")));
 
-        if (senseModel instanceof IModel) {
+        if (senseModel != null) {
             add(new SenseEditPanel("senseEditPanel", lemmaModel, senseModel));
         } else {
             add(new SenseEditPanel("senseEditPanel", lemmaModel));

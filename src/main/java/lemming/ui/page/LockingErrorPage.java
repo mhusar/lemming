@@ -85,13 +85,13 @@ public class LockingErrorPage extends EmptyBasePage {
             add(new Label("lockingErrorMessage", getString("LockingErrorPage.removeMessage")));
         }
 
-        if (identifier instanceof String) {
+        if (identifier != null) {
             add(new Label("identifier", identifier));
         } else {
             add(new Label("identifier", "").setVisible(false));
         }
 
-        if (entityName instanceof String) {
+        if (entityName != null) {
             add(new Label("entityName", entityName));
         } else {
             add(new Label("entityName", "").setVisible(false));
@@ -122,7 +122,7 @@ public class LockingErrorPage extends EmptyBasePage {
             identifier = (Integer) staleObjectStateException.getIdentifier();
         }
 
-        if (identifier instanceof Integer) {
+        if (identifier != null) {
             return identifier.toString();
         } else {
             return null;
