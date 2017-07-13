@@ -160,9 +160,12 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the real name of a user.
+     * 
+     * @param realName
+     *            a real name
      */
-    public void setRealName() {
-        this.realName = UserDao.DefaultUser.REAL_NAME;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     /**
@@ -176,9 +179,12 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the username of a user.
+     *
+     * @param username
+     *            a username
      */
-    public void setUsername() {
-        this.username = UserDao.DefaultUser.USERNAME;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -230,9 +236,12 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets a user’s role.
+     * 
+     * @param role
+     *            the role of a user
      */
-    public void setRole() {
-        this.role = UserDao.DefaultUser.ROLE;
+    public void setRole(UserRoles.Role role) {
+        this.role = role;
     }
 
     /**
@@ -246,9 +255,12 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the enabled status of the user.
+     * 
+     * @param enabled
+     *            true or false
      */
-    public void setEnabled() {
-        this.enabled = true;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     /**
