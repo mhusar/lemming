@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.form.TextField;
 public class NumberTextField extends TextField<Integer> {
     /**
      * Creates a number text field.
-     *
      */
     public NumberTextField() {
         super("position");
@@ -16,11 +15,11 @@ public class NumberTextField extends TextField<Integer> {
 
     /**
      * Returns the input types of a text field.
-     * 
+     *
      * @return A string array with HTML5 input types.
      */
     @Override
     protected String[] getInputTypes() {
-        return new String[] {"number"};
+        return new String[]{"number"};
     }
 }

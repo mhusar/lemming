@@ -31,12 +31,9 @@ public class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
     /**
      * Creates a behavior.
      *
-     * @param textField
-     *            text field used a filter component
-     * @param dataTable
-     *            data table displaying filtered data
-     * @param dataProvider
-     *            data provider which delivers data for the table.
+     * @param textField    text field used a filter component
+     * @param dataTable    data table displaying filtered data
+     * @param dataProvider data provider which delivers data for the table.
      */
     public FilterUpdatingBehavior(TextField<String> textField, GenericDataTable<?> dataTable,
                                   GenericDataProvider<?> dataProvider) {
@@ -49,8 +46,7 @@ public class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
     /**
      * Called when the text field content changes.
      *
-     * @param target
-     *            target that produces an Ajax response
+     * @param target target that produces an Ajax response
      */
     @Override
     protected void onUpdate(AjaxRequestTarget target) {

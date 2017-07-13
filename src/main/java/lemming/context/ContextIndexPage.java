@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * An index page that lists all available contexts in a data table.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class ContextIndexPage extends IndexBasePage {
     /**
      * True if the filter form shall be enabled.
@@ -113,7 +113,6 @@ public class ContextIndexPage extends IndexBasePage {
     private class NewButton extends Link<Void> {
         /**
          * Creates a button.
-         *
          */
         public NewButton() {
             super("new");
@@ -134,7 +133,6 @@ public class ContextIndexPage extends IndexBasePage {
     private class BatchProcessingButton extends Link<Void> {
         /**
          * Creates a batch processing button.
-         *
          */
         public BatchProcessingButton() {
             super("batchProcessing");

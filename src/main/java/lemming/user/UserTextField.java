@@ -13,7 +13,6 @@ import java.util.Locale;
 public class UserTextField extends TextField<User> {
     /**
      * Creates a user text field.
-     *
      */
     public UserTextField() {
         super("user");
@@ -22,7 +21,7 @@ public class UserTextField extends TextField<User> {
     /**
      * Creates a user text field.
      *
-     * @param id ID of the text field
+     * @param id    ID of the text field
      * @param model data model of the text field
      */
     public UserTextField(String id, IModel<User> model) {
@@ -31,7 +30,7 @@ public class UserTextField extends TextField<User> {
 
     /**
      * Returns a converter for user objects.
-     * 
+     *
      * @param type class type of converted object
      * @return A converter for user objects.
      */
@@ -40,7 +39,7 @@ public class UserTextField extends TextField<User> {
         return new IConverter<C>() {
             /**
              * Converts an name string to a user object.
-             * 
+             *
              * @param name name that is converted
              * @param locale locale used to convert the name
              * @return The converted object, or null.
@@ -61,11 +60,9 @@ public class UserTextField extends TextField<User> {
 
             /**
              * Converts a user object to an name string.
-             * 
-             * @param user
-             *            user that is converted
-             * @param locale
-             *            locale used to convert the user
+             *
+             * @param user user that is converted
+             * @param locale locale used to convert the user
              * @return The converted name, or null.
              */
             @Override

@@ -2,8 +2,8 @@ package lemming;
 
 import lemming.auth.WebSession;
 import lemming.character.CharacterEditPage;
-import lemming.context.ContextIndexPage;
 import lemming.context.ContextImportPage;
+import lemming.context.ContextIndexPage;
 import lemming.lemma.LemmaIndexPage;
 import lemming.lemmatization.LemmatizationPage;
 import lemming.pos.PosIndexPage;

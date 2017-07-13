@@ -1,21 +1,19 @@
 package lemming.user;
 
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.model.StringResourceModel;
 
-import lemming.ui.panel.ModalMessagePanel;
-
 /**
  * A panel containing a modal window dialog stating that a user could not be
  * deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "ADMIN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"ADMIN"})
 public class UserDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     *
      */
     public UserDeleteDeniedPanel() {
         super("userDeleteDeniedPanel", DialogType.OKAY);

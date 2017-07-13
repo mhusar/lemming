@@ -11,15 +11,13 @@ import org.apache.wicket.model.StringResourceModel;
 /**
  * A panel containing a modal window dialog asking if a part of speech shall be deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class PosDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param responsePage
-     *            page loaded on confirmation
+     *
+     * @param id           ID of the panel
+     * @param responsePage page loaded on confirmation
      */
     public PosDeleteConfirmPanel(String id, Page responsePage) {
         super(id, DialogType.YES_NO, responsePage);
@@ -28,8 +26,7 @@ public class PosDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param responsePageClass
-     *            class of page loaded on confirmation
+     * @param responsePageClass class of page loaded on confirmation
      */
     public PosDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
         super("posDeleteConfirmPanel", responsePageClass);
@@ -38,8 +35,7 @@ public class PosDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public PosDeleteConfirmPanel(GenericDataTable<Pos> dataTable) {
         super("posDeleteConfirmPanel", DialogType.YES_NO, dataTable);

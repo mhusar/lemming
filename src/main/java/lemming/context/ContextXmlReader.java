@@ -67,7 +67,7 @@ class ContextXmlReader implements ErrorHandler {
     private Context createContext(StartElement element) {
         Context context = new Context();
 
-        for (Iterator<?> attributes = element.getAttributes(); attributes.hasNext();) {
+        for (Iterator<?> attributes = element.getAttributes(); attributes.hasNext(); ) {
             Attribute attribute = (Attribute) attributes.next();
             String value = (attribute.getValue() != null) ? attribute.getValue() : "";
 
@@ -101,9 +101,9 @@ class ContextXmlReader implements ErrorHandler {
     /**
      * Validates the order of punctuation tags in a context item.
      *
-     * @param context current context object
-     * @param location location of the event
-     * @param lastPunctuationType punctuation type last seen
+     * @param context                current context object
+     * @param location               location of the event
+     * @param lastPunctuationType    punctuation type last seen
      * @param currentPunctuationType current punctuation type
      */
     private void validatePunctuation(Context context, Location location, String lastPunctuationType,
@@ -221,7 +221,7 @@ class ContextXmlReader implements ErrorHandler {
 
     /**
      * A XMLStreamException which doesn’t mess up the message text.
-     *
+     * <p>
      * original code:
      * super("ParseError at [row,col]:["+location.getLineNumber()+","+
      * location.getColumnNumber()+"]\n"+
@@ -230,6 +230,7 @@ class ContextXmlReader implements ErrorHandler {
     public class XmlStreamException extends XMLStreamException {
         /**
          * Creates a XmlStreamException.
+         *
          * @param message exception message
          */
         public XmlStreamException(String message) {
@@ -239,7 +240,7 @@ class ContextXmlReader implements ErrorHandler {
         /**
          * Creates a XmlStreamException.
          *
-         * @param message exception message
+         * @param message  exception message
          * @param location location of the error
          */
         public XmlStreamException(String message, Location location) {

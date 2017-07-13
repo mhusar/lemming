@@ -121,7 +121,8 @@ public abstract class ModalFormPanel extends Panel {
      * @param target target that produces an Ajax response
      */
     private void hide(AjaxRequestTarget target) {
-        form.visitFormComponents((IVisitor<FormComponent<?>, List<FormComponent>>) (formComponent, visit) -> target.appendJavaScript("jQuery('#" + formComponent.getMarkupId() + "').val('');"));
+        form.visitFormComponents((IVisitor<FormComponent<?>, List<FormComponent>>) (formComponent, visit) -> target
+                .appendJavaScript("jQuery('#" + formComponent.getMarkupId() + "').val('');"));
         target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
     }
 
@@ -153,7 +154,7 @@ public abstract class ModalFormPanel extends Panel {
     /**
      * Called when the modal dialog is confirmed.
      *
-     * @param form form that is submitted
+     * @param form   form that is submitted
      * @param target target that produces an Ajax response
      */
     public abstract void onConfirm(AjaxRequestTarget target, Form<?> form);
@@ -171,7 +172,6 @@ public abstract class ModalFormPanel extends Panel {
     private class CancelButton extends AjaxLink<Void> {
         /**
          * Creates a button.
-         *
          */
         public CancelButton() {
             super("cancelButton");

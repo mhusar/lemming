@@ -1,10 +1,9 @@
 package lemming.ui.page;
 
+import lemming.HomePage;
 import lemming.ui.TitleLabel;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-
-import lemming.HomePage;
 
 /**
  * Displayed when access to a Page instance is denied.

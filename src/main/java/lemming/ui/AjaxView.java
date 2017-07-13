@@ -1,7 +1,5 @@
 package lemming.ui;
 
-import java.util.Iterator;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -10,11 +8,12 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 
+import java.util.Iterator;
+
 /**
  * A repeating view which can be refreshed asynchronously.
- * 
- * @param <T>
- *            data type that is displayed
+ *
+ * @param <T> data type that is displayed
  */
 public abstract class AjaxView<T> extends RepeatingView {
     /**
@@ -29,9 +28,8 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Creates an Ajax view.
-     * 
-     * @param id
-     *            ID of the view
+     *
+     * @param id ID of the view
      */
     protected AjaxView(String id) {
         super(id);
@@ -39,11 +37,9 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Creates an Ajax view.
-     * 
-     * @param id
-     *            ID of the view
-     * @param model
-     *            model of parent data
+     *
+     * @param id    ID of the view
+     * @param model model of parent data
      */
     public AjaxView(String id, IModel<T> model) {
         super(id, model);
@@ -52,9 +48,8 @@ public abstract class AjaxView<T> extends RepeatingView {
     /**
      * Sets the reference to a container that is displayed if there is no item
      * available.
-     * 
-     * @param noItemContainer
-     *            a container that is displayed if there are no items available
+     *
+     * @param noItemContainer a container that is displayed if there are no items available
      */
     public void setNoItemContainer(WebMarkupContainer noItemContainer) {
         this.noItemContainer = noItemContainer;
@@ -62,7 +57,7 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Returns the selected data model.
-     * 
+     *
      * @return A model of selected data.
      */
     private IModel<T> getSelectedModel() {
@@ -71,9 +66,8 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Sets the selected data model.
-     * 
-     * @param selectedModel
-     *            a data model which shall be selected
+     *
+     * @param selectedModel a data model which shall be selected
      */
     public void setSelectedModel(IModel<T> selectedModel) {
         this.selectedModel = selectedModel;
@@ -81,22 +75,18 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Returns models which shall be displayed as items.
-     * 
+     *
      * @return An iterator for all item models.
      */
     protected abstract Iterator<IModel<T>> getItemModels();
 
     /**
      * Creates a item wrapping a data model.
-     * 
-     * @param id
-     *            ID of the item
-     * @param index
-     *            index of the item
-     * @param model
-     *            model wrapped by the item
-     * @param isSelected
-     *            defines if a data model is selected
+     *
+     * @param id         ID of the item
+     * @param index      index of the item
+     * @param model      model wrapped by the item
+     * @param isSelected defines if a data model is selected
      * @return An item wrapping a data model.
      */
     protected abstract Item<T> getNewItem(String id, int index, IModel<T> model, Boolean isSelected);
@@ -104,45 +94,33 @@ public abstract class AjaxView<T> extends RepeatingView {
     /**
      * Creates a JavaScript string which refreshes the no item container if
      * evaluated.
-     * 
-     * @param id
-     *            ID of the container
-     * @param parentId
-     *            parent ID of the container
-     * @param isVisible
-     *            visibility state of the container
+     *
+     * @param id        ID of the container
+     * @param parentId  parent ID of the container
+     * @param isVisible visibility state of the container
      * @return A JavaScript string.
      */
     protected abstract String getRefreshNoItemContainerJavaScript(String id, String parentId, Boolean isVisible);
 
     /**
      * Creates a JavaScript string which refreshes an item if evaluated.
-     * 
-     * @param id
-     *            ID of the item
-     * @param index
-     *            index of the item
-     * @param model
-     *            model wrapped by the item
-     * @param isSelected
-     *            defines if a data model is selected
+     *
+     * @param id         ID of the item
+     * @param index      index of the item
+     * @param model      model wrapped by the item
+     * @param isSelected defines if a data model is selected
      * @return A JavaScript string.
      */
     protected abstract String getRefreshItemJavaScript(String id, int index, IModel<T> model, Boolean isSelected);
 
     /**
      * Creates a JavaScript string which appends an item if evaluated.
-     * 
-     * @param id
-     *            ID of the item
-     * @param parentId
-     *            parent ID of the item
-     * @param index
-     *            index of the item
-     * @param model
-     *            model wrapped by the item
-     * @param isSelected
-     *            defines if a data model is selected
+     *
+     * @param id         ID of the item
+     * @param parentId   parent ID of the item
+     * @param index      index of the item
+     * @param model      model wrapped by the item
+     * @param isSelected defines if a data model is selected
      * @return A JavaScript string.
      */
     protected abstract String getAppendItemJavaScript(String id, String parentId, int index, IModel<T> model,
@@ -150,20 +128,17 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Creates a JavaScript string whiche removes an item if evaluated.
-     * 
-     * @param id
-     *            ID of the item
+     *
+     * @param id ID of the item
      * @return A JavaScript string.
      */
     protected abstract String getRemoveItemJavaScript(String id);
 
     /**
      * Called on item clicked.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param model
-     *            model of the clicked item
+     *
+     * @param target target that produces an Ajax response
+     * @param model  model of the clicked item
      */
     protected abstract void onItemClick(AjaxRequestTarget target, IModel<T> model);
 
@@ -214,7 +189,7 @@ public abstract class AjaxView<T> extends RepeatingView {
     /**
      * Returns an iterator for the collection of child components to be
      * rendered.
-     * 
+     *
      * @return An iterator for child components.
      */
     @Override
@@ -224,9 +199,8 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Checks if a data model is selected.
-     * 
-     * @param model
-     *            model that is checked
+     *
+     * @param model model that is checked
      * @return True if the model is selected; false otherwise.
      */
     private Boolean isSelected(IModel<T> model) {
@@ -235,15 +209,14 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Adds a behaviour to respond to click events.
-     * 
-     * @param item
-     *            the item a behavior is added to
+     *
+     * @param item the item a behavior is added to
      */
     private void addOnClickBehavior(final Item<T> item) {
         item.add(new AjaxEventBehavior("click") {
             /**
              * Listener for an Ajax event.
-             * 
+             *
              * @param target
              *            target that produces an Ajax response
              */
@@ -259,9 +232,8 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Refreshes child components with item models.
-     * 
-     * @param target
-     *            target that produces an Ajax response
+     *
+     * @param target target that produces an Ajax response
      */
     @SuppressWarnings("unchecked")
     public void refresh(AjaxRequestTarget target) {
@@ -299,8 +271,7 @@ public abstract class AjaxView<T> extends RepeatingView {
     }
 
     /**
-     * @param target
-     *            target that produces an Ajax response
+     * @param target target that produces an Ajax response
      */
     private void refreshNoItemContainer(AjaxRequestTarget target) {
         if (noItemContainer != null) {
@@ -321,13 +292,10 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Refreshes a child item.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param item
-     *            the item to refresh
-     * @param isSelected
-     *            defines if a data model is selected
+     *
+     * @param target     target that produces an Ajax response
+     * @param item       the item to refresh
+     * @param isSelected defines if a data model is selected
      */
     private void refreshItem(AjaxRequestTarget target, Item<T> item, Boolean isSelected) {
         replace(item);
@@ -337,13 +305,10 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Appends a child item.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param item
-     *            the item to append
-     * @param isSelected
-     *            defines if a data model is selected
+     *
+     * @param target     target that produces an Ajax response
+     * @param item       the item to append
+     * @param isSelected defines if a data model is selected
      */
     private void appendItem(AjaxRequestTarget target, Item<T> item, Boolean isSelected) {
         item.setOutputMarkupId(true);
@@ -359,11 +324,9 @@ public abstract class AjaxView<T> extends RepeatingView {
 
     /**
      * Removes a child item.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param item
-     *            the item to remove
+     *
+     * @param target target that produces an Ajax response
+     * @param item   the item to remove
      */
     private void removeItem(AjaxRequestTarget target, Item<T> item) {
         remove(item);

@@ -1,16 +1,15 @@
 package lemming.ui.page;
 
+import lemming.HomePage;
 import lemming.ui.TitleLabel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 
-import lemming.HomePage;
-
 /**
  * Displayed when a Page instance cannot be found by its ID in the page stores.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class PageExpiredPage extends EmptyBasePage {
     /**
      * Empty constructor which is used when a user isn’t signed in.

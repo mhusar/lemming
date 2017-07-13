@@ -31,8 +31,8 @@ class PosEditForm extends Form<Pos> {
 
     /**
      * Creates a part of speech edit form.
-     *  @param model
-     *            part of speech model that is edited
+     *
+     * @param model         part of speech model that is edited
      * @param nextPageClass
      */
     public PosEditForm(IModel<Pos> model, Class<? extends Page> nextPageClass) {
@@ -55,9 +55,8 @@ class PosEditForm extends Form<Pos> {
 
     /**
      * Checks if a part of speech model is transient.
-     * 
-     * @param model
-     *            part of speech model that is checked
+     *
+     * @param model part of speech model that is checked
      * @return True if a part of speech model is transient; false otherwise.
      */
     private Boolean isPosTransient(IModel<Pos> model) {
@@ -91,7 +90,6 @@ class PosEditForm extends Form<Pos> {
     private final class CancelButton extends AjaxLink<Pos> {
         /**
          * Creates a cancel button.
-         *
          */
         public CancelButton() {
             super("cancelButton");
@@ -99,9 +97,8 @@ class PosEditForm extends Form<Pos> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -120,8 +117,7 @@ class PosEditForm extends Form<Pos> {
         /**
          * Creates a delete button.
          *
-         * @param model
-         *            model which is deleted by the button
+         * @param model model which is deleted by the button
          */
         private DeleteButton(IModel<Pos> model) {
             super("deleteButton", model);
@@ -129,9 +125,8 @@ class PosEditForm extends Form<Pos> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -158,9 +153,8 @@ class PosEditForm extends Form<Pos> {
 
         /**
          * Creates a part of speech name validator.
-         * 
-         * @param model
-         *            part of speech model that is edited
+         *
+         * @param model part of speech model that is edited
          */
         public UniquePosNameValidator(IModel<Pos> model) {
             posModel = model;
@@ -168,9 +162,8 @@ class PosEditForm extends Form<Pos> {
 
         /**
          * Validates the value of a form component.
-         * 
-         * @param validatable
-         *            IValidatable instance that is validated
+         *
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<String> validatable) {

@@ -30,7 +30,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Creates a nested tree.
      *
-     * @param id ID of the tree
+     * @param id       ID of the tree
      * @param provider tree provider for nested trees
      */
     public AbstractNestedTree(String id, INestedTreeProvider<T> provider) {
@@ -40,8 +40,8 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Creates a nested tree.
      *
-     * @param id ID of the tree
-     * @param provider tree provider for nested trees
+     * @param id           ID of the tree
+     * @param provider     tree provider for nested trees
      * @param selectedNode the selected node object which may be null
      */
     protected AbstractNestedTree(String id, INestedTreeProvider<T> provider, T selectedNode) {
@@ -173,7 +173,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Creates a node component.
      *
-     * @param id ID of the component
+     * @param id    ID of the component
      * @param model model of the node object
      * @return A node component.
      */
@@ -183,7 +183,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Creates a new content component.
      *
-     * @param id ID of the component
+     * @param id    ID of the component
      * @param model model of the node object
      * @return A content component.
      */
@@ -204,7 +204,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Updates the node of a node object.
      *
-     * @param object a node object
+     * @param object  a node object
      * @param handler request handler that allows partial updates of the current page instance
      */
     @Override
@@ -227,7 +227,7 @@ public abstract class AbstractNestedTree<T> extends AbstractTree<T> {
     /**
      * Updates the branch of a node object.
      *
-     * @param object a node object
+     * @param object  a node object
      * @param handler request handler that allows partial updates of the current page instance
      */
     @Override

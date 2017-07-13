@@ -1,6 +1,10 @@
 package lemming.user;
 
+import lemming.auth.UserRoles;
+import lemming.auth.WebSession;
 import lemming.ui.TitleLabel;
+import lemming.ui.page.BasePage;
+import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -9,11 +13,6 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
-
-import lemming.auth.UserRoles;
-import lemming.auth.WebSession;
-import lemming.ui.page.BasePage;
-import lemming.ui.panel.FeedbackPanel;
 
 /**
  * A page containing a user list and a user edit form.
@@ -55,7 +54,7 @@ public class UserEditPage extends BasePage {
 
     /**
      * Returns markup variations based on user roles.
-     * 
+     *
      * @return An identifier for a markup variation.
      */
     @Override
@@ -76,11 +75,10 @@ public class UserEditPage extends BasePage {
     /**
      * A button which starts the creation of a new user.
      */
-    @AuthorizeAction(action = "RENDER", roles = { UserRoles.ADMIN })
+    @AuthorizeAction(action = "RENDER", roles = {UserRoles.ADMIN})
     private final class AddUserButton extends AjaxLink<Void> {
         /**
          * Creates a add user button.
-         *
          */
         private AddUserButton() {
             super("addUserButton");
@@ -88,9 +86,8 @@ public class UserEditPage extends BasePage {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {

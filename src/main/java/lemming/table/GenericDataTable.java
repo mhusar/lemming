@@ -1,7 +1,6 @@
 package lemming.table;
 
-import java.util.List;
-
+import lemming.data.GenericDataProvider;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.HeadersToolbar;
@@ -10,13 +9,12 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.NoRecordsToo
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterForm;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.FilterToolbar;
 
-import lemming.data.GenericDataProvider;
+import java.util.List;
 
 /**
  * A custom data table with toolbars and data provider.
- * 
- * @param <T>
- *            class type that is rendered
+ *
+ * @param <T> class type that is rendered
  */
 public class GenericDataTable<T> extends DataTable<T, String> {
     /**

@@ -23,7 +23,8 @@ class Subtree<T> extends Panel {
 
     /**
      * Creates a subtree.
-     *  @param tree the owning tree
+     *
+     * @param tree  the owning tree
      * @param model model of the node object
      */
     public Subtree(AbstractNestedTree<T> tree, IModel<T> model) {

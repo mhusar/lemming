@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 class LemmatizationPanel extends Panel {
     /**
      * Creates a header panel.
-     *
      */
     public LemmatizationPanel() {
         super("lemmatizationPanel");

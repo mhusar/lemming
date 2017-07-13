@@ -35,7 +35,6 @@ public class AlertPanel extends Panel {
 
     /**
      * Creates a alert panel.
-     *
      */
     public AlertPanel() {
         super("alertPanel");
@@ -104,7 +103,6 @@ public class AlertPanel extends Panel {
     private class CloseButton extends AjaxLink<Void> {
         /**
          * Creates a close button.
-         *
          */
         public CloseButton() {
             super("closeButton");

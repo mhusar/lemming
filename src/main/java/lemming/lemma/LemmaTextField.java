@@ -13,9 +13,8 @@ import java.util.Locale;
 public class LemmaTextField extends TextField<Lemma> {
     /**
      * Creates a lemma text field.
-     * 
-     * @param id
-     *            ID of the text field
+     *
+     * @param id ID of the text field
      */
     LemmaTextField(String id) {
         super(id);
@@ -23,11 +22,9 @@ public class LemmaTextField extends TextField<Lemma> {
 
     /**
      * Creates a lemma text field.
-     * 
-     * @param id
-     *            ID of the text field
-     * @param model
-     *            data model of the text field
+     *
+     * @param id    ID of the text field
+     * @param model data model of the text field
      */
     LemmaTextField(String id, IModel<Lemma> model) {
         super(id, model);
@@ -35,9 +32,8 @@ public class LemmaTextField extends TextField<Lemma> {
 
     /**
      * Returns a converter for lemma objects.
-     * 
-     * @param type
-     *            class type of converted object
+     *
+     * @param type class type of converted object
      * @return A converter for lemma objects.
      */
     @Override
@@ -45,7 +41,7 @@ public class LemmaTextField extends TextField<Lemma> {
         return new IConverter<C>() {
             /**
              * Converts an name string to a lemma object.
-             * 
+             *
              * @param name
              *            name that is converted
              * @param locale
@@ -68,7 +64,7 @@ public class LemmaTextField extends TextField<Lemma> {
 
             /**
              * Converts a lemma object to an name string.
-             * 
+             *
              * @param lemma
              *            lemma that is converted
              * @param locale

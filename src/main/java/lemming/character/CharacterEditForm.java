@@ -1,7 +1,8 @@
 package lemming.character;
 
-import java.util.Iterator;
-
+import lemming.auth.WebSession;
+import lemming.ui.AjaxView;
+import lemming.ui.NumberTextField;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -19,9 +20,7 @@ import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.apache.wicket.validation.validator.RangeValidator;
 
-import lemming.auth.WebSession;
-import lemming.ui.AjaxView;
-import lemming.ui.NumberTextField;
+import java.util.Iterator;
 
 /**
  * A form for editing special characters.
@@ -34,7 +33,8 @@ class CharacterEditForm extends Form<Character> {
 
     /**
      * Creates a special character edit form.
-     *  @param model         model of the character
+     *
+     * @param model         model of the character
      * @param characterView character view displaying special characters
      */
     public CharacterEditForm(IModel<Character> model, AjaxView<Character> characterView) {
@@ -88,7 +88,7 @@ class CharacterEditForm extends Form<Character> {
          * Called on form submit.
          *
          * @param target target that produces an Ajax response
-         * @param form the submitted form
+         * @param form   the submitted form
          */
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -137,7 +137,6 @@ class CharacterEditForm extends Form<Character> {
     private final class CancelButton extends AjaxLink<Void> {
         /**
          * Creates a cancel button.
-         *
          */
         public CancelButton() {
             super("cancelButton");

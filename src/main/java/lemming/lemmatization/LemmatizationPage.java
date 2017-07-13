@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * An index page that lists all available contexts in a data table for lemmatization.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * True if the filter form shall be enabled.
@@ -139,8 +139,8 @@ public class LemmatizationPage extends LemmatizationBasePage {
     private class ContextRowSelectColumn extends GenericRowSelectColumn<Context, Context, String> {
         /**
          * Creates a row selection column.
-         *  @param displayModel title of a column
          *
+         * @param displayModel title of a column
          */
         public ContextRowSelectColumn(IModel<String> displayModel) {
             super(displayModel, "selected");
@@ -179,12 +179,9 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Creates a behavior.
          *
-         * @param textField
-         *            text field used a filter component
-         * @param dataTable
-         *            data table displaying filtered data
-         * @param dataProvider
-         *            data provider which delivers data for the table.
+         * @param textField    text field used a filter component
+         * @param dataTable    data table displaying filtered data
+         * @param dataProvider data provider which delivers data for the table.
          */
         public FilterUpdatingBehavior(TextField<String> textField, LemmatizationDataTable dataTable,
                                       GenericDataProvider<Context> dataProvider) {
@@ -197,8 +194,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Called when the text field content changes.
          *
-         * @param target
-         *            target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         protected void onUpdate(AjaxRequestTarget target) {
@@ -227,7 +223,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
          * Renders to the web response what the component wants to contribute.
          *
          * @param component component object
-         * @param response response object
+         * @param response  response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
@@ -251,7 +247,6 @@ public class LemmatizationPage extends LemmatizationBasePage {
 
         /**
          * Creates a set lemma link.
-         *
          */
         public SetLemmaLink(ModalFormPanel setLemmaPanel) {
             super("setLemmaLink");
@@ -261,7 +256,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Called on click.
          *
-         * @param  target target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -280,7 +275,6 @@ public class LemmatizationPage extends LemmatizationBasePage {
 
         /**
          * Creates a set part of speech link.
-         *
          */
         public SetPosLink(ModalFormPanel setPosPanel) {
             super("setPosLink");
@@ -290,7 +284,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Called on click.
          *
-         * @param  target target that produces an Ajax response
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {

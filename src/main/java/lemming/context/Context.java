@@ -38,7 +38,7 @@ public class Context extends BaseContext implements Serializable {
 
     /**
      * Part of speech of a context as string.
-     *
+     * <p>
      * For better performance of the context index table.
      */
     @Column(name = "pos_string", length = 120)
@@ -54,7 +54,7 @@ public class Context extends BaseContext implements Serializable {
 
     /**
      * Lemma of a context as string.
-     *
+     * <p>
      * For better performance of the context index table.
      */
     @Column(name = "lemma_string", length = 120)

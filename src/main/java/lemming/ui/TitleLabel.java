@@ -32,7 +32,7 @@ public class TitleLabel extends Label {
      * Processes the component tag body.
      *
      * @param markupStream markup stream
-     * @param openTag the open tag
+     * @param openTag      the open tag
      */
     @Override
     public void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) {

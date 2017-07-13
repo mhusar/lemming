@@ -1,17 +1,16 @@
 package lemming.ui.page;
 
+import lemming.HomePage;
 import lemming.ui.TitleLabel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.hibernate.UnresolvableObjectException;
 
-import lemming.HomePage;
-
 /**
  * Displayed when an unresolvable object exception occurs.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class UnresolvableObjectErrorPage extends EmptyBasePage {
     /**
      * Available action types.
@@ -38,8 +37,8 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Creates an unresolvable object error page.
-     *  @param element
-     *            element which failed to save or remove
+     *
+     * @param element   element which failed to save or remove
      * @param exception
      */
     public UnresolvableObjectErrorPage(Object element, Exception exception) {
@@ -93,7 +92,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the identifier of an entity.
-     * 
+     *
      * @return A number string or null.
      */
     private String getIdentifier() {
@@ -113,7 +112,7 @@ public class UnresolvableObjectErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the name of an entity.
-     * 
+     *
      * @return A name string or null.
      */
     private String getEntityName() {

@@ -1,26 +1,23 @@
 package lemming.lemma;
 
+import lemming.table.GenericDataTable;
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.model.StringResourceModel;
 
-import lemming.table.GenericDataTable;
-import lemming.ui.panel.ModalMessagePanel;
-
 /**
  * A panel containing a modal window dialog asking if a lemma shall be deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     * 
-     * @param id
-     *            ID of the panel
-     * @param responsePage
-     *            page loaded on confirmation
+     *
+     * @param id           ID of the panel
+     * @param responsePage page loaded on confirmation
      */
     public LemmaDeleteConfirmPanel(String id, Page responsePage) {
         super(id, DialogType.YES_NO, responsePage);
@@ -29,8 +26,7 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param responsePageClass
-     *            class of page loaded on confirmation
+     * @param responsePageClass class of page loaded on confirmation
      */
     public LemmaDeleteConfirmPanel(Class<? extends Page> responsePageClass) {
         super("lemmaDeleteConfirmPanel", responsePageClass);
@@ -39,8 +35,7 @@ public class LemmaDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public LemmaDeleteConfirmPanel(GenericDataTable<Lemma> dataTable) {
         super("lemmaDeleteConfirmPanel", DialogType.YES_NO, dataTable);

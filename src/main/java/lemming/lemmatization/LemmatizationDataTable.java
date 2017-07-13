@@ -44,8 +44,8 @@ class LemmatizationDataTable extends DataTable<Context, String> {
 
     /**
      * Creates a data table with toolbars.
-     *  @param columns
-     *            list of columns
+     *
+     * @param columns      list of columns
      * @param dataProvider
      */
     public LemmatizationDataTable(List<IColumn<Context, String>> columns,
@@ -56,10 +56,9 @@ class LemmatizationDataTable extends DataTable<Context, String> {
 
     /**
      * Creates a data table with toolbars.
-     *  @param columns
-     *            list of columns
-     * @param dataProvider
-     *            provides data for a table
+     *
+     * @param columns      list of columns
+     * @param dataProvider provides data for a table
      * @param filterForm
      */
     public LemmatizationDataTable(List<IColumn<Context, String>> columns,
@@ -71,10 +70,8 @@ class LemmatizationDataTable extends DataTable<Context, String> {
     /**
      * Builds a new data table with toolbars.
      *
-     * @param dataProvider
-     *            provides data for a table
-     * @param filterForm
-     *            form that filters data of a table
+     * @param dataProvider provides data for a table
+     * @param filterForm   form that filters data of a table
      */
     private void createTable(GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {
         setOutputMarkupId(true);
@@ -110,7 +107,7 @@ class LemmatizationDataTable extends DataTable<Context, String> {
     /**
      * Creates a row item.
      *
-     * @param id ID of a row item
+     * @param id    ID of a row item
      * @param index index of a row item
      * @param model model of a row item
      * @return A row item.
@@ -156,7 +153,7 @@ class LemmatizationDataTable extends DataTable<Context, String> {
          * Renders to the web response what the component wants to contribute.
          *
          * @param component component object
-         * @param response response object
+         * @param response  response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {

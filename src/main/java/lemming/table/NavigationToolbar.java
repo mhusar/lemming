@@ -9,8 +9,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 /**
  * An extended AjaxNavigationToolbar with a custom paging navigator.
  *
- * @param <T>
- *            data type that is navigated
+ * @param <T> data type that is navigated
  * @see PagingNavigator
  */
 public class NavigationToolbar<T> extends AjaxNavigationToolbar {
@@ -22,8 +21,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
     /**
      * Creates a navigation toolbar.
      *
-     * @param table
-     *            table a toolbar is attached to
+     * @param table table a toolbar is attached to
      */
     public NavigationToolbar(DataTable<T, String> table) {
         super(table);
@@ -49,7 +47,7 @@ public class NavigationToolbar<T> extends AjaxNavigationToolbar {
      * Creates a paging navigator.
      *
      * @param navigatorId id of the paging navigator
-     * @param table table a paging navigator is attached to
+     * @param table       table a paging navigator is attached to
      * @return A new paging navigator.
      */
     @Override

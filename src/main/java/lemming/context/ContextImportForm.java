@@ -45,7 +45,6 @@ class ContextImportForm extends Form<Void> {
 
     /**
      * Creates a context import form.
-     *
      */
     public ContextImportForm() {
         super("contextImportForm");
@@ -111,7 +110,7 @@ class ContextImportForm extends Form<Void> {
     /**
      * Called on submit of the content import form.
      *
-     * @param target target that produces an Ajax response
+     * @param target   target that produces an Ajax response
      * @param fileItem object representing a file for a form item
      */
     private void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
@@ -155,7 +154,7 @@ class ContextImportForm extends Form<Void> {
     /**
      * Called when an exception occurs.
      *
-     * @param target target that produces an Ajax response
+     * @param target    target that produces an Ajax response
      * @param exception exception which occurred.
      */
     private void onException(AjaxRequestTarget target, Exception exception) {
@@ -208,7 +207,7 @@ class ContextImportForm extends Form<Void> {
          * Renders to the web response what the component wants to contribute.
          *
          * @param component component object
-         * @param response response object
+         * @param response  response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
@@ -224,7 +223,6 @@ class ContextImportForm extends Form<Void> {
     private class RemoveButton extends AjaxLink<Void> {
         /**
          * Creates a remove button.
-         *
          */
         public RemoveButton() {
             super("removeButton");
@@ -250,7 +248,6 @@ class ContextImportForm extends Form<Void> {
     private final class ToHomePageButton extends AjaxLink<Void> {
         /**
          * Creates a redirect button.
-         *
          */
         public ToHomePageButton() {
             super("toHomePageButton");
@@ -284,7 +281,7 @@ class ContextImportForm extends Form<Void> {
          * Submits a form.
          *
          * @param target target target that produces an Ajax response
-         * @param form form that is submitted
+         * @param form   form that is submitted
          */
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {

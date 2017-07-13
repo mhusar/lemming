@@ -13,21 +13,16 @@ import org.apache.wicket.model.StringResourceModel;
 /**
  * A TextFilteredColumn adding to display values of source enums properly.
  *
- * @param <T>
- *            object type
- * @param <F>
- *            filter model type
- * @param <S>
- *            sort property type
+ * @param <T> object type
+ * @param <F> filter model type
+ * @param <S> sort property type
  */
-public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
+public class SourceTextFilterColumn<T, F, S> extends TextFilterColumn<T, F, S> {
     /**
      * Creates a TextFilterColumn for source enums.
      *
-     * @param displayModel
-     *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param propertyExpression property expression of a column
      */
     public SourceTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
@@ -35,9 +30,8 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
 
     /**
      * Creates a TextFilterColumn for source enums.
-     * @param displayModel
-     *            title of a column
      *
+     * @param displayModel title of a column
      */
     public SourceTextFilterColumn(IModel<String> displayModel) {
         super(displayModel, (S) "source", "source");
@@ -46,9 +40,9 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
     /**
      * Populates the current table cell item.
      *
-     * @param item item representing the current table cell being rendered
+     * @param item        item representing the current table cell being rendered
      * @param componentId id of the component used to render the cell
-     * @param rowModel model of the row item being rendered
+     * @param rowModel    model of the row item being rendered
      */
     @Override
     public void populateItem(Item<ICellPopulator<T>> item, String componentId, IModel<T> rowModel) {
@@ -70,10 +64,8 @@ public class SourceTextFilterColumn<T,F,S> extends TextFilterColumn<T,F,S> {
         /**
          * Creates a panel.
          *
-         * @param id
-         *            ID of the panel
-         * @param model
-         *            string resource model to display
+         * @param id    ID of the panel
+         * @param model string resource model to display
          */
         public SourcePanel(String id, StringResourceModel model) {
             super(id);

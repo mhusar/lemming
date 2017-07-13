@@ -14,7 +14,7 @@ import org.apache.wicket.model.IModel;
 /**
  * A page containing a context edit form.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class ContextEditPage extends BasePage {
     /**
      * Model of the edited context object.
@@ -36,9 +36,8 @@ public class ContextEditPage extends BasePage {
 
     /**
      * Creates a context edit page.
-     * 
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param nextPageClass class of the next page
      */
     public ContextEditPage(Class<? extends Page> nextPageClass) {
         contextModel = new CompoundPropertyModel<>(new Context());
@@ -47,11 +46,9 @@ public class ContextEditPage extends BasePage {
 
     /**
      * Creates a context edit page.
-     * 
-     * @param contextModel
-     *            model of the edited context object
-     * @param nextPageClass
-     *            class of the next page
+     *
+     * @param contextModel  model of the edited context object
+     * @param nextPageClass class of the next page
      */
     public ContextEditPage(IModel<Context> contextModel, Class<? extends Page> nextPageClass) {
         this.nextPageClass = nextPageClass;

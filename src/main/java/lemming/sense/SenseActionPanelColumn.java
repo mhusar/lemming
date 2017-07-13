@@ -19,9 +19,8 @@ import org.apache.wicket.model.Model;
 public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
     /**
      * Creates a column.
-     * 
-     * @param displayModel
-     *            title of the column
+     *
+     * @param displayModel title of the column
      */
     public SenseActionPanelColumn(IModel<String> displayModel) {
         super(displayModel, Sense.class);
@@ -29,7 +28,7 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
 
     /**
      * Returns the CSS class of this type of column.
-     * 
+     *
      * @return A string representing a CSS class.
      */
     @Override
@@ -39,13 +38,10 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
 
     /**
      * Populates cell items with components.
-     * 
-     * @param cellItem
-     *            cell item that is populated
-     * @param componentId
-     *            ID of the child component
-     * @param rowModel
-     *            model of the row
+     *
+     * @param cellItem    cell item that is populated
+     * @param componentId ID of the child component
+     * @param rowModel    model of the row
      */
     @Override
     public void populateItem(Item<ICellPopulator<Sense>> cellItem, String componentId, IModel<Sense> rowModel) {
@@ -58,11 +54,9 @@ public class SenseActionPanelColumn extends FilterPanelColumn<Sense> {
     private class ActionPanel extends Panel {
         /**
          * Creates a action panel.
-         * 
-         * @param id
-         *            ID of the panel
-         * @param model
-         *            sense model of a cell item
+         *
+         * @param id    ID of the panel
+         * @param model sense model of a cell item
          */
         public ActionPanel(String id, final IModel<Sense> model) {
             super(id, model);

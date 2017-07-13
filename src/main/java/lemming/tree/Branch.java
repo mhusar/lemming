@@ -13,7 +13,7 @@ class Branch<T> extends Item<T> {
     /**
      * Creates a branch item.
      *
-     * @param id ID of the branch
+     * @param id    ID of the branch
      * @param index index of the branch
      * @param model model of the branch
      */

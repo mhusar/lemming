@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * A panel containing a modal window dialog asking if a sense shall be deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class SenseDeleteConfirmPanel extends ModalMessagePanel {
     /**
      * A tree of senses.
@@ -28,7 +28,7 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
 
     /**
      * Creates a panel.
-     * 
+     *
      * @param id ID of the panel
      */
     public SenseDeleteConfirmPanel(String id) {
@@ -46,8 +46,9 @@ public class SenseDeleteConfirmPanel extends ModalMessagePanel {
 
     /**
      * Creates a panel.
-     *  @param lemmaModel model of the parent lemma
-     * @param senseTree a tree of senses
+     *
+     * @param lemmaModel model of the parent lemma
+     * @param senseTree  a tree of senses
      */
     public SenseDeleteConfirmPanel(IModel<Lemma> lemmaModel, SenseTree senseTree) {
         super("senseDeleteConfirmPanel", DialogType.YES_NO);

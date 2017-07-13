@@ -28,7 +28,7 @@ import java.util.List;
  * A resource for lemma data.
  */
 @Path("lemmas")
-@RolesAllowed({"STUDENT","USER","ADMIN"})
+@RolesAllowed({"STUDENT", "USER", "ADMIN"})
 public class LemmaResource {
     /**
      * Returns a chunked JSON response.

@@ -1,10 +1,5 @@
 package lemming.pos;
 
-import java.util.List;
-
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AbstractAjaxBehavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -14,6 +9,10 @@ import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.TextRequestHandler;
+
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import java.util.List;
 
 /**
  * A text field able to auto-complete part of speech names.
@@ -26,7 +25,6 @@ public class PosAutoCompleteTextField extends PosTextField {
 
     /**
      * Creates a part of speech auto complete text field.
-     *
      */
     public PosAutoCompleteTextField() {
         super("pos");
@@ -36,8 +34,7 @@ public class PosAutoCompleteTextField extends PosTextField {
     /**
      * Creates a part of speech auto complete text field.
      *
-     * @param model
-     *            data model of the text field
+     * @param model data model of the text field
      */
     public PosAutoCompleteTextField(IModel<Pos> model) {
         super("pos", model);
@@ -55,9 +52,8 @@ public class PosAutoCompleteTextField extends PosTextField {
 
         /**
          * Creates a behavior.
-         * 
-         * @param id
-         *            ID of the auto complete text field
+         *
+         * @param id ID of the auto complete text field
          */
         public PosAutoCompleteBehavior(String id) {
             textFieldId = id;
@@ -87,11 +83,9 @@ public class PosAutoCompleteTextField extends PosTextField {
 
         /**
          * Renders a JavaScript header item to the web response.
-         * 
-         * @param component
-         *            component which is contributing to the response
-         * @param response
-         *            the response object
+         *
+         * @param component component which is contributing to the response
+         * @param response  the response object
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {

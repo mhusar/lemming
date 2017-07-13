@@ -11,14 +11,12 @@ import org.apache.wicket.model.StringResourceModel;
 /**
  * A TextFilteredColumn adding to display values of context type enums properly.
  */
-class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,String> {
+class ContextTypeTextFilterColumn extends TextFilterColumn<Context, Context, String> {
     /**
      * Creates a TextFilterColumn for context type enums.
      *
-     * @param displayModel
-     *            title of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param propertyExpression property expression of a column
      */
     public ContextTypeTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
@@ -27,12 +25,9 @@ class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,Strin
     /**
      * Creates a TextFilterColumn for context type enums.
      *
-     * @param displayModel
-     *            title of a column
-     * @param sortProperty
-     *            sort property of a column
-     * @param propertyExpression
-     *            property expression of a column
+     * @param displayModel       title of a column
+     * @param sortProperty       sort property of a column
+     * @param propertyExpression property expression of a column
      */
     public ContextTypeTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
@@ -41,9 +36,9 @@ class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,Strin
     /**
      * Populates the current table cell item.
      *
-     * @param item item representing the current table cell being rendered
+     * @param item        item representing the current table cell being rendered
      * @param componentId id of the component used to render the cell
-     * @param rowModel model of the row item being rendered
+     * @param rowModel    model of the row item being rendered
      */
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
@@ -60,10 +55,8 @@ class ContextTypeTextFilterColumn extends TextFilterColumn<Context,Context,Strin
         /**
          * Creates a panel.
          *
-         * @param id
-         *            ID of the panel
-         * @param model
-         *            string resource model to display
+         * @param id    ID of the panel
+         * @param model string resource model to display
          */
         public ContextTypePanel(String id, StringResourceModel model) {
             super(id);

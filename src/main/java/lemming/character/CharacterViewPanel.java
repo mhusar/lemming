@@ -1,5 +1,7 @@
 package lemming.character;
 
+import lemming.auth.WebSession;
+import lemming.ui.AjaxView;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -7,9 +9,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-
-import lemming.auth.WebSession;
-import lemming.ui.AjaxView;
 
 /**
  * A panel with a view which displays special characters.
@@ -22,7 +21,6 @@ class CharacterViewPanel extends Panel {
 
     /**
      * Creates a character view panel.
-     *
      */
     public CharacterViewPanel() {
         super("characterViewPanel");
@@ -39,7 +37,7 @@ class CharacterViewPanel extends Panel {
 
     /**
      * Returns the character view.
-     * 
+     *
      * @return A character view.
      */
     public AjaxView<Character> getCharacterView() {
@@ -48,11 +46,9 @@ class CharacterViewPanel extends Panel {
 
     /**
      * Called when a character view item is clicked.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param model
-     *            character model of the clicked character
+     *
+     * @param target target that produces an Ajax response
+     * @param model  character model of the clicked character
      */
     @SuppressWarnings("unchecked")
     public void onItemClick(AjaxRequestTarget target, IModel<Character> model) {

@@ -19,7 +19,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 /**
  * A page for sense editing.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class SenseEditPage extends BasePage {
     /**
      * Model of the parent lemma.
@@ -39,8 +39,8 @@ public class SenseEditPage extends BasePage {
 
     /**
      * Creates a sense edit page.
-     * 
-     * @param model model of the edited lemma or sense object
+     *
+     * @param model         model of the edited lemma or sense object
      * @param nextPageClass class of the next page
      */
     public SenseEditPage(IModel<?> model, Class<? extends Page> nextPageClass) {

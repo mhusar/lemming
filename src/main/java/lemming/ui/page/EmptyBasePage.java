@@ -22,7 +22,7 @@ public class EmptyBasePage extends WebPage {
 
     /**
      * Creates a base page.
-     * 
+     *
      * @param model the page model
      */
     protected EmptyBasePage(IModel<?> model) {
@@ -45,9 +45,8 @@ public class EmptyBasePage extends WebPage {
 
     /**
      * Renders header items to the web response.
-     * 
-     * @param response
-     *            the response object
+     *
+     * @param response the response object
      */
     public void renderHead(IHeaderResponse response) {
         PackageResourceReference globalStyle = new CssResourceReference(EmptyBasePage.class, "styles/global.css");

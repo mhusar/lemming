@@ -18,11 +18,9 @@ class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
 
     /**
      * Creates a submit link.
-     * 
-     * @param id
-     *            ID of the link
-     * @param form
-     *            form that is submitted
+     *
+     * @param id   ID of the link
+     * @param form form that is submitted
      */
     public SubmitLink(String id, Form<?> form, Page responsePage) {
         super(id, form);
@@ -31,7 +29,7 @@ class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
 
     /**
      * Returns the markup ID of the indicating element.
-     * 
+     *
      * @return A markup ID attribute value.
      */
     @Override
@@ -41,11 +39,9 @@ class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
 
     /**
      * Called on form submit.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param form
-     *            the form that is submitted
+     *
+     * @param target target that produces an Ajax response
+     * @param form   the form that is submitted
      */
     @Override
     protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -54,11 +50,9 @@ class SubmitLink extends AjaxSubmitLink implements IAjaxIndicatorAware {
 
     /**
      * Called when form submit fails.
-     * 
-     * @param target
-     *            target that produces an Ajax response
-     * @param form
-     *            the form that is submitted
+     *
+     * @param target target that produces an Ajax response
+     * @param form   the form that is submitted
      */
     @Override
     protected void onError(AjaxRequestTarget target, Form<?> form) {

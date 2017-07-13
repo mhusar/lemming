@@ -74,7 +74,6 @@ public class SignInPage extends EmptyBasePage {
     private class SignInForm extends StatelessForm {
         /**
          * Creates a sign-in form.
-         *
          */
         public SignInForm() {
             super("signInForm");

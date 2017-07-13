@@ -5,6 +5,7 @@ import lemming.data.Source;
 import lemming.pos.PosAutoCompleteTextField;
 import lemming.pos.PosTextField;
 import lemming.sense.SenseDao;
+import lemming.ui.panel.ModalMessagePanel;
 import lemming.user.UserTextField;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
@@ -18,8 +19,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
-
-import lemming.ui.panel.ModalMessagePanel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,8 +34,8 @@ class LemmaEditForm extends Form<Lemma> {
 
     /**
      * Creates a lemma edit form.
-     *  @param model
-     *            lemma model that is edited
+     *
+     * @param model         lemma model that is edited
      * @param nextPageClass
      */
     public LemmaEditForm(IModel<Lemma> model, Class<? extends Page> nextPageClass) {
@@ -109,9 +108,8 @@ class LemmaEditForm extends Form<Lemma> {
 
     /**
      * Checks if a lemma model is transient.
-     * 
-     * @param model
-     *            lemma model that is checked
+     *
+     * @param model lemma model that is checked
      * @return True if a lemma model is transient; false otherwise.
      */
     private Boolean isLemmaTransient(IModel<Lemma> model) {
@@ -145,7 +143,6 @@ class LemmaEditForm extends Form<Lemma> {
     private final class CancelButton extends AjaxLink<Lemma> {
         /**
          * Creates a cancel button.
-         *
          */
         public CancelButton() {
             super("cancelButton");
@@ -153,9 +150,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -174,8 +170,7 @@ class LemmaEditForm extends Form<Lemma> {
         /**
          * Creates a delete button.
          *
-         * @param model
-         *            model which is deleted by the button
+         * @param model model which is deleted by the button
          */
         private DeleteButton(IModel<Lemma> model) {
             super("deleteButton", model);
@@ -183,9 +178,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -212,9 +206,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Creates a lemma name validator.
-         * 
-         * @param model
-         *            lemma model that is edited
+         *
+         * @param model lemma model that is edited
          */
         public UniqueLemmaNameValidator(IModel<Lemma> model) {
             lemmaModel = model;
@@ -222,9 +215,8 @@ class LemmaEditForm extends Form<Lemma> {
 
         /**
          * Validates the value of a form component.
-         * 
-         * @param validatable
-         *            IValidatable instance that is validated
+         *
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<String> validatable) {
@@ -260,8 +252,7 @@ class LemmaEditForm extends Form<Lemma> {
         /**
          * Creates a replacement lemma validator.
          *
-         * @param model
-         *            lemma model that is edited
+         * @param model lemma model that is edited
          */
         public ReplacementLemmaValidator(IModel<Lemma> model) {
             lemmaModel = model;
@@ -270,8 +261,7 @@ class LemmaEditForm extends Form<Lemma> {
         /**
          * Validates the value of a form component.
          *
-         * @param validatable
-         *            IValidatable instance that is validated
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<Lemma> validatable) {

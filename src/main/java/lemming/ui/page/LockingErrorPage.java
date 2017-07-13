@@ -1,21 +1,19 @@
 package lemming.ui.page;
 
-import java.lang.reflect.Field;
-
-import javax.persistence.OptimisticLockException;
-
+import lemming.HomePage;
 import lemming.ui.TitleLabel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.hibernate.StaleObjectStateException;
 
-import lemming.HomePage;
+import javax.persistence.OptimisticLockException;
+import java.lang.reflect.Field;
 
 /**
  * Displayed when a locking exception occurs.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class LockingErrorPage extends EmptyBasePage {
     /**
      * Available action types.
@@ -47,13 +45,10 @@ public class LockingErrorPage extends EmptyBasePage {
 
     /**
      * Creates a locking error page.
-     * 
-     * @param action
-     *            type of action that failed due to locking
-     * @param element
-     *            element which failed to save or remove
-     * @param exception
-     *            exception raised due to locking
+     *
+     * @param action    type of action that failed due to locking
+     * @param element   element which failed to save or remove
+     * @param exception exception raised due to locking
      */
     public LockingErrorPage(ActionType action, Object element, Exception exception) {
         this.action = action;
@@ -103,7 +98,7 @@ public class LockingErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the identifier of an entity.
-     * 
+     *
      * @return A number string or null.
      */
     private String getIdentifier() {
@@ -115,7 +110,8 @@ public class LockingErrorPage extends EmptyBasePage {
             try {
                 field = element.getClass().getField("id");
                 identifier = field.getInt(element);
-            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ignored) {
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
+                    ignored) {
             }
         } else if (exception instanceof StaleObjectStateException) {
             StaleObjectStateException staleObjectStateException = (StaleObjectStateException) exception;
@@ -131,7 +127,7 @@ public class LockingErrorPage extends EmptyBasePage {
 
     /**
      * Extracts the name of an entity.
-     * 
+     *
      * @return A name string or null.
      */
     private String getEntityName() {

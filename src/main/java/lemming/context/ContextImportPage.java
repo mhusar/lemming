@@ -10,7 +10,7 @@ import org.apache.wicket.markup.html.basic.Label;
 /**
  * A page containg a context import form.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class ContextImportPage extends BasePage {
     /**
      * Creates a context import page.

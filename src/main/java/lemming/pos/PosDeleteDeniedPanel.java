@@ -11,11 +11,10 @@ import org.apache.wicket.model.StringResourceModel;
  * A panel containing a modal window dialog stating that a part of speech could not be
  * deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class PosDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     *
      */
     public PosDeleteDeniedPanel() {
         super("posDeleteDeniedPanel", DialogType.OKAY);
@@ -24,8 +23,7 @@ public class PosDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public PosDeleteDeniedPanel(GenericDataTable<Pos> dataTable) {
         super("posDeleteDeniedPanel", DialogType.OKAY, dataTable);

@@ -15,7 +15,7 @@ public class AutoShrinkBehavior extends Behavior {
      * Renders a JavaScript header item to the web response.
      *
      * @param component component which is contributing to the response
-     * @param response the response object
+     * @param response  the response object
      */
     @Override
     public void renderHead(Component component, IHeaderResponse response) {

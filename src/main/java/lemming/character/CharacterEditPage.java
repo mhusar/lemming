@@ -1,8 +1,10 @@
 package lemming.character;
 
-import java.util.List;
-
+import lemming.auth.WebSession;
+import lemming.ui.AjaxView;
 import lemming.ui.TitleLabel;
+import lemming.ui.page.BasePage;
+import lemming.ui.panel.FeedbackPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -12,15 +14,12 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 
-import lemming.auth.WebSession;
-import lemming.ui.AjaxView;
-import lemming.ui.page.BasePage;
-import lemming.ui.panel.FeedbackPanel;
+import java.util.List;
 
 /**
  * A page containing a special character edit form.
  */
-@AuthorizeInstantiation({ "USER", "ADMIN" })
+@AuthorizeInstantiation({"USER", "ADMIN"})
 public class CharacterEditPage extends BasePage {
     /**
      * Model of the edited character object.
@@ -64,7 +63,6 @@ public class CharacterEditPage extends BasePage {
     private final class AddCharacterButton extends AjaxLink<Character> {
         /**
          * Creates a button.
-         *
          */
         private AddCharacterButton() {
             super("addCharacterButton");
@@ -72,9 +70,8 @@ public class CharacterEditPage extends BasePage {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         @SuppressWarnings("unchecked")

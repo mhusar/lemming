@@ -10,7 +10,7 @@ public interface IDropListener {
     /**
      * Called when a source component is dropped on a target component’s bottom dropzone.
      *
-     * @param target target that produces an Ajax response
+     * @param target          target that produces an Ajax response
      * @param sourceComponent the source component
      * @param targetComponent the target component
      */
@@ -19,7 +19,7 @@ public interface IDropListener {
     /**
      * Called when a source component is dropped on a target component’s middle dropzone.
      *
-     * @param target target that produces an Ajax response
+     * @param target          target that produces an Ajax response
      * @param sourceComponent the source component
      * @param targetComponent the target component
      */
@@ -29,7 +29,7 @@ public interface IDropListener {
     /**
      * Called when a source component is dropped on a target component’s top dropzone..
      *
-     * @param target target that produces an Ajax response
+     * @param target          target that produces an Ajax response
      * @param sourceComponent the source component
      * @param targetComponent the target component
      */

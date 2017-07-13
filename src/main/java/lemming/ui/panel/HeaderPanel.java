@@ -1,20 +1,19 @@
 package lemming.ui.panel;
 
+import lemming.HomePage;
 import lemming.context.ContextIndexPage;
 import lemming.lemma.LemmaIndexPage;
 import lemming.lemmatization.LemmatizationPage;
 import lemming.pos.PosIndexPage;
 import lemming.sense.SenseIndexPage;
+import lemming.user.UserDao;
+import lemming.user.UserEditPage;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
-
-import lemming.HomePage;
-import lemming.user.UserDao;
-import lemming.user.UserEditPage;
 
 /**
  * A panel that provides shortcuts to main parts of the app.
@@ -23,8 +22,7 @@ public class HeaderPanel extends Panel {
     /**
      * Creates a header panel.
      *
-     * @param activePageClass
-     *            class of active page
+     * @param activePageClass class of active page
      */
     public HeaderPanel(Class<? extends Page> activePageClass) {
         super("headerPanel");

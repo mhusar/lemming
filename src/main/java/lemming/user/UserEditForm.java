@@ -1,21 +1,15 @@
 package lemming.user;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import lemming.HomePage;
+import lemming.auth.SignInPage;
+import lemming.auth.UserRoles;
+import lemming.auth.WebSession;
 import lemming.lemma.LemmaDao;
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.form.EnumChoiceRenderer;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.ListChoice;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.INullAcceptingValidator;
@@ -23,11 +17,10 @@ import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 
-import lemming.HomePage;
-import lemming.auth.SignInPage;
-import lemming.auth.UserRoles;
-import lemming.auth.WebSession;
-import lemming.ui.panel.ModalMessagePanel;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A form for editing users.
@@ -36,8 +29,7 @@ class UserEditForm extends Form<User> {
     /**
      * Creates a user edit form.
      *
-     * @param model
-     *            edited user model
+     * @param model edited user model
      */
     public UserEditForm(IModel<User> model) {
         super("userEditForm", model);
@@ -70,7 +62,7 @@ class UserEditForm extends Form<User> {
             add(new DeleteButton(getModel()).setVisible(!(isUserTransient(getModelObject()))));
 
             if (isUserTransient(getModelObject())) {
-                enabledCheckBox.add(AttributeModifier.append("checked","checked"));
+                enabledCheckBox.add(AttributeModifier.append("checked", "checked"));
             }
 
             roleListChoice.add(new RequiredRoleValidator());
@@ -82,9 +74,8 @@ class UserEditForm extends Form<User> {
 
     /**
      * Checks if a user is transient.
-     * 
-     * @param user
-     *            user that is checked
+     *
+     * @param user user that is checked
      * @return True if a user is transient; false otherwise.
      */
     private Boolean isUserTransient(User user) {
@@ -139,7 +130,6 @@ class UserEditForm extends Form<User> {
     private final class CancelButton extends AjaxLink<User> {
         /**
          * Creates a cancel button.
-         *
          */
         public CancelButton() {
             super("cancelButton");
@@ -147,9 +137,8 @@ class UserEditForm extends Form<User> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -168,8 +157,7 @@ class UserEditForm extends Form<User> {
         /**
          * Creates a delete button.
          *
-         * @param model
-         *            model which is deleted by the button
+         * @param model model which is deleted by the button
          */
         private DeleteButton(IModel<User> model) {
             super("deleteButton", model);
@@ -177,9 +165,8 @@ class UserEditForm extends Form<User> {
 
         /**
          * Called on button click.
-         * 
-         * @param target
-         *            target that produces an Ajax response
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
@@ -206,9 +193,8 @@ class UserEditForm extends Form<User> {
             INullAcceptingValidator<UserRoles.Role> {
         /**
          * Validates value of a form component.
-         * 
-         * @param validatable
-         *            IValidatable instance that is validated
+         *
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<UserRoles.Role> validatable) {
@@ -228,16 +214,15 @@ class UserEditForm extends Form<User> {
      * Validates a users’s realName against other existent users.
      */
     private class UniqueRealNameValidator implements IValidator<String> {
-         /**
+        /**
          * User model that is edited.
          */
         private final IModel<User> userModel;
 
         /**
          * Creates a realName validator.
-         * 
-         * @param model
-         *            user model that is edited
+         *
+         * @param model user model that is edited
          */
         public UniqueRealNameValidator(IModel<User> model) {
             userModel = model;
@@ -245,9 +230,8 @@ class UserEditForm extends Form<User> {
 
         /**
          * Validates value of a form component.
-         * 
-         * @param validatable
-         *            IValidatable instance that is validated
+         *
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<String> validatable) {
@@ -282,9 +266,8 @@ class UserEditForm extends Form<User> {
 
         /**
          * Creates a username validator.
-         * 
-         * @param model
-         *            user model that is edited
+         *
+         * @param model user model that is edited
          */
         public UniqueUsernameValidator(IModel<User> model) {
             userModel = model;
@@ -292,9 +275,8 @@ class UserEditForm extends Form<User> {
 
         /**
          * Validates the value of a form component.
-         * 
-         * @param validatable
-         *            IValidatable instance that is validated
+         *
+         * @param validatable IValidatable instance that is validated
          */
         @Override
         public void validate(IValidatable<String> validatable) {

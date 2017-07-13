@@ -1,22 +1,20 @@
 package lemming.lemma;
 
+import lemming.table.GenericDataTable;
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.authorization.Action;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.model.StringResourceModel;
 
-import lemming.table.GenericDataTable;
-import lemming.ui.panel.ModalMessagePanel;
-
 /**
  * A panel containing a modal window dialog stating that a lemma could not be
  * deleted.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "SIGNED_IN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"SIGNED_IN"})
 public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
-     *
      */
     public LemmaDeleteDeniedPanel() {
         super("lemmaDeleteDeniedPanel", DialogType.OKAY);
@@ -25,8 +23,7 @@ public class LemmaDeleteDeniedPanel extends ModalMessagePanel {
     /**
      * Creates a panel.
      *
-     * @param dataTable
-     *            data table that is refreshed
+     * @param dataTable data table that is refreshed
      */
     public LemmaDeleteDeniedPanel(GenericDataTable<Lemma> dataTable) {
         super("lemmaDeleteDeniedPanel", DialogType.OKAY, dataTable);

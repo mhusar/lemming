@@ -8,13 +8,12 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 /**
  * A BookmarkablePageLink visible to users and admins.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "USER", "ADMIN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"USER", "ADMIN"})
 public class UserBookmarkablePageLink extends BookmarkablePageLink<Void> {
     /**
      * Creates a page link.
      *
-     * @param pageClass
-     *            class of page
+     * @param pageClass class of page
      */
     public UserBookmarkablePageLink(Class<? extends Page> pageClass) {
         super("characterEditPageLink", pageClass);

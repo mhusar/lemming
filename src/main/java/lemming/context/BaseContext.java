@@ -60,7 +60,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Keyword of a context.
      */
-    @Column(name = "keyword", length=120, nullable = false)
+    @Column(name = "keyword", length = 120, nullable = false)
     private String keyword;
 
     /**
@@ -215,8 +215,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Sets the keyword of a context.
      *
-     * @param keyword
-     *            the keyword of a context
+     * @param keyword the keyword of a context
      */
     public void setKeyword(String keyword) {
         this.keyword = keyword;
@@ -298,8 +297,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      * Indicates if some other object is equal to this one.
      *
      * @param object the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     * otherwise.
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
     public boolean equals(Object object) {

@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * An index page that lists all available senses in a data table.
  */
-@AuthorizeInstantiation({ "SIGNED_IN" })
+@AuthorizeInstantiation({"SIGNED_IN"})
 public class SenseIndexPage extends IndexBasePage {
     /**
      * True if the filter form shall be enabled.
@@ -88,7 +88,7 @@ public class SenseIndexPage extends IndexBasePage {
 
     /**
      * Returns the list of columns of the data table.
-     * 
+     *
      * @return A list of columns.
      */
     private List<IColumn<Sense, String>> getColumns() {
@@ -144,7 +144,6 @@ public class SenseIndexPage extends IndexBasePage {
 
         /**
          * Creates a choose lemma panel.
-         *
          */
         public ChooseLemmaPanel() {
             super("chooseLemmaPanel");
@@ -176,7 +175,7 @@ public class SenseIndexPage extends IndexBasePage {
          * Confirms the dialog when clicked.
          *
          * @param target target that produces an Ajax response
-         * @param form form that is submitted
+         * @param form   form that is submitted
          */
         @Override
         public void onConfirm(AjaxRequestTarget target, Form<?> form) {

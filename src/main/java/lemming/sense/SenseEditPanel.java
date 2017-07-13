@@ -41,7 +41,8 @@ public class SenseEditPanel extends Panel {
 
     /**
      * Creates a sense edit panel.
-     *  @param lemmaModel model of a parent lemma
+     *
+     * @param lemmaModel model of a parent lemma
      * @param senseModel model of a sense
      */
     public SenseEditPanel(IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
@@ -116,7 +117,8 @@ public class SenseEditPanel extends Panel {
 
         /**
          * Creates a sense edit form.
-         *  @param lemmaModel model of a parent lemma
+         *
+         * @param lemmaModel model of a parent lemma
          * @param senseModel model of a sense
          */
         public SenseEditForm(IModel<Lemma> lemmaModel, IModel<Sense> senseModel) {
@@ -305,7 +307,6 @@ public class SenseEditPanel extends Panel {
         private class AddSenseButton extends AjaxLink<Void> {
             /**
              * Creates an add sense button.
-             *
              */
             public AddSenseButton() {
                 super("addSenseButton");
@@ -337,7 +338,6 @@ public class SenseEditPanel extends Panel {
         private class AddChildSenseButton extends AjaxLink<Void> {
             /**
              * Creates an add child sense button.
-             *
              */
             public AddChildSenseButton() {
                 super("addChildSenseButton");
@@ -370,7 +370,6 @@ public class SenseEditPanel extends Panel {
         private class DeleteSenseButton extends AjaxLink<Void> {
             /**
              * Creates a delete sense button.
-             *
              */
             public DeleteSenseButton() {
                 super("deleteSenseButton");
@@ -395,7 +394,6 @@ public class SenseEditPanel extends Panel {
         private class SaveSenseButton extends AjaxButton {
             /**
              * Creates a save sense button.
-             *
              */
             public SaveSenseButton(Form<?> form) {
                 super("saveSenseButton", form);
@@ -405,7 +403,7 @@ public class SenseEditPanel extends Panel {
              * Called on form submit.
              *
              * @param target target that produces an Ajax response
-             * @param form form that is submitted
+             * @param form   form that is submitted
              */
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -421,7 +419,7 @@ public class SenseEditPanel extends Panel {
          * Saves a sense.
          *
          * @param target target that produces an Ajax response
-         * @param form form that is submitted
+         * @param form   form that is submitted
          */
         private void saveSense(AjaxRequestTarget target, Form<?> form) {
             SenseDao senseDao = new SenseDao();
@@ -454,7 +452,7 @@ public class SenseEditPanel extends Panel {
          * Saves a child sense.
          *
          * @param target target that produces an Ajax response
-         * @param form form that is submitted
+         * @param form   form that is submitted
          */
         private void saveChildSense(AjaxRequestTarget target, Form<?> form) {
             SenseDao senseDao = new SenseDao();

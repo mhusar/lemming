@@ -1,9 +1,6 @@
 package lemming.character;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import lemming.ui.AjaxView;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
@@ -11,7 +8,9 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import lemming.ui.AjaxView;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * An asynchronously refreshing repeating view for special characters.
@@ -19,7 +18,6 @@ import lemming.ui.AjaxView;
 public class CharacterAjaxView extends AjaxView<Character> {
     /**
      * Creates an Ajax view for special characters.
-     *
      */
     public CharacterAjaxView() {
         super("characterView");

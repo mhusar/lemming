@@ -7,13 +7,12 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 /**
  * A markup container visible to users and admins.
  */
-@AuthorizeAction(action = Action.RENDER, roles = { "USER", "ADMIN" })
+@AuthorizeAction(action = Action.RENDER, roles = {"USER", "ADMIN"})
 class UserWebMarkupContainer extends WebMarkupContainer {
     /**
      * Creates a markup container.
-     * 
-     * @param id
-     *            ID of a markup container
+     *
+     * @param id ID of a markup container
      */
     public UserWebMarkupContainer(String id) {
         super(id);

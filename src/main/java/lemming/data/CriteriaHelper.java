@@ -80,8 +80,8 @@ final class CriteriaHelper {
      * Returns automatically created context restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param filter string filter
+     * @param root            query root referencing entities
+     * @param filter          string filter
      * @return An expression of type boolean, or null.
      */
     private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
@@ -115,8 +115,8 @@ final class CriteriaHelper {
      * Returns automatically created lemma restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param filter string filter
+     * @param root            query root referencing entities
+     * @param filter          string filter
      * @return An expression of type boolean, or null.
      */
     private static Expression<Boolean> getLemmaFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
@@ -143,8 +143,8 @@ final class CriteriaHelper {
      * Returns automatically created pos restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param filter string filter
+     * @param root            query root referencing entities
+     * @param filter          string filter
      * @return An expression of type boolean, or null.
      */
     private static Expression<Boolean> getPosFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
@@ -164,8 +164,8 @@ final class CriteriaHelper {
      * Returns automatically created sense restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param filter string filter
+     * @param root            query root referencing entities
+     * @param filter          string filter
      * @return An expression of type boolean, or null.
      */
     private static Expression<Boolean> getSenseFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
@@ -179,14 +179,14 @@ final class CriteriaHelper {
      * Returns automatically created restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param joins map of joins
-     * @param filter string filter
-     * @param typeClass data type
+     * @param root            query root referencing entities
+     * @param joins           map of joins
+     * @param filter          string filter
+     * @param typeClass       data type
      * @return An expression of type boolean, or null.
      */
     public static Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
-                                                                 Map<String,Join<?,?>> joins, String filter,
+                                                                 Map<String, Join<?, ?>> joins, String filter,
                                                                  Class<?> typeClass) {
         if (typeClass.equals(Context.class)) {
             return getContextFilterStringRestriction(criteriaBuilder, root, filter);
@@ -205,13 +205,13 @@ final class CriteriaHelper {
      * Returns an automatically created list of order objects for context ordering.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param property sort property
-     * @param isAscending sort direction
+     * @param root            query root referencing entities
+     * @param property        sort property
+     * @param isAscending     sort direction
      * @return A list of order objects.
      */
     private static List<Order> getContextOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
-                                             Boolean isAscending) {
+                                               Boolean isAscending) {
         List<Order> orderList = new ArrayList<>();
 
         if (isAscending) {
@@ -277,9 +277,9 @@ final class CriteriaHelper {
      * Returns an automatically created list of order objects for sense ordering.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param property sort property
-     * @param isAscending sort direction
+     * @param root            query root referencing entities
+     * @param property        sort property
+     * @param isAscending     sort direction
      * @return A list of order objects.
      */
     private static List<Order> getSenseOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
@@ -319,15 +319,15 @@ final class CriteriaHelper {
      * Returns an automatically created list of order objects for a property string.
      *
      * @param criteriaBuilder contructor for criteria queries
-     * @param root query root referencing entities
-     * @param joins map of joins
-     * @param property sort property
-     * @param isAscending sort direction
-     * @param typeClass data type
+     * @param root            query root referencing entities
+     * @param joins           map of joins
+     * @param property        sort property
+     * @param isAscending     sort direction
+     * @param typeClass       data type
      * @return A list of order objects.
      */
-    public static List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<?> root, Map<String,Join<?,?>> joins,
-                                 String property, Boolean isAscending, Class<?> typeClass) {
+    public static List<Order> getOrder(CriteriaBuilder criteriaBuilder, Root<?> root, Map<String, Join<?, ?>> joins,
+                                       String property, Boolean isAscending, Class<?> typeClass) {
         List<Order> orderList = new ArrayList<>();
         String[] splitProperty = property.split("\\.");
         Expression<String> expression;
@@ -339,7 +339,7 @@ final class CriteriaHelper {
         }
 
         if (Array.getLength(splitProperty) == 2) {
-            Join<?,?> join = joins.get(splitProperty[0]);
+            Join<?, ?> join = joins.get(splitProperty[0]);
 
             if (join != null) {
                 expression = join.get(splitProperty[1]);
@@ -362,12 +362,12 @@ final class CriteriaHelper {
     /**
      * Returns automatically created joins for some classes.
      *
-     * @param root query root referencing entities
+     * @param root      query root referencing entities
      * @param typeClass data type
      * @return A map of joins, or null.
      */
     @SuppressWarnings("SameReturnValue")
-    public static Map<String,Join<?,?>> getJoins(Root<?> root, Class<?> typeClass) {
+    public static Map<String, Join<?, ?>> getJoins(Root<?> root, Class<?> typeClass) {
         return null;
     }
 }

@@ -27,9 +27,8 @@ public class WebSession extends AuthenticatedWebSession {
 
     /**
      * Creates a WebSession.
-     * 
-     * @param request
-     *            the current request object
+     *
+     * @param request the current request object
      */
     public WebSession(Request request) {
         super(request);
@@ -37,7 +36,7 @@ public class WebSession extends AuthenticatedWebSession {
 
     /**
      * Returns the web session of the active thread.
-     * 
+     *
      * @return The web session of the active thread.
      */
     public static WebSession get() {
@@ -54,7 +53,7 @@ public class WebSession extends AuthenticatedWebSession {
 
     /**
      * Returns the owner of a web session.
-     * 
+     *
      * @return The owner of a session or null.
      */
     public User getUser() {
@@ -84,15 +83,13 @@ public class WebSession extends AuthenticatedWebSession {
 
     /**
      * Authenticates a user by username and password.
-     * 
-     * @param username
-     *            the username of a user
-     * @param password
-     *            the password of a user
-     * @return True if the user could be authenticated, false if username and
-     *         password don’t match or no matching user could be found.
+     *
+     * @param username the username of a user
+     * @param password the password of a user
+     * @return True if the user could be authenticated, false if username and password don’t match or no matching user
+     * could be found.
      * @see org.apache.wicket.authroles.authentication.AuthenticatedWebSession#authenticate(java.lang.String,
-     *      java.lang.String)
+     * java.lang.String)
      */
     public boolean authenticate(String username, String password) {
         IUserDao userDao = new UserDao();
@@ -130,9 +127,8 @@ public class WebSession extends AuthenticatedWebSession {
 
     /**
      * Returns the roles of the web session user.
-     * 
-     * @return The roles of the web session user or null if no user id is set
-     *         yet.
+     *
+     * @return The roles of the web session user or null if no user id is set yet.
      */
     @Override
     public Roles getRoles() {

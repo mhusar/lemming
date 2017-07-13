@@ -132,8 +132,7 @@ public class Pos extends DatedEntity implements Serializable {
     /**
      * Sets the name of a part of speech.
      *
-     * @param name
-     *            the name of a part of speech
+     * @param name the name of a part of speech
      */
     public void setName(String name) {
         this.name = name;
@@ -150,7 +149,6 @@ public class Pos extends DatedEntity implements Serializable {
 
     /**
      * Sets the source of a part of speech.
-     *
      */
     public void setSource() {
         this.source = Source.PosType.USER;
@@ -160,8 +158,7 @@ public class Pos extends DatedEntity implements Serializable {
      * Indicates if some other object is equal to this one.
      *
      * @param object the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     * otherwise.
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
     public boolean equals(Object object) {

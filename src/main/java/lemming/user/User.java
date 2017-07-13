@@ -1,29 +1,16 @@
 package lemming.user;
 
+import lemming.auth.UserRoles;
+import lemming.data.DatedEntity;
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Version;
-
-import lemming.data.DatedEntity;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.OptimisticLockType;
-import org.hibernate.annotations.OptimisticLocking;
-import org.hibernate.annotations.SelectBeforeUpdate;
-
-import lemming.auth.UserRoles;
 
 /**
  * Represents a user with one role.
@@ -33,9 +20,9 @@ import lemming.auth.UserRoles;
 @Entity
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @SelectBeforeUpdate
-@Table(name = "user", indexes = { @Index(columnList = "uuid", unique = true),
+@Table(name = "user", indexes = {@Index(columnList = "uuid", unique = true),
         @Index(columnList = "username", unique = true),
-        @Index(columnList = "real_name", unique = true) })
+        @Index(columnList = "real_name", unique = true)})
 public class User extends DatedEntity implements Principal, Serializable {
     /**
      * ID associated with a user.
@@ -71,7 +58,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Hashed password of a user.
-     * 
+     *
      * @see UserDao#hashPassword(String, byte[])
      */
     @Column(name = "password", nullable = false)
@@ -79,7 +66,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Salt bytes used to hash a user’s password.
-     * 
+     *
      * @see UserDao#createRandomSaltBytes()
      */
     @Lob
@@ -107,7 +94,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the ID associated with a user.
-     * 
+     *
      * @return Primary key of a user.
      */
     public Integer getId() {
@@ -116,9 +103,8 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the ID of a user.
-     * 
-     * @param id
-     *            the ID of a user
+     *
+     * @param id the ID of a user
      */
     @SuppressWarnings("unused")
     private void setId(Integer id) {
@@ -127,7 +113,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the UUID of a user.
-     * 
+     *
      * @return UUID of a user.
      */
     public String getUuid() {
@@ -136,9 +122,8 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the UUID of a user.
-     * 
-     * @param uuid
-     *            the UUID of a user
+     *
+     * @param uuid the UUID of a user
      */
     public void setUuid(String uuid) {
         this.uuid = uuid;
@@ -146,7 +131,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the version of a user.
-     * 
+     *
      * @return Version number of a user.
      */
     @SuppressWarnings("unused")
@@ -156,9 +141,8 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the version number of a user.
-     * 
-     * @param version
-     *            version number of a user
+     *
+     * @param version version number of a user
      */
     @SuppressWarnings("unused")
     private void setVersion(Long version) {
@@ -167,7 +151,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the real name of a user.
-     * 
+     *
      * @return A user’s real name.
      */
     public String getRealName() {
@@ -176,7 +160,6 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the real name of a user.
-     *
      */
     public void setRealName() {
         this.realName = UserDao.DefaultUser.REAL_NAME;
@@ -184,7 +167,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the username of a user.
-     * 
+     *
      * @return The user’s username.
      */
     private String getUsername() {
@@ -193,7 +176,6 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the username of a user.
-     *
      */
     public void setUsername() {
         this.username = UserDao.DefaultUser.USERNAME;
@@ -201,7 +183,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the hashed password of a user.
-     * 
+     *
      * @return A user’s hashed password.
      */
     public String getPassword() {
@@ -210,9 +192,8 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the hashed password of the user.
-     * 
-     * @param password
-     *            a hashed password
+     *
+     * @param password a hashed password
      * @see UserDao#hashPassword(String, byte[])
      */
     public void setPassword(String password) {
@@ -221,7 +202,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Salt bytes used to hash a user’s password.
-     * 
+     *
      * @return A salt byte array.
      */
     public byte[] getSalt() {
@@ -230,9 +211,8 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the salt used to hash a user’s password.
-     * 
-     * @param salt
-     *            a byte array
+     *
+     * @param salt a byte array
      * @see UserDao#createRandomSaltBytes()
      */
     public void setSalt(byte[] salt) {
@@ -241,7 +221,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns role of a user.
-     * 
+     *
      * @return The role of a user.
      */
     public UserRoles.Role getRole() {
@@ -250,7 +230,6 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets a user’s role.
-     *
      */
     public void setRole() {
         this.role = UserDao.DefaultUser.ROLE;
@@ -258,7 +237,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns the enabled status of a user.
-     * 
+     *
      * @return True if the user is enabled; false otherwise.
      */
     public Boolean getEnabled() {
@@ -267,7 +246,6 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Sets the enabled status of the user.
-     *
      */
     public void setEnabled() {
         this.enabled = true;
@@ -286,11 +264,9 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Indicates if some other object is equal to this one.
-     * 
-     * @param object
-     *            the reference object with which to compare
-     * @return True if this object is the same as the object argument; false
-     *         otherwise.
+     *
+     * @param object the reference object with which to compare
+     * @return True if this object is the same as the object argument; false otherwise.
      */
     @Override
     public boolean equals(Object object) {
@@ -310,7 +286,7 @@ public class User extends DatedEntity implements Principal, Serializable {
 
     /**
      * Returns a hash code value for a user.
-     * 
+     *
      * @return A hash code value for a user.
      */
     @Override

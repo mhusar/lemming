@@ -1,7 +1,6 @@
 package lemming.ui.input;
 
-import java.util.List;
-
+import lemming.WebApplication;
 import org.apache.wicket.markup.head.HeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -10,7 +9,7 @@ import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-import lemming.WebApplication;
+import java.util.List;
 
 /**
  * An input panel for XML tags and special characters.
@@ -18,7 +17,6 @@ import lemming.WebApplication;
 public class InputPanel extends Panel {
     /**
      * Creates an input panel.
-     *
      */
     public InputPanel() {
         super("inputPanel");
@@ -26,7 +24,7 @@ public class InputPanel extends Panel {
 
     /**
      * Renders what the component wants to contribute to the head section.
-     * 
+     *
      * @param response the response object
      */
     @Override
@@ -35,7 +33,7 @@ public class InputPanel extends Panel {
                 "scripts/input-panel.js", getLocale(), getStyle(), "") {
             /**
              * Returns a list of dependent references.
-             * 
+             *
              * @return A list of dependent references.
              */
             @Override

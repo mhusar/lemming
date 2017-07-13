@@ -88,7 +88,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
             transaction.begin();
 
             TypedQuery<Character> query = entityManager
-                        .createQuery("FROM Character WHERE id = :id", Character.class);
+                    .createQuery("FROM Character WHERE id = :id", Character.class);
             query.setParameter("id", character.getId());
             Character persistentCharacter = query.getSingleResult();
             Character mergedCharacter = moveCharacter(entityManager, character, persistentCharacter);
@@ -118,15 +118,12 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
     /**
      * Inserts a character at the specified position. Shifts subsequent elements
      * to the right.
-     * 
-     * @param entityManager
-     *            entity manager interacting with the persistence context
-     * @param character
-     *            a character object
      *
+     * @param entityManager entity manager interacting with the persistence context
+     * @param character     a character object
      * @throws RuntimeException
      */
-    private void insertCharacter(EntityManager entityManager, Character character) throws  RuntimeException {
+    private void insertCharacter(EntityManager entityManager, Character character) throws RuntimeException {
         TypedQuery<Character> query = entityManager
                 .createQuery("FROM Character WHERE position >= :position ORDER BY position DESC", Character.class);
         query.setParameter("position", character.getPosition());
@@ -144,14 +141,10 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
 
     /**
      * Moves a persistent character to a new position.
-     * 
-     * @param entityManager
-     *            entity manager interacting with the persistence context
-     * @param character
-     *            the new character
-     * @param persistentCharacter
-     *            the persistent character
      *
+     * @param entityManager       entity manager interacting with the persistence context
+     * @param character           the new character
+     * @param persistentCharacter the persistent character
      * @throws RuntimeException
      */
     private Character moveCharacter(EntityManager entityManager, Character character, Character persistentCharacter)
@@ -178,7 +171,7 @@ public class CharacterDao extends GenericDao<Character> implements ICharacterDao
         }
 
         criteriaQuery.where(builder.and(builder.ge(root.<Integer>get("position"), minPosition)),
-                        builder.le(root.<Integer>get("position"), maxPosition)).orderBy(elementOrder);
+                builder.le(root.<Integer>get("position"), maxPosition)).orderBy(elementOrder);
         List<Character> elements = entityManager.createQuery(criteriaQuery).getResultList();
 
         elements.remove(persistentCharacter);
