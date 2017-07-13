@@ -1,6 +1,7 @@
 package lemming.pos;
 
 import lemming.auth.WebSession;
+import lemming.data.Source;
 import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import lemming.ui.panel.FeedbackPanel;
@@ -33,7 +34,7 @@ public class PosEditPage extends BasePage {
         posModel = new CompoundPropertyModel<>(new Pos());
         nextPageClass = null;
         // set pos source to user
-        posModel.getObject().setSource();
+        posModel.getObject().setSource(Source.PosType.USER);
     }
 
     /**
@@ -45,7 +46,7 @@ public class PosEditPage extends BasePage {
         posModel = new CompoundPropertyModel<>(new Pos());
         this.nextPageClass = nextPageClass;
         // set pos source to user
-        posModel.getObject().setSource();
+        posModel.getObject().setSource(Source.PosType.USER);
     }
 
     /**

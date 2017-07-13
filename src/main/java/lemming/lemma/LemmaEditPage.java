@@ -34,7 +34,7 @@ public class LemmaEditPage extends BasePage {
         lemmaModel = new CompoundPropertyModel<>(new Lemma());
         nextPageClass = null;
         // set lemma source to user
-        lemmaModel.getObject().setSource();
+        lemmaModel.getObject().setSource(Source.LemmaType.USER);
         // set user that created a lemma
         lemmaModel.getObject().setUser(WebSession.get().getUser());
     }
@@ -48,7 +48,7 @@ public class LemmaEditPage extends BasePage {
         lemmaModel = new CompoundPropertyModel<>(new Lemma());
         this.nextPageClass = nextPageClass;
         // set lemma source to user
-        lemmaModel.getObject().setSource();
+        lemmaModel.getObject().setSource(Source.LemmaType.USER);
         // set user that created a lemma
         lemmaModel.getObject().setUser(WebSession.get().getUser());
     }

@@ -1,6 +1,7 @@
 package lemming.lemma;
 
 import lemming.data.IDao;
+import lemming.data.Source;
 import lemming.pos.Pos;
 import lemming.user.User;
 
@@ -53,9 +54,10 @@ interface ILemmaDao extends IDao<Lemma> {
     /**
      * Returns a list of matching lemmata for a given source.
      *
+     * @param source source of data
      * @return A list of matching lemmata.
      */
-    List<Lemma> findBySource();
+    List<Lemma> findBySource(Source.LemmaType source);
 
     /**
      * Returns a list of matching lemmata for a given user.

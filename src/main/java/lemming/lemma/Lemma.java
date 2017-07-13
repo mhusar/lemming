@@ -276,9 +276,11 @@ public class Lemma extends DatedEntity implements Serializable {
 
     /**
      * Sets the source of a lemma.
+     *
+     * @param source source of a lemma
      */
-    public void setSource() {
-        this.source = Source.LemmaType.USER;
+    public void setSource(Source.LemmaType source) {
+        this.source = source;
     }
 
     /**

@@ -280,12 +280,12 @@ public class UserDao extends GenericDao<User> implements IUserDao {
         String hashedPassword = hashPassword(DefaultUser.PASSWORD, saltBytes);
 
         if (hashedPassword != null) {
-            defaultUser.setRealName();
-            defaultUser.setUsername();
+            defaultUser.setRealName(DefaultUser.REAL_NAME);
+            defaultUser.setUsername(DefaultUser.USERNAME);
             defaultUser.setPassword(hashedPassword);
             defaultUser.setSalt(saltBytes);
-            defaultUser.setEnabled();
-            defaultUser.setRole();
+            defaultUser.setEnabled(true);
+            defaultUser.setRole(DefaultUser.ROLE);
             persist(defaultUser);
             logger.info("Default user created");
         }
