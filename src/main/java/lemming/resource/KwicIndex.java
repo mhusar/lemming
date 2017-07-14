@@ -96,6 +96,12 @@ public abstract class KwicIndex {
         private final String location;
 
         /**
+         * Number of an item.
+         */
+        @XmlAttribute(name = "n", required = true)
+        private Integer number;
+
+        /**
          * Pos attribute of an item.
          */
         @XmlAttribute
@@ -152,6 +158,7 @@ public abstract class KwicIndex {
             following = context.getFollowing();
             keyword = new Keyword(context.getKeyword());
             location = context.getLocation();
+            number = context.getNumber();
             preceding = context.getPreceding();
 
             if (context.getInitPunctuation() != null) {
@@ -204,6 +211,15 @@ public abstract class KwicIndex {
          */
         public String getLocation() {
             return location;
+        }
+
+        /**
+         * Returns the number attribute of an item.
+         *
+         * @return An attribute as string.
+         */
+        public Integer getNumber() {
+            return number;
         }
 
         /**
