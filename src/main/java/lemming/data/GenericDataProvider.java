@@ -38,9 +38,14 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     private T state;
 
     /**
-     * The state defined a string filter.
+     * The state defined by a string filter.
      */
     private String filter;
+
+    /**
+     * The state defined by a filter property.
+     */
+    private String property;
 
     /**
      * Creates a data provider.
@@ -190,6 +195,7 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
     public void setFilterState(T state) {
         this.state = state;
         this.filter = null;
+        this.property = null;
     }
 
     /**
@@ -248,8 +254,10 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     private Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<T> root,
                                                            Map<String, Join<?, ?>> joins) {
-        if (filter != null) {
-            return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, typeClass);
+        if (filter != null && property != null) {
+            return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, property, typeClass);
+        } else if (filter != null) {
+            return CriteriaHelper.getFilterStringRestriction(criteriaBuilder, root, joins, filter, null, typeClass);
         } else {
             return null;
         }
@@ -262,6 +270,19 @@ public final class GenericDataProvider<T> extends SortableDataProvider<T, String
      */
     public void updateFilter(String filter) {
         this.filter = filter;
+        this.property = null;
+        this.state = null;
+    }
+
+    /**
+     * Updates the string filter and filter property of the DataProvider.
+     *
+     * @param filter string filter
+     * @param property filter property
+     */
+    public void updateFilter(String filter, String property) {
+        this.filter = filter;
+        this.property = property;
         this.state = null;
     }
 

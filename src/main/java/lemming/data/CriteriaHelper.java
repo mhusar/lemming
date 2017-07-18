@@ -112,6 +112,20 @@ final class CriteriaHelper {
     }
 
     /**
+     * Returns automatically created context restrictions for a string filter with property.
+     *
+     * @param criteriaBuilder contructor for criteria queries
+     * @param root            query root referencing entities
+     * @param filter          string filter
+     * @param property        property filter
+     * @return An expression of type boolean, or null.
+     */
+    private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
+                                                                         Root<?> root, String filter, String property) {
+        return criteriaBuilder.like(root.get(property), filter + "%");
+    }
+
+    /**
      * Returns automatically created lemma restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
@@ -187,9 +201,13 @@ final class CriteriaHelper {
      */
     public static Expression<Boolean> getFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
                                                                  Map<String, Join<?, ?>> joins, String filter,
-                                                                 Class<?> typeClass) {
+                                                                 String property, Class<?> typeClass) {
         if (typeClass.equals(Context.class)) {
-            return getContextFilterStringRestriction(criteriaBuilder, root, filter);
+            if (property != null) {
+                return getContextFilterStringRestriction(criteriaBuilder, root, filter, property);
+            } else {
+                return getContextFilterStringRestriction(criteriaBuilder, root, filter);
+            }
         } else if (typeClass.equals(Lemma.class)) {
             return getLemmaFilterStringRestriction(criteriaBuilder, root, filter);
         } else if (typeClass.equals(Pos.class)) {
