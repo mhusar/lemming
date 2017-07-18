@@ -22,11 +22,15 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
-                    <input wicket:id="filterTextField" class="form-control" autofocus="autofocus"
-                           wicket:message="placeholder:Action.filter"/>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input wicket:id="filterTextField" class="form-control" autofocus="autofocus"
+                               wicket:message="placeholder:Action.filter"/>
+                        <input wicket:id="filterPropertyTextField" class="form-control" type="hidden"/>
+                        <div wicket:id="dropdownButtonPanel"></div>
+                    </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8">
                 </div>
             </div>
         </div>

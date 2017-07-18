@@ -6,6 +6,7 @@ import lemming.data.GenericDataProvider;
 import lemming.table.AutoShrinkBehavior;
 import lemming.table.GenericRowSelectColumn;
 import lemming.table.TextFilterColumn;
+import lemming.ui.DropdownButtonPanel;
 import lemming.ui.TitleLabel;
 import lemming.ui.input.InputPanel;
 import lemming.ui.panel.FeedbackPanel;
@@ -25,6 +26,7 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.form.HiddenField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -57,7 +59,10 @@ public class LemmatizationPage extends LemmatizationBasePage {
         GenericDataProvider<Context> dataProvider = new GenericDataProvider<>(Context.class,
                 new SortParam<>("keyword", true));
         FilterForm<Context> filterForm = new FilterForm<>("filterForm", dataProvider);
-        TextField<String> filterTextField = new TextField<>("filterTextField", Model.of(""));
+        TextField<String> filterValueTextField = new TextField<>("filterTextField", Model.of(""));
+        TextField<String> filterPropertyTextField = new HiddenField<>("filterPropertyTextField", Model.of("keyword"));
+        DropdownButtonPanel dropdownButtonPanel = new DropdownButtonPanel<Context>(getString("Context.keyword"),
+                filterPropertyTextField, getColumns());
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 
@@ -68,21 +73,30 @@ public class LemmatizationPage extends LemmatizationBasePage {
             fragment = new Fragment("fragment", "withFilterForm", this);
             dataTable = new LemmatizationDataTable(getColumns(), dataProvider, filterForm);
 
-            filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
+            filterValueTextField.add(new FilterUpdatingBehavior(filterValueTextField, filterPropertyTextField,
+                    dataTable, dataProvider));
+            filterPropertyTextField.add(new FilterUpdatingBehavior(filterValueTextField, filterPropertyTextField,
+                    dataTable, dataProvider));
             filterForm.add(dataTable);
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
             dataTable = new LemmatizationDataTable(getColumns(), dataProvider);
 
-            filterTextField.add(new FilterUpdatingBehavior(filterTextField, dataTable, dataProvider));
+            filterValueTextField.add(new FilterUpdatingBehavior(filterValueTextField, filterPropertyTextField,
+                    dataTable, dataProvider));
+            filterPropertyTextField.add(new FilterUpdatingBehavior(filterValueTextField, filterPropertyTextField,
+                    dataTable, dataProvider));
             fragment.add(dataTable);
         }
 
-        filterTextField.add(new PageScrollingBehavior());
+        dropdownButtonPanel.setSelectEvent("input");
+        filterValueTextField.add(new PageScrollingBehavior());
         add(new FeedbackPanel());
         add(new InputPanel());
-        add(filterTextField);
+        add(filterValueTextField);
+        add(filterPropertyTextField.setOutputMarkupId(true));
+        add(dropdownButtonPanel);
         add(container);
         container.add(fragment);
         // auto-shrink following and preceding text columns
@@ -162,9 +176,14 @@ public class LemmatizationPage extends LemmatizationBasePage {
      */
     private class FilterUpdatingBehavior extends AjaxFormComponentUpdatingBehavior {
         /**
-         * The text field used as filter component.
+         * The text field used as value filter component.
          */
-        final TextField<String> textField;
+        final TextField<String> valueTextField;
+
+        /**
+         * The text field used as property filter component.
+         */
+        final TextField<String> propertyTextField;
 
         /**
          * Data table displaying filtered data.
@@ -179,14 +198,16 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Creates a behavior.
          *
-         * @param textField    text field used a filter component
-         * @param dataTable    data table displaying filtered data
-         * @param dataProvider data provider which delivers data for the table.
+         * @param valueTextField    text field used a value filter component
+         * @param propertyTextField text field used a property filter component
+         * @param dataTable         data table displaying filtered data
+         * @param dataProvider      data provider which delivers data for the table.
          */
-        public FilterUpdatingBehavior(TextField<String> textField, LemmatizationDataTable dataTable,
-                                      GenericDataProvider<Context> dataProvider) {
+        public FilterUpdatingBehavior(TextField<String> valueTextField, TextField<String> propertyTextField,
+                                      LemmatizationDataTable dataTable, GenericDataProvider<Context> dataProvider) {
             super("input");
-            this.textField = textField;
+            this.valueTextField = valueTextField;
+            this.propertyTextField = propertyTextField;
             this.dataTable = dataTable;
             this.dataProvider = dataProvider;
         }
@@ -198,7 +219,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
          */
         @Override
         protected void onUpdate(AjaxRequestTarget target) {
-            dataProvider.updateFilter(textField.getInput());
+            dataProvider.updateFilter(valueTextField.getModelObject(), propertyTextField.getModelObject());
             target.add(dataTable);
         }
 
