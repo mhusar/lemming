@@ -22,7 +22,8 @@ import java.io.Serializable;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string")})
+        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, commented, " +
+                "interesting")})
 public class Context extends BaseContext implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -68,6 +69,28 @@ public class Context extends BaseContext implements Serializable {
     @JoinColumn(name = "sense_id")
     @JsonIgnore
     private Sense sense;
+
+    /**
+     * Comment of a context.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    @JsonIgnore
+    private Comment comment;
+
+    /**
+     * Commented state of a context.
+     *
+     * True, if a context has a comment.
+     */
+    private Boolean commented;
+
+    /**
+     * Interesting state of a context.
+     *
+     * True, if a context is interesting for the glossary.
+     */
+    private Boolean interesting;
 
     /**
      * Selected state of a context.
@@ -170,6 +193,60 @@ public class Context extends BaseContext implements Serializable {
      */
     public void setSense(Sense sense) {
         this.sense = sense;
+    }
+
+    /**
+     * Returns the comment of a context.
+     *
+     * @return Comment of a context.
+     */
+    public Comment getComment() {
+        return comment;
+    }
+
+    /**
+     * Sets the comment of a context.
+     *
+     * @param comment comment of a context
+     */
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    /**
+     * Returns the commented state of a context.
+     *
+     * @return Commented state of a context.
+     */
+    public Boolean getCommented() {
+        return commented;
+    }
+
+    /**
+     * Sets the commented state of a context.
+     *
+     * @param commented commented state of a context
+     */
+    public void setCommented(Boolean commented) {
+        this.commented = commented;
+    }
+
+    /**
+     * Returns the interesting state of a context.
+     *
+     * @return Interesting state of a context.
+     */
+    public Boolean getInteresting() {
+        return interesting;
+    }
+
+    /**
+     * Sets the interesting state of a context.
+     *
+     * @param interesting interesting state of a context
+     */
+    public void setInteresting(Boolean interesting) {
+        this.interesting = interesting;
     }
 
     /**
