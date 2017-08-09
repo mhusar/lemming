@@ -262,6 +262,10 @@ table {
   padding: 8px 4px 8px 0;
 }
 
+.table > tbody > tr > .badgeColumn:last-child {
+  padding: 8px 0;
+}
+
 .table > tbody > tr > td > div {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -327,7 +331,13 @@ table {
   border-top: inherit;
 }
 
-tbody .actionColumn a {
+.selected .badge {
+  background-color: #fff;
+  color: #428bca;
+}
+
+tbody .actionColumn a,
+tbody .badgeColumn a {
   padding: 8px;
 }
 

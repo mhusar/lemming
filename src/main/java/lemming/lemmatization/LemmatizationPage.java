@@ -4,6 +4,7 @@ import lemming.auth.WebSession;
 import lemming.context.*;
 import lemming.data.GenericDataProvider;
 import lemming.table.AutoShrinkBehavior;
+import lemming.table.BadgeColumn;
 import lemming.table.RowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.DropdownButtonPanel;
@@ -146,6 +147,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
                 "keyword"));
         columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")), "following",
                 "following"));
+        columns.add(new ContextBadgeColumn(Model.of("")));
 
         return columns;
     }
@@ -171,6 +173,47 @@ public class LemmatizationPage extends LemmatizationBasePage {
         @Override
         public String getCssClass() {
             return "hidden";
+        }
+    }
+
+    /**
+     * A badge column for contexts.
+     */
+    private class ContextBadgeColumn extends BadgeColumn<Context, Context, String> {
+        /**
+         * Creates a badge column
+         *
+         * @param displayModel title of a column
+         */
+        public ContextBadgeColumn(IModel<String> displayModel) {
+            super(displayModel, "badge");
+        }
+
+        /**
+         * Creates a badge panel.
+         *
+         * @param panelId ID of the panel
+         * @param model   model of the row item
+         * @return A badge panel.
+         */
+        @Override
+        public Panel createBadgePanel(String panelId, IModel<Context> model) {
+            Context refreshedContext = new ContextDao().refresh(model.getObject());
+
+            if (refreshedContext.getComments() != null && refreshedContext.getComments().size() > 0) {
+                return new BadgePanel(panelId, String.valueOf(refreshedContext.getComments().size()), null);
+            } else {
+                return new BadgePanel(panelId, null, "0");
+            }
+        }
+
+        /**
+         * Called when a link inside a badge panel is clicked.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
         }
     }
 
