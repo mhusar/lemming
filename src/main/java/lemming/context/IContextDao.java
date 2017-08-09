@@ -19,6 +19,13 @@ interface IContextDao extends IDao<Context> {
     void batchPersist(List<Context> contexts);
 
     /**
+     * Makes multiple context instances merged.
+     *
+     * @param contexts context instances
+     */
+    void batchMerge(List<Context> contexts);
+
+    /**
      * Returns a list of matching contexts for a given keyword.
      *
      * @param keyword keyword of a context

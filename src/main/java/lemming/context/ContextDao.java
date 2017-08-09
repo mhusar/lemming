@@ -213,6 +213,55 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      *
      * @throws RuntimeException
      */
+    public void batchMerge(List<Context> contexts) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+        Context currentContext = null;
+        Integer batchSize = 50;
+        Integer counter = 0;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            for (Context context : contexts) {
+                currentContext = context;
+                Context mergedContext = entityManager.merge(currentContext);
+                refreshForeignKeyStrings(mergedContext);
+                entityManager.merge(mergedContext);
+                counter++;
+
+                if (counter % batchSize == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+            }
+
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(currentContext, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(currentContext, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public List<Context> findByKeyword(String keyword) throws RuntimeException {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
