@@ -4,7 +4,7 @@ import lemming.auth.WebSession;
 import lemming.context.*;
 import lemming.data.GenericDataProvider;
 import lemming.table.AutoShrinkBehavior;
-import lemming.table.GenericRowSelectColumn;
+import lemming.table.RowSelectColumn;
 import lemming.table.TextFilterColumn;
 import lemming.ui.DropdownButtonPanel;
 import lemming.ui.TitleLabel;
@@ -153,7 +153,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * A row selection column for contexts.
      */
-    private class ContextRowSelectColumn extends GenericRowSelectColumn<Context, Context, String> {
+    private class ContextRowSelectColumn extends RowSelectColumn<Context, Context, String> {
         /**
          * Creates a row selection column.
          *

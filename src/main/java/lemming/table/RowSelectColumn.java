@@ -16,14 +16,14 @@ import org.apache.wicket.model.PropertyModel;
  * @param <F> filter model type
  * @param <S> sort property type
  */
-public class GenericRowSelectColumn<T, F, S> extends TextFilterColumn<T, F, S> {
+public class RowSelectColumn<T, F, S> extends TextFilterColumn<T, F, S> {
     /**
      * Creates a row selection column.
      *
      * @param displayModel       title of a column
      * @param propertyExpression property expression of a column
      */
-    public GenericRowSelectColumn(IModel<String> displayModel, String propertyExpression) {
+    public RowSelectColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }
 
@@ -34,7 +34,7 @@ public class GenericRowSelectColumn<T, F, S> extends TextFilterColumn<T, F, S> {
      * @param sortProperty       sort property of a column
      * @param propertyExpression property expression of a column
      */
-    public GenericRowSelectColumn(IModel<String> displayModel, S sortProperty, String propertyExpression) {
+    public RowSelectColumn(IModel<String> displayModel, S sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
     }
 
