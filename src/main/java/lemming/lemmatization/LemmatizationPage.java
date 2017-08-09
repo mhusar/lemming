@@ -104,7 +104,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
     }
 
     /**
-     * Called when a base page is initialized.
+     * Called when a lemmatization page is initialized.
      */
     @Override
     protected void onInitialize() {
@@ -113,12 +113,15 @@ public class LemmatizationPage extends LemmatizationBasePage {
         Panel lemmatizationPanel = new LemmatizationPanel();
         ModalFormPanel setLemmaPanel = new SetLemmaPanel(dataTable);
         ModalFormPanel setPosPanel = new SetPosPanel(dataTable);
+        ModalFormPanel addCommentPanel = new AddCommentPanel(dataTable);
 
         lemmatizationPanel.add(new SetLemmaLink(setLemmaPanel));
         lemmatizationPanel.add(new SetPosLink(setPosPanel));
+        lemmatizationPanel.add(new AddCommentLink(addCommentPanel));
 
         add(setLemmaPanel);
         add(setPosPanel);
+        add(addCommentPanel);
         add(lemmatizationPanel);
     }
 
@@ -310,6 +313,34 @@ public class LemmatizationPage extends LemmatizationBasePage {
         @Override
         public void onClick(AjaxRequestTarget target) {
             setPosPanel.show(target);
+        }
+    }
+
+    /**
+     * A link which opens an add comment dialog.
+     */
+    private final class AddCommentLink extends AjaxLink<Context> {
+        /**
+         * Modal form panel which is shown on click.
+         */
+        private final ModalFormPanel addCommentPanel;
+
+        /**
+         * Creates a set comment link.
+         */
+        public AddCommentLink(ModalFormPanel addCommentPanel) {
+            super("addCommentLink");
+            this.addCommentPanel = addCommentPanel;
+        }
+
+        /**
+         * Called on click.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            addCommentPanel.show(target);
         }
     }
 }

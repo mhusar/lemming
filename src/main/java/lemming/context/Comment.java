@@ -2,6 +2,7 @@ package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
+import lemming.user.User;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -9,11 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
-/**
- * Class representing a comment.
- */
 @BatchSize(size = 30)
 @DynamicUpdate
 @Entity
@@ -52,13 +51,31 @@ public class Comment extends DatedEntity implements Serializable {
     /**
      * Content of a comment.
      */
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "TEXT", length = 65535, nullable = false)
     private String content;
+
+    /**
+     * Contexts a comment is attached to.
+     */
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "comments")
+    private List<Context> contexts;
+
+    /**
+     * User that generated a comment.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     /**
      * Creates an instance of a comment.
      */
     public Comment() {
+    }
+
+    public Comment(String content, User user) {
+        this.content = content;
+        this.user = user;
     }
 
     /**
@@ -122,7 +139,7 @@ public class Comment extends DatedEntity implements Serializable {
      *
      * @return Content of a comment.
      */
-    public String getContent() {
+    public String getComment() {
         return content;
     }
 
@@ -131,8 +148,35 @@ public class Comment extends DatedEntity implements Serializable {
      *
      * @param content content of a comment
      */
-    public void setContent(String content) {
+    public void setComment(String content) {
         this.content = content;
+    }
+
+    /**
+     * Returns the contexts a comment is attached to.
+     *
+     * @return Contexts a comment is attached to.
+     */
+    public List<Context> getContexts() {
+        return contexts;
+    }
+
+    /**
+     * Returns the user that generated a comment.
+     *
+     * @return A user.
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * Sets the user that generated a comment.
+     *
+     * @param user a user
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**

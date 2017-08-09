@@ -6,11 +6,13 @@ import lemming.pos.Pos;
 import lemming.sense.Sense;
 import org.hibernate.annotations.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Class representing a context.
@@ -22,8 +24,7 @@ import java.io.Serializable;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, commented, " +
-                "interesting")})
+        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, interesting")})
 public class Context extends BaseContext implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -73,23 +74,18 @@ public class Context extends BaseContext implements Serializable {
     /**
      * Comment of a context.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    @JsonIgnore
-    private Comment comment;
-
-    /**
-     * Commented state of a context.
-     *
-     * True, if a context has a comment.
-     */
-    private Boolean commented;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "context_comments", indexes = {@Index(columnList = "context_id, comment_id", unique = true)},
+            joinColumns = {@JoinColumn(name = "context_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "comment_id", nullable = false, updatable = false)})
+    private List<Comment> comments;
 
     /**
      * Interesting state of a context.
      *
      * True, if a context is interesting for the glossary.
      */
+    @Column(name = "interesting")
     private Boolean interesting;
 
     /**
@@ -196,39 +192,12 @@ public class Context extends BaseContext implements Serializable {
     }
 
     /**
-     * Returns the comment of a context.
+     * Returns the comments of a context.
      *
-     * @return Comment of a context.
+     * @return Comments of a context.
      */
-    public Comment getComment() {
-        return comment;
-    }
-
-    /**
-     * Sets the comment of a context.
-     *
-     * @param comment comment of a context
-     */
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * Returns the commented state of a context.
-     *
-     * @return Commented state of a context.
-     */
-    public Boolean getCommented() {
-        return commented;
-    }
-
-    /**
-     * Sets the commented state of a context.
-     *
-     * @param commented commented state of a context
-     */
-    public void setCommented(Boolean commented) {
-        this.commented = commented;
+    public List<Comment> getComments() {
+        return comments;
     }
 
     /**

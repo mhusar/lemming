@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:extend>
+    <div class="form-group last">
+        <label for="comment" class="col-sm-3 control-label">
+            <wicket:message key="AddCommentPanel.comment"></wicket:message>
+        </label>
+        <div class="col-sm-9">
+            <textarea wicket:id="comment" id="comment" class="form-control" maxlength="1000" required="required">
+            </textarea>
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

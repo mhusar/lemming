@@ -22,6 +22,8 @@
     <entry key="Action.toHomePage">Zur Übersicht</entry>
     <entry key="Action.toIndex">Zum Index</entry>
     <entry key="Action.view">Ansehen</entry>
+    <entry key="AddCommentPanel.comment">Kommentar</entry>
+    <entry key="AddCommentPanel.addComment">Kommentar hinzufügen</entry>
     <entry key="AlertPanel.error">Fehler</entry>
     <entry key="AlertPanel.warning">Warnung</entry>
     <entry key="Character.character">Sonderzeichen</entry>
@@ -101,6 +103,7 @@
     <entry key="Lemma.source">Herkunft</entry>
     <entry key="Lemma.user">Benutzer</entry>
     <entry key="LemmatizationPage.header">Lemmatisierung</entry>
+    <entry key="LemmatizationPanel.addComment">Kommentar hinzufügen</entry>
     <entry key="LemmatizationPanel.setLemma">Lemma festlegen</entry>
     <entry key="LemmatizationPanel.setPos">Wortart festlegen</entry>
     <entry key="LemmatizationPanel.toggleNavigation">Navigation umschalten</entry>

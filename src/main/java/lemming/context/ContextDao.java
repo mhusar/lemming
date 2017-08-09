@@ -62,7 +62,8 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction.begin();
             context = entityManager.merge(context);
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.id = :id", Context.class);
+                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense LEFT JOIN FETCH c.comments " +
+                    "WHERE c.id = :id", Context.class);
             Context refreshedContext = query.setParameter("id", context.getId()).getSingleResult();
             transaction.commit();
             return refreshedContext;

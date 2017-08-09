@@ -1,6 +1,7 @@
 package lemming.lemmatization;
 
 import lemming.context.Context;
+import lemming.context.ContextDao;
 import lemming.data.GenericDataProvider;
 import lemming.table.NavigationToolbar;
 import org.apache.wicket.AttributeModifier;
@@ -37,8 +38,7 @@ class LemmatizationDataTable extends DataTable<Context, String> {
     private Map<Integer, IModel<Context>> rowModels;
 
     /**
-     * IDs of selected contexts.
-     * This is needed because the selected property of contexts is transient.
+     * IDs of selected contexts. This is needed because the selected property of contexts is transient.
      */
     private CollectionModel<Integer> selectedContextIds;
 
@@ -136,8 +136,7 @@ class LemmatizationDataTable extends DataTable<Context, String> {
     }
 
     /**
-     * Updates the IDs of selected contexts.
-     * This is needed because the selected property of contexts is transient.
+     * Updates the IDs of selected contexts. This is needed because the selected property of contexts is transient.
      *
      * @param selectedContextIds a collection of context IDs
      */
