@@ -87,7 +87,7 @@ public abstract class ModalFormPanel extends Panel {
         // stop bootstrap from blocking focus on text fields and focus first text field
         String javaScript = "jQuery('#" + modalWindowId + "')"
                 + ".on('shown.bs.modal', function () { "
-                + "jQuery(this).find('.form-control:text:visible').first().focus(); })"
+                + "jQuery(this).find('.form-control:text:visible, textarea.form-control:visible').first().focus(); })"
                 + ".on('hidden.bs.modal', function () { "
                 + "var input = jQuery('input[autofocus]').first(); "
                 + "if (jQuery(input).length && jQuery(input).isInViewport()) { input.focus(); "
