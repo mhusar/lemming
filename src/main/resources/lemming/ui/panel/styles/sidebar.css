@@ -1,0 +1,29 @@
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  background-color: red;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: all .25s ease-out;
+  width: 300px;
+}
+
+.sidebar-left {
+  left: -300px;
+}
+
+.sidebar-left.active {
+  left: 0;
+}
+
+.sidebar-right {
+  right: -300px;
+}
+
+.sidebar-right.active {
+  right: 0;
+}
