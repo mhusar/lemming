@@ -79,8 +79,9 @@ public abstract class BadgeColumn<T, F, S> extends TextFilterColumn<T, F, S> {
      * Called when a link inside a badge panel is clicked.
      *
      * @param target target that produces an Ajax response
+     * @param model model of the row item
      */
-    public abstract void onClick(AjaxRequestTarget target);
+    public abstract void onClick(AjaxRequestTarget target, IModel<T> model);
 
     /**
      * A panel used to display a badge.
@@ -90,15 +91,16 @@ public abstract class BadgeColumn<T, F, S> extends TextFilterColumn<T, F, S> {
          * Creates a panel.
          *
          * @param id    ID of the panel
+         * @param model default model of the panel
          * @param label string displayed by label; set parameter to null to make badge invisible
          * @param dummy a dummy string which determines the size of an invisible badge
          */
-        public BadgePanel(String id, String label, String dummy) {
-            super(id);
+        public BadgePanel(String id, IModel<T> model, String label, String dummy) {
+            super(id, model);
             AjaxLink<Void> link = new AjaxLink<Void>("link") {
                 @Override
                 public void onClick(AjaxRequestTarget target) {
-                    BadgeColumn.this.onClick(target);
+                    BadgeColumn.this.onClick(target, model);
                 }
 
                 // prevent event bubbling of click events to make a badge panel usable in selectable rows
