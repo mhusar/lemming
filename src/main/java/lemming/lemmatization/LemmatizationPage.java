@@ -12,6 +12,7 @@ import lemming.ui.TitleLabel;
 import lemming.ui.input.InputPanel;
 import lemming.ui.panel.FeedbackPanel;
 import lemming.ui.panel.ModalFormPanel;
+import lemming.ui.panel.SidebarPanel;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxChannel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -54,6 +55,11 @@ public class LemmatizationPage extends LemmatizationBasePage {
     private final LemmatizationDataTable dataTable;
 
     /**
+     * A sidebar panel displaying comments of contexts.
+     */
+    private final SidebarPanel sidebarPanel;
+
+    /**
      * Creates a lemmatization page.
      */
     public LemmatizationPage() {
@@ -64,6 +70,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         TextField<String> filterPropertyTextField = new HiddenField<>("filterPropertyTextField", Model.of("keyword"));
         DropdownButtonPanel dropdownButtonPanel = new DropdownButtonPanel<Context>(getString("Context.keyword"),
                 filterPropertyTextField, getColumns());
+        sidebarPanel = new SidebarPanel("sidebarPanel", SidebarPanel.Orientation.RIGHT);
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 
@@ -99,6 +106,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         add(filterPropertyTextField.setOutputMarkupId(true));
         add(dropdownButtonPanel);
         add(container);
+        add(sidebarPanel);
         container.add(fragment);
         // auto-shrink following and preceding text columns
         add(new AutoShrinkBehavior());
@@ -201,9 +209,9 @@ public class LemmatizationPage extends LemmatizationBasePage {
             Context refreshedContext = new ContextDao().refresh(model.getObject());
 
             if (refreshedContext.getComments() != null && refreshedContext.getComments().size() > 0) {
-                return new BadgePanel(panelId, String.valueOf(refreshedContext.getComments().size()), null);
+                return new BadgePanel(panelId, model, String.valueOf(refreshedContext.getComments().size()), null);
             } else {
-                return new BadgePanel(panelId, null, "0");
+                return (Panel) new BadgePanel(panelId, model, null, "0").setVisible(false);
             }
         }
 
@@ -211,9 +219,13 @@ public class LemmatizationPage extends LemmatizationBasePage {
          * Called when a link inside a badge panel is clicked.
          *
          * @param target target that produces an Ajax response
+         * @param model model of the row item
          */
         @Override
-        public void onClick(AjaxRequestTarget target) {
+        public void onClick(AjaxRequestTarget target, IModel<Context> model) {
+            Context refreshedContext = new ContextDao().refresh(model.getObject());
+
+            sidebarPanel.toggle(target);
         }
     }
 
