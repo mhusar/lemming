@@ -5,9 +5,11 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
 /**
@@ -18,14 +20,10 @@ public class SidebarPanel extends Panel {
      * Expanded state of the sidebar.
      */
     private Boolean expanded = false;
-
     /**
-     * Available sidebar orientations.
+     * Orientation of the sidebar.
      */
-    public enum Orientation {
-        LEFT, RIGHT
-    }
-
+    private Orientation orientation;
     /**
      * Sidebar container.
      */
@@ -34,12 +32,13 @@ public class SidebarPanel extends Panel {
     /**
      * Creates a sidebar panel.
      *
-     * @param id ID of the sidebar panel
+     * @param id          ID of the sidebar panel
      * @param orientation orientation of the sidebar panel
      */
     public SidebarPanel(String id, Orientation orientation) {
         super(id);
         sidebar = new WebMarkupContainer("sidebar");
+        this.orientation = orientation;
 
         if (orientation.equals(Orientation.LEFT)) {
             sidebar.add(AttributeModifier.append("class", "sidebar sidebar-left"));
@@ -47,18 +46,21 @@ public class SidebarPanel extends Panel {
             sidebar.add(AttributeModifier.append("class", "sidebar sidebar-right"));
         }
 
-        add(sidebar.setOutputMarkupId(true));
+        add(sidebar);
     }
 
     /**
      * Renders to the web response what the component wants to contribute.
      *
-     * @param response  response object
+     * @param response response object
      */
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
+        ResourceReference javaScriptReference = new JavaScriptResourceReference(SidebarPanel.class,
+                "scripts/sidebar.js");
         ResourceReference styleReference = new CssResourceReference(SidebarPanel.class, "styles/sidebar.css");
+        response.render(JavaScriptHeaderItem.forReference(javaScriptReference));
         response.render(CssHeaderItem.forReference(styleReference));
     }
 
@@ -91,7 +93,8 @@ public class SidebarPanel extends Panel {
      */
     public void slideIn(AjaxRequestTarget target) {
         expanded = true;
-        target.appendJavaScript(String.format("jQuery('#%s').addClass('active');", sidebar.getMarkupId()));
+        target.appendJavaScript(String.format("slideIn(%s);",
+                orientation.equals(Orientation.LEFT) ? "Orientation.LEFT" : "Orientation.RIGHT"));
     }
 
     /**
@@ -101,6 +104,14 @@ public class SidebarPanel extends Panel {
      */
     public void slideOut(AjaxRequestTarget target) {
         expanded = false;
-        target.appendJavaScript(String.format("jQuery('#%s').removeClass('active');", sidebar.getMarkupId()));
+        target.appendJavaScript(String.format("slideOut(%s);",
+                orientation.equals(Orientation.LEFT) ? "Orientation.LEFT" : "Orientation.RIGHT"));
+    }
+
+    /**
+     * Available sidebar orientations.
+     */
+    public enum Orientation {
+        LEFT, RIGHT
     }
 }
