@@ -7,22 +7,23 @@ function slideIn(orientation) {
         marginDiff;
 
     if (margin < sidebarWidth) {
-        marginDiff = (sidebarWidth - margin) * 2.0;
+        marginDiff = (sidebarWidth - margin);
+        document.body.style.setProperty("--margin-diff", marginDiff);
 
         if (orientation === Orientation.LEFT) {
-            jQuery("body").animate({ marginRight: "-" + marginDiff + "px" }, duration, "linear");
+            jQuery("main").addClass("slide-in-main-left").removeClass("slide-out-main-left");
         } else if (orientation === Orientation.RIGHT) {
-            jQuery("body").animate({ marginLeft: "-" + marginDiff + "px" }, duration, "linear");
+            jQuery("main").addClass("slide-in-main-right").removeClass("slide-out-main-right");
         }
+    } else {
+        document.body.style.setProperty("--margin-diff", 0);
     }
 
-    window.setTimeout(function () {
-        if (orientation === Orientation.LEFT) {
-            jQuery(".sidebar-left").addClass("active");
-        } else if (orientation === Orientation.RIGHT) {
-            jQuery(".sidebar-right").addClass("active");
-        }
-    }, duration / 2);
+    if (orientation === Orientation.LEFT) {
+        jQuery(".sidebar-left").addClass("slide-in").removeClass("slide-out");
+    } else if (orientation === Orientation.RIGHT) {
+        jQuery(".sidebar-right").addClass("slide-in").removeClass("slide-out");
+    }
 }
 
 function slideOut(orientation) {
@@ -30,20 +31,21 @@ function slideOut(orientation) {
         marginDiff;
 
     if (margin < sidebarWidth) {
-        marginDiff = (sidebarWidth - margin) * 2.0;
+        marginDiff = (sidebarWidth - margin);
+        document.body.style.setProperty("--margin-diff", marginDiff);
 
-        window.setTimeout(function () {
-            if (orientation === Orientation.LEFT) {
-                jQuery("body").animate({ marginRight: "0px" }, duration, "linear");
-            } else if (orientation === Orientation.RIGHT) {
-                jQuery("body").animate({ marginLeft: "0px" }, duration, "linear");
-            }
-        }, duration / 2);
+        if (orientation === Orientation.LEFT) {
+            jQuery("main").addClass("slide-out-main-left").removeClass("slide-in-main-left");
+        } else if (orientation === Orientation.RIGHT) {
+            jQuery("main").addClass("slide-out-main-right").removeClass("slide-in-main-right");
+        }
+    } else {
+        document.body.style.setProperty("--margin-diff", 0);
     }
 
     if (orientation === Orientation.LEFT) {
-        jQuery(".sidebar-left").removeClass("active");
+        jQuery(".sidebar-left").removeClass("slide-in").addClass("slide-out");
     } else if (orientation === Orientation.RIGHT) {
-        jQuery(".sidebar-right").removeClass("active");
+        jQuery(".sidebar-right").removeClass("slide-in").addClass("slide-out");
     }
 }

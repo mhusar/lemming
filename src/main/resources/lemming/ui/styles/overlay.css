@@ -1,0 +1,16 @@
+.overlay-inner {
+  background: rgba(0, 0, 0, 0.5);
+  display: block;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  width: 100%;
+}
+
+.show-overlay .overlay-inner {
+  opacity: 1;
+}
+
+.hidden-overlay .overlay-inner {
+  opacity: 0;
+}

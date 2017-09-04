@@ -1,6 +1,7 @@
 package lemming.ui.panel;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.CssHeaderItem;
@@ -62,6 +63,15 @@ public class SidebarPanel extends Panel {
         ResourceReference styleReference = new CssResourceReference(SidebarPanel.class, "styles/sidebar.css");
         response.render(JavaScriptHeaderItem.forReference(javaScriptReference));
         response.render(CssHeaderItem.forReference(styleReference));
+    }
+
+    /**
+     * Adds a component to the sidebar of the panel.
+     *
+     * @param component a component
+     */
+    public void addComponent(Component component) {
+        sidebar.add(component);
     }
 
     /**

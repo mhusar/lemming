@@ -6,6 +6,9 @@
 </head>
 <body>
 <wicket:panel>
+    <div wicket:id="overlay">
+        <div wicket:id="overlayInner"></div>
+    </div>
     <div wicket:id="sidebar">
         <div class="row">
             <div class="container-fluid">
@@ -15,7 +18,13 @@
             </div>
             <div class="container-fluid">
                 <div class="col-xs-12">
-                    <wicket:child/>
+                    <ul>
+                        <li wicket:id="comments" class="sidebar-block">
+                            <div wicket:id="user" class="sidebar-label"></div>
+                            <textarea wicket:id="content" readonly="readonly" rows="3">
+                            </textarea>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
