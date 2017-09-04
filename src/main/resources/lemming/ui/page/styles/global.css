@@ -102,7 +102,6 @@ a {
 }
 
 .basePage .overlay {
-  cursor: pointer;
   display: none;
   height: 100%;
   left: 0;
