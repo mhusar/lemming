@@ -57,7 +57,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * A sidebar panel displaying comments of contexts.
      */
-    private final SidebarPanel sidebarPanel;
+    private final CommentSidebar commentSidebar;
 
     /**
      * Creates a lemmatization page.
@@ -70,7 +70,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         TextField<String> filterPropertyTextField = new HiddenField<>("filterPropertyTextField", Model.of("keyword"));
         DropdownButtonPanel dropdownButtonPanel = new DropdownButtonPanel<Context>(getString("Context.keyword"),
                 filterPropertyTextField, getColumns());
-        sidebarPanel = new SidebarPanel("sidebarPanel", SidebarPanel.Orientation.RIGHT);
+        commentSidebar = new CommentSidebar("commentSidebar", SidebarPanel.Orientation.RIGHT);
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 
@@ -106,7 +106,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         add(filterPropertyTextField.setOutputMarkupId(true));
         add(dropdownButtonPanel);
         add(container);
-        add(sidebarPanel);
+        add(commentSidebar);
         container.add(fragment);
         // auto-shrink following and preceding text columns
         add(new AutoShrinkBehavior());
@@ -219,13 +219,12 @@ public class LemmatizationPage extends LemmatizationBasePage {
          * Called when a link inside a badge panel is clicked.
          *
          * @param target target that produces an Ajax response
-         * @param model model of the row item
+         * @param model  model of the row item
          */
         @Override
         public void onClick(AjaxRequestTarget target, IModel<Context> model) {
-            Context refreshedContext = new ContextDao().refresh(model.getObject());
-
-            sidebarPanel.toggle(target);
+            commentSidebar.refresh(model, target);
+            commentSidebar.toggle(target);
         }
     }
 
