@@ -96,6 +96,69 @@ a {
   outline: 0;
 }
 
+/* classes for different z-index stacking levels */
+/* bootstrap values: .navbar: 1030, .modal: 1050 */
+
+/* default z-indexes */
+
+.z-index-default {
+    z-index: auto;
+}
+
+.z-index-default-0 {
+    z-index: 10;
+}
+
+.z-index-default-1 {
+    z-index: 11;
+}
+
+.z-index-default-2 {
+    z-index: 12;
+}
+
+/* below navbar z-indexes */
+
+.z-index-below-navbar {
+  z-index: 100;
+}
+
+/* navbar z-indexes */
+
+.z-index-navbar {
+  z-index: 1030;
+}
+
+.z-index-navbar-0 {
+  z-index: 1040;
+}
+
+.z-index-navbar-1 {
+  z-index: 1041;
+}
+
+.z-index-navbar-2 {
+  z-index: 1042;
+}
+
+/* modal z-indexes */
+
+.z-index-modal {
+  z-index: 1050;
+}
+
+.z-index-modal-0 {
+  z-index: 1060;
+}
+
+.z-index-modal-1 {
+  z-index: 1061;
+}
+
+.z-index-modal-2 {
+  z-index: 1062;
+}
+
 .basePage {
   padding-top: 51px;
   transition: background-color 0.5s ease-in-out;
@@ -108,7 +171,6 @@ a {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
 }
 
 .basePage .form-control:required:invalid {
@@ -381,7 +443,6 @@ table th a span {
   left: 0;
   position: fixed;
   top: 60px;
-  z-index: 1000;
 }
 
 .xmlEditor .expandButton {
@@ -391,7 +452,6 @@ table th a span {
   right: 0;
   top: 0;
   width: 56px;
-  z-index: 100;
 }
 
 .xmlEditor .expandButton .inner {
@@ -443,7 +503,6 @@ table th a span {
   right: 0;
   user-select: none;
   width: 100%;
-  z-index: 100;
   visibility: hidden;
 }
 
@@ -629,7 +688,6 @@ ul.homePage li:last-child {
   position: absolute;
   right: -15px;
   top: -15px;
-  z-index: 10;
 }
 
 .row-tree {

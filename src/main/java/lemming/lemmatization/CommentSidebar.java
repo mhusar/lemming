@@ -6,6 +6,7 @@ import lemming.context.ContextDao;
 import lemming.ui.Overlay;
 import lemming.ui.panel.SidebarPanel;
 import lemming.user.User;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -73,6 +74,7 @@ public class CommentSidebar extends SidebarPanel {
             }
         };
         add(overlay);
+        getSidebar().add(AttributeModifier.append("class", "z-index-modal-0"));
         setOutputMarkupId(true);
     }
 
@@ -84,6 +86,8 @@ public class CommentSidebar extends SidebarPanel {
     @Override
     public void slideIn(AjaxRequestTarget target) {
         super.slideIn(target);
+        target.appendJavaScript(String.format("jQuery('#%s').addClass('z-index-modal');",
+                overlay.getMarkupId()));
         overlay.show(target);
     }
 
@@ -95,6 +99,8 @@ public class CommentSidebar extends SidebarPanel {
     @Override
     public void slideOut(AjaxRequestTarget target) {
         super.slideOut(target);
+        target.appendJavaScript(String.format("jQuery('#%s').removeClass('z-index-modal');",
+                overlay.getMarkupId()));
         overlay.hide(target);
     }
 

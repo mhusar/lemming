@@ -75,6 +75,15 @@ public class SidebarPanel extends Panel {
     }
 
     /**
+     * Returns the sidebar inside the sidebar panel.
+     *
+     * @return A sidebar markup container.
+     */
+    public MarkupContainer getSidebar() {
+        return sidebar;
+    }
+
+    /**
      * Returns the expanded state of the sidebar.
      *
      * @return Expanded state.

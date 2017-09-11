@@ -28,7 +28,7 @@ public class IndicatorOverlayPanel extends Panel {
         add(AttributeModifier.append("style", "display: none;"));
         add(throbberContainer);
         throbberContainer.add(throbberImage);
-        throbberContainer.add(AttributeModifier.append("class", "indicator-overlay"));
+        throbberContainer.add(AttributeModifier.append("class", "indicator-overlay z-index-modal"));
     }
 
     /**
