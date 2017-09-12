@@ -58,6 +58,7 @@ ul {
 }
 
 .sidebar .close:hover {
+  color: #fff;
   cursor: pointer;
   opacity: 1;
   text-decoration: none;
