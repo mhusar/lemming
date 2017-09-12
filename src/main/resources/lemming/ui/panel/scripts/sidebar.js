@@ -16,6 +16,7 @@ function slideIn(orientation) {
             jQuery("main").addClass("slide-in-main-right").removeClass("slide-out-main-right");
         }
     } else {
+        jQuery("main").removeClass("slide-in-main-left slide-in-main-right slide-out-main-left slide-out-main-right");
         document.body.style.setProperty("--margin-diff", 0);
     }
 
@@ -40,6 +41,7 @@ function slideOut(orientation) {
             jQuery("main").addClass("slide-out-main-right").removeClass("slide-in-main-right");
         }
     } else {
+        jQuery("main").removeClass("slide-in-main-left slide-in-main-right slide-out-main-left slide-out-main-right");
         document.body.style.setProperty("--margin-diff", 0);
     }
 

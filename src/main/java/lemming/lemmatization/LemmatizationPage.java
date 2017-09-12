@@ -105,8 +105,8 @@ public class LemmatizationPage extends LemmatizationBasePage {
         add(filterValueTextField);
         add(filterPropertyTextField.setOutputMarkupId(true));
         add(dropdownButtonPanel);
-        add(container);
         add(commentSidebar);
+        add(container);
         container.add(fragment);
         // auto-shrink following and preceding text columns
         add(new AutoShrinkBehavior());

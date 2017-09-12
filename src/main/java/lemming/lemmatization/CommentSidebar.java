@@ -7,7 +7,10 @@ import lemming.ui.Overlay;
 import lemming.ui.panel.SidebarPanel;
 import lemming.user.User;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.repeater.Item;
@@ -28,6 +31,12 @@ public class CommentSidebar extends SidebarPanel {
      * Overlay displayed when the sidebar is visible.
      */
     private final Overlay overlay;
+
+    /**
+     * A container for the comment list.
+     */
+    private final MarkupContainer commentContainer;
+
     /**
      * Context model.
      */
@@ -41,7 +50,9 @@ public class CommentSidebar extends SidebarPanel {
      */
     public CommentSidebar(String id, Orientation orientation) {
         super(id, orientation);
-        addComponent(new RefreshingView<Comment>("comments") {
+
+        commentContainer = new WebMarkupContainer("commentContainer");
+        RefreshingView<Comment> commentList = new RefreshingView<Comment>("commentList") {
             @Override
             protected Iterator<IModel<Comment>> getItemModels() {
                 if (model == null) {
@@ -66,7 +77,7 @@ public class CommentSidebar extends SidebarPanel {
                 item.add(new Label("user", user.getRealName()));
                 item.add(new TextArea<String>("content", new PropertyModel<>(comment, "content")));
             }
-        });
+        };
         overlay = new Overlay() {
             @Override
             public void onHide(AjaxRequestTarget target) {
@@ -75,6 +86,8 @@ public class CommentSidebar extends SidebarPanel {
         };
         add(overlay);
         getSidebar().add(AttributeModifier.append("class", "z-index-modal-0"));
+        commentContainer.add(commentList);
+        addComponent(commentContainer.setOutputMarkupId(true));
         setOutputMarkupId(true);
     }
 
@@ -112,6 +125,6 @@ public class CommentSidebar extends SidebarPanel {
      */
     public void refresh(IModel<Context> model, AjaxRequestTarget target) {
         this.model = model;
-        target.add(this);
+        target.add(commentContainer);
     }
 }

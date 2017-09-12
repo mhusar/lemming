@@ -86,11 +86,11 @@ ul {
 }
 
 @keyframes slide-in-left {
-  100% { transform: translateX(calc(var(--margin-diff) * -1px)); }
+  100% { transform: translateX(0); }
 }
 
 @keyframes slide-in-right {
-  100% { transform: translateX(calc(var(--margin-diff) * 1px)); }
+  100% { transform: translateX(0); }
 }
 
 @keyframes slide-in-main-left {
@@ -102,12 +102,12 @@ ul {
 }
 
 @keyframes slide-out-left {
-  0% { transform: translateX(calc(var(--margin-diff) * -1px)); }
+  0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 
 @keyframes slide-out-right {
-  0% { transform: translateX(calc(var(--margin-diff) * 1px)); }
+  0% { transform: translateX(0); }
   100% { transform: translateX(100%); }
 }
 
