@@ -41,6 +41,32 @@ ul {
   width: calc(var(--sidebar-width) * 1px);
 }
 
+.sidebar .close,
+.sidebar .close:focus {
+  background: 0 0;
+  border: 0;
+  color: #fff;
+  float: right;
+  font-size: 2em;
+  font-weight: 700;
+  line-height: 1;
+  opacity: .75;
+  padding: .5em;
+  position: relative;
+  right: 0;
+  top: 0;
+}
+
+.sidebar .close:hover {
+  cursor: pointer;
+  opacity: 1;
+  text-decoration: none;
+}
+
+.sidebar .page-header {
+  clear: right;
+}
+
 .sidebar textarea {
   background-color: #181d20;
   border: 1px solid #454d5d;

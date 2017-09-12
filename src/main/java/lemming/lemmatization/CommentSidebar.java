@@ -88,6 +88,12 @@ public class CommentSidebar extends SidebarPanel {
         getSidebar().add(AttributeModifier.append("class", "z-index-modal-0"));
         commentContainer.add(commentList);
         addComponent(commentContainer.setOutputMarkupId(true));
+        addComponent(new AjaxLink("closeButton") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                CommentSidebar.this.slideOut(target);
+            }
+        });
         setOutputMarkupId(true);
     }
 
