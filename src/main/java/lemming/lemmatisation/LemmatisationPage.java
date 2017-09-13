@@ -70,7 +70,6 @@ public class LemmatisationPage extends LemmatisationBasePage {
         TextField<String> filterPropertyTextField = new HiddenField<>("filterPropertyTextField", Model.of("keyword"));
         DropdownButtonPanel dropdownButtonPanel = new DropdownButtonPanel<Context>(getString("Context.keyword"),
                 filterPropertyTextField, getColumns());
-        commentSidebar = new CommentSidebar("commentSidebar", SidebarPanel.Orientation.RIGHT);
         WebMarkupContainer container = new WebMarkupContainer("container");
         Fragment fragment;
 
@@ -100,6 +99,13 @@ public class LemmatisationPage extends LemmatisationBasePage {
 
         dropdownButtonPanel.setSelectEvent("input");
         filterValueTextField.add(new PageScrollingBehavior());
+        commentSidebar = new CommentSidebar("commentSidebar", SidebarPanel.Orientation.RIGHT) {
+            @Override
+            public void onRemoveComment(IModel<Context> model, AjaxRequestTarget target) {
+                target.add(dataTable);
+            }
+        };
+
         add(new FeedbackPanel());
         add(new InputPanel());
         add(filterValueTextField);
