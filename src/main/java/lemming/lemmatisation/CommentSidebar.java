@@ -1,4 +1,4 @@
-package lemming.lemmatization;
+package lemming.lemmatisation;
 
 import lemming.context.Comment;
 import lemming.context.Context;

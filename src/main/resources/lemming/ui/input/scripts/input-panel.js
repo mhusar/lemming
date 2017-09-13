@@ -36,13 +36,13 @@ InputPanel = (function () {
     },
     adjust = function () {
         var body = jQuery("body"), inputPanel = jQuery(".inputPanel"),
-        lemmatizationPanel = jQuery(".lemmatizationPanel"),
-        lemmatizationPanelHeight = jQuery(".lemmatizationPanel .navbar").outerHeight();
+        lemmatisationPanel = jQuery(".lemmatisationPanel"),
+        lemmatisationPanelHeight = jQuery(".lemmatisationPanel .navbar").outerHeight();
 
         if (inputPanel.outerHeight() > getPixelsAsNumber(body.css("padding-bottom"))) {
-            if (lemmatizationPanel.length) {
+            if (lemmatisationPanel.length) {
                 body.animate({
-                    "padding-bottom" : lemmatizationPanelHeight + inputPanel.outerHeight() + "px"
+                    "padding-bottom" : lemmatisationPanelHeight + inputPanel.outerHeight() + "px"
                 }, duration);
             } else {
                 body.animate({
@@ -51,9 +51,9 @@ InputPanel = (function () {
             }
         }
 
-        if (lemmatizationPanel.length) {
+        if (lemmatisationPanel.length) {
             inputPanel.animate({
-                "bottom" : lemmatizationPanelHeight + "px"
+                "bottom" : lemmatisationPanelHeight + "px"
             }, duration, function () {
                 scrollIntoPosition();
             });
@@ -96,13 +96,13 @@ InputPanel = (function () {
     },
     prepare = function () {
         var body = jQuery("body"), inputPanel = jQuery(".inputPanel"),
-        lemmatizationPanel = jQuery(".lemmatizationPanel");
+        lemmatisationPanel = jQuery(".lemmatisationPanel");
 
         body.stop(true, true);
         inputPanel.stop(true, true);
 
         if (inputPanel.css("visibility") === "hidden") {
-            if (lemmatizationPanel.length) {
+            if (lemmatisationPanel.length) {
                 body.css("padding-bottom", 51 + "px");
             } else {
                 body.css("padding-bottom", "0px");

@@ -1,10 +1,10 @@
-package lemming.lemmatization;
+package lemming.lemmatisation;
 
 import lemming.context.Context;
 import lemming.context.ContextDao;
-import lemming.lemma.Lemma;
-import lemming.lemma.LemmaAutoCompleteTextField;
-import lemming.lemma.LemmaDao;
+import lemming.pos.Pos;
+import lemming.pos.PosAutoCompleteTextField;
+import lemming.pos.PosDao;
 import lemming.ui.panel.ModalFormPanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -18,29 +18,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * A modal dialog to set a lemma for row models of a data table.
+ * A modal dialog to set a part of speech for row models of a data table.
  */
-class SetLemmaPanel extends ModalFormPanel {
+class SetPosPanel extends ModalFormPanel {
     /**
      * A data table.
      */
-    private final LemmatizationDataTable dataTable;
+    private final LemmatisationDataTable dataTable;
 
     /**
-     * A auto-complete textfield for lemmata.
+     * A auto-complete textfield for parts of speech.
      */
-    private final LemmaAutoCompleteTextField lemmaTextField;
+    private final PosAutoCompleteTextField posTextField;
 
     /**
-     * Creates a set lemma panel.
+     * Creates a set part of speech panel.
      *
      * @param dataTable a data table which delivers row models
      */
-    public SetLemmaPanel(LemmatizationDataTable dataTable) {
-        super("setLemmaPanel");
+    public SetPosPanel(LemmatisationDataTable dataTable) {
+        super("setPosPanel");
         this.dataTable = dataTable;
-        lemmaTextField = new LemmaAutoCompleteTextField(new Model<>());
-        addFormComponent(lemmaTextField);
+        posTextField = new PosAutoCompleteTextField(new Model<>());
+        addFormComponent(posTextField);
     }
 
     /**
@@ -51,10 +51,10 @@ class SetLemmaPanel extends ModalFormPanel {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        // ctrl + l
+        // ctrl + p
         String javaScript = "jQuery(window).on('keydown', function (event) { " +
                 "var modifier = event.ctrlKey || event.metaKey; " +
-                "if (modifier && event.which === 76) { " +
+                "if (modifier && event.which === 80) { " +
                 "jQuery('#" + getModalWindowId() + "').modal('show'); " +
                 "event.preventDefault(); event.stopPropagation(); } });";
         response.render(OnDomReadyHeaderItem.forScript(javaScript));
@@ -67,7 +67,7 @@ class SetLemmaPanel extends ModalFormPanel {
      */
     @Override
     public String getTitleString() {
-        return getString("SetLemmaPanel.setLemma");
+        return getString("SetPosPanel.setPos");
     }
 
     /**
@@ -78,17 +78,17 @@ class SetLemmaPanel extends ModalFormPanel {
      */
     @Override
     public void onConfirm(AjaxRequestTarget target, Form<?> form) {
-        String lemmaName = lemmaTextField.getInput();
-        Lemma lemma = new LemmaDao().findByName(lemmaName);
+        String posName = posTextField.getInput();
+        Pos pos = new PosDao().findByName(posName);
         Collection<IModel<Context>> rowModels = dataTable.getRowModels();
         CollectionModel<Integer> selectedContextIds = new CollectionModel<>(new ArrayList<>());
         ContextDao contextDao = new ContextDao();
 
-        if (lemma != null) {
+        if (pos != null) {
             for (IModel<Context> rowModel : rowModels) {
                 if (rowModel.getObject().getSelected()) {
                     Context context = rowModel.getObject();
-                    context.setLemma(lemma);
+                    context.setPos(pos);
                     contextDao.merge(context);
                     selectedContextIds.getObject().add(context.getId());
                 }

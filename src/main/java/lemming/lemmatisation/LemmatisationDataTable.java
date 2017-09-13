@@ -1,4 +1,4 @@
-package lemming.lemmatization;
+package lemming.lemmatisation;
 
 import lemming.context.Context;
 import lemming.context.ContextDao;
@@ -24,9 +24,9 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import java.util.*;
 
 /**
- * A custom data table with toolbars and data provider for context lemmatization.
+ * A custom data table with toolbars and data provider for context lemmatisation.
  */
-class LemmatizationDataTable extends DataTable<Context, String> {
+class LemmatisationDataTable extends DataTable<Context, String> {
     /**
      * Default rows per page.
      */
@@ -48,9 +48,9 @@ class LemmatizationDataTable extends DataTable<Context, String> {
      * @param columns      list of columns
      * @param dataProvider
      */
-    public LemmatizationDataTable(List<IColumn<Context, String>> columns,
+    public LemmatisationDataTable(List<IColumn<Context, String>> columns,
                                   GenericDataProvider<Context> dataProvider) {
-        super("lemmatizationDataTable", columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
+        super("lemmatisationDataTable", columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(dataProvider, null);
     }
 
@@ -61,9 +61,9 @@ class LemmatizationDataTable extends DataTable<Context, String> {
      * @param dataProvider provides data for a table
      * @param filterForm
      */
-    public LemmatizationDataTable(List<IColumn<Context, String>> columns,
+    public LemmatisationDataTable(List<IColumn<Context, String>> columns,
                                   GenericDataProvider<Context> dataProvider, FilterForm<Context> filterForm) {
-        super("lemmatizationDataTable", columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
+        super("lemmatisationDataTable", columns, dataProvider, DEFAULT_ROWS_PER_PAGE);
         createTable(dataProvider, filterForm);
     }
 
@@ -156,7 +156,7 @@ class LemmatizationDataTable extends DataTable<Context, String> {
          */
         @Override
         public void renderHead(Component component, IHeaderResponse response) {
-            PackageResourceReference javaScriptReference = new JavaScriptResourceReference(LemmatizationDataTable.class,
+            PackageResourceReference javaScriptReference = new JavaScriptResourceReference(LemmatisationDataTable.class,
                     "scripts/row-select.js");
             response.render(JavaScriptHeaderItem.forReference(javaScriptReference));
         }

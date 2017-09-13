@@ -3,7 +3,7 @@ package lemming.ui.panel;
 import lemming.HomePage;
 import lemming.context.ContextIndexPage;
 import lemming.lemma.LemmaIndexPage;
-import lemming.lemmatization.LemmatizationPage;
+import lemming.lemmatisation.LemmatisationPage;
 import lemming.pos.PosIndexPage;
 import lemming.sense.SenseIndexPage;
 import lemming.user.UserDao;
@@ -28,15 +28,15 @@ public class HeaderPanel extends Panel {
         super("headerPanel");
 
         WebMarkupContainer homePageItem = new WebMarkupContainer("homePageItem");
-        WebMarkupContainer lemmatizationItem = new WebMarkupContainer("lemmatizationItem");
+        WebMarkupContainer lemmatisationItem = new WebMarkupContainer("lemmatisationItem");
         WebMarkupContainer contextIndexItem = new WebMarkupContainer("contextIndexItem");
         WebMarkupContainer lemmaIndexItem = new WebMarkupContainer("lemmaIndexItem");
         WebMarkupContainer senseIndexItem = new WebMarkupContainer("senseIndexItem");
         WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
         BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<>("homePageLink", HomePage.class);
-        BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<>("lemmatizationLink",
-                LemmatizationPage.class);
+        BookmarkablePageLink<Void> lemmatisationLink = new BookmarkablePageLink<>("lemmatisationLink",
+                LemmatisationPage.class);
         BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<>("contextIndexLink",
                 ContextIndexPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<>("lemmaIndexLink",
@@ -52,7 +52,7 @@ public class HeaderPanel extends Panel {
         };
 
         homePageItem.add(homePageLink);
-        lemmatizationItem.add(lemmatizationLink);
+        lemmatisationItem.add(lemmatisationLink);
         contextIndexItem.add(contextIndexLink);
         lemmaIndexItem.add(lemmaIndexLink);
         senseIndexItem.add(senseIndexLink.setEnabled(false));
@@ -60,7 +60,7 @@ public class HeaderPanel extends Panel {
         userEditItem.add(userEditLink);
 
         add(homePageItem);
-        add(lemmatizationItem);
+        add(lemmatisationItem);
         add(contextIndexItem);
         add(lemmaIndexItem);
         add(senseIndexItem);
@@ -70,8 +70,8 @@ public class HeaderPanel extends Panel {
 
         if (activePageClass.equals(HomePage.class)) {
             homePageItem.add(AttributeModifier.append("class", "active"));
-        } else if (activePageClass.equals(LemmatizationPage.class)) {
-            lemmatizationItem.add(AttributeModifier.append("class", "active"));
+        } else if (activePageClass.equals(LemmatisationPage.class)) {
+            lemmatisationItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(ContextIndexPage.class)) {
             contextIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(LemmaIndexPage.class)) {

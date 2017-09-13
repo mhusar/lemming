@@ -1,4 +1,4 @@
-package lemming.lemmatization;
+package lemming.lemmatisation;
 
 import lemming.auth.WebSession;
 import lemming.context.*;
@@ -40,10 +40,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An index page that lists all available contexts in a data table for lemmatization.
+ * An index page that lists all available contexts in a data table for lemmatisation.
  */
 @AuthorizeInstantiation({"SIGNED_IN"})
-public class LemmatizationPage extends LemmatizationBasePage {
+public class LemmatisationPage extends LemmatisationBasePage {
     /**
      * True if the filter form shall be enabled.
      */
@@ -52,7 +52,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
     /**
      * A data table for contexts.
      */
-    private final LemmatizationDataTable dataTable;
+    private final LemmatisationDataTable dataTable;
 
     /**
      * A sidebar panel displaying comments of contexts.
@@ -60,9 +60,9 @@ public class LemmatizationPage extends LemmatizationBasePage {
     private final CommentSidebar commentSidebar;
 
     /**
-     * Creates a lemmatization page.
+     * Creates a lemmatisation page.
      */
-    public LemmatizationPage() {
+    public LemmatisationPage() {
         GenericDataProvider<Context> dataProvider = new GenericDataProvider<>(Context.class,
                 new SortParam<>("keyword", true));
         FilterForm<Context> filterForm = new FilterForm<>("filterForm", dataProvider);
@@ -79,7 +79,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
 
         if (FILTER_FORM_ENABLED) {
             fragment = new Fragment("fragment", "withFilterForm", this);
-            dataTable = new LemmatizationDataTable(getColumns(), dataProvider, filterForm);
+            dataTable = new LemmatisationDataTable(getColumns(), dataProvider, filterForm);
 
             filterValueTextField.add(new FilterUpdatingBehavior(filterValueTextField, filterPropertyTextField,
                     dataTable, dataProvider));
@@ -89,7 +89,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
             fragment.add(filterForm);
         } else {
             fragment = new Fragment("fragment", "withoutFilterForm", this);
-            dataTable = new LemmatizationDataTable(getColumns(), dataProvider);
+            dataTable = new LemmatisationDataTable(getColumns(), dataProvider);
 
             filterValueTextField.add(new FilterUpdatingBehavior(filterValueTextField, filterPropertyTextField,
                     dataTable, dataProvider));
@@ -113,25 +113,25 @@ public class LemmatizationPage extends LemmatizationBasePage {
     }
 
     /**
-     * Called when a lemmatization page is initialized.
+     * Called when a lemmatisation page is initialized.
      */
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new TitleLabel(getString("LemmatizationPage.header")));
-        Panel lemmatizationPanel = new LemmatizationPanel();
+        add(new TitleLabel(getString("LemmatisationPage.header")));
+        Panel lemmatisationPanel = new LemmatisationPanel();
         ModalFormPanel setLemmaPanel = new SetLemmaPanel(dataTable);
         ModalFormPanel setPosPanel = new SetPosPanel(dataTable);
         ModalFormPanel addCommentPanel = new AddCommentPanel(dataTable);
 
-        lemmatizationPanel.add(new SetLemmaLink(setLemmaPanel));
-        lemmatizationPanel.add(new SetPosLink(setPosPanel));
-        lemmatizationPanel.add(new AddCommentLink(addCommentPanel));
+        lemmatisationPanel.add(new SetLemmaLink(setLemmaPanel));
+        lemmatisationPanel.add(new SetPosLink(setPosPanel));
+        lemmatisationPanel.add(new AddCommentLink(addCommentPanel));
 
         add(setLemmaPanel);
         add(setPosPanel);
         add(addCommentPanel);
-        add(lemmatizationPanel);
+        add(lemmatisationPanel);
     }
 
     /**
@@ -245,7 +245,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
         /**
          * Data table displaying filtered data.
          */
-        final LemmatizationDataTable dataTable;
+        final LemmatisationDataTable dataTable;
 
         /**
          * Data provider which delivers data for the table.
@@ -261,7 +261,7 @@ public class LemmatizationPage extends LemmatizationBasePage {
          * @param dataProvider      data provider which delivers data for the table.
          */
         public FilterUpdatingBehavior(TextField<String> valueTextField, TextField<String> propertyTextField,
-                                      LemmatizationDataTable dataTable, GenericDataProvider<Context> dataProvider) {
+                                      LemmatisationDataTable dataTable, GenericDataProvider<Context> dataProvider) {
             super("input");
             this.valueTextField = valueTextField;
             this.propertyTextField = propertyTextField;

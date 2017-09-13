@@ -1,4 +1,4 @@
-package lemming.lemmatization;
+package lemming.lemmatisation;
 
 import lemming.auth.WebSession;
 import lemming.context.Comment;
@@ -26,7 +26,7 @@ public class AddCommentPanel extends ModalFormPanel {
     /**
      * A data table.
      */
-    private final LemmatizationDataTable dataTable;
+    private final LemmatisationDataTable dataTable;
 
     /**
      * A text area for content of comments.
@@ -38,7 +38,7 @@ public class AddCommentPanel extends ModalFormPanel {
      *
      * @param dataTable a data table which delivers row models
      */
-    public AddCommentPanel(LemmatizationDataTable dataTable) {
+    public AddCommentPanel(LemmatisationDataTable dataTable) {
         super("addCommentPanel");
         this.dataTable = dataTable;
         commentTextArea = new TextArea<>("comment", Model.of(""));

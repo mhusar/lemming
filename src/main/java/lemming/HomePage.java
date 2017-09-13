@@ -5,7 +5,7 @@ import lemming.character.CharacterEditPage;
 import lemming.context.ContextImportPage;
 import lemming.context.ContextIndexPage;
 import lemming.lemma.LemmaIndexPage;
-import lemming.lemmatization.LemmatizationPage;
+import lemming.lemmatisation.LemmatisationPage;
 import lemming.pos.PosIndexPage;
 import lemming.resource.ResourcePage;
 import lemming.sense.SenseIndexPage;
@@ -25,8 +25,8 @@ public class HomePage extends BasePage {
      * Initializes a home page.
      */
     public HomePage() {
-        BookmarkablePageLink<Void> lemmatizationLink = new BookmarkablePageLink<>("lemmatizationLink",
-                LemmatizationPage.class);
+        BookmarkablePageLink<Void> lemmatisationLink = new BookmarkablePageLink<>("lemmatisationLink",
+                LemmatisationPage.class);
         BookmarkablePageLink<Void> contextIndexLink = new BookmarkablePageLink<>("contextIndexLink",
                 ContextIndexPage.class);
         BookmarkablePageLink<Void> contextImportLink = new BookmarkablePageLink<>("contextImportLink",
@@ -44,7 +44,7 @@ public class HomePage extends BasePage {
         // check if the session is expired
         WebSession.get().checkSessionExpired();
 
-        add(lemmatizationLink);
+        add(lemmatisationLink);
         add(contextIndexLink);
         add(contextImportLink);
         add(lemmaIndexLink);

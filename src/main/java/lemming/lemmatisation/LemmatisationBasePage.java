@@ -1,4 +1,4 @@
-package lemming.lemmatization;
+package lemming.lemmatisation;
 
 import lemming.character.CharacterHelper;
 import lemming.ui.page.EmptyBasePage;
@@ -15,27 +15,27 @@ import org.apache.wicket.util.visit.IVisitor;
 import javax.json.JsonArray;
 
 /**
- * A lemmatization base page with a header.
+ * A lemmatisation base page with a header.
  */
-class LemmatizationBasePage extends EmptyBasePage {
+class LemmatisationBasePage extends EmptyBasePage {
     /**
-     * Creates a lemmatization base page.
+     * Creates a lemmatisation base page.
      */
-    LemmatizationBasePage() {
+    LemmatisationBasePage() {
         super();
     }
 
     /**
-     * Creates a lemmatization base page.
+     * Creates a lemmatisation base page.
      *
      * @param model the page model
      */
-    public LemmatizationBasePage(IModel<?> model) {
+    public LemmatisationBasePage(IModel<?> model) {
         super(model);
     }
 
     /**
-     * Called when a lemmatization page is initialized.
+     * Called when a lemmatisation page is initialized.
      */
     @Override
     protected void onInitialize() {
@@ -50,7 +50,7 @@ class LemmatizationBasePage extends EmptyBasePage {
     }
 
     /**
-     * Called when an lemmatization page is configured.
+     * Called when an lemmatisation page is configured.
      */
     @Override
     protected void onConfigure() {
