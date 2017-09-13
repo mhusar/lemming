@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A sidebar panel displaying comments of contexts.
  */
-public class CommentSidebar extends SidebarPanel {
+public abstract class CommentSidebar extends SidebarPanel {
     /**
      * Overlay displayed when the sidebar is visible.
      */
@@ -76,6 +76,14 @@ public class CommentSidebar extends SidebarPanel {
 
                 item.add(new Label("user", user.getRealName()));
                 item.add(new TextArea<String>("content", new PropertyModel<>(comment, "content")));
+                item.add(new AjaxLink<Comment>("removeComment", item.getModel()) {
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        Context mergedContext = new ContextDao().removeComment(model.getObject(), item.getModelObject());
+                        CommentSidebar.this.refresh(Model.of(mergedContext), target);
+                        onRemoveComment(model, target);
+                    }
+                });
             }
         };
         overlay = new Overlay() {
@@ -133,4 +141,12 @@ public class CommentSidebar extends SidebarPanel {
         this.model = model;
         target.add(commentContainer);
     }
+
+    /**
+     * Called when a comment is removed.
+     *
+     * @param model  context model
+     * @param target target that produces an Ajax response
+     */
+    public abstract void onRemoveComment(IModel<Context> model, AjaxRequestTarget target);
 }

@@ -12,7 +12,7 @@
     <div wicket:id="sidebar">
         <div class="row">
             <div class="container-fluid">
-                <button wicket:id="closeButton" type='button' class="close" aria-label="Close">×</button>
+                <button wicket:id="closeButton" type="button" class="close" aria-label="Close">×</button>
                 <div class="page-header invisible">
                     <h1>Sidebar</h1>
                 </div>
@@ -22,8 +22,13 @@
                     <ul>
                         <li wicket:id="commentList" class="sidebar-block">
                             <div wicket:id="user" class="sidebar-label"></div>
-                            <textarea wicket:id="content" readonly="readonly" rows="3">
-                            </textarea>
+                            <div class="content-wrapper">
+                                <textarea wicket:id="content" readonly="readonly" rows="3">
+                                </textarea>
+                                <button wicket:id="removeComment" type="button" class="remove" aria-label="Remove">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
                         </li>
                     </ul>
                 </div>
