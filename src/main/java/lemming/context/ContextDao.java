@@ -11,6 +11,7 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,6 +46,21 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
 
         if (context.getPos() != null) {
             context.setPosString(context.getPos().getName());
+        }
+    }
+
+    /**
+     * Initializes UUIDs of comments.
+     *
+     * @param context a context
+     */
+    private void initializeComments(Context context) {
+        if (context.getComments() != null) {
+            for (Comment comment : context.getComments()) {
+                if (comment.getUuid() == null) {
+                    comment.setUuid(UUID.randomUUID().toString());
+                }
+            }
         }
     }
 
@@ -97,6 +113,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             refreshForeignKeyStrings(context);
+            initializeComments(context);
             entityManager.persist(context);
             transaction.commit();
         } catch (RuntimeException e) {
@@ -142,6 +159,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                 }
 
                 refreshForeignKeyStrings(context);
+                initializeComments(context);
                 entityManager.persist(context);
                 counter++;
 
@@ -185,6 +203,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction.begin();
             Context mergedContext = entityManager.merge(context);
             refreshForeignKeyStrings(mergedContext);
+            initializeComments(mergedContext);
             mergedContext = entityManager.merge(mergedContext);
             transaction.commit();
             return mergedContext;
@@ -229,6 +248,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                 currentContext = context;
                 Context mergedContext = entityManager.merge(currentContext);
                 refreshForeignKeyStrings(mergedContext);
+                initializeComments(mergedContext);
                 entityManager.merge(mergedContext);
                 counter++;
 
@@ -468,6 +488,115 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             }
 
             throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Context> addComment(List<Context> contexts, Comment comment) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+        Context currentContext = null;
+        Integer batchSize = 50;
+        Integer counter = 0;
+        List<Context> changedContexts = new ArrayList<>();
+
+        if (comment.getUuid() == null) {
+            comment.setUuid(UUID.randomUUID().toString());
+        }
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(comment);
+
+            for (Context context : contexts) {
+                currentContext = context;
+                Context mergedContext = entityManager.merge(currentContext);
+
+                mergedContext.getComments().add(comment);
+                changedContexts.add(entityManager.merge(mergedContext));
+                counter++;
+
+                if (counter % batchSize == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+            }
+
+            transaction.commit();
+            return changedContexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(currentContext, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(currentContext, e);
+            } else {
+                throw e;
+            }
+
+            return null;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public Context removeComment(Context context, Comment comment) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            Context mergedContext = entityManager.merge(context);
+            mergedContext.getComments().remove(comment);
+            Context mergedContext2 = entityManager.merge(mergedContext);
+            entityManager.flush();
+
+            TypedQuery<Comment> query = entityManager
+                    .createQuery("SELECT c FROM Comment c LEFT JOIN FETCH c.contexts WHERE c.id = :id", Comment.class);
+            Comment refreshedComment = query.setParameter("id", comment.getId()).getSingleResult();
+
+            if (refreshedComment.getContexts().size() == 0) {
+                entityManager.remove(refreshedComment);
+            }
+
+            transaction.commit();
+            return mergedContext2;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(context, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(context, e);
+            } else {
+                throw e;
+            }
+
+            return null;
         } finally {
             entityManager.close();
         }

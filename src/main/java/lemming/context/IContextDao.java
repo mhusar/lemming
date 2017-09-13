@@ -80,4 +80,22 @@ interface IContextDao extends IDao<Context> {
      * @return A list of matching contexts.
      */
     List<Context> findBySense(Sense sense);
+
+    /**
+     * Adds a comment to a list of contexts.
+     *
+     * @param contexts list of contexts
+     * @param comment a comment
+     * @return A list of changed contexts.
+     */
+    List<Context> addComment(List<Context> contexts, Comment comment);
+
+    /**
+     * Removes a comment from a context.
+     *
+     * @param context a context
+     * @param comment a comment
+     * @return A changed comment.
+     */
+    Context removeComment(Context context, Comment comment);
 }
