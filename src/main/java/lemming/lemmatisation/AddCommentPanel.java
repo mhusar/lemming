@@ -128,19 +128,12 @@ public class AddCommentPanel extends ModalFormPanel {
 
         if (content != null) {
             Comment comment = new Comment(content, user);
-
-            for (Context context : selectedContexts) {
-                Context refreshedContext = contextDao.refresh(context);
-                refreshedContext.getComments().add(comment);
-                changedContexts.add(refreshedContext);
-            }
+            changedContexts = contextDao.addComment(selectedContexts, comment);
         }
 
         if (changedContexts.size() > 0) {
-            new ContextDao().batchMerge(changedContexts);
+            dataTable.updateSelectedContexts(getContextIds(changedContexts));
+            target.add(dataTable);
         }
-
-        dataTable.updateSelectedContexts(getContextIds(selectedContexts));
-        target.add(dataTable);
     }
 }
