@@ -164,6 +164,7 @@ a {
   transition: background-color 0.5s ease-in-out;
 }
 
+.basePage .indicator,
 .basePage .overlay {
   display: none;
   height: 100%;
