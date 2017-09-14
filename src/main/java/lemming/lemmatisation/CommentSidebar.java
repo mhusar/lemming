@@ -6,10 +6,10 @@ import lemming.context.ContextDao;
 import lemming.ui.Overlay;
 import lemming.ui.panel.SidebarPanel;
 import lemming.user.User;
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -38,6 +38,11 @@ public abstract class CommentSidebar extends SidebarPanel {
     private final MarkupContainer commentContainer;
 
     /**
+     * An indicator for Ajax events that prevents double clicks.
+     */
+    private final MarkupContainer indicator;
+
+    /**
      * Context model.
      */
     private IModel<Context> model;
@@ -52,6 +57,32 @@ public abstract class CommentSidebar extends SidebarPanel {
         super(id, orientation);
 
         commentContainer = new WebMarkupContainer("commentContainer");
+        overlay = new Overlay() {
+            @Override
+            public void onHide(AjaxRequestTarget target) {
+                CommentSidebar.super.slideOut(target);
+            }
+        };
+        indicator = new WebMarkupContainer("indicator");
+        add(overlay);
+        add(indicator.setOutputMarkupId(true));
+        addComponent(commentContainer.setOutputMarkupId(true));
+        addComponent(new AjaxLink("closeButton") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                CommentSidebar.this.slideOut(target);
+            }
+        });
+        setOutputMarkupId(true);
+    }
+
+    /**
+     * Called when the sidebar is initialized.
+     */
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
         RefreshingView<Comment> commentList = new RefreshingView<Comment>("commentList") {
             @Override
             protected Iterator<IModel<Comment>> getItemModels() {
@@ -76,33 +107,23 @@ public abstract class CommentSidebar extends SidebarPanel {
 
                 item.add(new Label("user", user.getRealName()));
                 item.add(new TextArea<String>("content", new PropertyModel<>(comment, "content")));
-                item.add(new AjaxLink<Comment>("removeComment", item.getModel()) {
+                item.add(new IndicatingAjaxLink<Comment>("removeComment", item.getModel()) {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        Context mergedContext = new ContextDao().removeComment(model.getObject(), item.getModelObject());
+                        Context mergedContext = new ContextDao().removeComment(model.getObject(), item.getModelObject
+                                ());
                         CommentSidebar.this.refresh(Model.of(mergedContext), target);
                         onRemoveComment(model, target);
+                    }
+
+                    @Override
+                    public String getAjaxIndicatorMarkupId() {
+                        return indicator.getMarkupId();
                     }
                 });
             }
         };
-        overlay = new Overlay() {
-            @Override
-            public void onHide(AjaxRequestTarget target) {
-                CommentSidebar.super.slideOut(target);
-            }
-        };
-        add(overlay);
-        getSidebar().add(AttributeModifier.append("class", "z-index-modal-0"));
         commentContainer.add(commentList);
-        addComponent(commentContainer.setOutputMarkupId(true));
-        addComponent(new AjaxLink("closeButton") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                CommentSidebar.this.slideOut(target);
-            }
-        });
-        setOutputMarkupId(true);
     }
 
     /**
