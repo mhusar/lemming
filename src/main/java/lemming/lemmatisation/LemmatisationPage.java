@@ -133,6 +133,7 @@ public class LemmatisationPage extends LemmatisationBasePage {
         lemmatisationPanel.add(new SetLemmaLink(setLemmaPanel));
         lemmatisationPanel.add(new SetPosLink(setPosPanel));
         lemmatisationPanel.add(new AddCommentLink(addCommentPanel));
+        lemmatisationPanel.add(new MarkContextLink(dataTable));
 
         add(setLemmaPanel);
         add(setPosPanel);

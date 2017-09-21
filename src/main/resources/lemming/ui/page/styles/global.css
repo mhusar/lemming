@@ -393,6 +393,45 @@ table {
   border-top: inherit;
 }
 
+.table-striped > tbody > tr.interesting:nth-of-type(2n+0) {
+  background-color: transparent;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(66, 139, 202, 0.03),
+    rgba(66, 139, 202, 0.03) 5px,
+    rgba(66, 139, 202, 0.1) 5px,
+    rgba(66, 139, 202, 0.1) 10px,
+    rgba(66, 139, 202, 0.03) 10px
+  ) top left local;
+}
+
+.table-striped > tbody > tr.interesting:nth-of-type(2n+1) {
+  background-color: transparent;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(66, 139, 202, 0.3),
+    rgba(66, 139, 202, 0.3) 5px,
+    rgba(66, 139, 202, 0.1) 5px,
+    rgba(66, 139, 202, 0.1) 10px,
+    rgba(66, 139, 202, 0.3) 10px
+  ) top left local;
+}
+
+.table-striped > tbody > tr.selected.interesting {
+  background: repeating-linear-gradient(
+    -45deg,
+    #428bca,
+    #428bca 5px,
+    rgba(66, 139, 202, 0.7) 5px,
+    rgba(66, 139, 202, 0.7) 10px,
+    #428bca 10px
+  ) top left local;
+}
+
+.table-striped > tbody > tr.selected.interesting > td {
+  background-color: transparent;
+}
+
 .selected .badge {
   background-color: #fff;
   color: #428bca;
@@ -400,7 +439,7 @@ table {
 
 tbody .actionColumn a,
 tbody .badgeColumn a {
-  padding: 8px;
+  padding: 8px 4px 8px 8px;
 }
 
 table th a {

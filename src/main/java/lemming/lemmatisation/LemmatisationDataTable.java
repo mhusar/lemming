@@ -122,6 +122,10 @@ class LemmatisationDataTable extends DataTable<Context, String> {
             rowItem.add(AttributeModifier.append("class", "selected"));
         }
 
+        if (model.getObject().getInteresting()) {
+            rowItem.add(AttributeModifier.append("class", "interesting"));
+        }
+
         rowModels.put(index, model);
         return rowItem;
     }

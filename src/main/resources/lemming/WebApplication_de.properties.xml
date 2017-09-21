@@ -106,6 +106,7 @@
     <entry key="LemmatisationPanel.addComment">Kommentar hinzufügen</entry>
     <entry key="LemmatisationPanel.setLemma">Lemma festlegen</entry>
     <entry key="LemmatisationPanel.setPos">Wortart festlegen</entry>
+    <entry key="LemmatisationPanel.markContext">Kontext markieren</entry>
     <entry key="LemmatisationPanel.toggleNavigation">Navigation umschalten</entry>
     <entry key="LemmaDeleteConfirmPanel.confirm">Lemma löschen</entry>
     <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>

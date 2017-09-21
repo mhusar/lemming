@@ -106,6 +106,7 @@
     <entry key="LemmatisationPanel.addComment">Add comment</entry>
     <entry key="LemmatisationPanel.setLemma">Set lemma</entry>
     <entry key="LemmatisationPanel.setPos">Set part of speech</entry>
+    <entry key="LemmatisationPanel.markContext">Mark context</entry>
     <entry key="LemmatisationPanel.toggleNavigation">Toggle navigation</entry>
     <entry key="LemmaDeleteConfirmPanel.confirm">Delete lemma</entry>
     <entry key="LemmaDeleteConfirmPanel.message">Are you sure you want to delete the lemma {0} ?</entry>
