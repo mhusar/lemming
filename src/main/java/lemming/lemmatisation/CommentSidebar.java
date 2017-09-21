@@ -110,8 +110,9 @@ public abstract class CommentSidebar extends SidebarPanel {
                 item.add(new IndicatingAjaxLink<Comment>("removeComment", item.getModel()) {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
-                        Context mergedContext = new ContextDao().removeComment(model.getObject(), item.getModelObject
-                                ());
+                        ContextDao contextDao = new ContextDao();
+                        Context context = contextDao.refresh(model.getObject());
+                        Context mergedContext = contextDao.removeComment(context, comment);
                         CommentSidebar.this.refresh(Model.of(mergedContext), target);
                         onRemoveComment(model, target);
                     }
