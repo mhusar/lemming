@@ -114,6 +114,11 @@ public abstract class CommentSidebar extends SidebarPanel {
                         Context context = contextDao.refresh(model.getObject());
                         Context mergedContext = contextDao.removeComment(context, comment);
                         CommentSidebar.this.refresh(Model.of(mergedContext), target);
+
+                        if (mergedContext.getComments().isEmpty()) {
+                            CommentSidebar.this.slideOut(target);
+                        }
+
                         onRemoveComment(model, target);
                     }
 
