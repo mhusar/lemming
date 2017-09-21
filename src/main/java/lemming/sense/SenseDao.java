@@ -54,7 +54,11 @@ public class SenseDao extends GenericDao<Sense> implements ISenseDao {
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            sense = entityManager.merge(sense);
+
+            if (isTransient(sense)) {
+                throw new IllegalArgumentException();
+            }
+
             TypedQuery<Sense> query = entityManager.createQuery("SELECT s FROM Sense s LEFT JOIN FETCH s.lemma " +
                     "LEFT JOIN FETCH s.children WHERE s.id = :id", Sense.class);
             Sense refreshedSense = query.setParameter("id", sense.getId()).getSingleResult();
