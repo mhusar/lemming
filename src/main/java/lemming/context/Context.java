@@ -85,7 +85,7 @@ public class Context extends BaseContext implements Serializable {
      *
      * True, if a context is interesting for the glossary.
      */
-    @Column(name = "interesting")
+    @Column(name = "interesting", nullable = false)
     private Boolean interesting;
 
     /**
