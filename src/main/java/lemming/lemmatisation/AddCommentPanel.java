@@ -89,10 +89,10 @@ public class AddCommentPanel extends ModalFormPanel {
     @Override
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
-        // ctrl + m
+        // ctrl + c
         String javaScript = "jQuery(window).on('keydown', function (event) { " +
                 "var modifier = event.ctrlKey || event.metaKey; " +
-                "if (modifier && event.which === 77) { " +
+                "if (modifier && event.which === 67) { " +
                 "jQuery('#" + getModalWindowId() + "').modal('show'); " +
                 "event.preventDefault(); event.stopPropagation(); } });";
         response.render(OnDomReadyHeaderItem.forScript(javaScript));
