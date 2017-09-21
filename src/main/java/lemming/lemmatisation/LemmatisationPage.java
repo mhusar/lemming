@@ -34,9 +34,11 @@ import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.util.CollectionModel;
 import org.apache.wicket.util.time.Duration;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -102,6 +104,16 @@ public class LemmatisationPage extends LemmatisationBasePage {
         commentSidebar = new CommentSidebar("commentSidebar", SidebarPanel.Orientation.RIGHT) {
             @Override
             public void onRemoveComment(IModel<Context> model, AjaxRequestTarget target) {
+                Collection<IModel<Context>> rowModels = dataTable.getRowModels();
+                CollectionModel<Integer> selectedContextIds = new CollectionModel<>(new ArrayList<>());
+
+                for (IModel<Context> rowModel : rowModels) {
+                    if (rowModel.getObject().getSelected()) {
+                        selectedContextIds.getObject().add(rowModel.getObject().getId());
+                    }
+                }
+
+                dataTable.updateSelectedContexts(selectedContextIds);
                 target.add(dataTable);
             }
         };
