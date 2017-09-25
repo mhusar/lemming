@@ -86,9 +86,10 @@ public class Sense extends DatedEntity implements Serializable {
     /**
      * Child senses of a sense.
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "sense_children", indexes = {@Index(columnList = "parent_id, child_id", unique = true)},
-            joinColumns = {@JoinColumn(name = "parent_id")}, inverseJoinColumns = {@JoinColumn(name = "child_id")})
+            joinColumns = {@JoinColumn(name = "parent_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "child_id", nullable = false, updatable = false)})
     private List<Sense> children;
 
     /**
