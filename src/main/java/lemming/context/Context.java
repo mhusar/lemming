@@ -24,7 +24,8 @@ import java.util.List;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, interesting")})
+        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, group_type, " +
+                "interesting")})
 public class Context extends BaseContext implements Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -81,12 +82,28 @@ public class Context extends BaseContext implements Serializable {
     private List<Comment> comments;
 
     /**
+     * Group members of a context group.
+     */
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "context_group_members", indexes = {@Index(columnList = "group_id, member_id", unique = true)},
+            joinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "member_id", nullable = false, updatable = false)})
+    private List<Context> members;
+
+    /**
      * Interesting state of a context.
-     *
+     * <p>
      * True, if a context is interesting for the glossary.
      */
     @Column(name = "interesting", nullable = false)
     private Boolean interesting;
+
+    /**
+     * Group status of a context.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "group_type", length = 30)
+    private ContextGroupType.Type groupType;
 
     /**
      * Selected state of a context.
@@ -198,6 +215,33 @@ public class Context extends BaseContext implements Serializable {
      */
     public List<Comment> getComments() {
         return comments;
+    }
+
+    /**
+     * Returns the members of a context group.
+     *
+     * @return Members of a context group.
+     */
+    public List<Context> getMembers() {
+        return members;
+    }
+
+    /**
+     * Returns the group type of a context.
+     *
+     * @return Group type of a context, or null.
+     */
+    public ContextGroupType.Type getGroupType() {
+        return groupType;
+    }
+
+    /**
+     * Sets the group type of a context.
+     *
+     * @param groupType group type of a context
+     */
+    public void setGroupType(ContextGroupType.Type groupType) {
+        this.groupType = groupType;
     }
 
     /**
