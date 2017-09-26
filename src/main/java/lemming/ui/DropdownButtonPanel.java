@@ -50,6 +50,11 @@ public class DropdownButtonPanel<T> extends Panel {
     private ArrayList<String> values;
 
     /**
+     * Initialized state set in onConfigure();
+     */
+    private Boolean wasInitialized = false;
+
+    /**
      * Creates a dropdown button panel.
      *
      * @param buttonLabel label of the button
@@ -112,33 +117,37 @@ public class DropdownButtonPanel<T> extends Panel {
     protected void onConfigure() {
         super.onConfigure();
 
-        Button button = new Button("button");
-        IModel<String> labelModel = Model.of(buttonLabel);
-        Label label = new Label("buttonLabel", labelModel);
+        if (!wasInitialized) {
+            Button button = new Button("button");
+            IModel<String> labelModel = Model.of(buttonLabel);
+            Label label = new Label("buttonLabel", labelModel);
 
-        add(new AttributeModifier("class", "input-group-btn"));
-        button.add(label.setOutputMarkupId(true));
-        add(button);
-        add(new Loop("list", labels.size()) {
-            @Override
-            protected void populateItem(LoopItem item) {
-                item.add(new AjaxLink<T>("link") {
-                    @Override
-                    public void onClick(AjaxRequestTarget target) {
-                        hiddenTextField.getModel().setObject(values.get(item.getIndex()));
-                        labelModel.setObject(labels.get(item.getIndex()));
+            add(new AttributeModifier("class", "input-group-btn"));
+            button.add(label.setOutputMarkupId(true));
+            add(button);
+            add(new Loop("list", labels.size()) {
+                @Override
+                protected void populateItem(LoopItem item) {
+                    item.add(new AjaxLink<T>("link") {
+                        @Override
+                        public void onClick(AjaxRequestTarget target) {
+                            hiddenTextField.getModel().setObject(values.get(item.getIndex()));
+                            labelModel.setObject(labels.get(item.getIndex()));
 
-                        target.add(hiddenTextField);
-                        target.add(label);
+                            target.add(hiddenTextField);
+                            target.add(label);
 
-                        if (event != null) {
-                            String javascript = String.format("jQuery('#%s').trigger('input');",
-                                    hiddenTextField.getMarkupId());
-                            target.appendJavaScript(javascript);
+                            if (event != null) {
+                                String javascript = String.format("jQuery('#%s').trigger('input');",
+                                        hiddenTextField.getMarkupId());
+                                target.appendJavaScript(javascript);
+                            }
                         }
-                    }
-                }.add(new Label("label", labels.get(item.getIndex()))));
-            }
-        });
+                    }.add(new Label("label", labels.get(item.getIndex()))));
+                }
+            });
+
+            wasInitialized = true;
+        }
     }
 }
