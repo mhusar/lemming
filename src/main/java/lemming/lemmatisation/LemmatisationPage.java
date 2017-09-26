@@ -144,8 +144,9 @@ public class LemmatisationPage extends LemmatisationBasePage {
 
         lemmatisationPanel.add(new SetLemmaLink(setLemmaPanel));
         lemmatisationPanel.add(new SetPosLink(setPosPanel));
-        lemmatisationPanel.add(new AddCommentLink(addCommentPanel));
         lemmatisationPanel.add(new MarkContextLink(dataTable));
+        lemmatisationPanel.add(new GroupContextsLink(dataTable));
+        lemmatisationPanel.add(new AddCommentLink(addCommentPanel));
 
         add(setLemmaPanel);
         add(setPosPanel);
@@ -171,6 +172,7 @@ public class LemmatisationPage extends LemmatisationBasePage {
         columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")), "keyword", "keyword"));
         columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")), "following",
                 "following"));
+        columns.add(new ContextGroupStatusColumn(Model.of("")));
         columns.add(new ContextBadgeColumn(Model.of("")));
 
         return columns;
@@ -201,11 +203,48 @@ public class LemmatisationPage extends LemmatisationBasePage {
     }
 
     /**
+     * A group status column for contexts.
+     */
+    private class ContextGroupStatusColumn extends GroupStatusColumn {
+        /**
+         * Creates a context group status column.
+         *
+         * @param displayModel title of a column
+         */
+        public ContextGroupStatusColumn(IModel<String> displayModel) {
+            super(displayModel, "group");
+        }
+
+        /**
+         * Creates a context group status panel.
+         *
+         * @param panelId ID of the panel
+         * @param model   model of the row item
+         * @return A context group panel.
+         */
+        @Override
+        public Panel createGroupPanel(String panelId, IModel<Context> model) {
+            Context refreshedContext = new ContextDao().refresh(model.getObject());
+            return new GroupStatusPanel(panelId, model);
+        }
+
+        /**
+         * Called when a link inside a context group status panel is clicked.
+         *
+         * @param target target that produces an Ajax response
+         * @param model  model of the row item
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target, IModel<Context> model) {
+        }
+    }
+
+    /**
      * A badge column for contexts.
      */
     private class ContextBadgeColumn extends BadgeColumn<Context, Context, String> {
         /**
-         * Creates a badge column
+         * Creates a badge column.
          *
          * @param displayModel title of a column
          */
