@@ -104,9 +104,10 @@
     <entry key="Lemma.user">User</entry>
     <entry key="LemmatisationPage.header">Lemmatisation</entry>
     <entry key="LemmatisationPanel.addComment">Add comment</entry>
+    <entry key="LemmatisationPanel.groupContexts">Group contexts</entry>
+    <entry key="LemmatisationPanel.markContext">Mark context</entry>
     <entry key="LemmatisationPanel.setLemma">Set lemma</entry>
     <entry key="LemmatisationPanel.setPos">Set part of speech</entry>
-    <entry key="LemmatisationPanel.markContext">Mark context</entry>
     <entry key="LemmatisationPanel.toggleNavigation">Toggle navigation</entry>
     <entry key="LemmaDeleteConfirmPanel.confirm">Delete lemma</entry>
     <entry key="LemmaDeleteConfirmPanel.message">Are you sure you want to delete the lemma {0} ?</entry>
@@ -194,8 +195,10 @@
     <entry key="SignInPage.username">Username</entry>
     <entry key="SignInPage.userUnknownMessage">This user is unknown.</entry>
     <entry key="TitleLabel.branding"> - Lemming</entry>
-    <entry key="Type.SEGMENT">Segment</entry>
+    <entry key="Type.GROUP">Group</entry>
     <entry key="Type.RUBRIC">Rubric</entry>
+    <entry key="Type.SEGMENT">Segment</entry>
+    <entry key="Type.VERSE">Verse</entry>
     <entry key="UnresolvableObjectErrorPage.details">Details</entry>
     <entry key="UnresolvableObjectErrorPage.entityName">Type of object</entry>
     <entry key="UnresolvableObjectErrorPage.identifier">Identifier</entry>

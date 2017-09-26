@@ -104,9 +104,10 @@
     <entry key="Lemma.user">Benutzer</entry>
     <entry key="LemmatisationPage.header">Lemmatisierung</entry>
     <entry key="LemmatisationPanel.addComment">Kommentar hinzufügen</entry>
+    <entry key="LemmatisationPanel.groupContexts">Kontexte gruppieren</entry>
+    <entry key="LemmatisationPanel.markContext">Kontext markieren</entry>
     <entry key="LemmatisationPanel.setLemma">Lemma festlegen</entry>
     <entry key="LemmatisationPanel.setPos">Wortart festlegen</entry>
-    <entry key="LemmatisationPanel.markContext">Kontext markieren</entry>
     <entry key="LemmatisationPanel.toggleNavigation">Navigation umschalten</entry>
     <entry key="LemmaDeleteConfirmPanel.confirm">Lemma löschen</entry>
     <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>
@@ -194,8 +195,10 @@
     <entry key="SignInPage.username">Benutzername</entry>
     <entry key="SignInPage.userUnknownMessage">Dieser Benutzer ist nicht bekannt.</entry>
     <entry key="TitleLabel.branding"> - Lemming</entry>
-    <entry key="Type.SEGMENT">Segment</entry>
+    <entry key="Type.GROUP">Gruppe</entry>
     <entry key="Type.RUBRIC">Rubrik</entry>
+    <entry key="Type.SEGMENT">Segment</entry>
+    <entry key="Type.VERSE">Vers</entry>
     <entry key="UnresolvableObjectErrorPage.details">Details</entry>
     <entry key="UnresolvableObjectErrorPage.entityName">Objekttyp</entry>
     <entry key="UnresolvableObjectErrorPage.identifier">Bezeichner</entry>
