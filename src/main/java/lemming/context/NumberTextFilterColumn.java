@@ -10,18 +10,19 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * A TextFilteredColumn to display keywords of contexts properly.
+ * A TextFilteredColumn to display first numbers properly.
  * <p>
  * This column adds class "first-child" to be able to style this column as first child of a row.
  */
-public class LemmaTextFilterColumn extends TextFilterColumn<Context, Context, String> {
+public class NumberTextFilterColumn extends TextFilterColumn<Context, Context, String> {
+
     /**
      * Creates a TextFilterColumn for contexts.
      *
      * @param displayModel       title of a column
      * @param propertyExpression property expression of a column
      */
-    public LemmaTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
+    public NumberTextFilterColumn(IModel<String> displayModel, String propertyExpression) {
         super(displayModel, propertyExpression);
     }
 
@@ -32,7 +33,7 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context, Context, St
      * @param sortProperty       sort property of a column
      * @param propertyExpression property expression of a column
      */
-    public LemmaTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
+    public NumberTextFilterColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
         super(displayModel, sortProperty, propertyExpression);
     }
 
@@ -46,7 +47,7 @@ public class LemmaTextFilterColumn extends TextFilterColumn<Context, Context, St
     @Override
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
         Context context = rowModel.getObject();
-        item.add(new ContextPanel(componentId, context.getLemmaString()))
+        item.add(new ContextPanel(componentId, String.valueOf(context.getNumber())))
                 .add(AttributeModifier.append("class", "first-child"));
     }
 

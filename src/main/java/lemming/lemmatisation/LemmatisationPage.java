@@ -162,16 +162,13 @@ public class LemmatisationPage extends LemmatisationBasePage {
         List<IColumn<Context, String>> columns = new ArrayList<>();
 
         columns.add(new ContextRowSelectColumn(Model.of("")));
-        columns.add(new LemmaTextFilterColumn(Model.of(getString("Context.lemma")),
-                "lemmaString", "lemmaString"));
-        columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")),
-                "posString", "posString"));
-        columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")),
-                "location", "location"));
+        columns.add(new NumberTextFilterColumn(Model.of(getString("Context.number")), "number", "number"));
+        columns.add(new TextFilterColumn(Model.of(getString("Context.lemma")), "lemmaString", "lemmaString"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")), "posString", "posString"));
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.location")), "location", "location"));
         columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")), "preceding",
                 "preceding"));
-        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")), "keyword",
-                "keyword"));
+        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")), "keyword", "keyword"));
         columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")), "following",
                 "following"));
         columns.add(new ContextBadgeColumn(Model.of("")));
