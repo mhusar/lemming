@@ -1,7 +1,6 @@
 package lemming.lemmatisation;
 
 import lemming.context.Context;
-import lemming.context.ContextDao;
 import lemming.data.GenericDataProvider;
 import lemming.table.NavigationToolbar;
 import org.apache.wicket.AttributeModifier;
