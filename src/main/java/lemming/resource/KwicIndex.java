@@ -179,10 +179,14 @@ public abstract class KwicIndex {
                 pos = context.getPos().getName();
             }
 
-            if (context.getType().equals(ContextType.Type.RUBRIC)) {
+            if (context.getType().equals(ContextType.Type.GROUP)) {
+                type = "group_item";
+            } else if (context.getType().equals(ContextType.Type.RUBRIC)) {
                 type = "rubric_item";
             } else if (context.getType().equals(ContextType.Type.SEGMENT)) {
                 type = "seg_item";
+            } else if (context.getType().equals(ContextType.Type.VERSE)) {
+                type = "verse_item";
             }
         }
 

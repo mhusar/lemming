@@ -89,12 +89,16 @@ class ContextXmlReader implements ErrorHandler {
                         context.setType(ContextType.Type.RUBRIC);
                     } else if (value.equals("seg_item")) {
                         context.setType(ContextType.Type.SEGMENT);
+                    } else if (value.equals("verse_item")) {
+                        context.setType(ContextType.Type.VERSE);
                     }
 
                     break;
             }
         }
 
+        context.setInteresting(false);
+        context.setGrouped(false);
         return context;
     }
 

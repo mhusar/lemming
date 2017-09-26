@@ -35,9 +35,9 @@
         <xs:restriction base="xs:token">
             <xs:enumeration value="seg_item"/>
             <xs:enumeration value="rubric_item"/>
+            <xs:enumeration value="verse_item"/>
         </xs:restriction>
     </xs:simpleType>
-
 
     <xs:simpleType name="number">
         <xs:restriction base="xs:integer">

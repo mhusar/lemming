@@ -24,13 +24,19 @@ final class CriteriaHelper {
      * @return A context type, or null.
      */
     private static ContextType.Type matchContextType(String filter) {
+        String groupString = new ResourceModel("Type.GROUP").getObject();
         String rubricString = new ResourceModel("Type.RUBRIC").getObject();
         String segmentString = new ResourceModel("Type.SEGMENT").getObject();
+        String verseString = new ResourceModel("Type.VERSE").getObject();
 
-        if (rubricString.toUpperCase().startsWith(filter.toUpperCase())) {
+        if (groupString.toUpperCase().startsWith(filter.toUpperCase())) {
+            return ContextType.Type.GROUP;
+        } else if (rubricString.toUpperCase().startsWith(filter.toUpperCase())) {
             return ContextType.Type.RUBRIC;
         } else if (segmentString.toUpperCase().startsWith(filter.toUpperCase())) {
             return ContextType.Type.SEGMENT;
+        } else if (verseString.toUpperCase().startsWith(filter.toUpperCase())) {
+            return ContextType.Type.VERSE;
         }
 
         return null;
@@ -91,6 +97,7 @@ final class CriteriaHelper {
 
         if (type != null) {
             return criteriaBuilder.or(
+                    criteriaBuilder.equal(root.get("number"), filter),
                     criteriaBuilder.like(root.get("location"), filter + "%"),
                     criteriaBuilder.equal(root.get("type"), type),
                     criteriaBuilder.like(root.get("preceding"), filter + "%"),
@@ -101,6 +108,7 @@ final class CriteriaHelper {
             );
         } else {
             return criteriaBuilder.or(
+                    criteriaBuilder.equal(root.get("number"), filter),
                     criteriaBuilder.like(root.get("location"), filter + "%"),
                     criteriaBuilder.like(root.get("preceding"), filter + "%"),
                     criteriaBuilder.like(root.get("keyword"), filter + "%"),
@@ -122,7 +130,15 @@ final class CriteriaHelper {
      */
     private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
                                                                          Root<?> root, String filter, String property) {
-        return criteriaBuilder.like(root.get(property), filter + "%");
+        if (property.equals("number")) {
+            if (filter.matches("^\\d+$")) {
+                return criteriaBuilder.equal(root.get("number"), filter);
+            } else {
+                return criteriaBuilder.ge(root.get("number"), 0);
+            }
+        } else {
+            return criteriaBuilder.like(root.get(property), filter + "%");
+        }
     }
 
     /**
@@ -234,6 +250,10 @@ final class CriteriaHelper {
 
         if (isAscending) {
             switch (property) {
+                case "number":
+                    orderList.add(criteriaBuilder.asc(root.get("number")));
+                    orderList.add(criteriaBuilder.asc(root.get("location")));
+                    break;
                 case "lemmaString":
                     orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
                     orderList.add(criteriaBuilder.asc(root.get("keyword")));
@@ -244,7 +264,7 @@ final class CriteriaHelper {
                     break;
                 case "location":
                     orderList.add(criteriaBuilder.asc(root.get("location")));
-                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    orderList.add(criteriaBuilder.asc(root.get("number")));
                     break;
                 case "preceding":
                     orderList.add(criteriaBuilder.asc(root.get("preceding")));
@@ -261,6 +281,10 @@ final class CriteriaHelper {
             }
         } else {
             switch (property) {
+                case "number":
+                    orderList.add(criteriaBuilder.desc(root.get("number")));
+                    orderList.add(criteriaBuilder.asc(root.get("location")));
+                    break;
                 case "lemmaString":
                     orderList.add(criteriaBuilder.desc(root.get("lemmaString")));
                     orderList.add(criteriaBuilder.asc(root.get("keyword")));
@@ -271,7 +295,7 @@ final class CriteriaHelper {
                     break;
                 case "location":
                     orderList.add(criteriaBuilder.desc(root.get("location")));
-                    orderList.add(criteriaBuilder.asc(root.get("keyword")));
+                    orderList.add(criteriaBuilder.asc(root.get("number")));
                     break;
                 case "preceding":
                     orderList.add(criteriaBuilder.desc(root.get("preceding")));
