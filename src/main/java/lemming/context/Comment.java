@@ -19,8 +19,7 @@ import java.util.UUID;
 @SelectBeforeUpdate
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "comment", indexes = {
-        @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "content")})
+        @Index(columnList = "uuid", unique = true)})
 public class Comment extends DatedEntity implements Comparable<Comment>, Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
