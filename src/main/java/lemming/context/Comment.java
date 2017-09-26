@@ -21,7 +21,7 @@ import java.util.UUID;
 @Table(name = "comment", indexes = {
         @Index(columnList = "uuid", unique = true),
         @Index(columnList = "content")})
-public class Comment extends DatedEntity implements Serializable {
+public class Comment extends DatedEntity implements Comparable<Comment>, Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -213,5 +213,17 @@ public class Comment extends DatedEntity implements Serializable {
         }
 
         return uuid.hashCode();
+    }
+
+    /**
+     * Compares a comment to another comment.
+     *
+     * @param comment a comment
+     * @return The result of the comparison.
+     * @see Comparable
+     */
+    @Override
+    public int compareTo(Comment comment) {
+        return getModified().compareTo(comment.getModified());
     }
 }

@@ -10,9 +10,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * Class representing a context.
@@ -24,9 +26,9 @@ import java.util.List;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, group_type, " +
+        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, grouped, " +
                 "interesting")})
-public class Context extends BaseContext implements Serializable {
+public class Context extends BaseContext implements Comparable<Context>, Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
      */
@@ -79,7 +81,8 @@ public class Context extends BaseContext implements Serializable {
     @JoinTable(name = "context_comments", indexes = {@Index(columnList = "context_id, comment_id", unique = true)},
             joinColumns = {@JoinColumn(name = "context_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "comment_id", nullable = false, updatable = false)})
-    private List<Comment> comments;
+    @OrderBy("modified")
+    private SortedSet<Comment> comments;
 
     /**
      * Group members of a context group.
@@ -88,7 +91,8 @@ public class Context extends BaseContext implements Serializable {
     @JoinTable(name = "context_group_members", indexes = {@Index(columnList = "group_id, member_id", unique = true)},
             joinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "member_id", nullable = false, updatable = false)})
-    private List<Context> members;
+    @OrderBy("number")
+    private SortedSet<Context> members;
 
     /**
      * Interesting state of a context.
@@ -99,11 +103,10 @@ public class Context extends BaseContext implements Serializable {
     private Boolean interesting;
 
     /**
-     * Group status of a context.
+     * Grouped state of a context.
      */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "group_type", length = 30)
-    private ContextGroupType.Type groupType;
+    @Column(name = "grouped", nullable = false)
+    private Boolean grouped;
 
     /**
      * Selected state of a context.
@@ -213,7 +216,7 @@ public class Context extends BaseContext implements Serializable {
      *
      * @return Comments of a context.
      */
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
@@ -222,26 +225,26 @@ public class Context extends BaseContext implements Serializable {
      *
      * @return Members of a context group.
      */
-    public List<Context> getMembers() {
+    public Set<Context> getMembers() {
         return members;
     }
 
     /**
-     * Returns the group type of a context.
+     * Returns the grouped state of a context.
      *
-     * @return Group type of a context, or null.
+     * @return Grouped state of a context.
      */
-    public ContextGroupType.Type getGroupType() {
-        return groupType;
+    public Boolean getGrouped() {
+        return grouped;
     }
 
     /**
-     * Sets the group type of a context.
+     * Sets the grouped state of a context.
      *
-     * @param groupType group type of a context
+     * @param grouped grouped state of a context
      */
-    public void setGroupType(ContextGroupType.Type groupType) {
-        this.groupType = groupType;
+    public void setGrouped(Boolean grouped) {
+        this.grouped = grouped;
     }
 
     /**
@@ -282,5 +285,17 @@ public class Context extends BaseContext implements Serializable {
      */
     public void setSelected(@SuppressWarnings("SameParameterValue") Boolean selected) {
         this.selected = selected;
+    }
+
+    /**
+     * Compares a context to another context.
+     *
+     * @param context a context.
+     * @return The result of the comparison.
+     * @see Comparable
+     */
+    @Override
+    public int compareTo(Context context) {
+        return getNumber().compareTo(context.getNumber());
     }
 }
