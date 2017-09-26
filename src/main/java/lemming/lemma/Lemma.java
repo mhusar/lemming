@@ -104,7 +104,7 @@ public class Lemma extends DatedEntity implements Serializable {
      * User that generated a lemma.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     /**
