@@ -178,6 +178,18 @@ a {
   background-color: #FCF8E3;
 }
 
+@media (min-width: 1300px) {
+    .lemmatisationPage .container {
+	    width: 1270px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .lemmatisationPage .container {
+	    width: 1370px;
+    }
+}
+
 .errorPage {
   padding-top: 50px;
 }
@@ -310,22 +322,22 @@ table {
 .table > tbody > tr > td:first-child,
 .table > tfoot > tr > td:first-child,
 .table > thead > tr > th:first-child {
-  padding: 8px 8px 8px 4px;
+  padding: 8px 8px 8px 6px;
 }
 
 .table > thead > tr > th .first-child,
 .table .norecords-tr .norecords-td div {
-  padding-left: 4px;
+  padding-left: 6px;
 }
 
 .table > tbody > tr > td:last-child,
 .table > tfoot > tr > td:last-child,
 .table > thead > tr > th:last-child {
-  padding: 8px 4px 8px 0;
+  padding: 8px 6px 8px 0;
 }
 
 .table > tbody > tr > .badgeColumn:last-child {
-  padding: 8px 0;
+  padding: 8px 4px 8px 0;
 }
 
 .table > tbody > tr > td > div {
