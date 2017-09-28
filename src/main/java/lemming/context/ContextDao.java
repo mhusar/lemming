@@ -495,6 +495,11 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Context createGroup(List<Context> members) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -562,6 +567,11 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Context addToGroup(Context group, Context member) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -620,6 +630,11 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Context removeFromGroup(Context group, Context member) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;

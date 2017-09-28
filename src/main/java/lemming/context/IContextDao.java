@@ -82,6 +82,32 @@ interface IContextDao extends IDao<Context> {
     List<Context> findBySense(Sense sense);
 
     /**
+     * Creates a group of contexts.
+     *
+     * @param members memers of a context group
+     * @return A context group.
+     */
+    Context createGroup(List<Context> members);
+
+    /**
+     * Adds a context to a context group.
+     *
+     * @param group a context group
+     * @param member a context
+     * @return A context group.
+     */
+    Context addToGroup(Context group, Context member);
+
+    /**
+     * Removes a context from a context group.
+     *
+     * @param group a context group
+     * @param member a context
+     * @return A context group.
+     */
+    Context removeFromGroup(Context group, Context member);
+
+    /**
      * Adds a comment to a list of contexts.
      *
      * @param contexts list of contexts
