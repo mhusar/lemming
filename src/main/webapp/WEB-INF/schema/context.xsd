@@ -27,7 +27,7 @@
 
     <xs:simpleType name="itemLocation">
         <xs:restriction base="xs:token">
-            <xs:pattern value="edfr\d{5}_\d{5}(_\d{2})?"/>
+            <xs:pattern value="[^_]+_\d{5}(_\d{2})?"/>
         </xs:restriction>
     </xs:simpleType>
 
