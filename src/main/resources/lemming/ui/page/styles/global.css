@@ -340,6 +340,11 @@ table {
   padding: 8px 4px 8px 0;
 }
 
+.table > tbody > tr > .number.first-child {
+  padding-right: 35px;
+  text-align: right;
+}
+
 .table > tbody > tr > td > div {
   overflow: hidden;
   text-overflow: ellipsis;

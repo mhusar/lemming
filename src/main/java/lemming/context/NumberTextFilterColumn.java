@@ -48,7 +48,7 @@ public class NumberTextFilterColumn extends TextFilterColumn<Context, Context, S
     public void populateItem(Item<ICellPopulator<Context>> item, String componentId, IModel<Context> rowModel) {
         Context context = rowModel.getObject();
         item.add(new ContextPanel(componentId, String.valueOf(context.getNumber())))
-                .add(AttributeModifier.append("class", "first-child"));
+                .add(AttributeModifier.append("class", "first-child number"));
     }
 
     /**
@@ -60,7 +60,7 @@ public class NumberTextFilterColumn extends TextFilterColumn<Context, Context, S
     @Override
     public Component getHeader(String componentId) {
         Component header = super.getHeader(componentId);
-        header.add(AttributeModifier.append("class", "first-child"));
+        header.add(AttributeModifier.append("class", "first-child number"));
         return header;
     }
 
