@@ -1,6 +1,7 @@
 package lemming.resource;
 
 import lemming.context.Context;
+import lemming.context.ContextGroupType;
 import lemming.context.ContextType;
 
 import javax.xml.bind.annotation.*;
@@ -179,7 +180,7 @@ public abstract class KwicIndex {
                 pos = context.getPos().getName();
             }
 
-            if (context.getType().equals(ContextType.Type.GROUP)) {
+            if (context.getGroupType().equals(ContextGroupType.Type.GROUP)) {
                 type = "group_item";
             } else if (context.getType().equals(ContextType.Type.RUBRIC)) {
                 type = "rubric_item";
