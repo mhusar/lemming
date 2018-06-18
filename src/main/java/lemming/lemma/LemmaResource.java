@@ -61,7 +61,7 @@ public class LemmaResource {
                     if (idList.size() == 1000) {
                         List<Lemma> lemmaList = entityManager2
                                 .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
-                                        "LEFT JOIN FETCH l.pos WHERE l.replacement IS NULL " +
+                                        "LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user WHERE l.replacement IS NULL " +
                                         "AND l.id IN (:ids) ORDER BY l.name", Lemma.class)
                                 .setParameter("ids", idList).getResultList();
 
@@ -78,7 +78,7 @@ public class LemmaResource {
                 if (!idList.isEmpty()) {
                     List<Lemma> lemmaList = entityManager2
                             .createQuery("SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement " +
-                                    "LEFT JOIN FETCH l.pos WHERE l.replacement IS NULL " +
+                                    "LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user WHERE l.replacement IS NULL " +
                                     "AND l.id IN (:ids) ORDER BY l.name", Lemma.class)
                             .setParameter("ids", idList).getResultList();
 
