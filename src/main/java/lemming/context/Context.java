@@ -95,6 +95,13 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
     private SortedSet<Context> members;
 
     /**
+     * Group type of a context.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "group_type", length = 30, nullable = false)
+    private ContextGroupType.Type groupType = ContextGroupType.Type.NONE;
+
+    /**
      * Interesting state of a context.
      * <p>
      * True, if a context is interesting for the glossary.
@@ -230,21 +237,21 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
     }
 
     /**
-     * Returns the grouped state of a context.
+     * Returns the context group type of a context.
      *
-     * @return Grouped state of a context.
+     * @return Returns the context group type of a context.
      */
-    public Boolean getGrouped() {
-        return grouped;
+    public ContextGroupType.Type getGroupType() {
+        return groupType;
     }
 
     /**
-     * Sets the grouped state of a context.
+     * Sets the context group type of a context.
      *
-     * @param grouped grouped state of a context
+     * @param groupType context group type
      */
-    public void setGrouped(Boolean grouped) {
-        this.grouped = grouped;
+    public void setGroupType(ContextGroupType.Type groupType) {
+        this.groupType = groupType;
     }
 
     /**

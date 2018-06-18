@@ -15,9 +15,14 @@ public class ContextGroupType {
     private static final String MEMBER = "MEMBER";
 
     /**
-     * Types of contexts.
+     * Neither group nor member item.
+     */
+    private static final String NONE = "NONE";
+
+    /**
+     * Group types of contexts.
      */
     public enum Type {
-        GROUP, MEMBER
+        GROUP, MEMBER, NONE
     }
 }
