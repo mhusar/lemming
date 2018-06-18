@@ -4,6 +4,7 @@ ${indent}<sublist key="$sublist.getKey()">
 #set($following = $item.getFollowing())
 #set($keyword = $item.getKeyword().getValue())
 #set($lemma = $item.getLemma())
+#set($lemmaPos = $item.getLemmaPos())
 #set($location = $item.getLocation())
 #set($number = $item.getNumber())
 #set($pos = $item.getPos())
@@ -12,14 +13,23 @@ ${indent}<sublist key="$sublist.getKey()">
 #set($initPunctuation = $item.getInitPunctuationString())
 #set($endPunctuation = $item.getEndPunctuationString())
 #set($indent = "    ")
+
 #if( ! $lemma && ! $pos )
 ${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following">
 #elseif ( $lemma && ! $pos )
+#if( $lemmaPos )
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" lemmaPos="$lemmaPos">
+#else
 ${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma">
+#end
 #elseif ( ! $lemma && $pos)
 ${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" pos="$pos">
 #elseif ( $lemma && $pos)
+#if( $lemmaPos )
 ${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" pos="$pos">
+#else
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" lemmaPos="$lemmaPos" pos="$pos">
+#end
 #end
 #set($indent = "      ")
 #if( ! $initPunctuation && ! $endPunctuation )

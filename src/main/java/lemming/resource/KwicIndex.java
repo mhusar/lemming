@@ -91,6 +91,12 @@ public abstract class KwicIndex {
         private String lemma;
 
         /**
+         * Lemma pos attribute of an item.
+         */
+        @XmlAttribute
+        private String lemmaPos;
+
+        /**
          * Location attribute of an item.
          */
         @XmlAttribute(required = true)
@@ -174,6 +180,10 @@ public abstract class KwicIndex {
 
             if (context.getLemma() != null) {
                 lemma = context.getLemma().getName();
+
+                if (context.getLemma().getPosString() != null) {
+                    lemmaPos = context.getLemma().getPosString();
+                }
             }
 
             if (context.getPos() != null) {
@@ -207,6 +217,15 @@ public abstract class KwicIndex {
          */
         public String getLemma() {
             return lemma;
+        }
+
+        /**
+         * Returns the lemma pos attribute of an item.
+         *
+         * @return An attribute as string.
+         */
+        public String getLemmaPos() {
+            return lemmaPos;
         }
 
         /**
