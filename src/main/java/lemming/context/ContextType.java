@@ -5,11 +5,6 @@ package lemming.context;
  */
 public class ContextType {
     /**
-     * Group item. Used for groups of contexts.
-     */
-    private static final String GROUP = "GROUP";
-
-    /**
      * Rubric item.
      */
     private static final String RUBRIC = "RUBRIC";
@@ -25,9 +20,14 @@ public class ContextType {
     private static final String VERSE = "VERSE";
 
     /**
+     * Neither rubric nor segment or verse.
+     */
+    private static final String NONE = "NONE";
+
+    /**
      * Types of contexts.
      */
     public enum Type {
-        GROUP, RUBRIC, SEGMENT, VERSE
+        RUBRIC, SEGMENT, VERSE, NONE
     }
 }

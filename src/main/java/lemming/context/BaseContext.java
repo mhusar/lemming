@@ -55,7 +55,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "type", length = 30, nullable = false)
-    private ContextType.Type type;
+    private ContextType.Type type = ContextType.Type.NONE;
 
     /**
      * Keyword of a context.
