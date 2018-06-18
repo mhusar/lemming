@@ -24,14 +24,11 @@ final class CriteriaHelper {
      * @return A context type, or null.
      */
     private static ContextType.Type matchContextType(String filter) {
-        String groupString = new ResourceModel("Type.GROUP").getObject();
         String rubricString = new ResourceModel("Type.RUBRIC").getObject();
         String segmentString = new ResourceModel("Type.SEGMENT").getObject();
         String verseString = new ResourceModel("Type.VERSE").getObject();
 
-        if (groupString.toUpperCase().startsWith(filter.toUpperCase())) {
-            return ContextType.Type.GROUP;
-        } else if (rubricString.toUpperCase().startsWith(filter.toUpperCase())) {
+        if (rubricString.toUpperCase().startsWith(filter.toUpperCase())) {
             return ContextType.Type.RUBRIC;
         } else if (segmentString.toUpperCase().startsWith(filter.toUpperCase())) {
             return ContextType.Type.SEGMENT;
