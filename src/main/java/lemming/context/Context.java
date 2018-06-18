@@ -26,8 +26,7 @@ import java.util.SortedSet;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, grouped, " +
-                "interesting")})
+        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, interesting")})
 public class Context extends BaseContext implements Comparable<Context>, Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
@@ -85,6 +84,15 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
     private SortedSet<Comment> comments;
 
     /**
+     * Parent of a context group.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name="context_group_members",
+            joinColumns={@JoinColumn(name="member_id", insertable=false, updatable=false)},
+            inverseJoinColumns={@JoinColumn(name="group_id", insertable=false, updatable=false)})
+    private Context group;
+
+    /**
      * Group members of a context group.
      */
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -108,12 +116,6 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      */
     @Column(name = "interesting", nullable = false)
     private Boolean interesting;
-
-    /**
-     * Grouped state of a context.
-     */
-    @Column(name = "grouped", nullable = false)
-    private Boolean grouped;
 
     /**
      * Selected state of a context.
@@ -225,6 +227,15 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      */
     public Set<Comment> getComments() {
         return comments;
+    }
+
+    /**
+     * Returns the parent of a context group.
+     *
+     * @return Parent of a context.
+     */
+    public Context getGroup() {
+        return group;
     }
 
     /**
