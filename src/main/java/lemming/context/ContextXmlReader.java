@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Helper class to validate and read context XML data.
  */
-class ContextXmlReader implements ErrorHandler {
+public class ContextXmlReader implements ErrorHandler {
     /**
      * Receive notification of a recoverable error.
      *
@@ -98,7 +98,6 @@ class ContextXmlReader implements ErrorHandler {
         }
 
         context.setInteresting(false);
-        context.setGrouped(false);
         return context;
     }
 
