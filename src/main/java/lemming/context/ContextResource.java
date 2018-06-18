@@ -270,8 +270,8 @@ public class ContextResource {
                         String keyword = results.getString(0);
                         EntityManager entityManager2 = EntityManagerListener.createEntityManager();
                         Iterator<Context> iterator = entityManager2.createQuery("SELECT c FROM Context c " +
-                                "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
-                                "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
+                                "LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword " +
+                                "ORDER BY c.location", Context.class)
                                 .setParameter("keyword", keyword).getResultList().iterator();
                         KwicIndex.SubList subList = new KwicIndex.SubList(keyword);
 
