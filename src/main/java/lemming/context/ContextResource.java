@@ -116,8 +116,9 @@ public class ContextResource {
             transaction.begin();
 
             for (Context context1 : entityManager
-                    .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma l LEFT JOIN FETCH l.pos " +
-                            "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
+                    .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.comments " +
+                            "LEFT JOIN FETCH c.lemma l LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user " +
+                            "WHERE c.keyword = :keyword ORDER BY c.location", Context.class)
                     .setParameter("keyword", keyword).getResultList()) {
                 jsonGenerator.writeObject(context1);
             }

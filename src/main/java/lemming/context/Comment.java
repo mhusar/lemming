@@ -57,6 +57,7 @@ public class Comment extends DatedEntity implements Comparable<Comment>, Seriali
      * Contexts a comment is attached to.
      */
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "comments")
+    @JsonIgnore
     private List<Context> contexts;
 
     /**
