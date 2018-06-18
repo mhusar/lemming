@@ -93,6 +93,13 @@
                 <db.username>lemming</db.username>
                 <db.password></db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
+                <!--
+                  enforce connection timezone UTC to prevent problems:
+                  "InvalidConnectionAttributeException: The server time zone value 'CEST' is unrecognized or represents "
+                  "more than one time zone. …",
+                  see: https://stackoverflow.com/questions/36890422/jdbc-connection-error-unrecognized-timezone
+                -->
+                <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>validate</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
@@ -115,6 +122,7 @@
                 <db.username>lemming</db.username>
                 <db.password></db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
+                <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
@@ -136,6 +144,7 @@
                 <db.username>lemming</db.username>
                 <db.password></db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
+                <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
