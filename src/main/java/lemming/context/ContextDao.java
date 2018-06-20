@@ -513,11 +513,11 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             group.setUuid(UUID.randomUUID().toString());
             group.setLocation("");
             group.setNumber(-1);
-            group.setType(ContextType.Type.GROUP);
+            group.setType(ContextType.Type.NONE);
+            group.setGroupType(ContextGroupType.Type.GROUP);
             group.setKeyword("");
             group.setPreceding("");
             group.setFollowing("");
-            group.setGrouped(false);
             group.setInteresting(false);
             entityManager.persist(group);
             entityManager.refresh(group);
@@ -538,7 +538,6 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                     group.setFollowing(member.getFollowing());
                 }
 
-                member.setGrouped(true);
                 Context mergedMember = entityManager.merge(member);
                 group.getMembers().add(mergedMember);
             }
@@ -583,7 +582,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             Context mergedMember = entityManager.merge(member);
 
             mergedGroup.getMembers().add(mergedMember);
-            mergedMember.setGrouped(true);
+            mergedMember.setGroupType(ContextGroupType.Type.MEMBER);
             entityManager.merge(mergedMember);
             Iterator<Context> memberIterator = mergedGroup.getMembers().iterator();
             Boolean isFirstMember = true;
@@ -647,7 +646,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             Context resultGroup = null;
 
             mergedGroup.getMembers().remove(mergedMember);
-            mergedMember.setGrouped(false);
+            mergedMember.setGroupType(ContextGroupType.Type.NONE);
             entityManager.merge(mergedMember);
 
             if (mergedGroup.getMembers().isEmpty()) {
