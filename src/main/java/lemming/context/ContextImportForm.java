@@ -1,7 +1,10 @@
 package lemming.context;
 
 import lemming.HomePage;
+import lemming.auth.WebSession;
+import lemming.context.inbound.*;
 import lemming.ui.panel.AlertPanel;
+import lemming.user.User;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.wicket.AttributeModifier;
@@ -42,6 +45,11 @@ class ContextImportForm extends Form<Void> {
      * A logger named corresponding to this class.
      */
     private static final Logger logger = LoggerFactory.getLogger(ContextImportForm.class);
+
+    /**
+     * A panel which lists groups of inbound contexts.
+     */
+    private InboundContextPackagePanel contextPackagePanel;
 
     /**
      * Creates a context import form.
@@ -91,6 +99,7 @@ class ContextImportForm extends Form<Void> {
         browseButton = new Button("browseButton");
         alertPanel = new AlertPanel();
         SubmitButton submitButton = new SubmitButton(this);
+        contextPackagePanel = new InboundContextPackagePanel();
 
         fileInput.add(new FileInputChangeBehavior())
                 .add(AttributeModifier.append("style", "position: absolute; left: -9999px;"));
@@ -101,6 +110,7 @@ class ContextImportForm extends Form<Void> {
         getPage().add(alertPanel.setOutputMarkupId(true).setOutputMarkupPlaceholderTag(true).setVisible(false));
         getPage().add(new ToHomePageButton());
         getPage().add(submitButton);
+        getPage().add(contextPackagePanel.setOutputMarkupId(true));
     }
 
     private void logException(Exception exception) {
@@ -115,7 +125,7 @@ class ContextImportForm extends Form<Void> {
      */
     private void onSubmit(AjaxRequestTarget target, FileItem fileItem) {
         ContextXmlReader xmlReader = new ContextXmlReader();
-        List<Context> contexts = null;
+        List<InboundContext> contexts = null;
 
         try {
             xmlReader.validateXml(fileItem.getInputStream());
@@ -134,16 +144,24 @@ class ContextImportForm extends Form<Void> {
         }
 
         if (contexts != null) {
-            String message;
+            User user = WebSession.get().getUser();
 
             if (contexts.size() > 0) {
+                InboundContextPackage contextPackage = new InboundContextPackage(user);
+                new InboundContextPackageDao().persist(contextPackage);
+
+                for (InboundContext context : contexts) {
+                    context.setPackage(contextPackage);
+                    contextPackage.addContext(context);
+                }
+
                 StringResourceModel messageModel = new StringResourceModel("ContextImportPage.successMessage", this)
                         .setParameters(String.valueOf(contexts.size()));
-                message = messageModel.getString();
-                alertPanel.setMessage(message).setType(AlertPanel.Type.SUCCESS).setVisible(true);
-                new ContextDao().batchPersist(contexts);
+                alertPanel.setMessage(messageModel.getString()).setType(AlertPanel.Type.SUCCESS).setVisible(true);
+                new InboundContextDao().batchPersist(contexts);
+                target.add(contextPackagePanel);
             } else {
-                message = getString("ContextImportPage.noContextsMessage");
+                String message = getString("ContextImportPage.noContextsMessage");
                 alertPanel.setMessage(message).setType(AlertPanel.Type.INFO).setVisible(true);
             }
 

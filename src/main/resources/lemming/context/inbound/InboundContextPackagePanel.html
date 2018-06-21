@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--suppress CheckTagEmptyBody -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<wicket:panel>
+    <div class="list-group inbound-context-package">
+        <div wicket:id="placeholder" class="list-group-item">
+            <wicket:message key="InboundContextPackagePanel.placeholder"></wicket:message>
+        </div>
+        <div wicket:id="contextPackageView" class="list-group-item">
+            <span wicket:id="itemLabel" class="item-label"></span>
+            <div>
+                <a wicket:id="detailsButton" class="btn btn-default" type="button" data-placement="bottom"
+                   data-toggle="popover" data-trigger="manual" role="button" tabindex="1">
+                    <i class="glyphicon glyphicon-option-vertical"></i>
+                </a>
+                <a wicket:id="verifyButton" class="btn btn-primary" type="button" role="button">
+                    <wicket:message key="Action.verify"></wicket:message>
+                </a>
+                <button wicket:id="discardButton" class="btn btn-danger" role="button">
+                    <wicket:message key="Action.discard"></wicket:message>
+                </button>
+            </div>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>
