@@ -1,6 +1,7 @@
 package lemming.lemmatisation;
 
 import lemming.context.Context;
+import lemming.context.ContextGroupType;
 import lemming.context.ContextType;
 import lemming.table.TextFilterColumn;
 import org.apache.wicket.MarkupContainer;
@@ -108,9 +109,9 @@ public abstract class GroupStatusColumn extends TextFilterColumn<Context, Contex
             };
             MarkupContainer group = new WebMarkupContainer("status");
 
-            if (model.getObject().getType().equals(ContextType.Type.GROUP)) {
+            if (model.getObject().getType().equals(ContextGroupType.Type.GROUP)) {
                 group.add(new Label("label", "G"));
-            } else if (model.getObject().getGrouped()) {
+            } else if (model.getObject().getType().equals(ContextGroupType.Type.MEMBER)) {
                 group.add(new Label("label", "M"));
             } else {
                 group.add(new Label("label", ""));
