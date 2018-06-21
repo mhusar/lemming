@@ -2,9 +2,7 @@ package lemming;
 
 import lemming.auth.SignInPage;
 import lemming.auth.WebSession;
-import lemming.context.ContextEditPage;
-import lemming.context.ContextImportPage;
-import lemming.context.ContextIndexPage;
+import lemming.context.*;
 import lemming.lemma.LemmaEditPage;
 import lemming.lemma.LemmaIndexPage;
 import lemming.lemmatisation.LemmatisationPage;
@@ -27,10 +25,16 @@ import org.apache.wicket.markup.html.SecurePackageResourceGuard;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.settings.ExceptionSettings;
 
+import java.util.List;
+import java.util.logging.Logger;
+
 /**
  * A web application that does role-based authentication.
  */
 public class WebApplication extends AuthenticatedWebApplication {
+
+    private Logger logger = Logger.getLogger(WebApplication.class.getName());
+
     /**
      * Provides a custom initialization for this app.
      */
@@ -87,6 +91,13 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/sense/SenseIndexPage", SenseIndexPage.class);
         mountPage("/sense/SenseEditPage", SenseEditPage.class);
         mountPage("/user/UserEditPage", UserEditPage.class);
+
+        logger.info("Updating all contexts...");
+        ContextDao contextDao = new ContextDao();
+        List<Context> allContexts = contextDao.getAll();
+
+        contextDao.batchUpdate(allContexts);
+        logger.info("Done.");
     }
 
     /**

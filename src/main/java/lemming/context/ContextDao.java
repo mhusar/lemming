@@ -2,9 +2,11 @@ package lemming.context;
 
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
+import lemming.data.HashEntityListener;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
+import org.hibernate.Session;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -251,6 +253,61 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
                 Context mergedContext = entityManager.merge(currentContext);
                 refreshForeignKeyStrings(mergedContext);
                 initializeComments(mergedContext);
+                entityManager.merge(mergedContext);
+                counter++;
+
+                if (counter % batchSize == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+            }
+
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(currentContext, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(currentContext, e);
+            } else {
+                throw e;
+            }
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * Force update of hashes for all contexts.
+     * TODO: Remove.
+     *
+     * @throws RuntimeException
+     */
+    public void batchUpdate(List<Context> contexts) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+        Context currentContext = null;
+        Integer batchSize = 50;
+        Integer counter = 0;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            for (Context context : contexts) {
+                currentContext = context;
+                Context mergedContext = entityManager.merge(currentContext);
+                refreshForeignKeyStrings(mergedContext);
+
+                if (mergedContext.getHash() == null || mergedContext.getHash().length() == 0) {
+                    new HashEntityListener().onPreUpdate(mergedContext);
+                }
+
                 entityManager.merge(mergedContext);
                 counter++;
 
