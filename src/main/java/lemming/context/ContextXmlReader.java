@@ -1,6 +1,7 @@
 package lemming.context;
 
 import lemming.WebApplication;
+import lemming.context.inbound.InboundContext;
 import org.apache.wicket.model.StringResourceModel;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -33,7 +34,9 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void error(SAXParseException exception) throws SAXException {
-        throw (exception);
+        if (exception != null) {
+            throw (exception);
+        }
     }
 
     /**
@@ -44,7 +47,9 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void fatalError(SAXParseException exception) throws SAXException {
-        throw (exception);
+        if (exception != null) {
+            throw (exception);
+        }
     }
 
     /**
@@ -55,7 +60,9 @@ public class ContextXmlReader implements ErrorHandler {
      */
     @Override
     public void warning(SAXParseException exception) throws SAXException {
-        throw (exception);
+        if (exception != null) {
+            throw (exception);
+        }
     }
 
     /**
@@ -64,8 +71,8 @@ public class ContextXmlReader implements ErrorHandler {
      * @param element start element of a tag
      * @return A context object.
      */
-    private Context createContext(StartElement element) {
-        Context context = new Context();
+    private InboundContext createContext(StartElement element) {
+        InboundContext context = new InboundContext();
 
         for (Iterator<?> attributes = element.getAttributes(); attributes.hasNext(); ) {
             Attribute attribute = (Attribute) attributes.next();
@@ -97,7 +104,6 @@ public class ContextXmlReader implements ErrorHandler {
             }
         }
 
-        context.setInteresting(false);
         return context;
     }
 
@@ -109,7 +115,7 @@ public class ContextXmlReader implements ErrorHandler {
      * @param lastPunctuationType    punctuation type last seen
      * @param currentPunctuationType current punctuation type
      */
-    private void validatePunctuation(Context context, Location location, String lastPunctuationType,
+    private void validatePunctuation(InboundContext context, Location location, String lastPunctuationType,
                                      String currentPunctuationType) throws XmlStreamException {
         String message = null;
 
@@ -134,13 +140,13 @@ public class ContextXmlReader implements ErrorHandler {
      * @param inputStream input stream
      * @return A list of contexts or null.
      */
-    public List<Context> readXml(InputStream inputStream) throws XMLStreamException {
+    public List<InboundContext> readXml(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        List<Context> contexts = new ArrayList<>();
+        List<InboundContext> contexts = new ArrayList<>();
         XMLEventReader reader = factory.createXMLEventReader(inputStream);
         String currentElementName = "";
         String punctuationType = "";
-        Context context = null;
+        InboundContext context = null;
 
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();
