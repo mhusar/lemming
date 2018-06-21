@@ -2,6 +2,7 @@ package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.data.DatedEntity;
+import lemming.data.HashEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.UUID;
 /**
  * Base class representing a context with a minimum of fields.
  */
+@EntityListeners({HashEntityListener.class})
 @MappedSuperclass
 public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
@@ -23,6 +25,15 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    /**
+     * A SHA512 hash of concatenated text elements from the original context.
+     *
+     * @see HashEntityListener
+     */
+    @Column(name = "hash", length = 130, nullable = false, unique=true)
+    @JsonIgnore
+    private String hash;
 
     /**
      * A UUID used to distinguish contexts.
@@ -110,6 +121,23 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     @SuppressWarnings("unused")
     private void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Returns the hash of a base context.
+     *
+     * @return A hash string.
+     */
+    @SuppressWarnings("unused")
+    public String getHash() {
+        return hash;
+    }
+
+    /**
+     * Sets the hash of a context.
+     */
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     /**
