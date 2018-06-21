@@ -78,13 +78,13 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * A punctuation preceding the keyword.
      */
-    @Column(name = "punctuation_init", length = 30)
+    @Column(name = "init_punctuation", length = 30)
     private String initPunctuation;
 
     /**
      * A punctuation following the keyword.
      */
-    @Column(name = "punctuation_end", length = 30)
+    @Column(name = "end_punctuation", length = 30)
     private String endPunctuation;
 
     /**
