@@ -101,7 +101,31 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     /**
      * Creates an instance of a context.
      */
-    BaseContext() {
+    public BaseContext() {
+    }
+
+    /**
+     * Creates an instance of a context.
+     *
+     * @param location        location of a context
+     * @param number          number of a context
+     * @param type            type of a context
+     * @param keyword         keyword of a context
+     * @param preceding       preceding text of a context
+     * @param following       following text of a context
+     * @param initPunctuation punctuation preceding the keyword
+     * @param endPunctuation  punctuation following the keyword
+     */
+    public BaseContext(String location, Integer number, ContextType.Type type, String keyword, String preceding, String following,
+                       String initPunctuation, String endPunctuation) {
+        this.location = location;
+        this.number = number;
+        this.type = type;
+        this.keyword = keyword;
+        this.preceding = preceding;
+        this.following = following;
+        this.initPunctuation = initPunctuation;
+        this.endPunctuation = endPunctuation;
     }
 
     /**
