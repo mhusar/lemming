@@ -62,6 +62,7 @@
     <entry key="ContextImportPage.unverifiedImports">Unverified imports</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
+    <entry key="ContextVerificationPage.header">Verification of contexts</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Multiple punctuation elements with the same type are not
         allowed inside one item element.
     </entry>
