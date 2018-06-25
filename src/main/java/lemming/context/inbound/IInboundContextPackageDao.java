@@ -32,4 +32,12 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
      * @return End location string.
      */
     String getEndLocation(InboundContextPackage contextPackage);
+
+    /**
+     * Matches inbound contexts of an inbound context package against contexts. The contexts are matched by a hash
+     * applied by class HashEntityListener.
+     *
+     * @param contextPackage a package of inbound contexts
+     */
+    void matchContexts(InboundContextPackage contextPackage);
 }

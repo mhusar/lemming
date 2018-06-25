@@ -30,6 +30,13 @@ public class InboundContext extends BaseContext {
     private InboundContextPackage _package;
 
     /**
+     * A matching context for an inbound context.
+     */
+    @OneToOne
+    @JoinColumn(name = "match_id")
+    private Context match;
+
+    /**
      * Creates an instance of an inbound context.
      */
     public InboundContext() {
@@ -64,5 +71,23 @@ public class InboundContext extends BaseContext {
      */
     public void setPackage(InboundContextPackage _package) {
         this._package = _package;
+    }
+
+    /**
+     * Returns the matching context for an inbound context.
+     *
+     * @return A matching context or null.
+     */
+    public Context getMatch() {
+        return match;
+    }
+
+    /**
+     * Set the matching context for an inbound context.
+     *
+     * @param match matching context
+     */
+    public void setMatch(Context match) {
+        this.match = match;
     }
 }

@@ -1,5 +1,6 @@
 package lemming.context.inbound;
 
+import lemming.context.Context;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import org.hibernate.StaleObjectStateException;
@@ -8,6 +9,7 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -182,6 +184,63 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             }
 
             throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public void matchContexts(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+        Context context = null;
+        Integer batchSize = 50;
+        Integer counter = 0;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> selectQuery = entityManager.createQuery("SELECT c FROM Context c " +
+                    "INNER JOIN InboundContext i ON c.hash = i.hash WHERE i._package = :package", Context.class);
+            List<Context> contexts = selectQuery.setParameter("package", contextPackage).getResultList();
+
+            for (Iterator<Context> iterator = contexts.iterator(); iterator.hasNext(); context = iterator.next()) {
+                javax.persistence.Query updateQuery = entityManager.createQuery("UPDATE InboundContext " +
+                        "SET match_id = :id WHERE hash = :hash");
+
+                if (context != null) {
+                    updateQuery.setParameter("id", context.getId()).setParameter("hash", context.getHash())
+                            .executeUpdate();
+                }
+
+                counter++;
+
+                if (counter % batchSize == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+            }
+
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            if (e instanceof StaleObjectStateException) {
+                panicOnSaveLockingError(context, e);
+            } else if (e instanceof UnresolvableObjectException) {
+                panicOnSaveUnresolvableObjectError(context, e);
+            } else {
+                throw e;
+            }
         } finally {
             entityManager.close();
         }
