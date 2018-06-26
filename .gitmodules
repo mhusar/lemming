@@ -1,3 +1,3 @@
-[submodule "repo/diff-match-patch"]
-	path = repo/diff-match-patch
+[submodule "submodule/diff-match-patch"]
+	path = submodule/diff-match-patch
 	url = https://github.com/google/diff-match-patch.git
