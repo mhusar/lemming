@@ -39,5 +39,5 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
      *
      * @param contextPackage a package of inbound contexts
      */
-    void matchContexts(InboundContextPackage contextPackage);
+    void matchContextsByHash(InboundContextPackage contextPackage);
 }

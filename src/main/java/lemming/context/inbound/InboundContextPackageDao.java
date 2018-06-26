@@ -195,7 +195,7 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
-    public void matchContexts(InboundContextPackage contextPackage) {
+    public void matchContextsByHash(InboundContextPackage contextPackage) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
         Context context = null;
