@@ -9,6 +9,7 @@
 
     <properties>
         <bootstrap.version>3.3.7-1</bootstrap.version>
+        <diff.match.patch.version>1.0</diff.match.patch.version>
         <guava.version>21.0</guava.version>
         <hibernate.validator.version>5.3.3.Final</hibernate.validator.version>
         <hibernate.version>5.2.8.Final</hibernate.version>
@@ -38,6 +39,11 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>local</id>
+            <name>Local Repository</name>
+            <url>${basedir}/repository</url>
         </repository>
     </repositories>
 
@@ -159,6 +165,12 @@
     </profiles>
 
     <dependencies>
+
+        <dependency>
+            <groupId>name.fraser.neil.plaintext</groupId>
+            <artifactId>diff-match-patch</artifactId>
+            <version>${diff.match.patch.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

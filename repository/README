@@ -1,0 +1,8 @@
+This is a local Maven repository. Please build dependent packages beforehand.
+
+Diff Match Patch
+================
+
+cd submodule/diff-match-patch
+git checkout pom.xml
+mvn clean package deploy
