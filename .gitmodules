@@ -1,3 +1,4 @@
 [submodule "submodule/diff-match-patch"]
 	path = submodule/diff-match-patch
 	url = https://github.com/mhusar/diff-match-patch.git
+	branch = pom.xml
