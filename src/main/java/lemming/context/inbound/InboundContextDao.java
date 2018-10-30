@@ -7,6 +7,7 @@ import org.hibernate.UnresolvableObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -134,6 +135,74 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             }
 
             return null;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public InboundContext findAncestor(InboundContext context) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "LEFT JOIN FETCH i.match WHERE i._package = :package AND i.location = :location " +
+                    "AND i.number < :number ORDER BY i.number DESC", InboundContext.class);
+            List<InboundContext> ancestors = query.setParameter("package", context.getPackage())
+                    .setParameter("location", context.getLocation()).setParameter("number", context.getNumber())
+                    .setMaxResults(1).getResultList();
+            transaction.commit();
+            return ancestors.isEmpty() ? null: ancestors.get(0);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public InboundContext findSuccessor(InboundContext context) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "LEFT JOIN FETCH i.match WHERE i._package = :package AND i.location = :location " +
+                    "AND i.number > :number ORDER BY i.number ASC", InboundContext.class);
+            List<InboundContext> successors = query.setParameter("package", context.getPackage())
+                    .setParameter("location", context.getLocation()).setParameter("number", context.getNumber())
+                    .setMaxResults(1).getResultList();
+            transaction.commit();
+            return successors.isEmpty() ? null: successors.get(0);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
         } finally {
             entityManager.close();
         }

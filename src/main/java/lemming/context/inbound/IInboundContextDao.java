@@ -15,4 +15,20 @@ public interface IInboundContextDao extends IDao<InboundContext> {
      */
     @SuppressWarnings("unused")
     void batchPersist(List<InboundContext> contexts);
+
+    /**
+     * Finds the ancestor of an inbound context with the same package and location.
+     *
+     * @param context an inbound context
+     * @return An inbound context or null.
+     */
+    InboundContext findAncestor(InboundContext context);
+
+    /**
+     * Finds the successor of an inbound context with the same package and location.
+     *
+     * @param context an inbound context
+     * @return An inbound context or null.
+     */
+    InboundContext findSuccessor(InboundContext context);
 }
