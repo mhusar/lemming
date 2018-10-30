@@ -9,8 +9,7 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a Data Access Object providing data operations for inbound context packages.
@@ -176,6 +175,104 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             String beginLocation = query.setParameter("package", contextPackage).setMaxResults(1).getSingleResult();
             transaction.commit();
             return beginLocation;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<InboundContext> findUnmatchedContexts(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "WHERE i._package = :package AND match_id IS NULL " +
+                    "ORDER BY i.location, i.number", InboundContext.class);
+            List<InboundContext> contexts = query.setParameter("package", contextPackage).getResultList();
+            transaction.commit();
+            return contexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<InboundContext> findUnmatchedContextsByLocation(InboundContextPackage contextPackage,
+                                                                                    String location) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "LEFT JOIN FETCH i.match WHERE i._package = :package AND i.location = :location " +
+                    "ORDER BY i.number", InboundContext.class);
+            List<InboundContext> contexts = query.setParameter("package", contextPackage)
+                    .setParameter("location", location).getResultList();
+            transaction.commit();
+            return contexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<String> findUnmatchedContextLocations(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<String> query = entityManager.createQuery("SELECT DISTINCT(i.location) " +
+                    "FROM InboundContext i WHERE i._package = :package AND match_id IS NULL ORDER BY i.location",
+                    String.class);
+            List<String> locations = query.setParameter("package", contextPackage).getResultList();
+            transaction.commit();
+            return locations;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
