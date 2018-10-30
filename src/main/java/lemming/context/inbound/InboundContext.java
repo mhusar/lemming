@@ -25,14 +25,14 @@ public class InboundContext extends BaseContext {
     /**
      * A context package an inbound context belongs to.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "package_id", nullable = false)
     private InboundContextPackage _package;
 
     /**
      * A matching context for an inbound context.
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id")
     private Context match;
 
