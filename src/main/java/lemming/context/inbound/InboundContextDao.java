@@ -116,7 +116,6 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             transaction = entityManager.getTransaction();
             transaction.begin();
             InboundContext mergedContext = entityManager.merge(context);
-            mergedContext = entityManager.merge(mergedContext);
             transaction.commit();
             return mergedContext;
         } catch (RuntimeException e) {
