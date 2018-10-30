@@ -62,7 +62,7 @@
     <entry key="ContextImportPage.unverifiedImports">Ungeprüfte Importe</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
-    <entry key="ContextVerificationPage.header">Überprüfung von Kontexten</entry>
+    <entry key="InboundContextVerificationPage.header">Überprüfung von Kontexten</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
         dürfen nicht den selben Wert für das Attribut Type haben.
     </entry>

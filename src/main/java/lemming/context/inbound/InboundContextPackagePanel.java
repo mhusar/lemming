@@ -1,6 +1,5 @@
 package lemming.context.inbound;
 
-import lemming.context.ContextVerificationPage;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -178,7 +177,7 @@ public class InboundContextPackagePanel extends Panel {
          */
         @Override
         public void onClick() {
-            setResponsePage(new ContextVerificationPage(getModel()));
+            setResponsePage(new InboundContextVerificationPage(getModel()));
         }
     }
 

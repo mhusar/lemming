@@ -1,6 +1,5 @@
-package lemming.context;
+package lemming.context.inbound;
 
-import lemming.context.inbound.InboundContextPackage;
 import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -11,7 +10,7 @@ import org.apache.wicket.model.IModel;
  * A page for the verifying of inbound contexts.
  */
 @AuthorizeInstantiation({"SIGNED_IN"})
-public class ContextVerificationPage extends BasePage {
+public class InboundContextVerificationPage extends BasePage {
     /**
      * Model of a group of inbound contexts.
      */
@@ -21,7 +20,7 @@ public class ContextVerificationPage extends BasePage {
      * Creates a context verification page.
      */
     @SuppressWarnings("unused")
-    public ContextVerificationPage() {
+    public InboundContextVerificationPage() {
     }
 
     /**
@@ -29,7 +28,7 @@ public class ContextVerificationPage extends BasePage {
      *
      * @param model model of a package of inbound contexts.
      */
-    public ContextVerificationPage(IModel<InboundContextPackage> model) {
+    public InboundContextVerificationPage(IModel<InboundContextPackage> model) {
         this.model = model;
     }
 
@@ -39,8 +38,8 @@ public class ContextVerificationPage extends BasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        add(new TitleLabel(getString("ContextVerificationPage.header")));
-        add(new Label("header", getString("ContextVerificationPage.header")));
-        add(new ContextVerificationForm(model));
+        add(new TitleLabel(getString("InboundContextVerificationPage.header")));
+        add(new Label("header", getString("InboundContextVerificationPage.header")));
+        add(new InboundContextVerificationForm(model));
     }
 }
