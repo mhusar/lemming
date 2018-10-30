@@ -6,7 +6,6 @@ import lemming.context.BaseContext;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 /**
  * Sets a hash for an entity if its class is recognized.
@@ -44,22 +43,6 @@ public class HashEntityListener {
     }
 
     /**
-     * Returns a string concatenating the text elements of the original context.
-     *
-     * @param context a base context
-     * @return A string of arbitrary length.
-     */
-    private String getString(BaseContext context) {
-        return String.join("\u001F\u001F", new String[]{
-                context.getPreceding(),
-                Optional.ofNullable(context.getInitPunctuation()).orElse(""),
-                context.getKeyword(),
-                Optional.ofNullable(context.getEndPunctuation()).orElse(""),
-                context.getFollowing()
-        });
-    }
-
-    /**
      * Sets a hash for an entity if its class is recognized.
      *
      * @param object an object
@@ -67,7 +50,8 @@ public class HashEntityListener {
     private void setHash(Object object) {
         if (object instanceof BaseContext) {
             BaseContext context = (BaseContext) object;
-            context.setHash(getSha512(getString(context)));
+            String hash = getSha512(context.toString("\u001F\u001F"));
+            context.setHash(hash);
         } else {
             throw new IllegalStateException("Unknown entity: " + object.getClass().getCanonicalName());
         }

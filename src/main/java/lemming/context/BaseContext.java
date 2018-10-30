@@ -6,6 +6,7 @@ import lemming.data.HashEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -379,5 +380,21 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
         }
 
         return uuid.hashCode();
+    }
+
+    /**
+     * Returns a string representation with joined contents for a context.
+     *
+     * @param delimiter string to be added with each content string
+     * @return A string value for a context.
+     */
+    public String toString(String delimiter) {
+        return String.join(delimiter, new String[]{
+                getPreceding(),
+                Optional.ofNullable(getInitPunctuation()).orElse(""),
+                getKeyword(),
+                Optional.ofNullable(getEndPunctuation()).orElse(""),
+                getFollowing()
+        });
     }
 }
