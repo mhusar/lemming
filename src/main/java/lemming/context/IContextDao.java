@@ -82,6 +82,47 @@ interface IContextDao extends IDao<Context> {
     List<Context> findBySense(Sense sense);
 
     /**
+     * Finds the ancestor of a context with the same location.
+     *
+     * @param context a context
+     * @return A context or null.
+     */
+    Context findAncestor(Context context);
+
+    /**
+     * Finds the successor of a context with the same location.
+     *
+     * @param context a context
+     * @return A context or null.
+     */
+    Context findSuccessor(Context context);
+
+    /**
+     * Finds contexts before a successor.
+     *
+     * @param successor successor of contexts
+     * @return A list of contexts.
+     */
+    List<Context> findBefore(Context successor);
+
+    /**
+     * Finds contexts after an ancestor.
+     *
+     * @param ancestor ancestor of contexts
+     * @return A list of contexts.
+     */
+    List<Context> findAfter(Context ancestor);
+
+    /**
+     * Finds contexts between an ancestor and a successor.
+     *
+     * @param ancestor ancestor of contexts
+     * @param successor successor of contexts
+     * @return A list of contexts.
+     */
+    List<Context> findBetween(Context ancestor, Context successor);
+
+    /**
      * Creates a group of contexts.
      *
      * @param members memers of a context group

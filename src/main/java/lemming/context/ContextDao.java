@@ -557,6 +557,188 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
      *
      * @throws RuntimeException
      */
+    @Override
+    public Context findAncestor(Context context) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c " +
+                    "WHERE c.location = :location AND c.number < :number ORDER BY c.number DESC", Context.class);
+            List<Context> ancestors = query.setParameter("location", context.getLocation())
+                    .setParameter("number", context.getNumber()).setMaxResults(1).getResultList();
+            transaction.commit();
+            return ancestors.isEmpty() ? null: ancestors.get(0);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public Context findSuccessor(Context context) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c " +
+                    "WHERE c.location = :location AND c.number > :number ORDER BY c.number ASC", Context.class);
+            List<Context> successors = query.setParameter("location", context.getLocation())
+                    .setParameter("number", context.getNumber()).setMaxResults(1).getResultList();
+            transaction.commit();
+            return successors.isEmpty() ? null: successors.get(0);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Context> findBefore(Context successor) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        if (successor == null) {
+            throw new IllegalStateException();
+        }
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT i FROM Context i " +
+                    "WHERE i.location = :location AND i.number < :number ORDER BY i.number ASC", Context.class);
+            List<Context> contexts = query.setParameter("location", successor.getLocation())
+                    .setParameter("number", successor.getNumber()).getResultList();
+            transaction.commit();
+            return contexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Context> findAfter(Context ancestor) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        if (ancestor == null) {
+            throw new IllegalStateException();
+        }
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT i FROM Context i " +
+                    "WHERE i.location = :location AND i.number > :number ORDER BY i.number ASC", Context.class);
+            List<Context> contexts = query.setParameter("location", ancestor.getLocation())
+                    .setParameter("number", ancestor.getNumber()).getResultList();
+            transaction.commit();
+            return contexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<Context> findBetween(Context ancestor, Context successor) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        if (ancestor == null || successor == null) {
+            throw new IllegalStateException();
+        } else {
+            if (!ancestor.getLocation().equals(successor.getLocation())) {
+                throw new IllegalArgumentException();
+            }
+
+            if (ancestor.getNumber() >= successor.getNumber()) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Context> query = entityManager.createQuery("SELECT i FROM Context i " +
+                    "WHERE i.location = :location AND i.number > :number1 AND i.number < :number2 " +
+                    "ORDER BY i.number ASC", Context.class);
+            List<Context> contexts = query.setParameter("location", ancestor.getLocation())
+                    .setParameter("number1", ancestor.getNumber()).setParameter("number2", successor.getNumber())
+                    .getResultList();
+            transaction.commit();
+            return contexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
     public Context createGroup(List<Context> members) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
