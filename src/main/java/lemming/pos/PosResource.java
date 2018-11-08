@@ -42,7 +42,7 @@ public class PosResource {
         try {
             StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
             transaction = session.beginTransaction();
-            Query query = session.createQuery("FROM Pos ORDER BY name");
+            org.hibernate.Query query = session.createQuery("FROM Pos ORDER BY name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = outputStream -> {

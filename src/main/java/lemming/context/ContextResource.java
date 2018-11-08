@@ -65,7 +65,7 @@ public class ContextResource {
         try {
             StatelessSession session = entityManager.unwrap(Session.class).getSessionFactory().openStatelessSession();
             transaction = session.beginTransaction();
-            Query query = session.createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword");
+            org.hibernate.Query query = session.createQuery("SELECT DISTINCT c.keyword FROM Context c ORDER BY c.keyword");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = outputStream -> {

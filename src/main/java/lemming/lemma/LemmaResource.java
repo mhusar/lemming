@@ -44,7 +44,7 @@ public class LemmaResource {
         try {
             StatelessSession session = entityManager1.unwrap(Session.class).getSessionFactory().openStatelessSession();
             transaction = session.beginTransaction();
-            Query query = session.createQuery("SELECT l.id FROM Lemma l ORDER BY l.name");
+            org.hibernate.Query query = session.createQuery("SELECT l.id FROM Lemma l ORDER BY l.name");
             query.setReadOnly(true).setCacheable(false).setFetchSize(Integer.MIN_VALUE);
             ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
             StreamingOutput streamingOutput = outputStream -> {
