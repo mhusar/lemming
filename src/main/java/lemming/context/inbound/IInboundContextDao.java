@@ -1,5 +1,6 @@
 package lemming.context.inbound;
 
+import lemming.context.Context;
 import lemming.data.IDao;
 
 import java.util.List;
@@ -15,4 +16,12 @@ public interface IInboundContextDao extends IDao<InboundContext> {
      */
     @SuppressWarnings("unused")
     void batchPersist(List<InboundContext> contexts);
+
+    /**
+     * Finds complements of unmatched inbound contexts.
+     *
+     * @param contexts list of inbound contexts
+     * @return A list of contexts or null.
+     */
+    List<Context> findUnmatchedContextComplements(List<InboundContext> contexts);
 }
