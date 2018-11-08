@@ -221,24 +221,41 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
     }
 
     /**
+     * Private helper method for findUnmatchedContextsByLocation(InboundContextPackage, String) and
+     * groupUnmatchedContextsByLocation(InboundContextPackage, String).
+     *
+     * @param contextPackage a package of inbound contexts
+     * @param location       a context location
+     * @return List of unmatched inbound contexts.
+     * @see #findUnmatchedContextsByLocation(InboundContextPackage, String)
+     * @see #groupUnmatchedContextsByLocation(InboundContextPackage, String)
+     */
+    private List<InboundContext> findUnmatchedContextsByLocation(EntityManager entityManager,
+                                                                 InboundContextPackage contextPackage,
+                                                                 String location) {
+        TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                "WHERE i.match IS NULL AND i._package = :package AND i.location = :location " +
+                "ORDER BY i.number", InboundContext.class);
+        List<InboundContext> contexts = query.setParameter("package", contextPackage)
+                .setParameter("location", location).getResultList();
+        return contexts;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws RuntimeException
      */
     @Override
     public List<InboundContext> findUnmatchedContextsByLocation(InboundContextPackage contextPackage,
-                                                                                    String location) {
+                                                                String location) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
-                    "LEFT JOIN FETCH i.match WHERE i._package = :package AND i.location = :location " +
-                    "ORDER BY i.number", InboundContext.class);
-            List<InboundContext> contexts = query.setParameter("package", contextPackage)
-                    .setParameter("location", location).getResultList();
+            List<InboundContext> contexts = findUnmatchedContextsByLocation(entityManager, contextPackage, location);
             transaction.commit();
             return contexts;
         } catch (RuntimeException e) {
