@@ -308,14 +308,13 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
 
             for (Iterator<Context> iterator = contexts.iterator(); iterator.hasNext(); context = iterator.next()) {
                 javax.persistence.Query updateQuery = entityManager.createQuery("UPDATE InboundContext " +
-                        "SET match_id = :id WHERE hash = :hash");
+                        "SET match_id = :id WHERE hash = :hash AND package_id = :package");
 
                 if (context != null) {
                     updateQuery.setParameter("id", context.getId()).setParameter("hash", context.getHash())
-                            .executeUpdate();
+                            .setParameter("package", contextPackage).executeUpdate();
+                    counter++;
                 }
-
-                counter++;
 
                 if (counter % batchSize == 0) {
                     entityManager.flush();
