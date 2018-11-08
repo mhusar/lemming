@@ -287,6 +287,42 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
     }
 
     /**
+     * Removes matches from inbound contexts with multiple possible matches.
+     *
+     * @param entityManager entityManager entity manager
+     * @param contextPackage a package of inbound contexts
+     */
+    private void removeDuplicateMatches(EntityManager entityManager, InboundContextPackage contextPackage) {
+        TypedQuery<String> selectQuery = entityManager.createQuery("SELECT c.hash FROM Context c " +
+                "GROUP BY c.hash HAVING COUNT(c.hash) > 1", String.class);
+        List<String> duplicateHashes = selectQuery.getResultList();
+
+        for (String hash : duplicateHashes) {
+            javax.persistence.Query updateQuery = entityManager.createQuery("UPDATE InboundContext " +
+                    "SET match_id = NULL WHERE hash = :hash AND package_id = :package");
+            updateQuery.setParameter("hash", hash).setParameter("package", contextPackage).executeUpdate();
+        }
+    }
+
+    /**
+     * Removes matches from inbound contexts with duplicate hashes.
+     *
+     * @param entityManager entityManager entity manager
+     * @param contextPackage a package of inbound contexts
+     */
+    private void removeMatchesFromDuplicateContexts(EntityManager entityManager, InboundContextPackage contextPackage) {
+        TypedQuery<String> selectQuery = entityManager.createQuery("SELECT i.hash FROM InboundContext i " +
+                "GROUP BY i.hash HAVING COUNT(i.hash) > 1", String.class);
+        List<String> duplicateHashes = selectQuery.getResultList();
+
+        for (String hash : duplicateHashes) {
+            javax.persistence.Query updateQuery = entityManager.createQuery("UPDATE InboundContext " +
+                    "SET match_id = NULL WHERE hash = :hash AND package_id = :package");
+            updateQuery.setParameter("hash", hash).setParameter("package", contextPackage).executeUpdate();
+        }
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws RuntimeException
@@ -322,6 +358,8 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
                 }
             }
 
+            removeDuplicateMatches(entityManager, contextPackage);
+            removeMatchesFromDuplicateContexts(entityManager, contextPackage);
             transaction.commit();
         } catch (RuntimeException e) {
             e.printStackTrace();
