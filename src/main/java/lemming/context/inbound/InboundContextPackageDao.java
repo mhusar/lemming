@@ -221,6 +221,38 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<String> findUnmatchedContextLocations(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<String> query = entityManager.createQuery("SELECT DISTINCT(i.location) " +
+                            "FROM InboundContext i WHERE i._package = :package AND i.match IS NULL ORDER BY i.location",
+                    String.class);
+            List<String> locations = query.setParameter("package", contextPackage).getResultList();
+            transaction.commit();
+            return locations;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
      * Private helper method for findUnmatchedContextsByLocation(InboundContextPackage, String) and
      * groupUnmatchedContextsByLocation(InboundContextPackage, String).
      *
