@@ -2,8 +2,9 @@ package lemming.context.inbound;
 
 import lemming.data.IDao;
 
+import javax.ws.rs.core.MultivaluedMap;
+
 import java.util.List;
-import java.util.SortedMap;
 
 /**
  * Defines an inbound context package DAO by extending interface IDao.
@@ -61,12 +62,14 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
                                                                              String location);
 
     /**
-     * Finds locations of inbound contexts without a match.
+     * Map of unmatched cohesive contexts by location ordered by number.
      *
      * @param contextPackage a package of inbound contexts
-     * @return A list context location strings.
+     * @param location       a context location
+     * @return Map of unmatched cohesive inbound contexts.
      */
-    List<String> findUnmatchedContextLocations(InboundContextPackage contextPackage);
+    MultivaluedMap<Integer, InboundContext> groupUnmatchedContextsByLocation(InboundContextPackage contextPackage,
+                                                                             String location);
 
     /**
      * Matches inbound contexts of an inbound context package against contexts. The contexts are matched by a hash

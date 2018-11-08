@@ -9,7 +9,10 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import java.util.*;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Represents a Data Access Object providing data operations for inbound context packages.
@@ -379,19 +382,36 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
-    public List<String> findUnmatchedContextLocations(InboundContextPackage contextPackage) {
+    public MultivaluedMap<Integer, InboundContext> groupUnmatchedContextsByLocation(
+            InboundContextPackage contextPackage, String location) {
+        MultivaluedMap<Integer, InboundContext> groupedContexts = new MultivaluedHashMap<>();
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<String> query = entityManager.createQuery("SELECT DISTINCT(i.location) " +
-                    "FROM InboundContext i WHERE i._package = :package AND match_id IS NULL ORDER BY i.location",
-                    String.class);
-            List<String> locations = query.setParameter("package", contextPackage).getResultList();
+            List<InboundContext> contexts = findUnmatchedContextsByLocation(entityManager, contextPackage, location);
+            // Find contexts between the first and the last unmatched context (unmatched and matched).
+            // This approach is needed because there are sometimes gaps in the context numbering.
+            List<InboundContext> contexts2 = findBetween(entityManager, contexts.get(0),
+                    contexts.get(contexts.size() - 1));
+            Integer key = 0;
+
+            for (InboundContext context : contexts2) {
+                if (context.getMatch() != null) {
+                    if (groupedContexts.getFirst(key) != null) {
+                        key++;
+                    }
+
+                    continue;
+                }
+
+                groupedContexts.add(key, context);
+            }
+
             transaction.commit();
-            return locations;
+            return groupedContexts;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
