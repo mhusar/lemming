@@ -202,8 +202,8 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
-                    "WHERE i._package = :package AND match_id IS NULL " +
-                    "ORDER BY i.location, i.number", InboundContext.class);
+                            "WHERE i._package = :package AND i.match IS NULL ORDER BY i.location, i.number",
+                    InboundContext.class);
             List<InboundContext> contexts = query.setParameter("package", contextPackage).getResultList();
             transaction.commit();
             return contexts;
