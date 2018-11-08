@@ -304,6 +304,76 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
     }
 
     /**
+     * Finds contexts from first context on.
+     *
+     * @param entityManager entity manager
+     * @param first first context
+     * @return A list of contexts.
+     */
+    public List<InboundContext> findFrom(EntityManager entityManager, InboundContext first) {
+        if (first == null) {
+            throw new IllegalStateException();
+        }
+
+        TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                "WHERE i.location = :location AND i.number >= :number ORDER BY i.number ASC", InboundContext.class);
+        List<InboundContext> contexts = query.setParameter("location", first.getLocation())
+                .setParameter("number", first.getNumber()).getResultList();
+        return contexts;
+    }
+
+    /**
+     * Finds contexts until last context.
+     *
+     * @param entityManager entity manager
+     * @param last last context
+     * @return A list of contexts.
+     */
+    public List<InboundContext> findTo(EntityManager entityManager, InboundContext last) {
+        if (last == null) {
+            throw new IllegalStateException();
+        }
+
+        TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                "WHERE i.location = :location AND i.number <= :number ORDER BY i.number ASC", InboundContext.class);
+        List<InboundContext> contexts = query.setParameter("location", last.getLocation())
+                .setParameter("number", last.getNumber()).getResultList();
+        return contexts;
+    }
+
+    /**
+     * Finds contexts between the first (inclusive) and the last context (inclusive).
+     *
+     * @param entityManager entity manager
+     * @param first first context
+     * @param last last context
+     * @return A list of contexts.
+     */
+    public List<InboundContext> findBetween(EntityManager entityManager, InboundContext first, InboundContext last) {
+        if (first == null) {
+            return findTo(entityManager, last);
+        } else if (last == null) {
+            return findFrom(entityManager, first);
+        } else {
+            if (!first.getLocation().equals(last.getLocation())) {
+                throw new IllegalArgumentException();
+            }
+
+            if (first.getNumber() > last.getNumber()) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                "WHERE i.location = :location AND i.number >= :number1 AND i.number <= :number2 " +
+                "ORDER BY i.number ASC", InboundContext.class);
+        List<InboundContext> contexts = query.setParameter("location", first.getLocation())
+                .setParameter("number1", first.getNumber()).setParameter("number2", last.getNumber())
+                .getResultList();
+        return contexts;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws RuntimeException
