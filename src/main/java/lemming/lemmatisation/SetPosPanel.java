@@ -41,6 +41,7 @@ class SetPosPanel extends ModalFormPanel {
         this.dataTable = dataTable;
         posTextField = new PosAutoCompleteTextField(new Model<>());
         addFormComponent(posTextField);
+        enableClearButton();
     }
 
     /**
@@ -68,6 +69,32 @@ class SetPosPanel extends ModalFormPanel {
     @Override
     public String getTitleString() {
         return getString("SetPosPanel.setPos");
+    }
+
+    /**
+     * Called when the modal dialog is used to clear data.
+     *
+     * @param target target that produces an Ajax response
+     * @param form   form that is submitted
+     */
+    @Override
+    public void onClear(AjaxRequestTarget target, Form<?> form) {
+        Collection<IModel<Context>> rowModels = dataTable.getRowModels();
+        CollectionModel<Integer> selectedContextIds = new CollectionModel<>(new ArrayList<>());
+        ContextDao contextDao = new ContextDao();
+
+        for (IModel<Context> rowModel : rowModels) {
+            if (rowModel.getObject().getSelected()) {
+                Context context = rowModel.getObject();
+                context.setPos(null);
+                context.setPosString(null);
+                contextDao.merge(context);
+                selectedContextIds.getObject().add(context.getId());
+            }
+        }
+
+        dataTable.updateSelectedContexts(selectedContextIds);
+        target.add(dataTable);
     }
 
     /**

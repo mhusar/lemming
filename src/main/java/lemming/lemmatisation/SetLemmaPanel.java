@@ -41,6 +41,7 @@ class SetLemmaPanel extends ModalFormPanel {
         this.dataTable = dataTable;
         lemmaTextField = new LemmaAutoCompleteTextField(new Model<>());
         addFormComponent(lemmaTextField);
+        enableClearButton();
     }
 
     /**
@@ -68,6 +69,32 @@ class SetLemmaPanel extends ModalFormPanel {
     @Override
     public String getTitleString() {
         return getString("SetLemmaPanel.setLemma");
+    }
+
+    /**
+     * Called when the modal dialog is used to clear data.
+     *
+     * @param target target that produces an Ajax response
+     * @param form   form that is submitted
+     */
+    @Override
+    public void onClear(AjaxRequestTarget target, Form<?> form) {
+        Collection<IModel<Context>> rowModels = dataTable.getRowModels();
+        CollectionModel<Integer> selectedContextIds = new CollectionModel<>(new ArrayList<>());
+        ContextDao contextDao = new ContextDao();
+
+        for (IModel<Context> rowModel : rowModels) {
+            if (rowModel.getObject().getSelected()) {
+                Context context = rowModel.getObject();
+                context.setLemma(null);
+                context.setLemmaString(null);
+                contextDao.merge(context);
+                selectedContextIds.getObject().add(context.getId());
+            }
+        }
+
+        dataTable.updateSelectedContexts(selectedContextIds);
+        target.add(dataTable);
     }
 
     /**
