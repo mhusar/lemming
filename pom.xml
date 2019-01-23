@@ -1,5 +1,4 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <name>Lemming</name>
     <groupId>lemming</groupId>
@@ -10,10 +9,10 @@
     <properties>
         <bootstrap.version>3.3.7-1</bootstrap.version>
         <diff.match.patch.version>1.0</diff.match.patch.version>
-        <guava.version>21.0</guava.version>
+        <guava.version>27.0-jre</guava.version>
         <hibernate.validator.version>5.3.3.Final</hibernate.validator.version>
-        <jackson.version>2.8.7</jackson.version>
         <hibernate.version>5.3.7.Final</hibernate.version>
+        <jackson.version>2.9.7</jackson.version>
         <java.version>1.8</java.version>
         <javaee.version>7.0</javaee.version>
         <javax.json.version>1.0.4</javax.json.version>
@@ -24,10 +23,10 @@
         <log4j.version>1.2.17</log4j.version>
         <maven.plugins.version>3.6.0</maven.plugins.version>
         <maven.war.plugin.version>3.0.0</maven.war.plugin.version>
-        <mysql.version>6.0.5</mysql.version>
-        <slf4j.version>1.7.21</slf4j.version>
+        <mysql.version>8.0.13</mysql.version>
+        <slf4j.version>1.8.0-beta2</slf4j.version>
         <velocity.version>1.7</velocity.version>
-        <wicket.version>7.7.0</wicket.version>
+        <wicket.version>7.10.0</wicket.version>
     </properties>
 
     <repositories>
@@ -97,7 +96,7 @@
                 <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>true</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
-                <db.password></db.password>
+                <db.password>Yte=LDpuC8KzKrDs</db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
                 <!--
                   enforce connection timezone UTC to prevent problems:
@@ -126,7 +125,7 @@
                 <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>true</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
-                <db.password></db.password>
+                <db.password>Yte=LDpuC8KzKrDs</db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
                 <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
@@ -148,7 +147,7 @@
                 <wicket.contentType>text/html</wicket.contentType>
                 <wicket.stripWicketTags>false</wicket.stripWicketTags>
                 <db.username>lemming</db.username>
-                <db.password></db.password>
+                <db.password>Yte=LDpuC8KzKrDs</db.password>
                 <db.url>jdbc:mysql://localhost/lemming</db.url>
                 <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
