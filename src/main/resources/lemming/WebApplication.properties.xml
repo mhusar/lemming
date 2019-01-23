@@ -6,6 +6,7 @@
     <entry key="AccessDeniedPage.redirection">Dashboard</entry>
     <entry key="Action.batchProcessing">Batch processing</entry>
     <entry key="Action.cancel">Cancel</entry>
+    <entry key="Action.clear">Clear</entry>
     <entry key="Action.continue">Continue</entry>
     <entry key="Action.correct">Correct</entry>
     <entry key="Action.correction">Correction</entry>

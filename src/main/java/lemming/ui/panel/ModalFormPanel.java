@@ -33,6 +33,11 @@ public abstract class ModalFormPanel extends Panel {
     private final MarkupContainer container;
 
     /**
+     * Clears data when clicked.
+     */
+    private final Button clearButton;
+
+    /**
      * Confirms the dialog when clicked.
      */
     private final Button confirmButton;
@@ -53,6 +58,7 @@ public abstract class ModalFormPanel extends Panel {
         form = new Form("form");
 
         container = new WebMarkupContainer("modalWindow");
+        clearButton = new ClearButton(form);
         confirmButton = new ConfirmButton(form);
         CancelButton cancelButton = new CancelButton();
 
@@ -61,6 +67,7 @@ public abstract class ModalFormPanel extends Panel {
         container.setMarkupId(modalWindowId);
         container.add(form);
         container.add(cancelButton);
+        container.add(clearButton.setVisible(false));
         container.add(confirmButton.setOutputMarkupId(true));
         form.setDefaultButton(confirmButton);
         add(container);
@@ -152,6 +159,22 @@ public abstract class ModalFormPanel extends Panel {
     public abstract String getTitleString();
 
     /**
+     * Makes the clearButton visible.
+     */
+    public void enableClearButton() {
+        clearButton.setVisible(true);
+    }
+
+    /**
+     * Called when the modal dialog is used to clear data.
+     *
+     * @param form   form that is submitted
+     * @param target target that produces an Ajax response
+     */
+    protected void onClear(AjaxRequestTarget target, Form<?> form) {
+    }
+
+    /**
      * Called when the modal dialog is confirmed.
      *
      * @param form   form that is submitted
@@ -190,6 +213,32 @@ public abstract class ModalFormPanel extends Panel {
     }
 
     /**
+     * Clears data when clicked.
+     */
+    private class ClearButton extends AjaxButton {
+        /**
+         * Creates a button.
+         *
+         * @param form form of a modal form panel
+         */
+        public ClearButton(Form<?> form) {
+            super("clearButton", form);
+        }
+
+        /**
+         * Called when the button is clicked.
+         *
+         * @param target target that produces an Ajax response
+         * @param form form of a modal form panel
+         */
+        @Override
+        public void onSubmit(AjaxRequestTarget target, Form<?> form) {
+            onClear(target, form);
+            hide(target);
+        }
+    }
+
+    /**
      * Confirms the dialog when clicked.
      */
     private class ConfirmButton extends AjaxButton {
@@ -206,6 +255,7 @@ public abstract class ModalFormPanel extends Panel {
          * Called when the button is clicked.
          *
          * @param target target that produces an Ajax response
+         * @param form form of a modal form panel
          */
         @Override
         public void onSubmit(AjaxRequestTarget target, Form<?> form) {
