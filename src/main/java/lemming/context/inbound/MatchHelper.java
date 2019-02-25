@@ -154,6 +154,16 @@ public abstract class MatchHelper {
     }
 
     /**
+     * Checks if contexts of a triple have identical keywords.
+     *
+     * @param triple a triple
+     * @return True if keywords are identical; false otherwise.
+     */
+    public static boolean hasIdenticalKeywords(Triple triple) {
+        return triple.getContext1().getKeyword().equals(triple.getContext2().getKeyword());
+    }
+
+    /**
      * A triple of two contexts and the distance between them.
      */
     public static class Triple {
