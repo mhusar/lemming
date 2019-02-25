@@ -92,6 +92,7 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/sense/SenseEditPage", SenseEditPage.class);
         mountPage("/user/UserEditPage", UserEditPage.class);
 
+        // TODO: remove
         logger.info("Updating all contexts...");
         ContextDao contextDao = new ContextDao();
         List<Context> allContexts = contextDao.getAll();
