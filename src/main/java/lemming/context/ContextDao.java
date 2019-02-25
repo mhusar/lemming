@@ -6,7 +6,6 @@ import lemming.data.HashEntityListener;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
-import org.hibernate.Session;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
