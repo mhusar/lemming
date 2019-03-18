@@ -68,8 +68,8 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
      * @param location       a context location
      * @return Map of unmatched cohesive inbound contexts.
      */
-    MultivaluedMap<Integer, InboundContext> groupUnmatchedContextsByLocation(InboundContextPackage contextPackage,
-                                                                             String location);
+    MultivaluedMap<Integer, InboundContext> groupUnmatchedContexts(InboundContextPackage contextPackage,
+                                                                   String location);
 
     /**
      * Matches inbound contexts of an inbound context package against contexts. The contexts are matched by a hash

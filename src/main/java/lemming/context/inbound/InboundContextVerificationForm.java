@@ -57,7 +57,7 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         private List<Triple> computeMatchingTriplets(InboundContextPackage contextPackage, String location) {
             InboundContextPackageDao inboundContextPackageDao = new InboundContextPackageDao();
             MultivaluedMap<Integer, InboundContext> groupedContexts = inboundContextPackageDao
-                    .groupUnmatchedContextsByLocation(contextPackage, location);
+                    .groupUnmatchedContexts(contextPackage, location);
             List<Triple> allMatchingTriples = new ArrayList<>();
 
             for (Integer key : groupedContexts.keySet()) {

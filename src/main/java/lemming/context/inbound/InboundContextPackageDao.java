@@ -257,13 +257,13 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
 
     /**
      * Private helper method for findUnmatchedContextsByLocation(InboundContextPackage, String) and
-     * groupUnmatchedContextsByLocation(InboundContextPackage, String).
+     * groupUnmatchedContexts(InboundContextPackage, String).
      *
      * @param contextPackage a package of inbound contexts
      * @param location       a context location
      * @return List of unmatched inbound contexts.
      * @see #findUnmatchedContextsByLocation(InboundContextPackage, String)
-     * @see #groupUnmatchedContextsByLocation(InboundContextPackage, String)
+     * @see #groupUnmatchedContexts(InboundContextPackage, String)
      */
     private List<InboundContext> findUnmatchedContextsByLocation(EntityManager entityManager,
                                                                  InboundContextPackage contextPackage,
@@ -382,8 +382,8 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
-    public MultivaluedMap<Integer, InboundContext> groupUnmatchedContextsByLocation(
-            InboundContextPackage contextPackage, String location) {
+    public MultivaluedMap<Integer, InboundContext> groupUnmatchedContexts(InboundContextPackage contextPackage,
+                                                                          String location) {
         MultivaluedMap<Integer, InboundContext> groupedContexts = new MultivaluedHashMap<>();
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
