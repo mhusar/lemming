@@ -1,14 +1,14 @@
 package lemming.context.inbound;
 
 import lemming.context.Context;
-import lemming.context.ContextDao;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 
+import javax.ws.rs.core.MultivaluedMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 
 /**
  * A form for the verification of inbound contexts.
@@ -38,24 +38,46 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
             new InboundContextPackageDao().matchContextsByHash(contextPackage);
         }
 
-        private void alignContextsStep2() {
-            ContextDao contextDao = new ContextDao();
-            InboundContextDao inboundContextDao = new InboundContextDao();
-            InboundContextPackageDao inboundContextPackageDao = new InboundContextPackageDao();
-            InboundContextPackage contextPackage = (InboundContextPackage) getForm().getModelObject();
-            List<InboundContext> allContexts = inboundContextPackageDao.getContexts(contextPackage);
-            List<InboundContext> unmatchedContexts = inboundContextPackageDao.findUnmatchedContexts(contextPackage);
+        /**
+         * Finds and sets locations with unmatched contexts.
+         */
+        private List<String> findUnmatchedLocations(InboundContextPackage contextPackage) {
+            return new InboundContextPackageDao().findUnmatchedContextLocations(contextPackage);
+        }
 
-            System.err.println(allContexts.size());
-            System.err.println(unmatchedContexts.size());
+        private List<MatchHelper.Triple> computeMatchingTriplets(InboundContextPackage contextPackage, String location) {
+            InboundContextPackageDao inboundContextPackageDao = new InboundContextPackageDao();
+            MultivaluedMap<Integer, InboundContext> groupedContexts = inboundContextPackageDao
+                    .groupUnmatchedContextsByLocation(contextPackage, location);
+            List<MatchHelper.Triple> allMatchingTriples = new ArrayList<>();
+
+            for (Integer key : groupedContexts.keySet()) {
+                List<InboundContext> contexts = groupedContexts.get(key);
+                List<Context> complements = new InboundContextDao().findComplements(contexts);
+
+                if (complements != null) {
+                    MultivaluedMap<Integer, MatchHelper.Triple> tripleMap = MatchHelper
+                            .getTriples(contexts, complements);
+                    List<MatchHelper.Triple> matchingTriples = MatchHelper.computeMatchingTriples(tripleMap);
+                    allMatchingTriples.addAll(matchingTriples);
+                }
+            }
+
+            return allMatchingTriples;
         }
 
         @Override
         protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
             super.onSubmit(target, form);
+            InboundContextPackage contextPackage = (InboundContextPackage) getForm().getModelObject();
+            List<String> unmatchedLocations;
 
             matchContextsByHash();
-            alignContextsStep2();
+            unmatchedLocations = findUnmatchedLocations(contextPackage);
+
+            for (String location : unmatchedLocations) {
+                List<MatchHelper.Triple> matchingTriples = computeMatchingTriplets(contextPackage, location);
+            }
         }
     }
 }
