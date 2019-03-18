@@ -65,17 +65,14 @@ public abstract class MatchHelper {
      * @return A list of triples.
      */
     public static List<Triple> sortTriples(List<Triple> triples) {
-        triples.sort(new Comparator<Triple>() {
-            @Override
-            public int compare(Triple triple1, Triple triple2) {
-                int number1 = triple1.getContext1().getNumber();
-                int number2 = triple2.getContext1().getNumber();
+        triples.sort((triple1, triple2) -> {
+            int number1 = triple1.getContext1().getNumber();
+            int number2 = triple2.getContext1().getNumber();
 
-                if (number1 == number2) {
-                    return 0;
-                } else {
-                    return (number1 < number2) ? -1 : 1;
-                }
+            if (number1 == number2) {
+                return 0;
+            } else {
+                return (number1 < number2) ? -1 : 1;
             }
         });
 
