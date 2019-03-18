@@ -1,93 +1,94 @@
 package lemming.context.inbound;
 
 import lemming.context.BaseContext;
+import lemming.context.Context;
 
 /**
- * A triple of two contexts and the distance between them.
+ * A triple of context, inbound context, and the distance between them.
  */
 public class Triple {
     /**
-     * Context 1.
+     * Context.
      */
-    private BaseContext context1;
+    private Context context;
 
     /**
-     * Context 2.
+     * Context index.
      */
-    private BaseContext context2;
+    private InboundContext inboundContext;
 
     /**
-     * Index of context 1.
+     * Index of context.
      */
-    private Integer context1Index;
+    private Integer contextIndex;
 
     /**
-     * Index of context 2.
+     * Index of inbound context.
      */
-    private Integer context2Index;
+    private Integer inboundContextIndex;
 
     /**
-     * Distance between context 1 and 2.
+     * Distance between context and inbound.
      */
     private Integer distance;
 
     /**
      * Creates a triple.
      *
-     * @param context1      context 1
-     * @param context1Index index of context 1
-     * @param distance      distance between context 1 and 2
-     * @param context2      context 2
-     * @param context2Index index of context 2
+     * @param context      context
+     * @param contextIndex index of context
+     * @param distance      distance between context and inbound context
+     * @param inboundContext      inbound context
+     * @param inboundContextIndex index of inbound context
      * @see MatchHelper
      */
-    public Triple(BaseContext context1, Integer context1Index, Integer distance,
-                  BaseContext context2, Integer context2Index) {
-        this.context1 = context1;
-        this.context1Index = context1Index;
+    public Triple(Context context, Integer contextIndex, Integer distance,
+                  InboundContext inboundContext, Integer inboundContextIndex) {
+        this.context = context;
+        this.contextIndex = contextIndex;
         this.distance = distance;
-        this.context2 = context2;
-        this.context2Index = context2Index;
+        this.inboundContext = inboundContext;
+        this.inboundContextIndex = inboundContextIndex;
     }
 
     /**
-     * Returns context 1.
+     * Returns a context.
      *
      * @return A context.
      */
-    public BaseContext getContext1() {
-        return context1;
+    public BaseContext getContext() {
+        return context;
     }
 
     /**
-     * Returns context 2.
+     * Returns an inbound context.
      *
-     * @return A context.
+     * @return An inbound  context.
      */
-    public BaseContext getContext2() {
-        return context2;
+    public BaseContext getInboundContext() {
+        return inboundContext;
     }
 
     /**
-     * Returns index of context 1.
-     *
-     * @return A context index.
-     */
-    public Integer getContext1Index() {
-        return context1Index;
-    }
-
-    /**
-     * Returns index of context 2.
+     * Returns index of contex.
      *
      * @return A context index.
      */
-    public Integer getContext2Index() {
-        return context2Index;
+    public Integer getContextIndex() {
+        return contextIndex;
     }
 
     /**
-     * Returns the distance between context 1 and 2.
+     * Returns index of inbound context.
+     *
+     * @return An inbound context index.
+     */
+    public Integer getInboundContextIndex() {
+        return inboundContextIndex;
+    }
+
+    /**
+     * Returns the distance between context and inbound context.
      *
      * @return A distance as integer.
      */

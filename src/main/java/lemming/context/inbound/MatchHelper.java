@@ -1,6 +1,7 @@
 package lemming.context.inbound;
 
 import lemming.context.BaseContext;
+import lemming.context.Context;
 import name.fraser.neil.plaintext.diff_match_patch;
 
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -40,18 +41,18 @@ public abstract class MatchHelper {
     /**
      * Computes distances between contexts.
      *
-     * @param contexts1 first list of contexts
-     * @param contexts2 second list of contexts
+     * @param contexts list of contexts
+     * @param inboundContexts list of inbound contexts
      * @return A map of triples.
      */
-    public static MultivaluedMap<Integer, Triple> getTriples(List<? extends BaseContext> contexts1,
-                                                                    List<? extends BaseContext> contexts2) {
+    public static MultivaluedMap<Integer, Triple> getTriples(List<Context> contexts,
+                                                             List<InboundContext> inboundContexts) {
         MultivaluedMap<Integer, Triple> distanceMap = new MultivaluedHashMap<>();
 
-        for (int i = 0; i < contexts1.size(); i++) {
-            for (int j = 0; j < contexts2.size(); j++) {
-                Integer distance = getDistance(contexts1.get(i), contexts2.get(j));
-                distanceMap.add(distance, new Triple(contexts1.get(i), i, distance, contexts2.get(j), j));
+        for (int i = 0; i < contexts.size(); i++) {
+            for (int j = 0; j < inboundContexts.size(); j++) {
+                Integer distance = getDistance(contexts.get(i), inboundContexts.get(j));
+                distanceMap.add(distance, new Triple(contexts.get(i), i, distance, inboundContexts.get(j), j));
             }
         }
 
@@ -66,8 +67,8 @@ public abstract class MatchHelper {
      */
     public static List<Triple> sortTriples(List<Triple> triples) {
         triples.sort((triple1, triple2) -> {
-            int number1 = triple1.getContext1().getNumber();
-            int number2 = triple2.getContext1().getNumber();
+            int number1 = triple1.getContext().getNumber();
+            int number2 = triple2.getContext().getNumber();
 
             if (number1 == number2) {
                 return 0;
@@ -88,15 +89,15 @@ public abstract class MatchHelper {
      */
     private static boolean hasNoIntersectionWith(Triple triple, List<Triple> triples) {
         for (Triple t : triples) {
-            if (t.getContext1Index().equals(triple.getContext1Index())) {
+            if (t.getContextIndex().equals(triple.getContextIndex())) {
                 return false;
-            } else if (t.getContext2Index().equals(triple.getContext2Index())) {
+            } else if (t.getInboundContextIndex().equals(triple.getInboundContextIndex())) {
                 return false;
-            } else if (t.getContext1Index() < triple.getContext1Index() &&
-                    t.getContext2Index() > triple.getContext2Index()) {
+            } else if (t.getContextIndex() < triple.getContextIndex() &&
+                    t.getInboundContextIndex() > triple.getInboundContextIndex()) {
                 return false;
-            } else if (t.getContext1Index() > triple.getContext1Index() &&
-                    t.getContext2Index() < triple.getContext2Index()) {
+            } else if (t.getContextIndex() > triple.getContextIndex() &&
+                    t.getInboundContextIndex() < triple.getInboundContextIndex()) {
                 return false;
             }
         }
@@ -157,6 +158,6 @@ public abstract class MatchHelper {
      * @return True if keywords are identical; false otherwise.
      */
     public static boolean hasIdenticalKeywords(Triple triple) {
-        return triple.getContext1().getKeyword().equals(triple.getContext2().getKeyword());
+        return triple.getContext().getKeyword().equals(triple.getInboundContext().getKeyword());
     }
 }

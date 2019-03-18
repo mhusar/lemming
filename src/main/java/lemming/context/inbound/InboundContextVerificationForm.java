@@ -57,7 +57,7 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
             List<Context> complements = new InboundContextDao().findComplements(contexts);
 
             if (complements != null) {
-                MultivaluedMap<Integer, Triple> tripleMap = MatchHelper.getTriples(contexts, complements);
+                MultivaluedMap<Integer, Triple> tripleMap = MatchHelper.getTriples(complements, contexts);
                 return MatchHelper.computeMatchingTriples(tripleMap);
             }
 
