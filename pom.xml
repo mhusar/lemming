@@ -24,9 +24,10 @@
         <maven.plugins.version>3.6.0</maven.plugins.version>
         <maven.war.plugin.version>3.0.0</maven.war.plugin.version>
         <mysql.version>8.0.13</mysql.version>
-        <slf4j.version>1.8.0-beta2</slf4j.version>
+        <!-- should be the same version as slf4j in Wicket’s dependencies; see mvn dependency:tree -->
+        <slf4j.version>1.7.25</slf4j.version>
         <velocity.version>1.7</velocity.version>
-        <wicket.version>7.10.0</wicket.version>
+        <wicket.version>7.12.0</wicket.version>
     </properties>
 
     <repositories>
