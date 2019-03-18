@@ -68,7 +68,7 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
                     MultivaluedMap<Integer, Triple> tripleMap = MatchHelper
                             .getTriples(contexts, complements);
                     List<Triple> matchingTriples = MatchHelper.computeMatchingTriples(tripleMap);
-                    allMatchingTriples.addAll(matchingTriples);
+                    allMatchingTriples.addAll(MatchHelper.sortTriples(matchingTriples));
                 }
             }
 
