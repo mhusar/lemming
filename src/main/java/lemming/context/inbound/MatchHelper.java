@@ -12,13 +12,13 @@ import java.util.*;
  */
 public abstract class MatchHelper {
     /**
-     * Returns the Levenshtein distance between two texts.
+     * Returns the Levenshtein Distance between two texts.
      *
      * @param text1 text 1
      * @param text2 text 2
      * @return The Levenshtein distance.
      */
-    private static Integer getDistance(String text1, String text2) {
+    private static Integer getLeventstheinDistance(String text1, String text2) {
         diff_match_patch diffMatchPatch = new diff_match_patch();
         LinkedList<diff_match_patch.Diff> diffs = diffMatchPatch.diff_main(text1, text2, false);
         return diffMatchPatch.diff_levenshtein(diffs);
@@ -34,7 +34,7 @@ public abstract class MatchHelper {
     private static Integer getDistance(BaseContext context1, BaseContext context2) {
         String context1String = context1.toString("#");
         String context2String = context2.toString("#");
-        return getDistance(context1String, context2String);
+        return getLeventstheinDistance(context1String, context2String);
     }
 
     /**

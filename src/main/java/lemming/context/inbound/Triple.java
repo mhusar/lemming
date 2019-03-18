@@ -39,6 +39,7 @@ public class Triple {
      * @param distance      distance between context 1 and 2
      * @param context2      context 2
      * @param context2Index index of context 2
+     * @see MatchHelper
      */
     public Triple(BaseContext context1, Integer context1Index, Integer distance,
                   BaseContext context2, Integer context2Index) {
