@@ -40,8 +40,9 @@
             </snapshots>
         </repository>
         <repository>
-            <id>local</id>
-            <name>Local Repository</name>
+            <!-- id must not be 'local' -->
+            <id>project</id>
+            <name>Local Project Repository</name>
             <url>${basedir}/repository</url>
         </repository>
     </repositories>
