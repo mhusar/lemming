@@ -48,31 +48,20 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         }
 
         /**
-         * Computes matching triples for a location.
+         * Computes matching triples for a list of contexts.
          *
-         * @param contextPackage package of inbound contexts
-         * @param location location of contexts
+         * @param contexts a list of contexts
          * @return A list of matching triples.
          */
-        private List<Triple> computeMatchingTriplets(InboundContextPackage contextPackage, String location) {
-            InboundContextPackageDao inboundContextPackageDao = new InboundContextPackageDao();
-            MultivaluedMap<Integer, InboundContext> groupedContexts = inboundContextPackageDao
-                    .groupUnmatchedContexts(contextPackage, location);
-            List<Triple> allMatchingTriples = new ArrayList<>();
+        private List<Triple> computeMatchingTriplets(List<InboundContext> contexts) {
+            List<Context> complements = new InboundContextDao().findComplements(contexts);
 
-            for (Integer key : groupedContexts.keySet()) {
-                List<InboundContext> contexts = groupedContexts.get(key);
-                List<Context> complements = new InboundContextDao().findComplements(contexts);
-
-                if (complements != null) {
-                    MultivaluedMap<Integer, Triple> tripleMap = MatchHelper
-                            .getTriples(contexts, complements);
-                    List<Triple> matchingTriples = MatchHelper.computeMatchingTriples(tripleMap);
-                    allMatchingTriples.addAll(MatchHelper.sortTriples(matchingTriples));
-                }
+            if (complements != null) {
+                MultivaluedMap<Integer, Triple> tripleMap = MatchHelper.getTriples(contexts, complements);
+                return MatchHelper.computeMatchingTriples(tripleMap);
             }
 
-            return allMatchingTriples;
+            return new ArrayList<>();
         }
 
         /**
@@ -90,7 +79,13 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
             List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
             for (String location : unmatchedLocations) {
-                List<Triple> matchingTriples = computeMatchingTriplets(contextPackage, location);
+                MultivaluedMap<Integer, InboundContext> groupedContexts = new InboundContextPackageDao()
+                        .groupUnmatchedContexts(contextPackage, location);
+
+                for (Integer key : groupedContexts.keySet()) {
+                    List<InboundContext> contexts = groupedContexts.get(key);
+                    List<Triple> matchingTriples = computeMatchingTriplets(contexts);
+                }
             }
         }
     }
