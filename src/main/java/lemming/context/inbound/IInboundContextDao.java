@@ -18,10 +18,10 @@ public interface IInboundContextDao extends IDao<InboundContext> {
     void batchPersist(List<InboundContext> contexts);
 
     /**
-     * Finds complements of unmatched inbound contexts.
+     * Finds complements of inbound contexts.
      *
      * @param contexts list of inbound contexts
      * @return A list of contexts or null.
      */
-    List<Context> findUnmatchedContextComplements(List<InboundContext> contexts);
+    List<Context> findComplements(List<InboundContext> contexts);
 }

@@ -266,7 +266,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      * @throws RuntimeException
      */
     @Override
-    public List<Context> findUnmatchedContextComplements(List<InboundContext> contexts) {
+    public List<Context> findComplements(List<InboundContext> contexts) {
         InboundContext firstUnmatchedContext = contexts.get(0);
         InboundContext lastUnmatchedContext = contexts.get(contexts.size() - 1);
         EntityManager entityManager = EntityManagerListener.createEntityManager();
