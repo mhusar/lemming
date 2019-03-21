@@ -854,3 +854,103 @@ ul.homePage li:last-child {
 .ui-menu-item-wrapper.ui-state-active i {
   color: white;
 }
+
+.tree-theme-windows div.tree-subtree {
+  margin: 0 0 0 18px;
+  padding: 0;
+}
+
+.tree-theme-windows div.tree-branch {
+  margin: 0;
+  padding: 0;
+}
+
+.tree-theme-windows div.tree-branch-mid {
+  background-image: url(images/tree.gif);
+  background-position: -54px center;
+  background-repeat: repeat-y;
+}
+
+.tree-theme-windows .tree-junction {
+  display: block;
+  float: left;
+  width: 18px;
+  background-image: url(images/tree.gif);
+  background-position: -36px center;
+  background-repeat: no-repeat;
+}
+
+.tree-theme-windows .tree-junction-expanded {
+  display: block;
+  float: left;
+  width: 18px;
+  background-image: url(images/tree.gif);
+  background-position: -18px center;
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+
+.tree-theme-windows .tree-junction-collapsed {
+  display: block;
+  float: left;
+  width: 18px;
+  background-image: url(images/tree.gif);
+  background-position: 0 center;
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+
+.tree-theme-windows span.tree-content {
+  display: block;
+  margin-left: 18px;
+}
+
+.tree-theme-windows table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.tree-theme-windows tr.selected {
+  background-color: #00e;
+  color: #fff;
+}
+
+.tree-theme-windows td {
+  margin: 0;
+  padding: 0;
+}
+
+.tree-theme-windows span.tree-content a {
+  color: black;
+  text-decoration: none;
+}
+
+.tree-theme-windows span.tree-content a: hover {
+  text-decoration: underline;
+}
+
+.tree-theme-windows span.tree-content .selected span.tree-label {
+  background-color: #00e;
+  color: #fff;
+}
+
+.tree-theme-windows .tree-folder-closed {
+  padding-left: 18px;
+  background-image: url(images/folder-closed.gif);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
+
+.tree-theme-windows .tree-folder-open {
+  padding-left: 18px;
+  background-image: url(images/folder-open.gif);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
+
+.tree-theme-windows .tree-folder-other {
+  padding-left: 18px;
+  background-image: url(images/folder-other.gif);
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
