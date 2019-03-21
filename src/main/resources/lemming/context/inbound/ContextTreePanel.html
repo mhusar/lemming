@@ -9,11 +9,15 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-4">
+                <div class="btn-group" role="group">
+                    <button wicket:id="exandButton" type="button" class="btn btn-default">Left</button>
+                    <button wicket:id="collapseButton" type="button" class="btn btn-default">Left</button>
+                </div>
                 <div wicket:id="inboundContextTree"></div>
             </div>
             <div class="col-md-4">
                 <table class="table table-striped">
-                    <caption><wicket:message key="InboundContextTreePanel.original"></wicket:message></caption>
+                    <caption><wicket:message key="ContextTreePanel.original"></wicket:message></caption>
                     <thead>
                         <tr>
                             <th><wicket:message key="Context.number"></wicket:message></th>
@@ -30,7 +34,7 @@
             </div>
             <div class="col-md-4">
                 <table class="table table-striped">
-                    <caption><wicket:message key="InboundContextTreePanel.replacement"></wicket:message></caption>
+                    <caption><wicket:message key="ContextTreePanel.replacement"></wicket:message></caption>
                     <thead>
                         <tr>
                             <th><wicket:message key="Context.number"></wicket:message></th>

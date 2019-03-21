@@ -104,8 +104,8 @@
     <entry key="InboundContextPackageView.location2">{0} {1}–{2} {3}</entry>
     <entry key="InboundContextPackageView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="InboundContextPackageView.popoverLocale">en-GB</entry>
-    <entry key="InboundContextTreePanel.original">Original</entry>
-    <entry key="InboundContextTreePanel.replacement">Replacement</entry>
+    <entry key="ContextTreePanel.original">Original</entry>
+    <entry key="ContextTreePanel.replacement">Replacement</entry>
     <entry key="InputPanel.insertTag">Insert tag</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attributes for tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
