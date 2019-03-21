@@ -1,12 +1,13 @@
 package lemming.context.inbound;
 
-import lemming.context.BaseContext;
 import lemming.context.Context;
+
+import java.io.Serializable;
 
 /**
  * A triple of context, inbound context, and the distance between them.
  */
-public class Triple {
+public class Triple implements Serializable {
     /**
      * Context.
      */
@@ -56,7 +57,7 @@ public class Triple {
      *
      * @return A context.
      */
-    public BaseContext getContext() {
+    public Context getContext() {
         return context;
     }
 
@@ -65,7 +66,7 @@ public class Triple {
      *
      * @return An inbound  context.
      */
-    public BaseContext getInboundContext() {
+    public InboundContext getInboundContext() {
         return inboundContext;
     }
 
