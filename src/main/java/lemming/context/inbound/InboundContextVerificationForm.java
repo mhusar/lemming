@@ -55,6 +55,8 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
                             matchingTriples);
                     List<Context> complementsWithoutContext = getComplementsWithoutContext(complements,
                             matchingTriples);
+                    ContextTreeProvider provider = new ContextTreeProvider(matchingTriples,
+                            complementsWithoutContext);
 
                     repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), provider,
                             complementsWithoutContext, contextsWithoutComplement));

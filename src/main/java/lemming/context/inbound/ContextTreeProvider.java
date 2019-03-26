@@ -6,7 +6,12 @@ import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import java.util.*;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A tree provider for contexts.
@@ -20,17 +25,18 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
     /**
      * A map of contexts.
      */
-    private Map<Context, InboundContext> map;
+    private MultivaluedMap<Context, InboundContext> map;
 
     /**
      * Creates a tree provider for contexts.
      *
      * @param matchingTriples matching triples
      */
-    public ContextTreeProvider(List<Triple> matchingTriples) {
+    public ContextTreeProvider(List<Triple> matchingTriples, List<Context> contextsWithoutComplement) {
         this.contexts = new ArrayList<>();
-        map = new HashMap<>();
+        map = new MultivaluedHashMap<>();
         applyTriples(matchingTriples);
+        applyContexts(contextsWithoutComplement);
     }
 
     /**
@@ -41,10 +47,20 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
     private void applyTriples(List<Triple> triples) {
         for (Triple triple : triples) {
             contexts.add(triple.getContext());
-            map.put(triple.getContext(), triple.getInboundContext());
+            map.putSingle(triple.getContext(), triple.getInboundContext());
         }
 
         contexts.sort(new ContextComparator());
+    }
+
+    /**
+     * Applies contexts to list of contexts.
+     *
+     * @param contexts list of contexts
+     */
+    private void applyContexts(List<Context> contexts) {
+        this.contexts.addAll(contexts);
+        this.contexts.sort(new ContextComparator());
     }
 
     /**
@@ -83,7 +99,7 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
         List<BaseContext> children = new ArrayList<>();
 
         if (context instanceof Context && hasChildren(context)) {
-            children.add(map.get(context));
+            children.addAll(map.get(context));
         }
 
         return children.iterator();
@@ -115,20 +131,25 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
      * @param inboundContext an inbound context
      */
     public void add(Context context, InboundContext inboundContext) {
-        contexts.add(context);
-        contexts.sort(new ContextComparator());
-        map.put(context, inboundContext);
+        if (!contexts.contains(context)) {
+            contexts.add(context);
+            contexts.sort(new ContextComparator());
+        }
+
+        if (hasChildren(context)) {
+            map.add(context, inboundContext);
+        } else {
+            map.putSingle(context, inboundContext);
+        }
     }
 
     /**
      * Removes an inbound context from a context.
      *
      * @param context a context
-     * @return The removed inbound context.
      */
-    public InboundContext remove(Context context) {
-        contexts.remove(context);
-        return map.remove(context);
+    public void remove(Context context, InboundContext inboundContext) {
+        map.remove(context, inboundContext);
     }
 
     /**
