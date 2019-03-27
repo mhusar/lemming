@@ -50,7 +50,6 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
                 // TODO: what now?
                 if (complements != null) {
                     List<Triple> matchingTriples = computeMatchingTriples(inboundContexts, complements);
-                    ContextTreeProvider provider = new ContextTreeProvider(matchingTriples);
                     List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(inboundContexts,
                             matchingTriples);
                     List<Context> complementsWithoutContext = getComplementsWithoutContext(complements,
@@ -58,8 +57,8 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
                     ContextTreeProvider provider = new ContextTreeProvider(matchingTriples,
                             complementsWithoutContext);
 
-                    repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), provider,
-                            complementsWithoutContext, contextsWithoutComplement));
+                    repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
+                            contextsWithoutComplement));
                 }
             }
         }

@@ -855,6 +855,10 @@ ul.homePage li:last-child {
   color: white;
 }
 
+.tree {
+  margin-top: 15px;
+}
+
 .tree-theme-windows div.tree-subtree {
   margin: 0 0 0 18px;
   padding: 0;

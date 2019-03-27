@@ -5,49 +5,47 @@
     <meta charset="utf-8"/>
 </head>
 <body>
-<wicket:panel wicket:id="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="btn-group" role="group">
-                    <button wicket:id="exandButton" type="button" class="btn btn-default">Left</button>
-                    <button wicket:id="collapseButton" type="button" class="btn btn-default">Left</button>
+<wicket:panel>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div wicket:id="heading" class="heading"></div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="btn-group" role="group">
+                        <button wicket:id="expandAllButton" type="button" class="btn btn-default">
+                            <wicket:message key="ContextTreePanel.expandAll"></wicket:message>
+                        </button>
+                        <button wicket:id="collapseAllButton" type="button" class="btn btn-default">
+                            <wicket:message key="ContextTreePanel.collapseAll"></wicket:message>
+                        </button>
+                    </div>
+                    <div wicket:id="inboundContextTree"></div>
                 </div>
-                <div wicket:id="inboundContextTree"></div>
-            </div>
-            <div class="col-md-4">
-                <table class="table table-striped">
-                    <caption><wicket:message key="ContextTreePanel.original"></wicket:message></caption>
-                    <thead>
+                <div class="col-md-4">
+                    <table class="table table-striped">
+                        <caption>
+                            <wicket:message key="ContextTreePanel.replacement"></wicket:message>
+                        </caption>
+                        <thead>
                         <tr>
-                            <th><wicket:message key="Context.number"></wicket:message></th>
-                            <th><wicket:message key="Context.keyword"></wicket:message></th>
+                            <th>
+                                <wicket:message key="Context.number"></wicket:message>
+                            </th>
+                            <th>
+                                <wicket:message key="Context.keyword"></wicket:message>
+                            </th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr wicket:id="contextListView">
-                            <td wicket:id="number"></td>
-                            <td wicket:id="keyword"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-4">
-                <table class="table table-striped">
-                    <caption><wicket:message key="ContextTreePanel.replacement"></wicket:message></caption>
-                    <thead>
-                        <tr>
-                            <th><wicket:message key="Context.number"></wicket:message></th>
-                            <th><wicket:message key="Context.keyword"></wicket:message></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr wicket:id="inboundContextListView">
                             <td wicket:id="number"></td>
                             <td wicket:id="keyword"></td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

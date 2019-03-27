@@ -1,8 +1,8 @@
 package lemming.context.inbound;
 
-import lemming.context.Context;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.extensions.markup.html.repeater.tree.NestedTree;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -18,59 +18,85 @@ public class ContextTreePanel extends Panel {
     /**
      * Creates a context tree panel.
      *
-     * @param id if of the panel
+     * @param id of of the panel
+     * @param location location of contexts
      * @param provider provider for contexts
-     * @param contexts list of unmatched contexts
      * @param inboundContexts list of unmatched inbound contexts
      */
-    public ContextTreePanel(String id, ContextTreeProvider provider, List<Context> contexts,
+    public ContextTreePanel(String id, String location, ContextTreeProvider provider,
                             List<InboundContext> inboundContexts) {
         super(id);
-        NestedTree tree = new ContextTree(provider);
+        ContextTree tree = new ContextTree(provider);
 
-        tree.add(AttributeModifier.append("class", "tree-theme-windows"));
+        tree.add(AttributeModifier.append("class", "tree tree-theme-windows"));
+        tree.setOutputMarkupId(true);
+
+        add(new Label("heading", location));
+        add(new CollapseAllButton(tree));
+        add(new ExpandAllButton(tree));
         add(tree);
-        add(new ContextListView(contexts));
         add(new InboundContextListView(inboundContexts));
     }
 
     /**
-     * A list view for contexts.
+     * A button collapsing all folders of a tree.
      */
-    private class ContextListView extends ListView<Context> {
+    private class CollapseAllButton extends AjaxLink<Void> {
         /**
-         * Creates a list view.
-         *
-         * @param contexts contexts
+         * The associated tree.
          */
-        public ContextListView(List<Context> contexts) {
-            super("contextListView", contexts);
+        private ContextTree tree;
+
+        /**
+         * Creates a collapse all button.
+         *
+         * @param tree associated tree
+         */
+        public CollapseAllButton(ContextTree tree) {
+            super("collapseAllButton");
+            this.tree = tree;
         }
 
         /**
-         * Creates an item.
+         * Called on click.
          *
-         * @param index index of item
-         * @param itemModel model of item
-         * @return The item.
+         * @param target target that produces an Ajax response
          */
         @Override
-        protected ListItem<Context> newItem(int index, IModel<Context> itemModel) {
-            ListItem<Context> item = super.newItem(index, itemModel);
-            item.setOutputMarkupId(true);
-            return item;
+        public void onClick(AjaxRequestTarget target) {
+            tree.collapseAll();
+            target.add(tree);
+        }
+    }
+
+    /**
+     * A button expanding all folders of a tree.
+     */
+    private class ExpandAllButton extends AjaxLink<Void> {
+        /**
+         * The associated tree.
+         */
+        private ContextTree tree;
+
+        /**
+         * Creates a expand all button.
+         *
+         * @param tree associated tree
+         */
+        public ExpandAllButton(ContextTree tree) {
+            super("expandAllButton");
+            this.tree = tree;
         }
 
         /**
-         * Populates an item
+         * Called on click.
          *
-         * @param listItem the item
+         * @param target target that produces an Ajax response
          */
         @Override
-        protected void populateItem(ListItem<Context> listItem) {
-            Context context = listItem.getModelObject();
-            listItem.add(new Label("number", context.getNumber()));
-            listItem.add(new Label("keyword", context.getKeyword()));
+        public void onClick(AjaxRequestTarget target) {
+            tree.expandAll();
+            target.add(tree);
         }
     }
 
