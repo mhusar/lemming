@@ -133,11 +133,7 @@ public class ContextTree extends NestedTree<BaseContext> {
 
             if (provider.hasChildren(getModelObject())) {
                 List<BaseContext> children = new ArrayList<>();
-                Iterator<? extends BaseContext> iterator = provider.getChildren(getModelObject());
-
-                while (iterator.hasNext()) {
-                    children.add(iterator.next());
-                }
+                provider.getChildren(getModelObject()).forEachRemaining(children::add);
 
                 if (children.size() > 1) {
                     return stringBuilder.append(styleClass).append(" ").append("has-multiple-children").toString();
