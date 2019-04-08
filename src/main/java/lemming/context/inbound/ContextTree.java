@@ -134,16 +134,17 @@ public class ContextTree extends NestedTree<BaseContext> {
             if (provider.hasChildren(getModelObject())) {
                 List<BaseContext> children = new ArrayList<>();
                 provider.getChildren(getModelObject()).forEachRemaining(children::add);
+                stringBuilder.append(styleClass);
 
                 if (children.size() > 1) {
-                    return stringBuilder.append(styleClass).append(" ").append("has-multiple-children").toString();
+                    return stringBuilder.append(" ").append("has-multiple-children").toString();
                 } else if (getModelObject().getKeyword().equals(children.get(0).getKeyword())) {
                     return styleClass;
                 } else {
-                    return stringBuilder.append(styleClass).append(" ").append("has-different-child").toString();
+                    return stringBuilder.append(" ").append("has-different-child").toString();
                 }
             } else {
-                return stringBuilder.append(styleClass).append(" ").append("has-no-children").toString();
+                return stringBuilder.append(" ").append("has-no-children").toString();
             }
         }
     }
