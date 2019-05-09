@@ -1,6 +1,8 @@
 package lemming.context.inbound;
 
 import lemming.context.BaseContext;
+import lemming.context.Context;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
@@ -36,7 +38,16 @@ public class ContextTree extends NestedTree<BaseContext> {
      */
     @Override
     protected Component newContentComponent(String id, IModel<BaseContext> model) {
-        return new ContextFolder(id, this, model);
+        Component contextFolder = new ContextFolder(id, this, model);
+
+        if (model.getObject() instanceof InboundContext) {
+            contextFolder.add(AttributeModifier.append("class", "context-draggable"));
+        } else if (model.getObject() instanceof Context) {
+            contextFolder.add(AttributeModifier.append("class", "context-droppable"));
+        }
+
+        contextFolder.setOutputMarkupId(true);
+        return contextFolder;
     }
 
     /**
@@ -125,26 +136,25 @@ public class ContextTree extends NestedTree<BaseContext> {
         protected String getStyleClass() {
             String styleClass = super.getStyleClass();
             ITreeProvider<BaseContext> provider = ContextTree.this.getProvider();
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder().append(styleClass);
 
             if (getModelObject() instanceof InboundContext) {
-                return styleClass;
+                return stringBuilder.toString();
             }
 
             if (provider.hasChildren(getModelObject())) {
                 List<BaseContext> children = new ArrayList<>();
                 provider.getChildren(getModelObject()).forEachRemaining(children::add);
-                stringBuilder.append(styleClass);
 
                 if (children.size() > 1) {
-                    return stringBuilder.append(" ").append("has-multiple-children").toString();
+                    return stringBuilder.append(" has-multiple-children").toString();
                 } else if (getModelObject().getKeyword().equals(children.get(0).getKeyword())) {
-                    return styleClass;
+                    return stringBuilder.toString();
                 } else {
-                    return stringBuilder.append(" ").append("has-different-child").toString();
+                    return stringBuilder.append(" has-different-child").toString();
                 }
             } else {
-                return stringBuilder.append(" ").append("has-no-children").toString();
+                return stringBuilder.append(" has-no-children").toString();
             }
         }
     }
