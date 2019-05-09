@@ -24,27 +24,29 @@
                     <div wicket:id="inboundContextTree"></div>
                 </div>
                 <div class="col-md-4">
-                    <table class="table table-striped">
-                        <caption>
-                            <wicket:message key="ContextTreePanel.replacement"></wicket:message>
-                        </caption>
-                        <thead>
-                        <tr>
-                            <th>
-                                <wicket:message key="Context.number"></wicket:message>
-                            </th>
-                            <th>
-                                <wicket:message key="Context.keyword"></wicket:message>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr wicket:id="inboundContextListView">
-                            <td wicket:id="number"></td>
-                            <td wicket:id="keyword"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div wicket:id="listContainer">
+                        <table class="table table-striped">
+                            <caption>
+                                <wicket:message key="ContextTreePanel.replacement"></wicket:message>
+                            </caption>
+                            <thead>
+                            <tr>
+                                <th>
+                                    <wicket:message key="Context.number"></wicket:message>
+                                </th>
+                                <th>
+                                    <wicket:message key="Context.keyword"></wicket:message>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr wicket:id="inboundContextListView">
+                                <td wicket:id="number"></td>
+                                <td wicket:id="keyword"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

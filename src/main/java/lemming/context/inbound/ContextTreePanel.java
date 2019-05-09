@@ -1,13 +1,18 @@
 package lemming.context.inbound;
 
+import lemming.context.Context;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+import wicketdnd.*;
+import wicketdnd.theme.WindowsTheme;
 
 import java.util.List;
 
@@ -27,15 +32,25 @@ public class ContextTreePanel extends Panel {
                             List<InboundContext> inboundContexts) {
         super(id);
         ContextTree tree = new ContextTree(provider);
+        final WebMarkupContainer listContainer = new WebMarkupContainer("listContainer");
+        ListView<InboundContext> listView = new InboundContextListView(inboundContexts);
 
         tree.add(AttributeModifier.append("class", "tree tree-theme-windows"));
         tree.setOutputMarkupId(true);
+        tree.add(new WindowsTheme()); // from wicketdnd
+        tree.add(new TreeDragSource(tree).drag(".tree-content.context-draggable"));
+        tree.add(new TreeDropTarget(tree).dropCenter(".tree-content.context-droppable"));
+
+        listContainer.add(new WindowsTheme()); // from wicketdnd
+        listContainer.add(new ListDragSource(listContainer, listView).drag("tbody tr"));
+        listContainer.setOutputMarkupId(true);
+        listContainer.add(listView);
 
         add(new Label("heading", location));
         add(new CollapseAllButton(tree));
         add(new ExpandAllButton(tree));
         add(tree);
-        add(new InboundContextListView(inboundContexts));
+        add(listContainer);
     }
 
     /**
@@ -137,6 +152,62 @@ public class ContextTreePanel extends Panel {
             InboundContext context = listItem.getModelObject();
             listItem.add(new Label("number", context.getNumber()));
             listItem.add(new Label("keyword", context.getKeyword()));
+        }
+    }
+
+    private class ListDragSource extends DragSource {
+
+        private WebMarkupContainer listContainer;
+
+        private ListView<InboundContext> listView;
+
+        ListDragSource(WebMarkupContainer listContainer, ListView<InboundContext> listView) {
+            super(Operation.MOVE);
+            this.listView = listView;
+            this.listContainer = listContainer;
+        }
+
+        @Override
+        public void onAfterDrop(AjaxRequestTarget target, Transfer transfer) {
+            InboundContext inboundContext = transfer.getData();
+            listView.getModelObject().remove(inboundContext);
+            target.add(listContainer);
+        }
+    }
+
+    private class TreeDragSource extends DragSource {
+        private ContextTree tree;
+
+        TreeDragSource(ContextTree tree) {
+            super(Operation.MOVE);
+            this.tree = tree;
+        }
+
+        @Override
+        public void onBeforeDrop(Component drag, Transfer transfer) throws Reject {
+            InboundContext inboundContext = (InboundContext) drag.getDefaultModelObject();
+            ContextTreeProvider provider = (ContextTreeProvider) tree.getProvider();
+            provider.remove(inboundContext.getMatch(), inboundContext);
+            transfer.setData(inboundContext);
+        }
+    }
+
+    private class TreeDropTarget extends DropTarget {
+        private ContextTree tree;
+
+        public TreeDropTarget(ContextTree tree) {
+            super(Operation.MOVE);
+            this.tree = tree;
+        }
+
+        @Override
+        public void onDrop(AjaxRequestTarget target, Transfer transfer, Location location) throws Reject {
+            Context context = (Context) location.getComponent().getParent().getDefaultModelObject();
+            InboundContext inboundContext = transfer.getData();
+
+            ContextTreeProvider provider = (ContextTreeProvider) tree.getProvider();
+            provider.add(context, inboundContext);
+            target.add(tree);
         }
     }
 }
