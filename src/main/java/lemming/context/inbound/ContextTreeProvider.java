@@ -102,6 +102,7 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
             children.addAll(map.get(context));
         }
 
+        children.sort(new ContextComparator());
         return children.iterator();
     }
 
@@ -131,10 +132,10 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
      * @param inboundContext an inbound context
      */
     public void add(Context context, InboundContext inboundContext) {
-        if (!contexts.contains(context)) {
-            contexts.add(context);
-            contexts.sort(new ContextComparator());
-        }
+        InboundContextDao inboundContextDao = new InboundContextDao();
+        inboundContext = inboundContextDao.refresh(inboundContext);
+        inboundContext.setMatch(context);
+        inboundContext = inboundContextDao.merge(inboundContext);
 
         if (hasChildren(context)) {
             map.add(context, inboundContext);
@@ -149,7 +150,12 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
      * @param context a context
      */
     public void remove(Context context, InboundContext inboundContext) {
+        InboundContextDao inboundContextDao = new InboundContextDao();
+        inboundContext = inboundContextDao.refresh(inboundContext);
+
         map.remove(context, inboundContext);
+        inboundContext.setMatch(null);
+        inboundContextDao.merge(inboundContext);
     }
 
     /**
