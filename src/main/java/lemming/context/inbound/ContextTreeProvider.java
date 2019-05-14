@@ -8,10 +8,7 @@ import org.apache.wicket.model.Model;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * A tree provider for contexts.
@@ -130,32 +127,45 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
      *
      * @param context a context
      * @param inboundContext an inbound context
+     * @return A merged inbound context.
      */
-    public void add(Context context, InboundContext inboundContext) {
+    public InboundContext add(Context context, InboundContext inboundContext) {
         InboundContextDao inboundContextDao = new InboundContextDao();
         inboundContext = inboundContextDao.refresh(inboundContext);
         inboundContext.setMatch(context);
         inboundContext = inboundContextDao.merge(inboundContext);
 
-        if (hasChildren(context)) {
-            map.add(context, inboundContext);
-        } else {
-            map.putSingle(context, inboundContext);
-        }
+        map.add(context, inboundContext);
+        return inboundContext;
     }
 
     /**
      * Removes an inbound context from a context.
      *
-     * @param context a context
+     * @param inboundContext an inbound context
+     * @return A merged inbound context.
      */
-    public void remove(Context context, InboundContext inboundContext) {
+    public InboundContext remove(InboundContext inboundContext) {
         InboundContextDao inboundContextDao = new InboundContextDao();
-        inboundContext = inboundContextDao.refresh(inboundContext);
 
-        map.remove(context, inboundContext);
+        for (Map.Entry<Context, List<InboundContext>> entry : map.entrySet()) {
+            Context context = entry.getKey();
+            List<InboundContext> inboundContexts = entry.getValue();
+
+            if (inboundContexts.contains(inboundContext)) {
+                inboundContexts.remove(inboundContext);
+
+                if (inboundContexts.isEmpty()) {
+                    map.remove(context);
+                }
+
+                break;
+            }
+        }
+
+        inboundContext = inboundContextDao.refresh(inboundContext);
         inboundContext.setMatch(null);
-        inboundContextDao.merge(inboundContext);
+        return inboundContextDao.merge(inboundContext);
     }
 
     /**

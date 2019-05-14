@@ -187,8 +187,13 @@ public class ContextTreePanel extends Panel {
         public void onBeforeDrop(Component drag, Transfer transfer) throws Reject {
             InboundContext inboundContext = (InboundContext) drag.getDefaultModelObject();
             ContextTreeProvider provider = (ContextTreeProvider) tree.getProvider();
-            provider.remove(inboundContext.getMatch(), inboundContext);
+            inboundContext = provider.remove(inboundContext);
             transfer.setData(inboundContext);
+        }
+
+        @Override
+        public void onAfterDrop(AjaxRequestTarget target, Transfer transfer) {
+            target.add(tree);
         }
     }
 
