@@ -403,11 +403,9 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
                     if (groupedContexts.getFirst(key) != null) {
                         key++;
                     }
-
-                    continue;
+                } else {
+                    groupedContexts.add(key, context);
                 }
-
-                groupedContexts.add(key, context);
             }
 
             transaction.commit();
