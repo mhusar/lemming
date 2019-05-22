@@ -277,10 +277,12 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             transaction.begin();
             InboundContext ancestor = findAncestor(entityManager, firstUnmatchedContext);
             InboundContext successor = findSuccessor(entityManager, lastUnmatchedContext);
+            Context ancestorMatch = findMatch(ancestor);
+            Context successorMatch = findMatch(successor);
             List<Context> complements = null;
 
-            if (findMatch(ancestor) != null || findMatch(successor) != null) {
-                complements = findBetween(entityManager, findMatch(ancestor), findMatch(successor));
+            if (ancestorMatch != null || successorMatch != null) {
+                complements = findBetween(entityManager, ancestorMatch, successorMatch);
             }
 
             transaction.commit();
