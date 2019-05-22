@@ -40,28 +40,44 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
         for (String location : unmatchedLocations) {
-            MultivaluedMap<Integer, InboundContext> groupedContexts = new InboundContextPackageDao()
-                    .groupUnmatchedContexts(contextPackage, location);
+            List<InboundContext> unmatchedContexts = new InboundContextPackageDao()
+                    .findUnmatchedContextsByLocation(contextPackage, location);
+            List<Context> complements = new InboundContextDao().findPossibleComplements(unmatchedContexts);
 
-            for (Integer key : groupedContexts.keySet()) {
-                List<InboundContext> inboundContexts = groupedContexts.get(key);
-                List<Context> complements = new InboundContextDao().findComplements(inboundContexts);
+            if (complements != null) {
+                List<Triple> matchingTriples = computeMatchingTriples(unmatchedContexts, complements);
+                List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(unmatchedContexts,
+                        matchingTriples);
+                List<Context> complementsWithoutContext = getComplementsWithoutContext(complements, matchingTriples);
+                ContextTreeProvider provider = new ContextTreeProvider(matchingTriples, complementsWithoutContext);
 
-                // TODO: what now?
-                if (complements != null) {
-                    List<Triple> matchingTriples = computeMatchingTriples(inboundContexts, complements);
-                    List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(inboundContexts,
-                            matchingTriples);
-                    List<Context> complementsWithoutContext = getComplementsWithoutContext(complements,
-                            matchingTriples);
-                    ContextTreeProvider provider = new ContextTreeProvider(matchingTriples,
-                            complementsWithoutContext);
-
-                    repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
-                            contextsWithoutComplement));
-                }
+                repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
+                        contextsWithoutComplement));
             }
         }
+
+
+//            MultivaluedMap<Integer, InboundContext> groupedContexts = new InboundContextPackageDao()
+//                    .groupUnmatchedContexts(contextPackage, location);
+//
+//            for (Integer key : groupedContexts.keySet()) {
+//                List<InboundContext> inboundContexts = groupedContexts.get(key);
+//                List<Context> complements = new InboundContextDao().findComplements(inboundContexts);
+//
+//                // TODO: what now?
+//                if (complements != null) {
+//                    List<Triple> matchingTriples = computeMatchingTriples(inboundContexts, complements);
+//                    List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(inboundContexts,
+//                            matchingTriples);
+//                    List<Context> complementsWithoutContext = getComplementsWithoutContext(complements,
+//                            matchingTriples);
+//                    ContextTreeProvider provider = new ContextTreeProvider(matchingTriples,
+//                            complementsWithoutContext);
+//
+//                    repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
+//                            contextsWithoutComplement));
+//                }
+//            }
 
         // TODO: show something else
         if (repeatingView.size() == 0) {
