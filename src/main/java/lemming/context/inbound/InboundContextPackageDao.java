@@ -292,7 +292,9 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             transaction.begin();
             List<InboundContext> contexts = findUnmatchedContextsByLocation(entityManager, contextPackage, location);
             transaction.commit();
-            return contexts;
+            // Find contexts between the first and the last unmatched context (unmatched and matched).
+            // This approach is needed because there are sometimes gaps in the context numbering.
+            return findBetween(entityManager, contexts.get(0), contexts.get(contexts.size() - 1));
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -392,13 +394,9 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             transaction = entityManager.getTransaction();
             transaction.begin();
             List<InboundContext> contexts = findUnmatchedContextsByLocation(entityManager, contextPackage, location);
-            // Find contexts between the first and the last unmatched context (unmatched and matched).
-            // This approach is needed because there are sometimes gaps in the context numbering.
-            List<InboundContext> contexts2 = findBetween(entityManager, contexts.get(0),
-                    contexts.get(contexts.size() - 1));
             Integer key = 0;
 
-            for (InboundContext context : contexts2) {
+            for (InboundContext context : contexts) {
                 if (context.getMatch() != null) {
                     if (groupedContexts.getFirst(key) != null) {
                         key++;
