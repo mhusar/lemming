@@ -32,9 +32,15 @@ public class InboundContext extends BaseContext {
     /**
      * A matching context for an inbound context.
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id")
     private Context match;
+
+    /**
+     * Defines if a contexts inherits data.
+     */
+    @Column(name = "inherit", nullable = false, columnDefinition = "bit DEFAULT 1")
+    private Boolean inherit;
 
     /**
      * Creates an instance of an inbound context.
@@ -89,5 +95,23 @@ public class InboundContext extends BaseContext {
      */
     public void setMatch(Context match) {
         this.match = match;
+    }
+
+    /**
+     * Returns if a context inherits data.
+     *
+     * @return A boolean value.
+     */
+    public Boolean getInherit() {
+        return inherit;
+    }
+
+    /**
+     * Sets if a context inherits data.
+     *
+     * @param inherit a boolean value
+     */
+    public void setInherit(Boolean inherit) {
+        this.inherit = inherit;
     }
 }
