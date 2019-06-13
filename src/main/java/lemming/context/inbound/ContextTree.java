@@ -5,16 +5,18 @@ import lemming.context.Context;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.repeater.tree.AbstractTree;
 import org.apache.wicket.extensions.markup.html.repeater.tree.ITreeProvider;
 import org.apache.wicket.extensions.markup.html.repeater.tree.NestedTree;
-import org.apache.wicket.extensions.markup.html.repeater.tree.content.Folder;
+import org.apache.wicket.extensions.markup.html.repeater.tree.content.CheckedFolder;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A tree used to map inbound contexts to contexts.
@@ -75,7 +77,12 @@ public class ContextTree extends NestedTree<BaseContext> {
     /**
      * A folder component for contexts.
      */
-    private class ContextFolder extends Folder<BaseContext> {
+    private class ContextFolder extends CheckedFolder<BaseContext> {
+        /**
+         * Model of the checkBox.
+         */
+        private IModel<Boolean> checkBoxModel;
+
         /**
          * Creates a folder.
          *
@@ -128,6 +135,58 @@ public class ContextTree extends NestedTree<BaseContext> {
         }
 
         /**
+         * Creates a checkBox component.
+         *
+         * @param id id of the component
+         * @param model model of the folder
+         * @return The checkBox.
+         */
+        @Override
+        protected Component newCheckBox(String id, IModel<BaseContext> model) {
+            Component checkBox = super.newCheckBox(id, model);
+
+            if (model.getObject() instanceof Context) {
+                checkBox.setVisible(false);
+            }
+
+            return checkBox;
+        }
+
+        /**
+         * Creates a checkBox model.
+         *
+         * @param model model of the folder
+         * @return A checkBox model.
+         */
+        @Override
+        protected IModel<Boolean> newCheckBoxModel(IModel<BaseContext> model) {
+            checkBoxModel = super.newCheckBoxModel(model);
+
+            if (model.getObject() instanceof InboundContext) {
+                InboundContext context = (InboundContext) model.getObject();
+                checkBoxModel.setObject(context.getInherit());
+            }
+
+            return checkBoxModel;
+        }
+
+        /**
+         * Called on update.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        protected void onUpdate(AjaxRequestTarget target) {
+            super.onUpdate(target);
+
+            if (getModel().getObject() instanceof InboundContext) {
+                InboundContext context = (InboundContext) getModel().getObject();
+                context.setInherit(checkBoxModel.getObject());
+                getModel().setObject(new InboundContextDao().merge(context));
+            }
+        }
+
+        /**
          * Returns a style class for the folder.
          *
          * @return A style class.
@@ -148,10 +207,18 @@ public class ContextTree extends NestedTree<BaseContext> {
 
                 if (children.size() > 1) {
                     return stringBuilder.append(" has-multiple-children").toString();
-                } else if (getModelObject().getKeyword().equals(children.get(0).getKeyword())) {
-                    return stringBuilder.toString();
                 } else {
-                    return stringBuilder.append(" has-different-child").toString();
+                    InboundContext child = (InboundContext) children.get(0);
+
+                    if (child.getMatch() != null) {
+                        stringBuilder.append(" has-match");
+                    }
+
+                    if (getModelObject().getKeyword().equals(children.get(0).getKeyword())) {
+                        return stringBuilder.append(" has-equal-child").toString();
+                    } else {
+                        return stringBuilder.append(" has-different-child").toString();
+                    }
                 }
             } else {
                 return stringBuilder.append(" has-no-children").toString();
