@@ -197,6 +197,37 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
+    public Boolean hasMatchedContexts(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(i) FROM InboundContext i " +
+                            "WHERE i._package = :package AND i.match IS NOT NULL", Long.class);
+            Long count = query.setParameter("package", contextPackage).getSingleResult();
+            transaction.commit();
+            return count > 0;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
     public List<InboundContext> findUnmatchedContexts(InboundContextPackage contextPackage) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;

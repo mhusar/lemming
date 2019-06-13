@@ -36,6 +36,14 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
     String getEndLocation(InboundContextPackage contextPackage);
 
     /**
+     * Checks if a context package has any matches.
+     *
+     * @param contextPackage a package of inbound contexts
+     * @return A boolean value.
+     */
+    Boolean hasMatchedContexts(InboundContextPackage contextPackage);
+
+    /**
      * Finds inbound contexts without a match ordered by location and number.
      *
      * @param contextPackage a package of inbound contexts
