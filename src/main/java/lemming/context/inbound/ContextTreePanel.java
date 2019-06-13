@@ -5,23 +5,17 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
-import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import wicketdnd.*;
 import wicketdnd.theme.WindowsTheme;
 
-import javax.xml.crypto.Data;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +56,7 @@ public class ContextTreePanel extends Panel {
         add(new Label("heading", location));
         add(new CollapseAllButton(tree));
         add(new ExpandAllButton(tree));
+        add(new ApplyButton(tree));
         add(tree);
         add(listContainer);
     }
@@ -113,6 +108,37 @@ public class ContextTreePanel extends Panel {
          */
         public ExpandAllButton(ContextTree tree) {
             super("expandAllButton");
+            this.tree = tree;
+        }
+
+        /**
+         * Called on click.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            tree.expandAll();
+            target.add(tree);
+        }
+    }
+
+    /**
+     * A button applying data of a tree.
+     */
+    private class ApplyButton extends AjaxLink<Void> {
+        /**
+         * The associated tree.
+         */
+        private ContextTree tree;
+
+        /**
+         * Creates an apply button.
+         *
+         * @param tree associated tree
+         */
+        public ApplyButton(ContextTree tree) {
+            super("applyButton");
             this.tree = tree;
         }
 

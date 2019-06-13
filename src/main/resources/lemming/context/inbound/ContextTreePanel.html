@@ -12,7 +12,7 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="btn-group" role="group">
                         <button wicket:id="expandAllButton" type="button" class="btn btn-default">
                             <wicket:message key="ContextTreePanel.expandAll"></wicket:message>
@@ -21,6 +21,13 @@
                             <wicket:message key="ContextTreePanel.collapseAll"></wicket:message>
                         </button>
                     </div>
+                    <button wicket:id="applyButton" type="button" class="btn btn-primary">
+                        <wicket:message key="ContextTreePanel.apply"></wicket:message>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
                     <div wicket:id="inboundContextTree"></div>
                 </div>
                 <div class="col-md-4">
