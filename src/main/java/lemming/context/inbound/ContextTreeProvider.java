@@ -132,7 +132,7 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
     public InboundContext add(Context context, InboundContext inboundContext) {
         InboundContextDao inboundContextDao = new InboundContextDao();
         inboundContext = inboundContextDao.refresh(inboundContext);
-        inboundContext.setMatch(context);
+        inboundContext.setInherit(Boolean.TRUE);
         inboundContext = inboundContextDao.merge(inboundContext);
 
         map.add(context, inboundContext);
@@ -164,7 +164,7 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
         }
 
         inboundContext = inboundContextDao.refresh(inboundContext);
-        inboundContext.setMatch(null);
+        inboundContext.setInherit(Boolean.FALSE);
         return inboundContextDao.merge(inboundContext);
     }
 
