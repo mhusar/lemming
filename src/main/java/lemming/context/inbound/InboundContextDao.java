@@ -9,6 +9,7 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -279,7 +280,7 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             InboundContext successor = findSuccessor(entityManager, lastUnmatchedContext);
             Context ancestorMatch = findMatch(ancestor);
             Context successorMatch = findMatch(successor);
-            List<Context> complements = null;
+            List<Context> complements = new ArrayList<>();
 
             if (ancestorMatch != null || successorMatch != null) {
                 complements = findBetween(entityManager, ancestorMatch, successorMatch);
