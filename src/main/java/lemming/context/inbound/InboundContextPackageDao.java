@@ -73,6 +73,41 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
+    public void remove(InboundContextPackage contextPackage) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            InboundContextPackage mergedContextPackage = entityManager.merge(contextPackage);
+
+            for (InboundContext context : mergedContextPackage.getContexts()) {
+                context.setMatch(null);
+                entityManager.remove(context);
+            }
+
+            entityManager.remove(mergedContextPackage);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
     public List<InboundContextPackage> getAll() {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
