@@ -100,6 +100,13 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
     private String endPunctuation;
 
     /**
+     * Speech type of a context.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "speech", length = 30, nullable = false)
+    private SpeechType.Type speech = SpeechType.Type.NONE;
+
+    /**
      * Creates an instance of a context.
      */
     public BaseContext() {
@@ -344,6 +351,24 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      */
     public void setEndPunctuation(String endPunctuation) {
         this.endPunctuation = endPunctuation;
+    }
+
+    /**
+     * Returns the speech type of a context.
+     *
+     * @return Speech type.
+     */
+    public SpeechType.Type getSpeech() {
+        return speech;
+    }
+
+    /**
+     * Sets the speech type of a context.
+     *
+     * @param speech speech type
+     */
+    public void setSpeech(SpeechType.Type speech) {
+        this.speech = speech;
     }
 
     /**
