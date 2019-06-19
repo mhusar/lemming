@@ -32,7 +32,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      *
      * @see HashEntityListener
      */
-    @Column(name = "hash", length = 130, nullable = false, unique=true)
+    @Column(name = "hash", length = 130, nullable = false)
     @JsonIgnore
     private String hash;
 
