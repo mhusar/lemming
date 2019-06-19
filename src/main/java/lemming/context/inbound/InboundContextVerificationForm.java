@@ -36,48 +36,25 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         super.onInitialize();
         InboundContextPackage contextPackage = getModelObject();
 
-        matchContextsByHash();
+        if (!new InboundContextPackageDao().hasMatchedContexts(contextPackage)) {
+            matchContextsByHash();
+        }
+
         List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
         for (String location : unmatchedLocations) {
             List<InboundContext> unmatchedContexts = new InboundContextPackageDao()
                     .findUnmatchedContextsByLocation(contextPackage, location);
-            List<Context> complements = new InboundContextDao().findPossibleComplements(unmatchedContexts);
+            List<Context> possibleComplements = new InboundContextDao().findPossibleComplements(unmatchedContexts);
+            List<Triple> matchingTriples = computeMatchingTriples(unmatchedContexts, possibleComplements);
+            List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(unmatchedContexts,
+                    matchingTriples);
+            List<Context> unmatchedComplements = getUnmatchedComplements(possibleComplements, matchingTriples);
+            ContextTreeProvider provider = new ContextTreeProvider(matchingTriples, unmatchedComplements);
 
-            if (complements != null) {
-                List<Triple> matchingTriples = computeMatchingTriples(unmatchedContexts, complements);
-                List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(unmatchedContexts,
-                        matchingTriples);
-                List<Context> complementsWithoutContext = getComplementsWithoutContext(complements, matchingTriples);
-                ContextTreeProvider provider = new ContextTreeProvider(matchingTriples, complementsWithoutContext);
-
-                repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
-                        contextsWithoutComplement));
-            }
+            repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
+                    contextsWithoutComplement));
         }
-
-
-//            MultivaluedMap<Integer, InboundContext> groupedContexts = new InboundContextPackageDao()
-//                    .groupUnmatchedContexts(contextPackage, location);
-//
-//            for (Integer key : groupedContexts.keySet()) {
-//                List<InboundContext> inboundContexts = groupedContexts.get(key);
-//                List<Context> complements = new InboundContextDao().findComplements(inboundContexts);
-//
-//                // TODO: what now?
-//                if (complements != null) {
-//                    List<Triple> matchingTriples = computeMatchingTriples(inboundContexts, complements);
-//                    List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(inboundContexts,
-//                            matchingTriples);
-//                    List<Context> complementsWithoutContext = getComplementsWithoutContext(complements,
-//                            matchingTriples);
-//                    ContextTreeProvider provider = new ContextTreeProvider(matchingTriples,
-//                            complementsWithoutContext);
-//
-//                    repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
-//                            contextsWithoutComplement));
-//                }
-//            }
 
         // TODO: show something else
         if (repeatingView.size() == 0) {
@@ -129,8 +106,8 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         return unmatchedInboundContexts;
     }
 
-    private List<Context> getComplementsWithoutContext(List<Context> complements,
-                                                       List<Triple> matchingTriples) {
+    private List<Context> getUnmatchedComplements(List<Context> complements,
+                                                  List<Triple> matchingTriples) {
         List<Context> unmatchedComplements = new ArrayList<>(complements);
 
         for (Triple triple : matchingTriples) {
