@@ -1,5 +1,6 @@
 package lemming.context.inbound;
 
+import lemming.context.BaseContext;
 import lemming.context.Context;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -149,7 +150,24 @@ public class ContextTreePanel extends Panel {
          */
         @Override
         public void onClick(AjaxRequestTarget target) {
-            tree.expandAll();
+            ContextTreeProvider provider = (ContextTreeProvider) tree.getProvider();
+            final Iterator<? extends BaseContext> rootIterator = provider.getRoots();
+            final InboundContextDao inboundContextDao = new InboundContextDao();
+
+            while (rootIterator.hasNext()) {
+                Context root = (Context) rootIterator.next();
+
+                if (provider.hasChildren(root)) {
+                    final Iterator<? extends BaseContext> childrenIterator = provider.getChildren(root);
+
+                    while (childrenIterator.hasNext()) {
+                        InboundContext child = (InboundContext) childrenIterator.next();
+                        child.setMatch(root);
+                        inboundContextDao.merge(child);
+                    }
+                }
+            }
+
             target.add(tree);
         }
     }
