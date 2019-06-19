@@ -36,10 +36,6 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         super.onInitialize();
         InboundContextPackage contextPackage = getModelObject();
 
-        if (!new InboundContextPackageDao().hasMatchedContexts(contextPackage)) {
-            matchContextsByHash();
-        }
-
         List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
         for (String location : unmatchedLocations) {
@@ -60,14 +56,6 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         if (repeatingView.size() == 0) {
             repeatingView.setVisible(false);
         }
-    }
-
-    /**
-     * Match contexts by hash.
-     */
-    private void matchContextsByHash() {
-        InboundContextPackage contextPackage = getModelObject();
-        new InboundContextPackageDao().matchContextsByHash(contextPackage);
     }
 
     /**
