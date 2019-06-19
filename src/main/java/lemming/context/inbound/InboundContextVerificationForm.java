@@ -1,8 +1,6 @@
 package lemming.context.inbound;
 
 import lemming.context.Context;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
@@ -25,7 +23,6 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
      */
     public InboundContextVerificationForm(IModel<InboundContextPackage> model) {
         super("InboundContextVerificationForm", model);
-        add(new SubmitButton(this));
 
         repeatingView = new RepeatingView("repeater");
         add(repeatingView);
@@ -103,23 +100,5 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         }
 
         return unmatchedComplements;
-    }
-
-    private class SubmitButton extends AjaxButton {
-
-        SubmitButton(Form<InboundContextPackage> form) {
-            super("submitButton", form);
-        }
-
-        /**
-         * Called on form submit.
-         *
-         * @param target target that produces an Ajax response
-         * @param form the parent form
-         */
-        @Override
-        protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-            super.onSubmit(target, form);
-        }
     }
 }
