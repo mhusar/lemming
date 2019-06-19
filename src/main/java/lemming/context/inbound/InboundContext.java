@@ -40,7 +40,7 @@ public class InboundContext extends BaseContext {
      * Defines if a contexts inherits data.
      */
     @Column(name = "inherit", nullable = false, columnDefinition = "bit DEFAULT 1")
-    private Boolean inherit;
+    private Boolean inherit = Boolean.TRUE;
 
     /**
      * Creates an instance of an inbound context.
