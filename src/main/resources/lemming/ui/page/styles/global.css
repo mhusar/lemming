@@ -958,3 +958,13 @@ ul.homePage li:last-child {
   background-position: 0 50%;
   background-repeat: no-repeat;
 }
+
+.has-multiple-children .tree-label,
+.has-different-child .tree-label,
+.has-no-children .tree-label {
+  background-color: yellow;
+}
+
+.has-match .tree-label {
+  background-color: green;
+}

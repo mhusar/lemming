@@ -198,6 +198,12 @@ public class ContextTree extends NestedTree<BaseContext> {
             StringBuilder stringBuilder = new StringBuilder().append(styleClass);
 
             if (getModelObject() instanceof InboundContext) {
+                InboundContext child = (InboundContext) getModelObject();
+
+                if (child.getMatch() != null) {
+                    stringBuilder.append(" has-match");
+                }
+
                 return stringBuilder.toString();
             }
 
@@ -208,12 +214,6 @@ public class ContextTree extends NestedTree<BaseContext> {
                 if (children.size() > 1) {
                     return stringBuilder.append(" has-multiple-children").toString();
                 } else {
-                    InboundContext child = (InboundContext) children.get(0);
-
-                    if (child.getMatch() != null) {
-                        stringBuilder.append(" has-match");
-                    }
-
                     if (getModelObject().getKeyword().equals(children.get(0).getKeyword())) {
                         return stringBuilder.append(" has-equal-child").toString();
                     } else {
