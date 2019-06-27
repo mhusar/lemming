@@ -3,7 +3,6 @@ package lemming.context.inbound;
 import lemming.context.BaseContext;
 import lemming.context.Context;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -14,8 +13,6 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import wicketdnd.*;
-import wicketdnd.theme.WindowsTheme;
 
 import java.util.Iterator;
 import java.util.List;
@@ -37,22 +34,12 @@ public class ContextTreePanel extends Panel {
         super(id);
         ContextTree tree = new ContextTree(provider);
         final WebMarkupContainer listContainer = new WebMarkupContainer("listContainer");
-        final WebMarkupContainer listDropTarget = new WebMarkupContainer("listDropTarget");
         DataView<InboundContext> dataView = new InboundContextDataView(inboundContexts);
 
         tree.add(AttributeModifier.append("class", "tree tree-theme-windows"));
         tree.setOutputMarkupId(true);
-        tree.add(new WindowsTheme()); // from wicketdnd
-        tree.add(new TreeDragSource(tree).drag(".tree-content.context-draggable"));
-        tree.add(new TreeDropTarget(tree).dropCenter(".tree-content.context-droppable"));
-
-        listContainer.add(new WindowsTheme()); // from wicketdnd
-        listContainer.add(new ListDragSource(listContainer, dataView).drag("tbody tr"));
-        listContainer.add(new ListDropTarget(listContainer, dataView).dropCenter("table"));
+        listContainer.add(dataView);
         listContainer.setOutputMarkupId(true);
-        listContainer.add(listDropTarget);
-        listDropTarget.setOutputMarkupId(true);
-        listDropTarget.add(dataView);
 
         add(new Label("heading", location));
         add(new CollapseAllButton(tree));
@@ -254,94 +241,6 @@ public class ContextTreePanel extends Panel {
 
         @Override
         public void detach() {
-        }
-    }
-
-    private class ListDragSource extends DragSource {
-
-        private WebMarkupContainer listContainer;
-
-        private DataView<InboundContext> dataView;
-
-        ListDragSource(WebMarkupContainer listContainer, DataView<InboundContext> dataView) {
-            super(Operation.MOVE);
-            this.dataView = dataView;
-            this.listContainer = listContainer;
-        }
-
-        @Override
-        public void onAfterDrop(AjaxRequestTarget target, Transfer transfer) {
-            InboundContext inboundContext = transfer.getData();
-            InboundContextDataProvider dataProvider = (InboundContextDataProvider) dataView.getDataProvider();
-            dataProvider.remove(inboundContext);
-            target.add(listContainer);
-        }
-    }
-
-    private class ListDropTarget extends DropTarget {
-
-        private WebMarkupContainer listContainer;
-
-        private DataView<InboundContext> dataView;
-
-        ListDropTarget(WebMarkupContainer listContainer, DataView<InboundContext> dataView) {
-            super(Operation.MOVE);
-            this.dataView = dataView;
-            this.listContainer = listContainer;
-        }
-
-        @Override
-        public void onDrop(AjaxRequestTarget target, Transfer transfer, Location location) throws Reject {
-            InboundContext inboundContext = transfer.getData();
-            InboundContextDataProvider dataProvider = (InboundContextDataProvider) dataView.getDataProvider();
-
-            if (dataProvider.contains(inboundContext)) {
-                throw new Reject();
-            } else {
-                dataProvider.add(inboundContext);
-                target.add(listContainer);
-            }
-        }
-    }
-
-    private class TreeDragSource extends DragSource {
-        private ContextTree tree;
-
-        TreeDragSource(ContextTree tree) {
-            super(Operation.MOVE);
-            this.tree = tree;
-        }
-
-        @Override
-        public void onBeforeDrop(Component drag, Transfer transfer) throws Reject {
-            InboundContext inboundContext = (InboundContext) drag.getDefaultModelObject();
-            ContextTreeProvider provider = (ContextTreeProvider) tree.getProvider();
-            inboundContext = provider.remove(inboundContext);
-            transfer.setData(inboundContext);
-        }
-
-        @Override
-        public void onAfterDrop(AjaxRequestTarget target, Transfer transfer) {
-            target.add(tree);
-        }
-    }
-
-    private class TreeDropTarget extends DropTarget {
-        private ContextTree tree;
-
-        public TreeDropTarget(ContextTree tree) {
-            super(Operation.MOVE);
-            this.tree = tree;
-        }
-
-        @Override
-        public void onDrop(AjaxRequestTarget target, Transfer transfer, Location location) throws Reject {
-            Context context = (Context) location.getComponent().getParent().getDefaultModelObject();
-            InboundContext inboundContext = transfer.getData();
-
-            ContextTreeProvider provider = (ContextTreeProvider) tree.getProvider();
-            provider.add(context, inboundContext);
-            target.add(tree);
         }
     }
 }
