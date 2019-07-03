@@ -172,11 +172,18 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
      * A comparator for contexts.
      */
     private class ContextComparator implements Comparator<BaseContext> {
+        /**
+         * Compares two contexts.
+         *
+         * @param context1 context 1
+         * @param context2 context 2
+         * @return A negative or a positive number.
+         */
         @Override
-        public int compare(BaseContext b1, BaseContext b2) {
-            if (b1.getNumber() < b2.getNumber()) {
+        public int compare(BaseContext context1, BaseContext context2) {
+            if (context1.getNumber() < context2.getNumber()) {
                 return -1;
-            } else if (b1.getNumber() > b2.getNumber()) {
+            } else if (context1.getNumber() > context2.getNumber()) {
                 return 1;
             } else {
                 throw new IllegalArgumentException();
