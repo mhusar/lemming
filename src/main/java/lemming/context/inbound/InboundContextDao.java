@@ -142,6 +142,41 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public InboundContext refresh(InboundContext context) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            if (isTransient(context)) {
+                throw new IllegalArgumentException();
+            }
+
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "LEFT JOIN FETCH i.match WHERE i.id = :id", InboundContext.class);
+            InboundContext refreshedContext = query.setParameter("id", context.getId()).getSingleResult();
+            transaction.commit();
+            return refreshedContext;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
      * Finds the ancestor of an inbound context with the same package and location.
      *
      * @param entityManager entity manager
