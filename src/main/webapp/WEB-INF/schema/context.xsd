@@ -13,6 +13,14 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="speechType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="direct"/>
+            <xs:enumeration value="indirect"/>
+            <xs:enumeration value=""/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:element name="punctuation">
         <xs:complexType>
             <xs:simpleContent>
@@ -57,6 +65,7 @@
         <xs:attribute type="number" name="n" use="required"/>
         <xs:attribute type="singleBlankString" name="preceding" use="required"/>
         <xs:attribute type="itemType" name="type" use="required"/>
+        <xs:attribute type="speechType" name="sp" use="required"/>
     </xs:attributeGroup>
 
     <xs:element name="item">

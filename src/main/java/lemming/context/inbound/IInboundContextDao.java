@@ -20,8 +20,8 @@ public interface IInboundContextDao extends IDao<InboundContext> {
     /**
      * Finds complements of inbound contexts.
      *
-     * @param contexts list of inbound contexts
+     * @param unmatchedContexts list of unmatched inbound contexts
      * @return A list of contexts or null.
      */
-    List<Context> findComplements(List<InboundContext> contexts);
+    List<Context> findPossibleComplements(List<InboundContext> unmatchedContexts);
 }

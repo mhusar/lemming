@@ -9,6 +9,7 @@ import org.hibernate.UnresolvableObjectException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -141,6 +142,41 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    public InboundContext refresh(InboundContext context) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            if (isTransient(context)) {
+                throw new IllegalArgumentException();
+            }
+
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "LEFT JOIN FETCH i.match WHERE i.id = :id", InboundContext.class);
+            InboundContext refreshedContext = query.setParameter("id", context.getId()).getSingleResult();
+            transaction.commit();
+            return refreshedContext;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
      * Finds the ancestor of an inbound context with the same package and location.
      *
      * @param entityManager entity manager
@@ -266,9 +302,9 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
      * @throws RuntimeException
      */
     @Override
-    public List<Context> findComplements(List<InboundContext> contexts) {
-        InboundContext firstUnmatchedContext = contexts.get(0);
-        InboundContext lastUnmatchedContext = contexts.get(contexts.size() - 1);
+    public List<Context> findPossibleComplements(List<InboundContext> unmatchedContexts) {
+        InboundContext firstUnmatchedContext = unmatchedContexts.get(0);
+        InboundContext lastUnmatchedContext = unmatchedContexts.get(unmatchedContexts.size() - 1);
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -277,10 +313,12 @@ public class InboundContextDao extends GenericDao<InboundContext> implements IIn
             transaction.begin();
             InboundContext ancestor = findAncestor(entityManager, firstUnmatchedContext);
             InboundContext successor = findSuccessor(entityManager, lastUnmatchedContext);
-            List<Context> complements = null;
+            Context ancestorMatch = findMatch(ancestor);
+            Context successorMatch = findMatch(successor);
+            List<Context> complements = new ArrayList<>();
 
-            if (findMatch(ancestor) != null || findMatch(successor) != null) {
-                complements = findBetween(entityManager, findMatch(ancestor), findMatch(successor));
+            if (ancestorMatch != null || successorMatch != null) {
+                complements = findBetween(entityManager, ancestorMatch, successorMatch);
             }
 
             transaction.commit();

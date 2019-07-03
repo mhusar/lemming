@@ -73,6 +73,41 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
+    public void remove(InboundContextPackage contextPackage) throws RuntimeException {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            InboundContextPackage mergedContextPackage = entityManager.merge(contextPackage);
+
+            for (InboundContext context : mergedContextPackage.getContexts()) {
+                context.setMatch(null);
+                entityManager.remove(context);
+            }
+
+            entityManager.remove(mergedContextPackage);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
     public List<InboundContextPackage> getAll() {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -197,6 +232,37 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
      * @throws RuntimeException
      */
     @Override
+    public Boolean hasMatchedContexts(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(i) FROM InboundContext i " +
+                            "WHERE i._package = :package AND i.match IS NOT NULL", Long.class);
+            Long count = query.setParameter("package", contextPackage).getSingleResult();
+            transaction.commit();
+            return count > 0;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
     public List<InboundContext> findUnmatchedContexts(InboundContextPackage contextPackage) {
         EntityManager entityManager = EntityManagerListener.createEntityManager();
         EntityTransaction transaction = null;
@@ -292,7 +358,9 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             transaction.begin();
             List<InboundContext> contexts = findUnmatchedContextsByLocation(entityManager, contextPackage, location);
             transaction.commit();
-            return contexts;
+            // Find contexts between the first and the last unmatched context (unmatched and matched).
+            // This approach is needed because there are sometimes gaps in the context numbering.
+            return findBetween(entityManager, contexts.get(0), contexts.get(contexts.size() - 1));
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -392,22 +460,16 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             transaction = entityManager.getTransaction();
             transaction.begin();
             List<InboundContext> contexts = findUnmatchedContextsByLocation(entityManager, contextPackage, location);
-            // Find contexts between the first and the last unmatched context (unmatched and matched).
-            // This approach is needed because there are sometimes gaps in the context numbering.
-            List<InboundContext> contexts2 = findBetween(entityManager, contexts.get(0),
-                    contexts.get(contexts.size() - 1));
             Integer key = 0;
 
-            for (InboundContext context : contexts2) {
+            for (InboundContext context : contexts) {
                 if (context.getMatch() != null) {
                     if (groupedContexts.getFirst(key) != null) {
                         key++;
                     }
-
-                    continue;
+                } else {
+                    groupedContexts.add(key, context);
                 }
-
-                groupedContexts.add(key, context);
             }
 
             transaction.commit();

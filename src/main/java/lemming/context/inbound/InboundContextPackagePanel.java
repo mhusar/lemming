@@ -3,12 +3,11 @@ package lemming.context.inbound;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.RefreshingView;
@@ -164,7 +163,7 @@ public class InboundContextPackagePanel extends Panel {
     /**
      * A button which sends the user to a page where inbound contexts are verified.
      */
-    private class VerifyButton extends Link<InboundContextPackage> {
+    private class VerifyButton extends IndicatingAjaxLink<InboundContextPackage> {
         /**
          * Creates a verify button.
          */
@@ -174,17 +173,35 @@ public class InboundContextPackagePanel extends Panel {
 
         /**
          * Called on button click.
+         *
+         * @param target target that produces an Ajax response
          */
         @Override
-        public void onClick() {
+        public void onClick(AjaxRequestTarget target) {
+            InboundContextPackageDao inboundContextPackageDao = new InboundContextPackageDao();
+
+            if (!inboundContextPackageDao.hasMatchedContexts(getModelObject())) {
+                inboundContextPackageDao.matchContextsByHash(getModelObject());
+            }
+
             setResponsePage(new InboundContextVerificationPage(getModel()));
+        }
+
+        /**
+         * Returns the markup ID of the Ajax indicator.
+         *
+         * @return A component markup id.
+         */
+        @Override
+        public String getAjaxIndicatorMarkupId() {
+            return "indicatorOverlayPanel";
         }
     }
 
     /**
      * A button which discards inbound contexts matching an InboundContextPackage object.
      */
-    private class DiscardButton extends AjaxLink<InboundContextPackage> {
+    private class DiscardButton extends IndicatingAjaxLink<InboundContextPackage> {
         /**
          * Creates a discard button.
          *
@@ -203,6 +220,16 @@ public class InboundContextPackagePanel extends Panel {
         public void onClick(AjaxRequestTarget target) {
             new InboundContextPackageDao().remove(getModelObject());
             target.add(InboundContextPackagePanel.this);
+        }
+
+        /**
+         * Returns the markup ID of the Ajax indicator.
+         *
+         * @return A component markup id.
+         */
+        @Override
+        public String getAjaxIndicatorMarkupId() {
+            return "indicatorOverlayPanel";
         }
     }
 }

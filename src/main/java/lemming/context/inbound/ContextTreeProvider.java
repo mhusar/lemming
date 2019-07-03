@@ -8,10 +8,7 @@ import org.apache.wicket.model.Model;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * A tree provider for contexts.
@@ -102,6 +99,7 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
             children.addAll(map.get(context));
         }
 
+        children.sort(new ContextComparator());
         return children.iterator();
     }
 
@@ -129,38 +127,63 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
      *
      * @param context a context
      * @param inboundContext an inbound context
+     * @return A merged inbound context.
      */
-    public void add(Context context, InboundContext inboundContext) {
-        if (!contexts.contains(context)) {
-            contexts.add(context);
-            contexts.sort(new ContextComparator());
-        }
+    public InboundContext add(Context context, InboundContext inboundContext) {
+        InboundContextDao inboundContextDao = new InboundContextDao();
+        inboundContext = inboundContextDao.refresh(inboundContext);
+        inboundContext.setInherit(Boolean.TRUE);
+        inboundContext = inboundContextDao.merge(inboundContext);
 
-        if (hasChildren(context)) {
-            map.add(context, inboundContext);
-        } else {
-            map.putSingle(context, inboundContext);
-        }
+        map.add(context, inboundContext);
+        return inboundContext;
     }
 
     /**
      * Removes an inbound context from a context.
      *
-     * @param context a context
+     * @param inboundContext an inbound context
+     * @return A merged inbound context.
      */
-    public void remove(Context context, InboundContext inboundContext) {
-        map.remove(context, inboundContext);
+    public InboundContext remove(InboundContext inboundContext) {
+        InboundContextDao inboundContextDao = new InboundContextDao();
+
+        for (Map.Entry<Context, List<InboundContext>> entry : map.entrySet()) {
+            Context context = entry.getKey();
+            List<InboundContext> inboundContexts = entry.getValue();
+
+            if (inboundContexts.contains(inboundContext)) {
+                inboundContexts.remove(inboundContext);
+
+                if (inboundContexts.isEmpty()) {
+                    map.remove(context);
+                }
+
+                break;
+            }
+        }
+
+        inboundContext = inboundContextDao.refresh(inboundContext);
+        inboundContext.setInherit(Boolean.FALSE);
+        return inboundContextDao.merge(inboundContext);
     }
 
     /**
      * A comparator for contexts.
      */
     private class ContextComparator implements Comparator<BaseContext> {
+        /**
+         * Compares two contexts.
+         *
+         * @param context1 context 1
+         * @param context2 context 2
+         * @return A negative or a positive number.
+         */
         @Override
-        public int compare(BaseContext b1, BaseContext b2) {
-            if (b1.getNumber() < b2.getNumber()) {
+        public int compare(BaseContext context1, BaseContext context2) {
+            if (context1.getNumber() < context2.getNumber()) {
                 return -1;
-            } else if (b1.getNumber() > b2.getNumber()) {
+            } else if (context1.getNumber() > context2.getNumber()) {
                 return 1;
             } else {
                 throw new IllegalArgumentException();

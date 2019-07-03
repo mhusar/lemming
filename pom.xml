@@ -238,6 +238,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.svenmeier.wicket-dnd</groupId>
+            <artifactId>wicket-dnd</artifactId>
+            <version>0.7.3</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
             <version>${javax.json.version}</version>

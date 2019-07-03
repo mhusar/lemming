@@ -1,8 +1,6 @@
 package lemming.context.inbound;
 
 import lemming.context.Context;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
@@ -25,7 +23,6 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
      */
     public InboundContextVerificationForm(IModel<InboundContextPackage> model) {
         super("InboundContextVerificationForm", model);
-        add(new SubmitButton(this));
 
         repeatingView = new RepeatingView("repeater");
         add(repeatingView);
@@ -36,45 +33,26 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         super.onInitialize();
         InboundContextPackage contextPackage = getModelObject();
 
-        matchContextsByHash();
         List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
         for (String location : unmatchedLocations) {
-            MultivaluedMap<Integer, InboundContext> groupedContexts = new InboundContextPackageDao()
-                    .groupUnmatchedContexts(contextPackage, location);
+            List<InboundContext> unmatchedContexts = new InboundContextPackageDao()
+                    .findUnmatchedContextsByLocation(contextPackage, location);
+            List<Context> possibleComplements = new InboundContextDao().findPossibleComplements(unmatchedContexts);
+            List<Triple> matchingTriples = computeMatchingTriples(unmatchedContexts, possibleComplements);
+            List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(unmatchedContexts,
+                    matchingTriples);
+            List<Context> unmatchedComplements = getUnmatchedComplements(possibleComplements, matchingTriples);
+            ContextTreeProvider provider = new ContextTreeProvider(matchingTriples, unmatchedComplements);
 
-            for (Integer key : groupedContexts.keySet()) {
-                List<InboundContext> inboundContexts = groupedContexts.get(key);
-                List<Context> complements = new InboundContextDao().findComplements(inboundContexts);
-
-                // TODO: what now?
-                if (complements != null) {
-                    List<Triple> matchingTriples = computeMatchingTriples(inboundContexts, complements);
-                    List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(inboundContexts,
-                            matchingTriples);
-                    List<Context> complementsWithoutContext = getComplementsWithoutContext(complements,
-                            matchingTriples);
-                    ContextTreeProvider provider = new ContextTreeProvider(matchingTriples,
-                            complementsWithoutContext);
-
-                    repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
-                            contextsWithoutComplement));
-                }
-            }
+            repeatingView.add(new ContextTreePanel(repeatingView.newChildId(), location, provider,
+                    contextsWithoutComplement));
         }
 
         // TODO: show something else
         if (repeatingView.size() == 0) {
             repeatingView.setVisible(false);
         }
-    }
-
-    /**
-     * Match contexts by hash.
-     */
-    private void matchContextsByHash() {
-        InboundContextPackage contextPackage = getModelObject();
-        new InboundContextPackageDao().matchContextsByHash(contextPackage);
     }
 
     /**
@@ -113,8 +91,8 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         return unmatchedInboundContexts;
     }
 
-    private List<Context> getComplementsWithoutContext(List<Context> complements,
-                                                       List<Triple> matchingTriples) {
+    private List<Context> getUnmatchedComplements(List<Context> complements,
+                                                  List<Triple> matchingTriples) {
         List<Context> unmatchedComplements = new ArrayList<>(complements);
 
         for (Triple triple : matchingTriples) {
@@ -122,23 +100,5 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         }
 
         return unmatchedComplements;
-    }
-
-    private class SubmitButton extends AjaxButton {
-
-        SubmitButton(Form<InboundContextPackage> form) {
-            super("submitButton", form);
-        }
-
-        /**
-         * Called on form submit.
-         *
-         * @param target target that produces an Ajax response
-         * @param form the parent form
-         */
-        @Override
-        protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-            super.onSubmit(target, form);
-        }
     }
 }

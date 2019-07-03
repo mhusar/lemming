@@ -104,6 +104,7 @@
     <entry key="InboundContextPackageView.location2">{0} {1} – {2} {3}</entry>
     <entry key="InboundContextPackageView.popoverContent">{0}Benutzer{1}Datum{2}Uhrzeit{3}</entry>
     <entry key="InboundContextPackageView.popoverLocale">de-DE</entry>
+    <entry key="ContextTreePanel.apply">Anwenden</entry>
     <entry key="ContextTreePanel.collapseAll">Alle zuklappen</entry>
     <entry key="ContextTreePanel.expandAll">Alle aufklappen</entry>
     <entry key="ContextTreePanel.replacement">Ersatz</entry>

@@ -1,6 +1,7 @@
 package lemming.context;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lemming.context.inbound.InboundContext;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
 import lemming.sense.Sense;
@@ -32,6 +33,12 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      * Determines if a deserialized file is compatible with this class.
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * A set of replacements for a context.
+     */
+    @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    private Set<InboundContext> replacements;
 
     /**
      * Part of speech of a keyword in context.
@@ -145,6 +152,15 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
     public Context(String location, Integer number, ContextType.Type type, String keyword, String preceding, String following,
                    String initPunctuation, String endPunctuation) {
         super(location, number, type, keyword, preceding, following, initPunctuation, endPunctuation);
+    }
+
+    /**
+     * Returns the replacements for a context.
+     *
+     * @return A set of replacements.
+     */
+    public Set<InboundContext> getReplacements() {
+        return replacements;
     }
 
     /**
