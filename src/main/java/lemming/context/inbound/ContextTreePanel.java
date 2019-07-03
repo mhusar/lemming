@@ -21,6 +21,7 @@ import java.util.List;
  * A panel with a tree and lists used to map inbound contexts to contexts.
  */
 public class ContextTreePanel extends Panel {
+
     /**
      * Creates a context tree panel.
      *
@@ -34,7 +35,7 @@ public class ContextTreePanel extends Panel {
         super(id);
         ContextTree tree = new ContextTree(provider);
         final WebMarkupContainer listContainer = new WebMarkupContainer("listContainer");
-        DataView<InboundContext> dataView = new InboundContextDataView(inboundContexts);
+        DataView<InboundContext> dataView = new InboundContextDataView(inboundContexts, tree);
 
         tree.add(AttributeModifier.append("class", "tree tree-theme-windows"));
         tree.setOutputMarkupId(true);
@@ -163,13 +164,16 @@ public class ContextTreePanel extends Panel {
      * A list view for inbound contexts.
      */
     private class InboundContextDataView extends DataView<InboundContext> {
+        private ContextTree tree;
+
         /**
          * Creates a data view.
          *
          * @param contexts inbound contexts
          */
-        public InboundContextDataView(List<InboundContext> contexts) {
+        public InboundContextDataView(List<InboundContext> contexts, ContextTree tree) {
             super("inboundContextDataView", new InboundContextDataProvider(contexts));
+            this.tree = tree;
         }
 
         /**
@@ -197,31 +201,66 @@ public class ContextTreePanel extends Panel {
             InboundContext context = item.getModelObject();
             item.add(new Label("number", context.getNumber()));
             item.add(new Label("keyword", context.getKeyword()));
+            item.add(new AddButton(this, tree, item.getModel()));
         }
     }
 
-    private class InboundContextDataProvider implements IDataProvider<InboundContext> {
+    /**
+     * A DataProvider for inbound contexts.
+     */
+    public class InboundContextDataProvider implements IDataProvider<InboundContext> {
 
+        /**
+         * A list of contexts.
+         */
         private List<InboundContext> contexts;
 
+        /**
+         * Creates an InboundContextDataProvider.
+         *
+         * @param contexts a list of contexts
+         */
         InboundContextDataProvider(List<InboundContext> contexts) {
             contexts.sort((context1, context2) -> context1.getNumber().compareTo(context2.getNumber()));
             this.contexts = contexts;
         }
 
+        /**
+         * Adds a context
+         *
+         * @param context a context
+         */
         public void add(InboundContext context) {
             contexts.add(context);
             contexts.sort((context1, context2) -> context1.getNumber().compareTo(context2.getNumber()));
         }
 
+        /**
+         * Removes a context.
+         *
+         * @param context a context
+         */
         public void remove(InboundContext context) {
             contexts.remove(context);
         }
 
+        /**
+         * Checks if the provider contains a context.
+         *
+         * @param context a context.
+         * @return True or false.
+         */
         public boolean contains(InboundContext context) {
             return contexts.contains(context);
         }
 
+        /**
+         * Returns an iterator over a list of contexts.
+         *
+         * @param first index of first context
+         * @param count number of contexts
+         * @return An iterator.
+         */
         @Override
         public Iterator<? extends InboundContext> iterator(long first, long count) {
             int fromIndex = (int) first;
@@ -229,18 +268,80 @@ public class ContextTreePanel extends Panel {
             return contexts.subList(fromIndex, toIndex).iterator();
         }
 
+        /**
+         * Returns the number of contexts.
+         *
+         * @return A number.
+         */
         @Override
         public long size() {
             return contexts.size();
         }
 
+        /**
+         * Wraps a context into a model.
+         *
+         * @param context a context
+         * @return Model of a context.
+         */
         @Override
-        public IModel<InboundContext> model(InboundContext inboundContext) {
-            return Model.of(inboundContext);
+        public IModel<InboundContext> model(InboundContext context) {
+            return Model.of(context);
         }
 
+        /**
+         * Does nothing.
+         */
         @Override
         public void detach() {
+        }
+    }
+
+    /**
+     * A button that adds contexts from a DataView to a Tree.
+     */
+    private class AddButton extends AjaxLink<InboundContext> {
+
+        /**
+         * A DataView.
+         */
+        private InboundContextDataView dataView;
+
+        /**
+         * A Tree.
+         */
+        private ContextTree tree;
+
+        /**
+         * Creates an AddButton.
+         *
+         * @param dataView a DataView
+         * @param tree a Tree
+         * @param model model of a context
+         */
+        public AddButton(InboundContextDataView dataView, ContextTree tree, IModel<InboundContext> model) {
+            super("addButton", model);
+            add(new Label("icon"));
+            this.dataView = dataView;
+            this.tree = tree;
+        }
+
+        /**
+         * Called on click.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            InboundContextDataProvider dataProvider = (InboundContextDataProvider) dataView.getDataProvider();
+            ContextTreeProvider treeProvider = (ContextTreeProvider) tree.getProvider();
+
+            if (tree.getSelectedContext() instanceof Context) {
+                dataProvider.remove(getModelObject());
+                treeProvider.add((Context) tree.getSelectedContext(), getModelObject());
+                target.add(dataView.getParent());
+                target.add(tree);
+            }
         }
     }
 }

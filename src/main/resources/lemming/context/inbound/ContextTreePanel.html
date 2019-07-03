@@ -44,12 +44,18 @@
                                 <th>
                                     <wicket:message key="Context.keyword"></wicket:message>
                                 </th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr wicket:id="inboundContextDataView">
                                 <td wicket:id="number"></td>
                                 <td wicket:id="keyword"></td>
+                                <td>
+                                    <a wicket:id="addButton" class="button-add">
+                                        <span wicket:id="icon" class="glyphicon glyphicon-plus"></span>
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
