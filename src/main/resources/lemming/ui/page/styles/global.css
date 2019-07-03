@@ -959,6 +959,37 @@ ul.homePage li:last-child {
   background-repeat: no-repeat;
 }
 
+.table .button-add,
+.tree-theme-windows span.tree-content .button-add,
+.tree-theme-windows span.tree-content .button-remove {
+  color: #337ab7;
+  cursor: pointer;
+  margin: -10px;
+  padding: 10px;
+}
+
+.tree-theme-windows span.tree-content .button-add,
+.tree-theme-windows span.tree-content .button-remove {
+  margin: -3px;
+  padding: 8px;
+}
+
+.tree-theme-windows span.tree-content .button-remove {
+  color: #dc3545;
+}
+
+.table .button-add:focus,
+.table .button-add:hover,
+.tree-theme-windows span.tree-content .button-add:focus,
+.tree-theme-windows span.tree-content .button-add:hover {
+  color: #23527c;
+}
+
+.tree-theme-windows span.tree-content .button-remove:focus,
+.tree-theme-windows span.tree-content .button-remove:hover {
+  color: #bd2130;
+}
+
 .has-multiple-children .tree-label,
 .has-different-child .tree-label,
 .has-no-children .tree-label {
