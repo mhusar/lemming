@@ -148,10 +148,11 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      * @param following       following text of a context
      * @param initPunctuation punctuation preceding the keyword
      * @param endPunctuation  punctuation following the keyword
+     * @param speech          speech type of a context
      */
     public Context(String location, Integer number, ContextType.Type type, String keyword, String preceding, String following,
-                   String initPunctuation, String endPunctuation) {
-        super(location, number, type, keyword, preceding, following, initPunctuation, endPunctuation);
+                   String initPunctuation, String endPunctuation, SpeechType.Type speech) {
+        super(location, number, type, keyword, preceding, following, initPunctuation, endPunctuation, speech);
     }
 
     /**

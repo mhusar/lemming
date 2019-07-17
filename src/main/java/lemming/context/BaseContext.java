@@ -123,9 +123,10 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
      * @param following       following text of a context
      * @param initPunctuation punctuation preceding the keyword
      * @param endPunctuation  punctuation following the keyword
+     * @param speech          speech type of a context
      */
     public BaseContext(String location, Integer number, ContextType.Type type, String keyword, String preceding, String following,
-                       String initPunctuation, String endPunctuation) {
+                       String initPunctuation, String endPunctuation, SpeechType.Type speech) {
         this.location = location;
         this.number = number;
         this.type = type;
@@ -134,6 +135,7 @@ public abstract class BaseContext extends DatedEntity implements Serializable {
         this.following = following;
         this.initPunctuation = initPunctuation;
         this.endPunctuation = endPunctuation;
+        this.speech = speech;
     }
 
     /**
