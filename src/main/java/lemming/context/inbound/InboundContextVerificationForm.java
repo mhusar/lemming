@@ -32,7 +32,6 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
     protected void onInitialize() {
         super.onInitialize();
         InboundContextPackage contextPackage = getModelObject();
-
         List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
         for (String location : unmatchedLocations) {

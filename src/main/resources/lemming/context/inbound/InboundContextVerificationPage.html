@@ -16,13 +16,18 @@
         </div>
     </div>
     <div class="container">
-        <form wicket:id="InboundContextVerificationForm" class="form-horizontal" role="form">
-            <div class="row">
-                <div class="col-md-12">
-                    <div wicket:id="repeater"></div>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div wicket:id="contextAddWarningPanel"></div>
             </div>
-        </form>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form wicket:id="InboundContextVerificationForm" class="form-horizontal" role="form">
+                    <div wicket:id="repeater"></div>
+                </form>
+            </div>
+        </div>
     </div>
 </wicket:extend>
 </body>

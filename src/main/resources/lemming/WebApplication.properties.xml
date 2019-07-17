@@ -104,6 +104,9 @@
     <entry key="InboundContextPackageView.location2">{0} {1}–{2} {3}</entry>
     <entry key="InboundContextPackageView.popoverContent">{0}User{1}Date{2}Time{3}</entry>
     <entry key="InboundContextPackageView.popoverLocale">en-GB</entry>
+    <entry key="ContextAddWarningPanel.confirm">OK</entry>
+    <entry key="ContextAddWarningPanel.message">An old context is substituted with exactly one new context. It’s not possible to add a second one.</entry>
+    <entry key="ContextAddWarningPanel.title">Warning</entry>
     <entry key="ContextTreePanel.additions">Additions</entry>
     <entry key="ContextTreePanel.apply">Apply</entry>
     <entry key="ContextTreePanel.collapseAll">Collapse all</entry>

@@ -2,6 +2,8 @@ package lemming.context.inbound;
 
 import lemming.ui.TitleLabel;
 import lemming.ui.page.BasePage;
+import lemming.ui.panel.AlertPanel;
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
@@ -15,6 +17,11 @@ public class InboundContextVerificationPage extends BasePage {
      * Model of a group of inbound contexts.
      */
     private IModel<InboundContextPackage> model;
+
+    /**
+     * A panel which displays a warning.
+     */
+    private ModalMessagePanel warningPanel;
 
     /**
      * Creates a context verification page.
@@ -38,8 +45,11 @@ public class InboundContextVerificationPage extends BasePage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        warningPanel = new ContextAddWarningPanel();
+
         add(new TitleLabel(getString("InboundContextVerificationPage.header")));
         add(new Label("header", getString("InboundContextVerificationPage.header")));
         add(new InboundContextVerificationForm(model));
+        add(warningPanel);
     }
 }

@@ -2,6 +2,8 @@ package lemming.context.inbound;
 
 import lemming.context.BaseContext;
 import lemming.context.Context;
+import lemming.ui.panel.AlertPanel;
+import lemming.ui.panel.ModalMessagePanel;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -13,6 +15,7 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 
 import java.util.Iterator;
 import java.util.List;
@@ -335,12 +338,18 @@ public class ContextTreePanel extends Panel {
         public void onClick(AjaxRequestTarget target) {
             InboundContextDataProvider dataProvider = (InboundContextDataProvider) dataView.getDataProvider();
             ContextTreeProvider treeProvider = (ContextTreeProvider) tree.getProvider();
+            BaseContext selectedContext = tree.getSelectedContext();
+            ModalMessagePanel warningPanel = (ModalMessagePanel) getPage().get("contextAddWarningPanel");
 
-            if (tree.getSelectedContext() instanceof Context) {
-                dataProvider.remove(getModelObject());
-                treeProvider.add((Context) tree.getSelectedContext(), getModelObject());
-                target.add(dataView.getParent());
-                target.add(tree);
+            if (selectedContext instanceof Context) {
+                if (treeProvider.hasChildren(selectedContext)) {
+                    warningPanel.show(target, getModel());
+                } else {
+                    dataProvider.remove(getModelObject());
+                    treeProvider.add((Context) tree.getSelectedContext(), getModelObject());
+                    target.add(dataView.getParent());
+                    target.add(tree);
+                }
             }
         }
     }
