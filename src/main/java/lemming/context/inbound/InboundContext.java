@@ -51,7 +51,7 @@ public class InboundContext extends BaseContext {
     @SuppressWarnings("unused")
     public Context toContext() {
         return new Context(getLocation(), getNumber(), getType(), getKeyword(), getPreceding(), getFollowing(),
-                getInitPunctuation(), getEndPunctuation());
+                getInitPunctuation(), getEndPunctuation(), getSpeech());
     }
 
     /**
