@@ -1,5 +1,6 @@
 package lemming.context.inbound;
 
+import lemming.context.Comment;
 import lemming.context.Context;
 import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
@@ -11,8 +12,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a Data Access Object providing data operations for inbound context packages.
@@ -576,6 +576,81 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             } else {
                 throw e;
             }
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public void importContexts(InboundContextPackage contextPackage) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<InboundContext> packageQuery = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "WHERE i._package = :package", InboundContext.class);
+            List<InboundContext> inboundContextList = packageQuery.setParameter("package", contextPackage).getResultList();
+            List<Context> newContexts = new ArrayList<>();
+            Set<String> locations = new HashSet<>();
+
+            for (InboundContext inboundContext : inboundContextList) {
+                Context newContext = inboundContext.toContext();
+                Context match = inboundContext.getMatch();
+
+                if (match != null) {
+                    newContext.setLemma(match.getLemma());
+                    newContext.setLemmaString(match.getLemmaString());
+                    newContext.setPos(match.getPos());
+                    newContext.setPosString(match.getPosString());
+                    newContext.setInteresting(match.getInteresting());
+
+                    for (Comment comment : match.getComments()) {
+                        comment.getContexts().add(newContext);
+                    }
+
+                    locations.add(newContext.getLocation());
+                } else {
+                    newContext.setInteresting(false);
+                }
+
+                newContexts.add(newContext);
+                inboundContext.setMatch(null);
+                inboundContext = entityManager.merge(inboundContext);
+                entityManager.remove(inboundContext);
+            }
+
+            entityManager.remove(entityManager.merge(contextPackage));
+
+            for (String location : locations) {
+                TypedQuery<Context> contextQuery = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
+                        "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.location = :location", Context.class);
+                List<Context> oldContextList = contextQuery.setParameter("location", location).getResultList();
+
+                for (Context oldContext : oldContextList) {
+                    entityManager.remove(oldContext);
+                }
+            }
+
+            for (Context newContext : newContexts) {
+                entityManager.persist(newContext);
+            }
+
+            transaction.commit();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
         } finally {
             entityManager.close();
         }

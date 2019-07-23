@@ -86,4 +86,11 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
      * @param contextPackage a package of inbound contexts
      */
     void matchContextsByHash(InboundContextPackage contextPackage);
+
+    /**
+     * Imports inbound contexts of an inbound context package, removes old contexts and adds new contexts.
+     *
+     * @param contextPackage a package of inbound contexts
+     */
+    void importContexts(InboundContextPackage contextPackage);
 }
