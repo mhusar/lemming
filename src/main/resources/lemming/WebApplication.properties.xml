@@ -16,6 +16,7 @@
     <entry key="Action.edit">Edit</entry>
     <entry key="Action.filter">Filter</entry>
     <entry key="Action.go">Go</entry>
+    <entry key="Action.import">Import</entry>
     <entry key="Action.intermediateStorage">Intermediate storage</entry>
     <entry key="Action.open">Open</entry>
     <entry key="Action.reallyImport">Really import</entry>

@@ -111,6 +111,7 @@ class ContextImportForm extends Form<Void> {
         getPage().add(new ToHomePageButton());
         getPage().add(submitButton);
         getPage().add(contextPackagePanel.setOutputMarkupId(true));
+        getPage().add(new ContextImportConfirmPanel());
     }
 
     private void logException(Exception exception) {

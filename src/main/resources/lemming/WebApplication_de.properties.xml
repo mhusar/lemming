@@ -16,6 +16,7 @@
     <entry key="Action.edit">Bearbeiten</entry>
     <entry key="Action.filter">Filtern</entry>
     <entry key="Action.go">Los</entry>
+    <entry key="Action.import">Importieren</entry>
     <entry key="Action.intermediateStorage">Zwischenspeichern</entry>
     <entry key="Action.open">Öffnen</entry>
     <entry key="Action.reallyImport">Wirklich importieren</entry>

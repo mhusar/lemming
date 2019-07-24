@@ -1,8 +1,10 @@
 package lemming.context.inbound;
 
+import lemming.ui.page.BasePage;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -132,6 +134,7 @@ public class InboundContextPackagePanel extends Panel {
                     popoverContent)));
             item.add(new VerifyButton(item.getModel()));
             item.add(new DiscardButton(item.getModel()));
+            item.add(new ImportButton(item.getModel()));
         }
 
         /**
@@ -230,6 +233,32 @@ public class InboundContextPackagePanel extends Panel {
         @Override
         public String getAjaxIndicatorMarkupId() {
             return "indicatorOverlayPanel";
+        }
+    }
+
+    /**
+     * A button which shows a modal panel for importing packages.
+     */
+    private class ImportButton extends AjaxLink<InboundContextPackage> {
+        /**
+         * Creates an import button.
+         *
+         * @param model model of the button
+         */
+        public ImportButton(IModel<InboundContextPackage> model) {
+            super("importButton", model);
+        }
+
+        /**
+         * Called on button click.
+         *
+         * @param target target that produces an Ajax response
+         */
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            BasePage page = (BasePage) InboundContextPackagePanel.this.getPage();
+            ContextImportConfirmPanel panel = (ContextImportConfirmPanel) page.get("importConfirmPanel");
+            panel.show(target, getModel());
         }
     }
 }
