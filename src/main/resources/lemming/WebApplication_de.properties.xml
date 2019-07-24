@@ -18,6 +18,7 @@
     <entry key="Action.go">Los</entry>
     <entry key="Action.intermediateStorage">Zwischenspeichern</entry>
     <entry key="Action.open">Öffnen</entry>
+    <entry key="Action.reallyImport">Wirklich importieren</entry>
     <entry key="Action.remove">Entfernen</entry>
     <entry key="Action.save">Speichern</entry>
     <entry key="Action.submit">Absenden</entry>
@@ -53,6 +54,9 @@
     <entry key="ContextDeleteConfirmPanel.title">Kontext löschen</entry>
     <entry key="ContextEditPage.editHeader">Kontext bearbeiten</entry>
     <entry key="ContextEditPage.newHeader">Kontext erstellen</entry>
+    <entry key="ContextImportConfirmPanel.message">Möchten Sie wirklich neue Daten importieren? Alte Daten werden
+        dadurch ersetzt. Dies ist nicht umkehrbar.
+    </entry>
     <entry key="ContextImportPage.column">Spalte</entry>
     <entry key="ContextImportPage.header">Kontext-Import</entry>
     <entry key="ContextImportPage.line">Zeile</entry>

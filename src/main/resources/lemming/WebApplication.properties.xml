@@ -18,6 +18,7 @@
     <entry key="Action.go">Go</entry>
     <entry key="Action.intermediateStorage">Intermediate storage</entry>
     <entry key="Action.open">Open</entry>
+    <entry key="Action.reallyImport">Really import</entry>
     <entry key="Action.remove">Remove</entry>
     <entry key="Action.save">Save</entry>
     <entry key="Action.submit">Submit</entry>
@@ -53,6 +54,9 @@
     <entry key="ContextDeleteConfirmPanel.title">Delete context</entry>
     <entry key="ContextEditPage.editHeader">Edit context</entry>
     <entry key="ContextEditPage.newHeader">Create context</entry>
+    <entry key="ContextImportConfirmPanel.message">Are you sure you want to import new data? Old data will be replaced.
+        This is not reversible.
+    </entry>
     <entry key="ContextImportPage.column">Column</entry>
     <entry key="ContextImportPage.header">Import of contexts</entry>
     <entry key="ContextImportPage.line">Line</entry>
