@@ -38,6 +38,7 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      * A set of replacements for a context.
      */
     @OneToMany(mappedBy = "match", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<InboundContext> replacements;
 
     /**
