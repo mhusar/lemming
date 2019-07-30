@@ -101,7 +101,7 @@ public class ContextXmlReader implements ErrorHandler {
                     }
 
                     break;
-                case "speech":
+                case "sp":
                     if (value.equals("direct")) {
                         context.setSpeech(SpeechType.Type.DIRECT);
                     } else if (value.equals("indirect")) {
