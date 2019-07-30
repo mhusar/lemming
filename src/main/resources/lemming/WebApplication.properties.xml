@@ -223,6 +223,7 @@
     <entry key="Type.RUBRIC">Rubric</entry>
     <entry key="Type.SEGMENT">Segment</entry>
     <entry key="Type.VERSE">Verse</entry>
+    <entry key="Type.NONE">None</entry>
     <entry key="UnresolvableObjectErrorPage.details">Details</entry>
     <entry key="UnresolvableObjectErrorPage.entityName">Type of object</entry>
     <entry key="UnresolvableObjectErrorPage.identifier">Identifier</entry>
