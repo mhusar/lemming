@@ -89,31 +89,22 @@ final class CriteriaHelper {
      */
     private static Expression<Boolean> getContextFilterStringRestriction(CriteriaBuilder criteriaBuilder,
                                                                          Root<?> root, String filter) {
-        // deactivate filtering by context type
-        ContextType.Type type = null;
+        Predicate predicate = criteriaBuilder.or(
+                criteriaBuilder.like(root.get("location"), filter + "%"),
+                criteriaBuilder.like(root.get("preceding"), filter + "%"),
+                criteriaBuilder.like(root.get("keyword"), filter + "%"),
+                criteriaBuilder.like(root.get("following"), filter + "%"),
+                criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
+                criteriaBuilder.like(root.get("posString"), filter + "%"));
 
-        if (type != null) {
-            return criteriaBuilder.or(
-                    criteriaBuilder.equal(root.get("number"), filter),
-                    criteriaBuilder.like(root.get("location"), filter + "%"),
-                    criteriaBuilder.equal(root.get("type"), type),
-                    criteriaBuilder.like(root.get("preceding"), filter + "%"),
-                    criteriaBuilder.like(root.get("keyword"), filter + "%"),
-                    criteriaBuilder.like(root.get("following"), filter + "%"),
-                    criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
-                    criteriaBuilder.like(root.get("posString"), filter + "%")
-            );
-        } else {
-            return criteriaBuilder.or(
-                    criteriaBuilder.equal(root.get("number"), filter),
-                    criteriaBuilder.like(root.get("location"), filter + "%"),
-                    criteriaBuilder.like(root.get("preceding"), filter + "%"),
-                    criteriaBuilder.like(root.get("keyword"), filter + "%"),
-                    criteriaBuilder.like(root.get("following"), filter + "%"),
-                    criteriaBuilder.like(root.get("lemmaString"), filter + "%"),
-                    criteriaBuilder.like(root.get("posString"), filter + "%")
-            );
+        if (filter.matches("^\\d+$")) {
+            predicate = criteriaBuilder.or(predicate, criteriaBuilder.equal(root.get("number"), filter));
         }
+
+        // don’t filter by type
+        //predicate = criteriaBuilder.or(predicate, criteriaBuilder.equal(root.get("type"), filter));
+
+        return predicate;
     }
 
     /**
