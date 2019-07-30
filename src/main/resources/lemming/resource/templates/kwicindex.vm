@@ -9,26 +9,27 @@ ${indent}<sublist key="$sublist.getKey()">
 #set($number = $item.getNumber())
 #set($pos = $item.getPos())
 #set($preceding = $item.getPreceding())
+#set($speech = $item.getSpeech())
 #set($type = $item.getType())
 #set($initPunctuation = $item.getInitPunctuationString())
 #set($endPunctuation = $item.getEndPunctuationString())
 #set($indent = "    ")
 
 #if( ! $lemma && ! $pos )
-${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following">
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" sp="$speech">
 #elseif ( $lemma && ! $pos )
 #if( $lemmaPos )
-${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" lemmaPos="$lemmaPos">
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" lemmaPos="$lemmaPos" sp="$speech">
 #else
-${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma">
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" sp="$speech">
 #end
 #elseif ( ! $lemma && $pos)
-${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" pos="$pos">
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" pos="$pos" sp="$speech">
 #elseif ( $lemma && $pos)
 #if( $lemmaPos )
-${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" pos="$pos">
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" pos="$pos" sp="$speech">
 #else
-${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" lemmaPos="$lemmaPos" pos="$pos">
+${indent}<item type="$type" location="$location" n="$number" preceding="$preceding" following="$following" lemma="$lemma" lemmaPos="$lemmaPos" pos="$pos" sp="$speech">
 #end
 #end
 #set($indent = "      ")

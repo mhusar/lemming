@@ -3,6 +3,7 @@ package lemming.resource;
 import lemming.context.Context;
 import lemming.context.ContextGroupType;
 import lemming.context.ContextType;
+import lemming.context.SpeechType;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -121,6 +122,12 @@ public abstract class KwicIndex {
         private final String preceding;
 
         /**
+         * Speech attribute of an item.
+         */
+        @XmlAttribute(required = true)
+        private String speech;
+
+        /**
          * Type attribute of an item.
          */
         @XmlAttribute(required = true)
@@ -199,6 +206,14 @@ public abstract class KwicIndex {
             } else if (context.getType().equals(ContextType.Type.VERSE)) {
                 type = "verse_item";
             }
+
+            if (context.getSpeech().equals(SpeechType.Type.DIRECT)) {
+                speech = "direct";
+            } else if (context.getSpeech().equals(SpeechType.Type.INDIRECT)) {
+                speech = "indirect";
+            } else if (context.getSpeech().equals(SpeechType.Type.NONE)) {
+                speech = "";
+            }
         }
 
         /**
@@ -262,6 +277,15 @@ public abstract class KwicIndex {
          */
         public String getPreceding() {
             return preceding;
+        }
+
+        /**
+         * Returns the speech attribute of an item.
+         *
+         * @return An attribute as string.
+         */
+        public String getSpeech() {
+            return speech;
         }
 
         /**
