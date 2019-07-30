@@ -90,18 +90,20 @@ public class ContextIndexPage extends IndexBasePage {
     private List<IColumn<Context, String>> getColumns() {
         List<IColumn<Context, String>> columns = new ArrayList<>();
 
+        columns.add(new TextFilterColumn<>(Model.of(getString("Context.number")),
+                "number", "number"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.lemma")),
                 "lemmaString", "lemmaString"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.pos")),
                 "posString", "posString"));
         columns.add(new TextFilterColumn<Context, Context, String>(Model.of(getString("Context.location")),
                 "location", "location"));
-        columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")), "preceding",
-                "preceding"));
-        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")), "keyword",
-                "keyword"));
-        columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")), "following",
-                "following"));
+        columns.add(new PrecedingContextTextFilterColumn(Model.of(getString("Context.preceding")),
+                "preceding", "preceding"));
+        columns.add(new KeywordTextFilterColumn(Model.of(getString("Context.keyword")),
+                "keyword", "keyword"));
+        columns.add(new FollowingContextTextFilterColumn(Model.of(getString("Context.following")),
+                "following", "following"));
         columns.add(new ContextActionPanelColumn(Model.of("")));
 
         return columns;
