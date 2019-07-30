@@ -90,7 +90,7 @@ public class ContextIndexPage extends IndexBasePage {
     private List<IColumn<Context, String>> getColumns() {
         List<IColumn<Context, String>> columns = new ArrayList<>();
 
-        columns.add(new TextFilterColumn<>(Model.of(getString("Context.number")),
+        columns.add(new NumberTextFilterColumn(Model.of(getString("Context.number")),
                 "number", "number"));
         columns.add(new TextFilterColumn<>(Model.of(getString("Context.lemma")),
                 "lemmaString", "lemmaString"));
