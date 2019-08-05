@@ -5,7 +5,6 @@ import lemming.data.EntityManagerListener;
 import lemming.data.GenericDao;
 import lemming.data.Source;
 import lemming.pos.Pos;
-import lemming.sense.Sense;
 import lemming.user.User;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
@@ -51,16 +50,10 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
         if (!isTransient(lemma)) {
             TypedQuery<Context> contextQuery = entityManager.createQuery("FROM Context WHERE lemma = :lemma",
                     Context.class);
-            TypedQuery<Sense> senseQuery = entityManager.createQuery("FROM Sense WHERE lemma = :lemma", Sense.class);
             List<Context> contextList = contextQuery.setParameter("lemma", lemma).getResultList();
-            List<Sense> senseList = senseQuery.setParameter("lemma", lemma).getResultList();
 
             for (Context context : contextList) {
                 context.setLemmaString(lemma.getName());
-            }
-
-            for (Sense sense : senseList) {
-                sense.setLemmaString(lemma.getName());
             }
         }
     }

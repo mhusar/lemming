@@ -5,7 +5,6 @@ import lemming.data.GenericDao;
 import lemming.data.HashEntityListener;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
-import lemming.sense.Sense;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.UnresolvableObjectException;
 
@@ -349,7 +348,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.keyword = :keyword", Context.class);
+                    "LEFT JOIN FETCH c.pos WHERE c.keyword = :keyword", Context.class);
             List<Context> contextList = query.setParameter("keyword", keyword).getResultList();
             transaction.commit();
             return contextList;
@@ -379,7 +378,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.keyword LIKE :substring", Context.class);
+                    "LEFT JOIN FETCH c.pos WHERE c.keyword LIKE :substring", Context.class);
             List<Context> contextList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return contextList;
@@ -410,7 +409,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.location = :location", Context.class);
+                    "LEFT JOIN FETCH c.pos WHERE c.location = :location", Context.class);
             List<Context> contextList = query.setParameter("location", location).getResultList();
             transaction.commit();
             return contextList;
@@ -441,7 +440,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.location LIKE :substring", Context.class);
+                    "LEFT JOIN FETCH c.pos WHERE c.location LIKE :substring", Context.class);
             List<Context> contextList = query.setParameter("substring", substring + "%").getResultList();
             transaction.commit();
             return contextList;
@@ -471,7 +470,7 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<Context> query = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                    "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.lemma = :lemma", Context.class);
+                    "LEFT JOIN FETCH c.pos WHERE c.lemma = :lemma", Context.class);
             List<Context> contextList = query.setParameter("lemma", lemma).getResultList();
             transaction.commit();
             return contextList;
@@ -502,40 +501,8 @@ public class ContextDao extends GenericDao<Context> implements IContextDao {
             transaction.begin();
             TypedQuery<Context> query = entityManager
                     .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
-                            "LEFT JOIN FETCH c.sense WHERE c.pos = :pos ORDER BY c.keyword", Context.class);
+                            "WHERE c.pos = :pos ORDER BY c.keyword", Context.class);
             List<Context> contextList = query.setParameter("pos", pos).getResultList();
-            transaction.commit();
-            return contextList;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-
-            throw e;
-        } finally {
-            entityManager.close();
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws RuntimeException
-     */
-    @Override
-    public List<Context> findBySense(Sense sense) {
-        EntityManager entityManager = EntityManagerListener.createEntityManager();
-        EntityTransaction transaction = null;
-
-        try {
-            transaction = entityManager.getTransaction();
-            transaction.begin();
-            TypedQuery<Context> query = entityManager
-                    .createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma LEFT JOIN FETCH c.pos " +
-                            "LEFT JOIN FETCH c.sense WHERE c.sense = :sense ORDER BY c.keyword", Context.class);
-            List<Context> contextList = query.setParameter("sense", sense).getResultList();
             transaction.commit();
             return contextList;
         } catch (RuntimeException e) {

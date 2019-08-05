@@ -732,52 +732,12 @@ ul.homePage li:last-child {
   padding-right: 0;
 }
 
-.senses,
-.senses .left-column,
-.senses .right-column {
-  display: flex;
-}
-
-.senses .left-column,
-.senses .right-column {
-  flex-grow: 1;
-  transition: flex-basis 0.5s ease-in;
-}
-
-.senses .left-column {
-  flex-basis: 65%;
-  padding-right: 15px;
-}
-
-.senses .right-column {
-  border-left: 1px solid #eee;
-  flex-basis: 35%;
-  overflow: hidden;
-  padding-left: 15px;
-  position: relative;
-}
-
 .edit .left-column {
   flex-basis: 35%;
 }
 
 .edit .right-column {
   flex-basis: 65%;
-}
-
-.senses .left-column > div,
-.senses .right-column > div {
-  width: 100%;
-}
-
-.senses .right-column .edit-tree {
-  cursor: pointer;
-  display: block;
-  font-size: 115%;
-  padding: 15px;
-  position: absolute;
-  right: -15px;
-  top: -15px;
 }
 
 .row-tree {
@@ -806,12 +766,6 @@ ul.homePage li:last-child {
 .edit .right-column .row-input {
   opacity: 1;
   transition: opacity 0.3s 0.2s ease-in;
-}
-
-.senses .right-column .row-button *,
-.senses .right-column .row-input * {
-  max-height: 0;
-  transition: max-height 0s 0.5s;
 }
 
 .edit .right-column .row-button *,

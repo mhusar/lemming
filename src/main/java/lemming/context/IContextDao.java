@@ -3,7 +3,6 @@ package lemming.context;
 import lemming.data.IDao;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
-import lemming.sense.Sense;
 
 import java.util.List;
 
@@ -72,14 +71,6 @@ interface IContextDao extends IDao<Context> {
      * @return A list of matching contexts.
      */
     List<Context> findByPos(Pos pos);
-
-    /**
-     * Returns a list of matching contexts for a given sense.
-     *
-     * @param sense a sense
-     * @return A list of matching contexts.
-     */
-    List<Context> findBySense(Sense sense);
 
     /**
      * Adds a comment to a list of contexts.

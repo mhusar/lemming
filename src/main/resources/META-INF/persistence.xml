@@ -12,7 +12,6 @@
         <class>lemming.context.inbound.InboundContextPackage</class>
         <class>lemming.lemma.Lemma</class>
         <class>lemming.pos.Pos</class>
-        <class>lemming.sense.Sense</class>
         <class>lemming.user.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>

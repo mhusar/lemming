@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lemming.context.inbound.InboundContext;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
-import lemming.sense.Sense;
 import org.hibernate.annotations.*;
 
 import javax.persistence.CascadeType;
@@ -72,14 +71,6 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
     @Column(name = "lemma_string", length = 120)
     @JsonIgnore
     private String lemmaString;
-
-    /**
-     * Sense of a keyword in context.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sense_id")
-    @JsonIgnore
-    private Sense sense;
 
     /**
      * Comment of a context.
@@ -209,24 +200,6 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      */
     public void setLemmaString(String lemmaString) {
         this.lemmaString = lemmaString;
-    }
-
-    /**
-     * Returns the sense of a context.
-     *
-     * @return Sense of a context.
-     */
-    public Sense getSense() {
-        return sense;
-    }
-
-    /**
-     * Sets the sense of a context.
-     *
-     * @param sense sense of a context
-     */
-    public void setSense(Sense sense) {
-        this.sense = sense;
     }
 
     /**

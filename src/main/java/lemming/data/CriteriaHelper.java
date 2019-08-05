@@ -4,7 +4,6 @@ import lemming.context.Context;
 import lemming.context.ContextType;
 import lemming.lemma.Lemma;
 import lemming.pos.Pos;
-import lemming.sense.Sense;
 import org.apache.wicket.model.ResourceModel;
 
 import javax.persistence.criteria.*;
@@ -179,21 +178,6 @@ final class CriteriaHelper {
     }
 
     /**
-     * Returns automatically created sense restrictions for a string filter.
-     *
-     * @param criteriaBuilder contructor for criteria queries
-     * @param root            query root referencing entities
-     * @param filter          string filter
-     * @return An expression of type boolean, or null.
-     */
-    private static Expression<Boolean> getSenseFilterStringRestriction(CriteriaBuilder criteriaBuilder, Root<?> root,
-                                                                       String filter) {
-        return criteriaBuilder.or(
-                criteriaBuilder.like(root.get("meaning"), filter + "%"),
-                criteriaBuilder.like(root.get("lemmaString"), filter + "%"));
-    }
-
-    /**
      * Returns automatically created restrictions for a string filter.
      *
      * @param criteriaBuilder contructor for criteria queries
@@ -216,8 +200,6 @@ final class CriteriaHelper {
             return getLemmaFilterStringRestriction(criteriaBuilder, root, filter);
         } else if (typeClass.equals(Pos.class)) {
             return getPosFilterStringRestriction(criteriaBuilder, root, filter);
-        } else if (typeClass.equals(Sense.class)) {
-            return getSenseFilterStringRestriction(criteriaBuilder, root, filter);
         }
 
         return null;
@@ -304,48 +286,6 @@ final class CriteriaHelper {
     }
 
     /**
-     * Returns an automatically created list of order objects for sense ordering.
-     *
-     * @param criteriaBuilder contructor for criteria queries
-     * @param root            query root referencing entities
-     * @param property        sort property
-     * @param isAscending     sort direction
-     * @return A list of order objects.
-     */
-    private static List<Order> getSenseOrder(CriteriaBuilder criteriaBuilder, Root<?> root, String property,
-                                             Boolean isAscending) {
-        List<Order> orderList = new ArrayList<>();
-
-        if (isAscending) {
-            switch (property) {
-                case "meaning":
-                    orderList.add(criteriaBuilder.asc(root.get("meaning")));
-                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
-                    break;
-                case "lemmaString":
-                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
-                    orderList.add(criteriaBuilder.asc(root.get("parentPosition")));
-                    orderList.add(criteriaBuilder.asc(root.get("childPosition")));
-                    break;
-            }
-        } else {
-            switch (property) {
-                case "meaning":
-                    orderList.add(criteriaBuilder.desc(root.get("meaning")));
-                    orderList.add(criteriaBuilder.asc(root.get("lemmaString")));
-                    break;
-                case "lemmaString":
-                    orderList.add(criteriaBuilder.desc(root.get("lemmaString")));
-                    orderList.add(criteriaBuilder.asc(root.get("parentPosition")));
-                    orderList.add(criteriaBuilder.asc(root.get("childPosition")));
-                    break;
-            }
-        }
-
-        return orderList;
-    }
-
-    /**
      * Returns an automatically created list of order objects for a property string.
      *
      * @param criteriaBuilder contructor for criteria queries
@@ -364,8 +304,6 @@ final class CriteriaHelper {
 
         if (typeClass.equals(Context.class)) {
             return getContextOrder(criteriaBuilder, root, property, isAscending);
-        } else if (typeClass.equals(Sense.class)) {
-            return getSenseOrder(criteriaBuilder, root, property, isAscending);
         }
 
         if (Array.getLength(splitProperty) == 2) {

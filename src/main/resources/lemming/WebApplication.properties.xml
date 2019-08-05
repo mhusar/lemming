@@ -88,7 +88,6 @@
     <entry key="HeaderPanel.logout">Logout</entry>
     <entry key="HeaderPanel.overview">Dashboard</entry>
     <entry key="HeaderPanel.pos">Parts of speech</entry>
-    <entry key="HeaderPanel.senses">Senses</entry>
     <entry key="HeaderPanel.toggleNavigation">Toggle navigation</entry>
     <entry key="HeaderPanel.users">User management</entry>
     <entry key="HomePage.administration">Administration</entry>
@@ -101,7 +100,6 @@
     <entry key="HomePage.overview">Dashboard</entry>
     <entry key="HomePage.pos">Parts of speech</entry>
     <entry key="HomePage.resources">Data resources</entry>
-    <entry key="HomePage.senses">Senses</entry>
     <entry key="HomePage.users">User management</entry>
     <entry key="InboundContextPackagePanel.placeholder">No records found</entry>
     <entry key="InboundContextPackageView.itemLabel">{0} contexts from {1}</entry>
@@ -137,7 +135,7 @@
     <entry key="LemmaDeleteConfirmPanel.message">Are you sure you want to delete the lemma {0} ?</entry>
     <entry key="LemmaDeleteConfirmPanel.title">Delete lemma</entry>
     <entry key="LemmaDeleteDeniedPanel.confirm">Close</entry>
-    <entry key="LemmaDeleteDeniedPanel.message">At least one context or sense belongs to lemma {0}.</entry>
+    <entry key="LemmaDeleteDeniedPanel.message">At least one context belongs to lemma {0}.</entry>
     <entry key="LemmaDeleteDeniedPanel.title">Deletion not possible</entry>
     <entry key="LemmaEditForm.lemma-is-non-unique">A lemma with this name already exists.</entry>
     <entry key="LemmaEditForm.replacement-lemma-is-tl-lemma">It is not allowed to use a Tobler-Lommatzsch lemma as
@@ -197,16 +195,6 @@
     <entry key="Role.STUDENT">Student</entry>
     <entry key="Role.USER">User</entry>
     <entry key="Role.ADMIN">Administrator</entry>
-    <entry key="Sense.lemma">Lemma</entry>
-    <entry key="Sense.meaning">Meaning</entry>
-    <entry key="SenseDeleteConfirmPanel.confirm">Delete sense</entry>
-    <entry key="SenseDeleteConfirmPanel.message">Are you sure you want to delete the sense “{0}” ?</entry>
-    <entry key="SenseDeleteConfirmPanel.title">Delete sense</entry>
-    <entry key="SenseEditPage.editHeader">Edit sense</entry>
-    <entry key="SenseEditPanel.addChildSense">Add child sense</entry>
-    <entry key="SenseEditPanel.addSense">Add sense</entry>
-    <entry key="SenseIndexPage.header">Senses</entry>
-    <entry key="SenseIndexPage.new">Create sense</entry>
     <entry key="SetLemmaPanel.lemma">Lemma</entry>
     <entry key="SetLemmaPanel.setLemma">Set lemma</entry>
     <entry key="SetPosPanel.pos">Part of speech</entry>

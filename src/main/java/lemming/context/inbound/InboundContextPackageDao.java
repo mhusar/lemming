@@ -630,7 +630,7 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
 
             for (String location : locations) {
                 TypedQuery<Context> contextQuery = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                        "LEFT JOIN FETCH c.pos LEFT JOIN FETCH c.sense WHERE c.location = :location", Context.class);
+                        "LEFT JOIN FETCH c.pos WHERE c.location = :location", Context.class);
                 List<Context> oldContextList = contextQuery.setParameter("location", location).getResultList();
 
                 for (Context oldContext : oldContextList) {

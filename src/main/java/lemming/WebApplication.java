@@ -9,8 +9,6 @@ import lemming.lemmatisation.LemmatisationPage;
 import lemming.pos.PosEditPage;
 import lemming.pos.PosIndexPage;
 import lemming.resource.ResourcePage;
-import lemming.sense.SenseEditPage;
-import lemming.sense.SenseIndexPage;
 import lemming.ui.page.AccessDeniedPage;
 import lemming.ui.page.PageExpiredPage;
 import lemming.user.UserEditPage;
@@ -56,7 +54,7 @@ public class WebApplication extends AuthenticatedWebApplication {
                             throw new UnauthorizedInstantiationException(AccessDeniedPage.class);
                         } else {
                             if (component instanceof ContextEditPage || component instanceof LemmaEditPage ||
-                                    component instanceof PosEditPage || component instanceof SenseEditPage) {
+                                    component instanceof PosEditPage) {
                                 component.setResponsePage(SignInPage.class);
                             } else {
                                 throw new RestartResponseAtInterceptPageException(SignInPage.class);
@@ -88,8 +86,6 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/pos/PosIndexPage", PosIndexPage.class);
         mountPage("/pos/PosEditPage", PosEditPage.class);
         mountPage("/resource/ResourcePage", ResourcePage.class);
-        mountPage("/sense/SenseIndexPage", SenseIndexPage.class);
-        mountPage("/sense/SenseEditPage", SenseEditPage.class);
         mountPage("/user/UserEditPage", UserEditPage.class);
 
         // TODO: remove

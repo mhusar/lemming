@@ -88,7 +88,6 @@
     <entry key="HeaderPanel.logout">Abmelden</entry>
     <entry key="HeaderPanel.overview">Übersicht</entry>
     <entry key="HeaderPanel.pos">Wortarten</entry>
-    <entry key="HeaderPanel.senses">Bedeutungen</entry>
     <entry key="HeaderPanel.toggleNavigation">Navigation umschalten</entry>
     <entry key="HeaderPanel.users">Benutzerverwaltung</entry>
     <entry key="HomePage.administration">Verwaltung</entry>
@@ -101,7 +100,6 @@
     <entry key="HomePage.overview">Übersicht</entry>
     <entry key="HomePage.pos">Wortarten</entry>
     <entry key="HomePage.resources">Datenbestand</entry>
-    <entry key="HomePage.senses">Bedeutungen</entry>
     <entry key="HomePage.users">Benutzer</entry>
     <entry key="InboundContextPackagePanel.placeholder">Kein Eintrag vorhanden</entry>
     <entry key="InboundContextPackageView.itemLabel">{0} Kontexte aus {1}</entry>
@@ -137,7 +135,7 @@
     <entry key="LemmaDeleteConfirmPanel.message">Möchten Sie das Lemma {0} wirklich löschen ?</entry>
     <entry key="LemmaDeleteConfirmPanel.title">Lemma löschen</entry>
     <entry key="LemmaDeleteDeniedPanel.confirm">Schließen</entry>
-    <entry key="LemmaDeleteDeniedPanel.message">Mindestens ein Kontext oder eine Bedeutung gehört zum Lemma {0}.</entry>
+    <entry key="LemmaDeleteDeniedPanel.message">Mindestens ein Kontext gehört zum Lemma {0}.</entry>
     <entry key="LemmaDeleteDeniedPanel.title">Löschen nicht möglich</entry>
     <entry key="LemmaEditForm.lemma-is-non-unique">Eine Lemma mit diesem Namen gibt es bereits.</entry>
     <entry key="LemmaEditForm.replacement-lemma-is-tl-lemma">Ein Tobler-Lommatzsch-Lemma darf nicht als Ersatzlemma
@@ -197,16 +195,6 @@
     <entry key="Role.STUDENT">Hiwi</entry>
     <entry key="Role.USER">Redaktor</entry>
     <entry key="Role.ADMIN">Administrator</entry>
-    <entry key="Sense.lemma">Lemma</entry>
-    <entry key="Sense.meaning">Bedeutung</entry>
-    <entry key="SenseDeleteConfirmPanel.confirm">Bedeutung löschen</entry>
-    <entry key="SenseDeleteConfirmPanel.message">Möchten Sie die Bedeutung “{0}” wirklich löschen ?</entry>
-    <entry key="SenseDeleteConfirmPanel.title">Bedeutung löschen</entry>
-    <entry key="SenseEditPage.editHeader">Bedeutungen bearbeiten</entry>
-    <entry key="SenseEditPanel.addChildSense">Unterbedeutung hinzufügen</entry>
-    <entry key="SenseEditPanel.addSense">Bedeutung hinzufügen</entry>
-    <entry key="SenseIndexPage.header">Bedeutungen</entry>
-    <entry key="SenseIndexPage.new">Bedeutung erstellen</entry>
     <entry key="SetLemmaPanel.lemma">Lemma</entry>
     <entry key="SetLemmaPanel.setLemma">Lemma festlegen</entry>
     <entry key="SetPosPanel.pos">Wortart</entry>

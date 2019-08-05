@@ -5,7 +5,6 @@ import lemming.context.ContextIndexPage;
 import lemming.lemma.LemmaIndexPage;
 import lemming.lemmatisation.LemmatisationPage;
 import lemming.pos.PosIndexPage;
-import lemming.sense.SenseIndexPage;
 import lemming.user.UserDao;
 import lemming.user.UserEditPage;
 import org.apache.wicket.AttributeModifier;
@@ -31,7 +30,6 @@ public class HeaderPanel extends Panel {
         WebMarkupContainer lemmatisationItem = new WebMarkupContainer("lemmatisationItem");
         WebMarkupContainer contextIndexItem = new WebMarkupContainer("contextIndexItem");
         WebMarkupContainer lemmaIndexItem = new WebMarkupContainer("lemmaIndexItem");
-        WebMarkupContainer senseIndexItem = new WebMarkupContainer("senseIndexItem");
         WebMarkupContainer posIndexItem = new WebMarkupContainer("posIndexItem");
         WebMarkupContainer userEditItem = new WebMarkupContainer("userEditItem");
         BookmarkablePageLink<Void> homePageLink = new BookmarkablePageLink<>("homePageLink", HomePage.class);
@@ -41,8 +39,6 @@ public class HeaderPanel extends Panel {
                 ContextIndexPage.class);
         BookmarkablePageLink<Void> lemmaIndexLink = new BookmarkablePageLink<>("lemmaIndexLink",
                 LemmaIndexPage.class);
-        BookmarkablePageLink<Void> senseIndexLink = new BookmarkablePageLink<>("senseIndexLink",
-                SenseIndexPage.class);
         BookmarkablePageLink<Void> posIndexLink = new BookmarkablePageLink<>("posIndexLink", PosIndexPage.class);
         BookmarkablePageLink<Void> userEditLink = new BookmarkablePageLink<>("userEditLink", UserEditPage.class);
         Link<Void> logoutLink = new Link<Void>("logoutLink") {
@@ -55,7 +51,6 @@ public class HeaderPanel extends Panel {
         lemmatisationItem.add(lemmatisationLink);
         contextIndexItem.add(contextIndexLink);
         lemmaIndexItem.add(lemmaIndexLink);
-        senseIndexItem.add(senseIndexLink.setEnabled(false));
         posIndexItem.add(posIndexLink);
         userEditItem.add(userEditLink);
 
@@ -63,7 +58,6 @@ public class HeaderPanel extends Panel {
         add(lemmatisationItem);
         add(contextIndexItem);
         add(lemmaIndexItem);
-        add(senseIndexItem);
         add(posIndexItem);
         add(userEditItem);
         add(logoutLink);
@@ -76,8 +70,6 @@ public class HeaderPanel extends Panel {
             contextIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(LemmaIndexPage.class)) {
             lemmaIndexItem.add(AttributeModifier.append("class", "active"));
-        } else if (activePageClass.equals(SenseIndexPage.class)) {
-            senseIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(PosIndexPage.class)) {
             posIndexItem.add(AttributeModifier.append("class", "active"));
         } else if (activePageClass.equals(UserEditPage.class)) {
