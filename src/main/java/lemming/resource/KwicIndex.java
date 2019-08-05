@@ -1,7 +1,6 @@
 package lemming.resource;
 
 import lemming.context.Context;
-import lemming.context.ContextGroupType;
 import lemming.context.ContextType;
 import lemming.context.SpeechType;
 
@@ -197,9 +196,7 @@ public abstract class KwicIndex {
                 pos = context.getPos().getName();
             }
 
-            if (context.getGroupType().equals(ContextGroupType.Type.GROUP)) {
-                type = "group_item";
-            } else if (context.getType().equals(ContextType.Type.RUBRIC)) {
+            if (context.getType().equals(ContextType.Type.RUBRIC)) {
                 type = "rubric_item";
             } else if (context.getType().equals(ContextType.Type.SEGMENT)) {
                 type = "seg_item";

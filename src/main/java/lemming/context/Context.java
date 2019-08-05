@@ -92,32 +92,6 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
     private SortedSet<Comment> comments;
 
     /**
-     * Parent of a context group.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name="context_group_members",
-            joinColumns={@JoinColumn(name="member_id", insertable=false, updatable=false)},
-            inverseJoinColumns={@JoinColumn(name="group_id", insertable=false, updatable=false)})
-    private Context group;
-
-    /**
-     * Group members of a context group.
-     */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "context_group_members", indexes = {@Index(columnList = "group_id, member_id", unique = true)},
-            joinColumns = {@JoinColumn(name = "group_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "member_id", nullable = false, updatable = false)})
-    @OrderBy("number")
-    private SortedSet<Context> members;
-
-    /**
-     * Group type of a context.
-     */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "group_type", length = 30, nullable = false)
-    private ContextGroupType.Type groupType = ContextGroupType.Type.NONE;
-
-    /**
      * Interesting state of a context.
      * <p>
      * True, if a context is interesting for the glossary.
@@ -262,42 +236,6 @@ public class Context extends BaseContext implements Comparable<Context>, Seriali
      */
     public Set<Comment> getComments() {
         return comments;
-    }
-
-    /**
-     * Returns the parent of a context group.
-     *
-     * @return Parent of a context.
-     */
-    public Context getGroup() {
-        return group;
-    }
-
-    /**
-     * Returns the members of a context group.
-     *
-     * @return Members of a context group.
-     */
-    public Set<Context> getMembers() {
-        return members;
-    }
-
-    /**
-     * Returns the context group type of a context.
-     *
-     * @return Returns the context group type of a context.
-     */
-    public ContextGroupType.Type getGroupType() {
-        return groupType;
-    }
-
-    /**
-     * Sets the context group type of a context.
-     *
-     * @param groupType context group type
-     */
-    public void setGroupType(ContextGroupType.Type groupType) {
-        this.groupType = groupType;
     }
 
     /**
