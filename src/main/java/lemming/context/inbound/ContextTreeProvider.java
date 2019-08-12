@@ -163,6 +163,7 @@ public class ContextTreeProvider implements ITreeProvider<BaseContext> {
         }
 
         inboundContext = inboundContextDao.refresh(inboundContext);
+        inboundContext.setMatch(null);
         return inboundContextDao.merge(inboundContext);
     }
 
