@@ -1,7 +1,12 @@
 package lemming.context.inbound;
 
 import lemming.context.Context;
+import lemming.context.ContextDao;
+import lemming.context.ContextImportPage;
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
 
@@ -16,6 +21,10 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
 
     RepeatingView repeatingView;
 
+    MarkupContainer nothingToDoContainer;
+
+    BackButton backButton;
+
     /**
      * Creates a context verify form.
      *
@@ -24,13 +33,19 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
     public InboundContextVerificationForm(IModel<InboundContextPackage> model) {
         super("InboundContextVerificationForm", model);
 
+        nothingToDoContainer = new WebMarkupContainer("nothingToDoContainer");
+        backButton = new BackButton();
         repeatingView = new RepeatingView("repeater");
+
         add(repeatingView);
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        getPage().add(nothingToDoContainer.setVisible(false));
+        getPage().add(backButton);
+
         InboundContextPackage contextPackage = getModelObject();
         List<String> unmatchedLocations = findUnmatchedLocations(contextPackage);
 
@@ -38,6 +53,17 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
             List<InboundContext> unmatchedContexts = new InboundContextPackageDao()
                     .findUnmatchedContextsByLocation(contextPackage, location);
             List<Context> possibleComplements = new InboundContextDao().findPossibleComplements(unmatchedContexts);
+
+            if (possibleComplements.size() == 0) {
+                List<InboundContext> allContexts = new InboundContextPackageDao()
+                        .findByLocation(contextPackage, location);
+
+                // if all contexts are unmatched, add all possible complements from location
+                if (unmatchedContexts.size() == allContexts.size()) {
+                    possibleComplements = new ContextDao().findByLocation(location);
+                }
+            }
+
             List<Triple> matchingTriples = computeMatchingTriples(unmatchedContexts, possibleComplements);
             List<InboundContext> contextsWithoutComplement = getContextsWithoutComplement(unmatchedContexts,
                     matchingTriples);
@@ -48,8 +74,8 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
                     contextsWithoutComplement));
         }
 
-        // TODO: show something else
         if (repeatingView.size() == 0) {
+            nothingToDoContainer.setVisible(true);
             repeatingView.setVisible(false);
         }
     }
@@ -99,5 +125,17 @@ class InboundContextVerificationForm extends Form<InboundContextPackage> {
         }
 
         return unmatchedComplements;
+    }
+
+    private class BackButton extends Link<Void> {
+
+        public BackButton() {
+            super("backButton");
+        }
+
+        @Override
+        public void onClick() {
+            setResponsePage(ContextImportPage.class);
+        }
     }
 }

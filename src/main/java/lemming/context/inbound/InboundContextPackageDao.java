@@ -375,6 +375,39 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @throws RuntimeException
+     */
+    @Override
+    public List<InboundContext> findByLocation(InboundContextPackage contextPackage, String location) {
+        EntityManager entityManager = EntityManagerListener.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            TypedQuery<InboundContext> query = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                    "WHERE i._package = :package AND i.location = :location " +
+                    "ORDER BY i.number", InboundContext.class);
+            List<InboundContext> contexts = query.setParameter("package", contextPackage)
+                    .setParameter("location", location).getResultList();
+            transaction.commit();
+            return contexts;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            throw e;
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    /**
      * Finds contexts from first context on.
      *
      * @param entityManager entity manager

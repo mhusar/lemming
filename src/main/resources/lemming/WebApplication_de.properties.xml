@@ -4,6 +4,7 @@
     <entry key="AccessDeniedPage.header">Zugriff verweigert</entry>
     <entry key="AccessDeniedPage.message">Der Zugriff auf die angeforderte Seite wurde verweigert.</entry>
     <entry key="AccessDeniedPage.redirection">Übersicht</entry>
+    <entry key="Action.back">Zurück</entry>
     <entry key="Action.batchProcessing">Stapelverarbeitung</entry>
     <entry key="Action.cancel">Abbrechen</entry>
     <entry key="Action.clear">Löschen</entry>
@@ -68,6 +69,7 @@
     <entry key="ContextImportPage.unverifiedImports">Ungeprüfte Importe</entry>
     <entry key="ContextIndexPage.header">Kontexte</entry>
     <entry key="ContextIndexPage.new">Kontext erstellen</entry>
+    <entry key="InboundContextVerificationForm.nothing-to-do">Es gibt nichts zu tun.</entry>
     <entry key="InboundContextVerificationPage.header">Überprüfung von Kontexten</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Mehrere Punctuation-Elemente innerhalb eines Item-Elements
         dürfen nicht den selben Wert für das Attribut Type haben.

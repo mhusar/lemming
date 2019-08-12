@@ -23,6 +23,16 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <p wicket:id="nothingToDoContainer">
+                    <wicket:message key="InboundContextVerificationForm.nothing-to-do"></wicket:message>
+                </p>
+                <button type="button" wicket:id="backButton" class="btn btn-default" style="margin-bottom: 30px;">
+                    <wicket:message key="Action.back"></wicket:message>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <form wicket:id="InboundContextVerificationForm" class="form-horizontal" role="form">
                     <div wicket:id="repeater"></div>
                 </form>

@@ -4,6 +4,7 @@
     <entry key="AccessDeniedPage.header">Access denied</entry>
     <entry key="AccessDeniedPage.message">Access to the requested page was denied.</entry>
     <entry key="AccessDeniedPage.redirection">Dashboard</entry>
+    <entry key="Action.back">Back</entry>
     <entry key="Action.batchProcessing">Batch processing</entry>
     <entry key="Action.cancel">Cancel</entry>
     <entry key="Action.clear">Clear</entry>
@@ -68,6 +69,7 @@
     <entry key="ContextImportPage.unverifiedImports">Unverified imports</entry>
     <entry key="ContextIndexPage.header">Contexts</entry>
     <entry key="ContextIndexPage.new">Create context</entry>
+    <entry key="InboundContextVerificationForm.nothing-to-do">Nothing to do.</entry>
     <entry key="InboundContextVerificationPage.header">Verification of contexts</entry>
     <entry key="ContextXmlReader.duplicate-punctuation-type">Multiple punctuation elements with the same type are not
         allowed inside one item element.

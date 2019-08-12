@@ -68,6 +68,14 @@ public interface IInboundContextPackageDao extends IDao<InboundContextPackage> {
      */
     List<InboundContext> findUnmatchedContextsByLocation(InboundContextPackage contextPackage,
                                                                              String location);
+    /**
+     * Returns a list of matching contexts for a given location.
+     *
+     * @param contextPackage a package of inbound contexts
+     * @param location location of a context
+     * @return A list of matching contexts.
+     */
+    List<InboundContext> findByLocation(InboundContextPackage contextPackage, String location);
 
     /**
      * Map of unmatched cohesive contexts by location ordered by number.
