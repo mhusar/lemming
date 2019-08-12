@@ -57,8 +57,6 @@ class ContextImportForm extends Form<Void> {
     public ContextImportForm() {
         super("contextImportForm");
         setMultiPart(true);
-        setMaxSize(Bytes.megabytes(10));
-        setFileMaxSize(Bytes.megabytes(10));
     }
 
     /**
