@@ -303,7 +303,9 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             transaction = entityManager.getTransaction();
             transaction.begin();
             TypedQuery<String> query = entityManager.createQuery("SELECT DISTINCT(i.location) " +
-                            "FROM InboundContext i WHERE i._package = :package AND i.match IS NULL ORDER BY i.location",
+                            "FROM InboundContext i WHERE i._package = :package AND i.match IS NULL " +
+                            "AND i.location IN (SELECT DISTINCT(c.location) FROM Context c) " +
+                            "ORDER BY i.location",
                     String.class);
             List<String> locations = query.setParameter("package", contextPackage).getResultList();
             transaction.commit();
