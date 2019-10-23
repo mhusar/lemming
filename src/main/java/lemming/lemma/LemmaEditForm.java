@@ -55,6 +55,8 @@ class LemmaEditForm extends Form<Lemma> {
         TextField<String> referenceTextField = new TextField<>("reference");
         MarkupContainer userContainer = new WebMarkupContainer("userContainer");
         UserTextField userTextField = new UserTextField();
+        MarkupContainer ignoreReplacementContainer = new WebMarkupContainer("ignoreReplacementContainer");
+        CheckBox ignoreReplacementCheckBox = new CheckBox("ignoreReplacement");
         DeleteButton deleteButton = new DeleteButton(model);
 
         add(nameTextField);
@@ -68,6 +70,8 @@ class LemmaEditForm extends Form<Lemma> {
         referenceContainer.add(referenceTextField);
         add(userContainer);
         userContainer.add(userTextField);
+        add(ignoreReplacementContainer);
+        ignoreReplacementContainer.add(ignoreReplacementCheckBox);
 
         add(new CancelButton());
         add(deleteButton);
@@ -95,6 +99,7 @@ class LemmaEditForm extends Form<Lemma> {
             posStringTextField.setVisible(false);
             referenceContainer.setVisible(false);
             userTextField.setEnabled(false);
+            ignoreReplacementContainer.setVisible(false);
         }
 
         nameTextField.add(new UniqueLemmaNameValidator(model));

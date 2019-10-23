@@ -120,6 +120,7 @@
     <entry key="InputPanel.insertTag">Tag einfügen</entry>
     <entry key="InputPanel.tabDialogTitleStart">Attribute für Tag</entry>
     <entry key="InputPanel.tabDialogTitleEnd"></entry>
+    <entry key="Lemma.ignoreReplacement">Ersatzlemma ignorieren</entry>
     <entry key="Lemma.name">Lemma</entry>
     <entry key="Lemma.pos">Wortart</entry>
     <entry key="Lemma.reference">Stelle</entry>

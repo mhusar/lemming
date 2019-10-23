@@ -285,7 +285,8 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
 
         if (excludeReplacements) {
             queryString = "SELECT l FROM Lemma l LEFT JOIN FETCH l.pos LEFT JOIN FETCH l.user " +
-                    "WHERE l.name LIKE :substring AND l.replacement IS NULL ORDER BY l.name";
+                    "WHERE l.name LIKE :substring AND (l.replacement IS NULL OR l.ignoreReplacement = true) " +
+                    "ORDER BY l.name";
         } else {
             queryString = "SELECT l FROM Lemma l LEFT JOIN FETCH l.replacement LEFT JOIN FETCH l.pos " +
                     "LEFT JOIN FETCH l.user WHERE l.name LIKE :substring ORDER BY l.name";

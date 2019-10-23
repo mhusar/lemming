@@ -71,6 +71,12 @@ public class Lemma extends DatedEntity implements Serializable {
     private String replacementString;
 
     /**
+     * States if a lemma replacement should be ignored.
+     */
+    @Column(name = "ignore_replacement", nullable = false)
+    private Boolean ignoreReplacement;
+
+    /**
      * Part of speech of a lemma.
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -221,6 +227,24 @@ public class Lemma extends DatedEntity implements Serializable {
      */
     public void setReplacementString(String replacementString) {
         this.replacementString = replacementString;
+    }
+
+    /**
+     * Returns if a lemma replacement should be ignored.
+     *
+     * @return True or false.
+     */
+    public Boolean getIgnoreReplacement() {
+        return ignoreReplacement;
+    }
+
+    /**
+     * Sets if a lemma replacement should be ignored.
+     *
+     * @param ignoreReplacement true or false
+     */
+    public void setIgnoreReplacement(Boolean ignoreReplacement) {
+        this.ignoreReplacement = ignoreReplacement;
     }
 
     /**
