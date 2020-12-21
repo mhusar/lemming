@@ -153,6 +153,7 @@ public class ContextTreePanel extends Panel {
 
                     while (childrenIterator.hasNext()) {
                         InboundContext child = (InboundContext) childrenIterator.next();
+                        child = inboundContextDao.refresh(child);
                         child.setMatch(root);
                         inboundContextDao.merge(child);
                     }
