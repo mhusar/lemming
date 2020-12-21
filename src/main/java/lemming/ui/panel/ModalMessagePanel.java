@@ -5,6 +5,7 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxLink;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -196,6 +197,17 @@ public abstract class ModalMessagePanel extends Panel {
     protected abstract String getConfirmationString();
 
     /**
+     * Returns the markup ID of the Ajax indicator.
+     * Override this to set a markup id.
+     *
+     * @return A component markup id.
+     * @see ConfirmButton#getAjaxIndicatorMarkupId
+     */
+    protected String getAjaxIndicatorMarkupId() {
+        return null;
+    }
+
+    /**
      * Called when the modal dialog is canceled.
      */
     @SuppressWarnings("EmptyMethod")
@@ -234,7 +246,7 @@ public abstract class ModalMessagePanel extends Panel {
     /**
      * Confirms the dialog when clicked.
      */
-    private class ConfirmButton extends AjaxLink<Void> {
+    private class ConfirmButton extends IndicatingAjaxLink<Void> {
         /**
          * Creates a button.
          */
@@ -261,6 +273,22 @@ public abstract class ModalMessagePanel extends Panel {
             } else {
                 target.appendJavaScript("jQuery('#" + modalWindowId + "').modal('hide');");
             }
+        }
+
+        /**
+         * Returns the markup ID of the Ajax indicator.
+         *
+         * @return A component markup id.
+         */
+        @Override
+        public String getAjaxIndicatorMarkupId() {
+            String markupId = ModalMessagePanel.this.getAjaxIndicatorMarkupId();
+
+            if (markupId != null) {
+                return markupId;
+            }
+
+            return super.getAjaxIndicatorMarkupId();
         }
     }
 }
