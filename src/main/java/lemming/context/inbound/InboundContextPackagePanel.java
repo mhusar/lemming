@@ -93,6 +93,11 @@ public class InboundContextPackagePanel extends Panel {
         private String createLocationString(InboundContextPackageDao contextPackageDao, InboundContextPackage contextPackage) {
             String beginLocation = contextPackageDao.getBeginLocation(contextPackage);
             String endLocation = contextPackageDao.getEndLocation(contextPackage);
+
+            if (beginLocation == null || endLocation == null) {
+                return "[no data]";
+            }
+
             String[] beginStrings = beginLocation.split("_"), endStrings = endLocation.split("_");
             String beginDocument = beginStrings[0], endDocument = endStrings[0],
                     beginRubric = beginStrings[1].replaceFirst("^0+", ""),
