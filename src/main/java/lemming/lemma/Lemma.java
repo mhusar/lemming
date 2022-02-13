@@ -24,7 +24,9 @@ import java.util.UUID;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "lemma", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "name, replacement_string, pos_string, source, reference")})
+        @Index(columnList = "name, replacement_string"),
+        @Index(columnList = "source, reference")
+})
 public class Lemma extends DatedEntity implements Serializable {
     /**
      * ID associated with a lemma.

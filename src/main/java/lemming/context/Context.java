@@ -26,7 +26,10 @@ import java.util.SortedSet;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "context", indexes = {
         @Index(columnList = "uuid", unique = true),
-        @Index(columnList = "keyword, preceding, following, location, number, pos_string, lemma_string, interesting")})
+        @Index(columnList = "keyword"),
+        @Index(columnList = "location, number"),
+        @Index(columnList = "pos_string, lemma_string")
+})
 public class Context extends BaseContext implements Comparable<Context>, Serializable {
     /**
      * Determines if a deserialized file is compatible with this class.
