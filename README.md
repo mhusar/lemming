@@ -37,6 +37,16 @@ configure your database accordingly.
     ...
 </profile>
 ```
+### Database setup ###
+
+Create database with example password set in pom.xml.
+
+```
+CREATE DATABASE lemming CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT USAGE ON *.* TO 'lemming'@'localhost' IDENTIFIED BY PASSWORD '*621A4911FB62A456C58A01430B98DE34500A876F';
+GRANT ALL PRIVILEGES ON `lemming`.* TO 'lemming'@'localhost';
+```
+
 ### Installation
 
 There is one local dependency for a Git submodule of diff-match-patch.
