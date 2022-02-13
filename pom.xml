@@ -110,6 +110,7 @@
                 <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>validate</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
+                <db.engine>innodb</db.engine>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
@@ -133,6 +134,7 @@
                 <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
+                <db.engine>innodb</db.engine>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
@@ -155,6 +157,7 @@
                 <db.url.options>?useTimezone=true&amp;amp;serverTimezone=UTC</db.url.options>
                 <db.hbm2ddl.auto>update</db.hbm2ddl.auto>
                 <db.dialect>org.hibernate.dialect.MySQL5Dialect</db.dialect>
+                <db.engine>innodb</db.engine>
                 <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
             </properties>
             <activation>
