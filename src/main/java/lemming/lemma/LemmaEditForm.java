@@ -119,6 +119,8 @@ class LemmaEditForm extends Form<Lemma> {
         Lemma lemma = getModelObject();
 
         if (lemmaDao.isTransient(lemma)) {
+            // TODO: maybe nullable=false; default=false
+            lemma.setIgnoreReplacement(false);
             lemmaDao.persist(lemma);
         } else {
             lemmaDao.merge(lemma);
