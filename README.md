@@ -39,6 +39,13 @@ configure your database accordingly.
 ```
 ### Installation
 
+There is one local dependency for a Git submodule of diff-match-patch.
+
+`cd submodule/diff-match-patch`
+`git checkout pom.xml`
+`mvn clean package deploy`
+`cd ../..`
+
 Just execute the following commands in the terminal. Maven downloads all additional dependencies automatically.
 During first startup some supplied data is written to the database
 ([lemma.json](https://github.com/mhusar/lemming/blob/master/src/main/webapp/WEB-INF/json/lemma.json) and
