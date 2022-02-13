@@ -152,6 +152,8 @@ public class LemmaDao extends GenericDao<Lemma> implements ILemmaDao {
 
                 if (lemma.getUuid() == null) {
                     lemma.setUuid(UUID.randomUUID().toString());
+                    // TODO: maybe nullable=false; default=false
+                    lemma.setIgnoreReplacement(false);
                 }
 
                 refreshForeignKeyStrings(entityManager, lemma);
