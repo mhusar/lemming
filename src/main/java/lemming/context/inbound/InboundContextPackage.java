@@ -65,7 +65,7 @@ public class InboundContextPackage extends DatedEntity implements Serializable {
     /**
      * A list of inbound contexts belonging to a context package.
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "_package", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "_package")
     private List<InboundContext> contexts = new ArrayList<>();
 
     /**

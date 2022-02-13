@@ -89,12 +89,12 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/user/UserEditPage", UserEditPage.class);
 
         // TODO: remove
-        logger.info("Updating all contexts...");
-        ContextDao contextDao = new ContextDao();
-        List<Context> allContexts = contextDao.getAll();
-
-        contextDao.batchUpdate(allContexts);
-        logger.info("Done.");
+//        logger.info("Updating all contexts...");
+//        ContextDao contextDao = new ContextDao();
+//        List<Context> allContexts = contextDao.getAll();
+//
+//        contextDao.batchUpdate(allContexts);
+//        logger.info("Done.");
     }
 
     /**

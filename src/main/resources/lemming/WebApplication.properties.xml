@@ -141,9 +141,6 @@
     <entry key="LemmaDeleteDeniedPanel.message">At least one context belongs to lemma {0}.</entry>
     <entry key="LemmaDeleteDeniedPanel.title">Deletion not possible</entry>
     <entry key="LemmaEditForm.lemma-is-non-unique">A lemma with this name already exists.</entry>
-    <entry key="LemmaEditForm.replacement-lemma-is-tl-lemma">It is not allowed to use a Tobler-Lommatzsch lemma as
-        replacement lemma.
-    </entry>
     <entry key="LemmaEditPage.editHeader">Edit lemma</entry>
     <entry key="LemmaEditPage.newHeader">Create lemma</entry>
     <entry key="LemmaIndexPage.header">Lemmata</entry>

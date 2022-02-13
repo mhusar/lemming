@@ -9,6 +9,7 @@ import org.hibernate.UnresolvableObjectException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -182,6 +183,12 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             String beginLocation = query.setParameter("package", contextPackage).setMaxResults(1).getSingleResult();
             transaction.commit();
             return beginLocation;
+        } catch (NoResultException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            return null;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -213,6 +220,12 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             String beginLocation = query.setParameter("package", contextPackage).setMaxResults(1).getSingleResult();
             transaction.commit();
             return beginLocation;
+        } catch (NoResultException e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            return null;
         } catch (RuntimeException e) {
             e.printStackTrace();
 
@@ -574,8 +587,8 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
-            TypedQuery<Context> selectQuery = entityManager.createQuery("SELECT c FROM Context c " +
-                    "INNER JOIN InboundContext i ON c.hash = i.hash WHERE i._package = :package", Context.class);
+            TypedQuery<Context> selectQuery = entityManager.createQuery("SELECT c FROM InboundContext i " +
+                    "INNER JOIN Context c ON i.hash = c.hash WHERE i._package = :package", Context.class);
             List<Context> contexts = selectQuery.setParameter("package", contextPackage).getResultList();
 
             for (Iterator<Context> iterator = contexts.iterator(); iterator.hasNext(); context = iterator.next()) {
@@ -634,47 +647,85 @@ public class InboundContextPackageDao extends GenericDao<InboundContextPackage> 
             List<InboundContext> inboundContextList = packageQuery.setParameter("package", contextPackage).getResultList();
             List<Context> newContexts = new ArrayList<>();
             Set<String> locations = new HashSet<>();
+            int batchSize = 50;
 
+            // find locations which have changed
             for (InboundContext inboundContext : inboundContextList) {
-                Context newContext = inboundContext.toContext();
                 Context match = inboundContext.getMatch();
 
                 if (match != null) {
-                    newContext.setLemma(match.getLemma());
-                    newContext.setLemmaString(match.getLemmaString());
-                    newContext.setPos(match.getPos());
-                    newContext.setPosString(match.getPosString());
-                    newContext.setInteresting(match.getInteresting());
-
-                    for (Comment comment : match.getComments()) {
-                        comment.getContexts().add(newContext);
+                    if (inboundContext.getHash().equals(match.getHash())) {
+                        continue;
                     }
-
-                    locations.add(newContext.getLocation());
-                } else {
-                    newContext.setInteresting(false);
                 }
 
-                newContexts.add(newContext);
-                inboundContext.setMatch(null);
-                inboundContext = entityManager.merge(inboundContext);
-                entityManager.remove(inboundContext);
+                locations.add(inboundContext.getLocation());
             }
 
-            entityManager.remove(entityManager.merge(contextPackage));
-
             for (String location : locations) {
-                TypedQuery<Context> contextQuery = entityManager.createQuery("SELECT c FROM Context c LEFT JOIN FETCH c.lemma " +
-                        "LEFT JOIN FETCH c.pos WHERE c.location = :location", Context.class);
+                TypedQuery<InboundContext> locationQuery = entityManager.createQuery("SELECT i FROM InboundContext i " +
+                        "WHERE i.location = :location", InboundContext.class);
+                List<InboundContext> inboundContexts = locationQuery.setParameter("location", location).getResultList();
+
+                for (InboundContext inboundContext : inboundContexts) {
+                    Context newContext = inboundContext.toContext();
+                    Context match = inboundContext.getMatch();
+
+                    if (match != null) {
+                        newContext.setLemma(match.getLemma());
+                        newContext.setLemmaString(match.getLemmaString());
+                        newContext.setPos(match.getPos());
+                        newContext.setPosString(match.getPosString());
+                        newContext.setInteresting(match.getInteresting());
+
+                        for (Comment comment : match.getComments()) {
+                            comment.getContexts().add(newContext);
+                        }
+                    } else {
+                        newContext.setInteresting(false);
+                    }
+
+                    newContexts.add(newContext);
+                }
+            }
+
+            // remove inbound package
+            entityManager.remove(entityManager.merge(contextPackage));
+            entityManager.flush();
+
+            // remove old contexts
+            for (String location : locations) {
+                TypedQuery<Context> contextQuery = entityManager.createQuery("SELECT c FROM Context c " +
+                        "WHERE c.location = :location", Context.class);
                 List<Context> oldContextList = contextQuery.setParameter("location", location).getResultList();
 
                 for (Context oldContext : oldContextList) {
+                    for (Comment comment : oldContext.getComments()) {
+                        comment.getContexts().remove(oldContext);
+                        comment = entityManager.merge(comment);
+                        oldContext.getComments().remove(comment);
+                        oldContext = entityManager.merge(oldContext);
+
+                        if (comment.getContexts().isEmpty()) {
+                            entityManager.remove(comment);
+                        }
+                    }
+
                     entityManager.remove(oldContext);
                 }
+
+                entityManager.flush();
+                entityManager.clear();
             }
 
-            for (Context newContext : newContexts) {
-                entityManager.persist(newContext);
+            // persist new contexts
+            for (int i = 0; i < newContexts.size(); i++) {
+                entityManager.persist(newContexts.get(i));
+
+                if ((i % batchSize) == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
             }
 
             transaction.commit();

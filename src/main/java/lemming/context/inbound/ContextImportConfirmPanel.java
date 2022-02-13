@@ -26,6 +26,11 @@ public class ContextImportConfirmPanel extends ModalMessagePanel {
     }
 
     @Override
+    protected String getAjaxIndicatorMarkupId() {
+        return "indicatorOverlayPanel";
+    }
+
+    @Override
     protected void onCancel() {
     }
 
