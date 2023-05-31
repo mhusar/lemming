@@ -28,7 +28,7 @@
         <!-- should be the same version as slf4j in Wicket’s dependencies; see mvn dependency:tree -->
         <slf4j.version>1.7.25</slf4j.version>
         <velocity.version>1.7</velocity.version>
-        <wicket.version>7.12.0</wicket.version>
+        <wicket.version>7.18.0</wicket.version>
     </properties>
 
     <repositories>
